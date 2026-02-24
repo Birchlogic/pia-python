@@ -1,0 +1,128 @@
+INTERVIEW TRANSCRIPT
+Project: DPDPA Compliance Assessment 2026
+Department: Customer Care
+Session: 1 of 4 — Kickoff & Departmental Overview
+Date: Tuesday, 14 January 2026
+Time: 2:30 PM – 3:45 PM IST
+Location: Client HQ, Customer Care Floor, Manager's Cabin (In-Person)
+Interviewer: Rohan Desai (Privacy Analyst, Birchlogic)
+Interviewee: Nikhil Joshi (Head – Customer Care)
+Note-taker: Priya Nair (Senior Privacy Analyst, Birchlogic)
+Recording: Audio recorded with consent (File: CC_S1_audio_14Jan.m4a)
+Assessment Criteria: Departmental Overview, Data Collection Practices, Organizational Structure
+
+--- TRANSCRIPT BEGINS ---
+
+[00:00:06] Rohan Desai: Hi Nikhil, thanks for having us. We're going through the organization department by department for the DPDPA privacy assessment. We started with HR yesterday and today we're kicking off with Customer Care. This first session is really about understanding what your department does, how it's structured, what data comes in and goes out, and identifying the areas we'll need to dive deeper into.
+
+[00:00:28] Nikhil Joshi: Sure, welcome. I've heard about the assessment from the leadership team. About time we did this. We handle a lot of customer data here and I've had my own concerns about how we manage it.
+
+[00:00:41] Rohan Desai: That's a great starting point. Let's begin with the structure. How is the Customer Care department organized?
+
+[00:00:47] Nikhil Joshi: The department has about 45 people in total. Broadly we have three functions. First is the call centre operation — inbound customer calls. These are the agents who sit on the phones all day. They handle queries, service requests, complaints, the whole range. Second is the Compliance Calling team — they make outbound calls to customers for verification and hygiene checks. That's a smaller team, about 8 people. Third is the Quality team — they audit calls, monitor call quality, and train new agents.
+
+[00:01:22] Rohan Desai: And reporting structure?
+
+[00:01:24] Nikhil Joshi: All three teams report to me. I have a Team Lead for the call centre — that's Farhan. Compliance Calling is managed by Deepa. Quality is handled by Smita. I report to the Chief Operating Officer.
+
+[00:01:39] Rohan Desai: Got it. Let's talk about the channels. How do customers reach you?
+
+[00:01:44] Nikhil Joshi: Three channels. Toll-free number — that's the primary one, accounts for probably 80% of our interactions. WhatsApp — we have a business WhatsApp number that customers can message. And email — customers can email us at a generic customer care email address, but email volume is relatively low compared to calls.
+
+[00:02:06] Rohan Desai: Let's start with the toll-free number. Walk me through what happens when a customer calls.
+
+[00:02:12] Nikhil Joshi: The call first hits our IVR system. We use Ameyo — it's our IVR and call management platform. The IVR has two paths depending on whether the customer is calling from a registered mobile number or an unregistered number.
+
+[00:02:28] Rohan Desai: How does the system know if it's a registered number?
+
+[00:02:31] Nikhil Joshi: Ameyo is integrated with Salesforce. When a call comes in, the system checks the caller's number against our customer database in Salesforce. If it matches a registered mobile number, the customer gets the full service IVR menu. If it doesn't match, they get a limited menu.
+
+[00:02:50] Rohan Desai: That's an important integration. Let me understand both paths. First, unregistered numbers.
+
+[00:02:56] Nikhil Joshi: For unregistered callers, the IVR gives three options. Option 1 is for new loan inquiries — the call gets transferred to the Sales team. We don't handle that. Option 2 is for DSA-related queries — DSA means Direct Selling Agent. If they select DSA, they get two sub-options: new code requests and payment-related inquiries. In both cases, a case gets created in Salesforce automatically and our team resolves it within 2 business days, then we share the update with the client.
+
+[00:03:30] Rohan Desai: And option 3 for unregistered numbers?
+
+[00:03:33] Nikhil Joshi: Option 3 is if it's an existing customer calling from a different number — not their registered mobile. In that case, we ask them to call back from their registered number. We don't verify identity over phone for unregistered numbers. That's a security policy.
+
+[00:03:50] Rohan Desai: Good. That's actually a solid privacy control. Now registered numbers.
+
+[00:03:55] Nikhil Joshi: For registered callers, Ameyo pulls up the customer profile from Salesforce and shows it on the agent's screen before they even pick up. The caller ID match is the first level of identification. Then the IVR gives six options:
+
+Option 1 — EMI related queries. Payment amounts, due dates, outstanding balance.
+Option 2 — Loan status. Where is my application, what stage is it at.
+Option 3 — Insurance. Our loans have insurance products bundled.
+Option 4 — Subsidy, specifically CLSS — Credit Linked Subsidy Scheme.
+Option 5 — Loan closure and certificate. If a customer wants to close their loan or needs a closure certificate.
+Option 6 — Other queries. This is the catch-all — property papers, complaints, general inquiries.
+
+[00:04:45] Rohan Desai: When a customer selects an option and connects with an agent, what does the agent see on their screen?
+
+[00:04:51] Nikhil Joshi: The agent gets a Salesforce screen with the customer's profile. That includes — let me think — customer name, loan account number, registered mobile number, email address, loan product type, sanctioned amount, outstanding principal, EMI amount, next due date, payment history, overdue status if any, co-applicant details if there is one, and the branch that originated the loan. Plus any previous case history — past complaints, queries, service requests.
+
+[00:05:25] Rohan Desai: That's a significant amount of data on screen. Are agents trained on data protection? Like, are they told not to read out the full loan details unless the customer confirms their identity?
+
+[00:05:36] Nikhil Joshi: The caller ID match from Ameyo is considered sufficient identification. If the call is from the registered mobile number, we assume it's the customer. We don't do an additional KYC on the call. Which, now that I think about it, could be an issue — someone else could be using the customer's phone.
+
+[00:05:56] Rohan Desai: That's worth flagging. The registered number alone may not be adequate identity verification for disclosing financial data. Let's move on. You mentioned case categories?
+
+[00:06:06] Nikhil Joshi: Yes. Every interaction gets logged in Salesforce as a case. There are four case categories:
+
+Query — simple questions that the agent resolves on the call itself. Something like "when is my next EMI due" or "what's my outstanding balance."
+
+Service Request — things the agent can't resolve themselves but need to be routed internally. Like a request for a duplicate statement, or a change in EMI date. These get assigned to the relevant operations team.
+
+Customer Issue — these are unresolved items. If a service request was sent to a department and the customer calls back saying it's still not done, it gets escalated as a Customer Issue. There are TAT escalations built in.
+
+Complaint — this is specifically for bribery or misconduct allegations. If a customer says a branch employee asked for money or behaved inappropriately, it's logged as a formal complaint. These go straight to the Ethics & Compliance team.
+
+[00:07:05] Rohan Desai: For complaints involving bribery, what data is captured?
+
+[00:07:09] Nikhil Joshi: Customer name, loan account number, the name of the employee or branch being complained about, a detailed description of the incident, any supporting evidence if the customer has it — sometimes they send WhatsApp screenshots or email threads. All of this goes into Salesforce and is flagged for the Ethics team.
+
+[00:07:30] Rohan Desai: Those complaints could contain very sensitive information. Who has access to them in Salesforce?
+
+[00:07:36] Nikhil Joshi: That's a good question. All customer care agents can see all cases in the system. There's no restriction based on case category. So technically, a regular agent could open a bribery complaint case and see the details. The Ethics team has their own view, but the cases aren't hidden from Customer Care.
+
+[00:07:55] Rohan Desai: That's a significant access control gap. Bribery complaints could include whistleblower-like information and sensitive personal allegations. Access should be restricted.
+
+[00:08:05] Nikhil Joshi: Agreed. I've raised this before but Salesforce configuration hasn't been updated.
+
+[00:08:12] Rohan Desai: We'll include it as a priority recommendation. Let me ask about the TAT you mentioned. What's the turnaround time for different case types?
+
+[00:08:20] Nikhil Joshi: Queries are resolved on the call, so real-time. For Service Requests and Customer Issues, the TAT is 48 hours. Complaints have a 24-hour acknowledgment and 7-day resolution target. There's an escalation matrix defined in our SOP — it goes from Team Lead to me to the COO depending on severity and age of the case.
+
+[00:08:45] Rohan Desai: The SOP — is that the "V2 Customer Care SOP" document?
+
+[00:08:49] Nikhil Joshi: Yes, that's the one. I can share a copy.
+
+[00:08:53] Rohan Desai: Please do. Last question for this session — what about the option 5, Loan Closure. You mentioned the call goes to a Retention team?
+
+[00:09:01] Nikhil Joshi: Right. If a customer calls to close their loan or requests a foreclosure, the call is transferred from our team to the Retention desk. Retention is technically under the Business team, not under Customer Care. They try to convince the customer to continue the loan. If the customer insists on closure, Retention processes it. From our side, we just transfer the call and log a case.
+
+[00:09:28] Rohan Desai: And the customer's data — their account details, their stated reason for wanting to close — that's visible to both Customer Care and Retention?
+
+[00:09:35] Nikhil Joshi: Yes, through Salesforce. Retention has access to the same customer records we do.
+
+[00:09:42] Rohan Desai: Nikhil, this has been very productive. We've got a solid picture of the department structure, communication channels, case management, and some important data access concerns. In the follow-up sessions, I want to go deeper into the Compliance Calling process, the Ameyo-Salesforce integration, call recordings, and data retention.
+
+[00:10:00] Nikhil Joshi: Sounds good. Farhan or Deepa can join the next sessions. They'll have more operational detail than me on some of those topics.
+
+[00:10:09] Rohan Desai: Perfect. We'll coordinate scheduling. Thanks, Nikhil.
+
+--- TRANSCRIPT ENDS ---
+
+Session Duration: 1 hour 12 minutes
+Systems Mentioned: Ameyo (IVR/call management), Salesforce (CRM/case management), WhatsApp Business, Email
+Third Parties: Sales team (internal transfer), Ethics & Compliance team (complaint routing), Retention desk (loan closure), DSA network
+Data Elements Identified: Customer name, loan account number, registered mobile number, email, loan product type, sanctioned amount, outstanding principal, EMI amount, payment due dates, payment history, overdue status, co-applicant details, branch info, case history, complaint details (including employee names, incident descriptions), WhatsApp screenshots
+Key Gaps Flagged:
+  - Caller ID match (registered number) as sole identity verification — insufficient for financial data disclosure
+  - All agents can access all case types including sensitive bribery complaints — no RBAC on case categories
+  - Salesforce access not restricted by case sensitivity level
+  - Customer data visible to both Customer Care and Retention teams without need-to-know controls
+Follow-up Required:
+  - Deep dive on Compliance Calling process with Deepa
+  - Deep dive on call recordings, data retention, Ameyo-Salesforce integration with Farhan
+  - Obtain copy of "V2 Customer Care SOP"
+  - Review Salesforce access controls and role configuration

@@ -1,0 +1,434 @@
+{
+  "department": "Collections & Recovery",
+  "version": "1.0",
+  "central_process": "ISFC Collections & Recovery",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_allocation_of_cases__0",
+          "name": "Allocation of cases to Collection Officers",
+          "collection_sources": [
+            {
+              "name": "Allocation of cases to Collection Officers",
+              "data_elements": [
+                "Collection Incentive Records",
+                "Legal Case Records",
+                "Collection Activity Records",
+                "Customer Details",
+                "Property Sale Records",
+                "Bid Forms"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_cash_collection_spec_1",
+          "name": "Cash Collection (Special Cases only)",
+          "collection_sources": [
+            {
+              "name": "Cash Collection (Special Cases only)",
+              "data_elements": [
+                "Collection Incentive Records",
+                "Legal Case Records",
+                "Collection Activity Records",
+                "Customer Details",
+                "Property Sale Records",
+                "Bid Forms"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_legal_2",
+          "name": "Legal",
+          "collection_sources": [
+            {
+              "name": "Legal",
+              "data_elements": [
+                "Legal Case Records"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_sale_of_property_3",
+          "name": "Sale of property",
+          "collection_sources": [
+            {
+              "name": "Sale of property",
+              "data_elements": [
+                "Property Sale Records"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_legal_department",
+      "name": "Legal Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_rbi_regulatory_bodie",
+      "name": "RBI / Regulatory Bodies",
+      "actor_id": "customers",
+      "color": "#6a1b9a"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#2e7d32"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "CRC",
+      "type": "cloud"
+    },
+    {
+      "name": "Emails",
+      "type": "cloud"
+    },
+    {
+      "name": "Excel",
+      "type": "cloud"
+    },
+    {
+      "name": "HRIS",
+      "type": "database"
+    },
+    {
+      "name": "Physical Copies",
+      "type": "local"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_allocation_of_cases__0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Collection Incentive Reco"
+    },
+    {
+      "from_id": "bp_cash_collection_spec_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Collection Incentive Reco"
+    },
+    {
+      "from_id": "bp_legal_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Legal Case Records"
+    },
+    {
+      "from_id": "bp_sale_of_property_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Property Sale Records"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_legal_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_rbi_regulatory_bodie",
+      "color": "#6a1b9a",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#2e7d32",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_allocation_of_cases__0",
+      "element_name": "Allocation of cases to Collection Officers",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Due dates for payment of EMIs are 7th, 12th, and 15th of every month. Bounce reports are generated on 8th, 13th, and 16th which are then allocated to the Collection Officers. Pending EMIs are categori",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_cash_collection_spec_1",
+      "element_name": "Cash Collection (Special Cases only)",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Collection of cash by Branch Collection Manager, Area Collection Manager, or Branch Operations can be done with prior approval from HQ. The approvals are taken on emails. The amount of cash that can b",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_legal_2",
+      "element_name": "Legal",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "In case of non-payment of EMIs, legal route is taken by the Collections & recovery team. Section 138 \u2013 Customer PDC, court case Section 17 \u2013 Bank account attach, Lock breaking, Arbitration of Property",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_sale_of_property_3",
+      "element_name": "Sale of property",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Valuation of property is done by the technical team on ground and uploaded to Salesforce. Reserve Price for the property is decided by the Back Office team which sends it to approval for Region Head a",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_details",
+      "element_name": "Customer Details",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Details: Customer name, address, and pending EMIs. Purpose: Case allocation for collections",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_collection_activity_",
+      "element_name": "Collection Activity Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Collection Activity Records: Details of customer visits and calls made by Collection Officers. Purpose: Tracking collection activities",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_finance_portfolio_re",
+      "element_name": "Finance Portfolio Report",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Finance Portfolio Report: Loan ID, Customer ID, Customer Name, EMI installment details. Purpose: Monitoring financial portfolio",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_collection_incentive",
+      "element_name": "Collection Incentive Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Collection Incentive Records: Records of cases resolved by Collection Officers, used for calculating incentives. Purpose: Incentive management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_legal_case_records",
+      "element_name": "Legal Case Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Legal Case Records: Records of legal actions taken for non-payment of EMIs. Purpose: Legal enforcement and recovery",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_property_sale_record",
+      "element_name": "Property Sale Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Property Sale Records: Records related to sale of property.. Purpose: Property sale management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_bid_forms",
+      "element_name": "Bid Forms",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Bid Forms: Bidder information including name, address, DD/pay order details, signature, mobile number. Purpose: Auction management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_crc",
+      "element_name": "CRC",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Bid Forms is stored in CRC/ Emails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_emails",
+      "element_name": "Emails",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Finance Portfolio Report is stored in Salesforce/ Excel/ Emails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_excel",
+      "element_name": "Excel",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Details is stored in iCollect App/\nSalesforce/ Excel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_hris",
+      "element_name": "HRIS",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Collection Incentive Records is stored in HRIS/ Emails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_physical_copies",
+      "element_name": "Physical Copies",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Legal Case Records is stored in Physical Copies/\nEmails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Details is stored in iCollect App/\nSalesforce/ Excel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_legal_department",
+      "element_name": "Legal Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Legal Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_rbi_regulatory_bodie",
+      "element_name": "RBI / Regulatory Bodies",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with RBI / Regulatory Bodies as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

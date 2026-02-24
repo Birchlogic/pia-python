@@ -1,0 +1,152 @@
+INTERVIEW TRANSCRIPT
+Project: DPDPA Compliance Assessment 2026
+Department: Customer Care — Call Centre Operations
+Session: 2 of 4 — IVR Workflows, Call Handling & Data Access Deep Dive
+Date: Friday, 17 January 2026
+Time: 10:00 AM – 11:40 AM IST
+Location: Client HQ, Customer Care Floor (In-Person, with live system demo)
+Interviewer: Priya Nair (Senior Privacy Analyst, Birchlogic)
+Interviewee: Farhan Qureshi (Team Lead – Call Centre Operations)
+Note-taker: Rohan Desai (Privacy Analyst, Birchlogic)
+Recording: Audio recorded with consent (File: CC_S2_audio_17Jan.m4a)
+Assessment Criteria: Data Collection Practices, Access Controls, Security Measures, Data Storage, Consent Mechanisms
+
+--- TRANSCRIPT BEGINS ---
+
+[00:00:09] Priya Nair: Hi Farhan, thanks for the time. Nikhil gave us a great overview earlier this week. Today we want to get into the details of how calls are handled, what data agents interact with, how the systems work, and specifically the Ameyo-Salesforce integration. I understand you'll show us a live demo?
+
+[00:00:26] Farhan Qureshi: Yes, I've set up a demo station. Let me walk you through a typical call flow.
+
+[00:00:32] Priya Nair: Perfect. Let's start.
+
+[00:00:35] Farhan Qureshi: [at demo station] OK, so when a call comes in, this is what the agent's screen looks like. On the left you have the Ameyo softphone panel — it shows the incoming number, the call queue, hold time. On the right is the Salesforce panel. When the call connects, Ameyo passes the caller's phone number to Salesforce via a CTI connector, and Salesforce does a lookup against the customer database.
+
+[00:01:02] Priya Nair: What happens if the phone number matches multiple records?
+
+[00:01:06] Farhan Qureshi: Salesforce shows all matching records. The agent can see multiple customer profiles if the same number is registered to more than one account. That does happen — a husband and wife might both be our customers and share a phone number. The agent then asks the caller which account they're calling about.
+
+[00:01:24] Priya Nair: And if there's no match?
+
+[00:01:27] Farhan Qureshi: If no match, the Salesforce panel stays blank. The agent knows it's an unregistered caller. They follow the unregistered flow that Nikhil would have explained.
+
+[00:01:37] Priya Nair: Right. Let's look at what data is visible when there IS a match. Can you show me?
+
+[00:01:42] Farhan Qureshi: [navigating Salesforce] Here's a sample customer record. Top section: Customer name, loan account number, registered mobile, alternate mobile, email address, residential address, PAN number. Loan details section: product type — this one is a home loan — sanctioned amount, disbursed amount, current outstanding, EMI amount, tenure, interest rate, next EMI due date. Payment section: last 12 months payment history — dates, amounts, any bounces. Case section: all historical cases — you can see this customer called three times in the last six months. One query about EMI date, one service request for a statement, and one about property papers.
+
+[00:02:25] Rohan Desai: PAN number is visible to every agent?
+
+[00:02:28] Farhan Qureshi: Yes. The customer profile in Salesforce shows PAN because it was captured during loan origination. It's part of the KYC data.
+
+[00:02:37] Priya Nair: Is there any masking applied? Like showing only the last 4 characters?
+
+[00:02:41] Farhan Qureshi: No masking. Full PAN is visible. Same with the address and alternate mobile.
+
+[00:02:48] Rohan Desai: That's a problem. Customer care agents don't need to see a customer's PAN number to handle an EMI query. This should be masked or hidden behind a role-based permission.
+
+[00:02:59] Farhan Qureshi: I agree. We've never changed the default field visibility in Salesforce since the loan origination team configured it. They need PAN for KYC. We inherited that view.
+
+[00:03:10] Priya Nair: How many agents have this level of access to customer records?
+
+[00:03:14] Farhan Qureshi: All active agents. That's around 30 people on the call centre side. Plus the Team Leads, plus Nikhil. And actually the Compliance Calling team and Quality team also have Salesforce access because they need to look up customer records for their processes.
+
+[00:03:31] Priya Nair: So roughly 45 people can see any customer's PAN, address, financial details, and full case history?
+
+[00:03:37] Farhan Qureshi: When you put it that way, yes. There's no row-level restriction — any agent can search for any customer.
+
+[00:03:46] Priya Nair: Let's talk about call recordings. Are calls recorded?
+
+[00:03:50] Farhan Qureshi: Yes, all calls are recorded by Ameyo. There's a disclaimer played at the start of every call — the IVR says something like "This call may be recorded for quality and training purposes."
+
+[00:04:02] Priya Nair: May be or will be? Is there an opt-out?
+
+[00:04:06] Farhan Qureshi: The exact wording is "this call may be recorded." There's no option for the customer to opt out. Every call is recorded regardless.
+
+[00:04:15] Priya Nair: That's a consent issue under DPDPA. The notice says "may" but the practice is "always." And there's no opt-out. We'll need to review the IVR language and consider whether recording requires explicit consent.
+
+[00:04:28] Farhan Qureshi: Makes sense.
+
+[00:04:30] Priya Nair: Where are the recordings stored?
+
+[00:04:33] Farhan Qureshi: Ameyo stores them. The recordings are accessible through the Ameyo admin panel. I have access. Smita on the Quality team has access because she needs recordings for call audits. Nikhil has access.
+
+[00:04:47] Priya Nair: How long are recordings retained?
+
+[00:04:50] Farhan Qureshi: I honestly don't know if there's a retention policy. I've been able to pull up recordings from over a year ago. Let me check. [navigating Ameyo] Yeah, I can see recordings going back to March 2024. So at least almost two years.
+
+[00:05:07] Priya Nair: And these recordings potentially contain customers discussing their financial situation, loan difficulties, personal circumstances, complaints about employees?
+
+[00:05:15] Farhan Qureshi: Yes, all of that. Some calls get very personal. Customers going through financial hardship will explain their situation in detail. Medical emergencies, job losses, family issues — we hear it all.
+
+[00:05:28] Priya Nair: That's sensitive personal data captured in audio form with no defined retention and no explicit consent. Major finding. Let's move to the WhatsApp channel. How does that work?
+
+[00:05:40] Farhan Qureshi: We have a WhatsApp Business account. Customers can message us. Currently it's handled by two dedicated agents. Incoming messages show up in the WhatsApp Business app on their phones — company-issued phones. They respond directly from the app.
+
+[00:05:58] Rohan Desai: Wait — the WhatsApp Business app on physical phones? Not a web-based platform?
+
+[00:06:03] Farhan Qureshi: Right, on mobile phones.
+
+[00:06:06] Rohan Desai: So customer messages — which could contain account numbers, personal details, screenshots of payment issues — are stored on two physical handsets?
+
+[00:06:14] Farhan Qureshi: Yes, in the WhatsApp chat history. The agents also log the interaction in Salesforce as a case, but the actual message content and any attachments stay on WhatsApp.
+
+[00:06:26] Rohan Desai: Are these phones encrypted? Are they MDM-managed?
+
+[00:06:30] Farhan Qureshi: They have screen locks — PIN or fingerprint. But I don't think they're under any MDM solution. IT would know better.
+
+[00:06:39] Priya Nair: What happens when those phones are replaced or an agent leaves?
+
+[00:06:43] Farhan Qureshi: The phone gets wiped and given to the next person. Or it goes back to IT. I'm not sure if the WhatsApp data is backed up anywhere before the wipe.
+
+[00:06:53] Priya Nair: So potentially, customer conversation history is permanently lost when a phone is wiped, with no backup and no audit trail beyond what's in Salesforce?
+
+[00:07:01] Farhan Qureshi: I think so, yes.
+
+[00:07:05] Priya Nair: Let's talk about the email channel briefly.
+
+[00:07:08] Farhan Qureshi: The customer care email address is a shared mailbox. A few of my team members have access to it. When an email comes in, they read it, create a case in Salesforce, and respond from the shared mailbox. The email history stays in the mailbox. We don't delete emails.
+
+[00:07:26] Priya Nair: So the shared mailbox has the full history of every customer email interaction?
+
+[00:07:30] Farhan Qureshi: Yes. Going back years. Since the mailbox was created.
+
+[00:07:35] Priya Nair: And who has access to this shared mailbox?
+
+[00:07:38] Farhan Qureshi: Me, the two email handling agents, and Nikhil. Four people.
+
+[00:07:44] Priya Nair: That's better controlled than some other areas. Let me ask about data flowing out of Customer Care. Who do you share customer data with?
+
+[00:07:53] Farhan Qureshi: Internally — when a service request needs another department to act on it, we assign the Salesforce case to that department. So the Loan Operations team sees cases about statement requests or EMI changes. The Legal team gets cases about property papers. The Collections team gets flagged if a customer has overdue issues. And as Nikhil mentioned, Loan Closure calls go to the Retention desk.
+
+[00:08:18] Priya Nair: Any external sharing?
+
+[00:08:20] Farhan Qureshi: Not from our team directly. We don't send customer data to any external party. The only external interface is the customer themselves calling or messaging us.
+
+[00:08:30] Priya Nair: What about the Compliance Calling team? They're outbound — they call customers. Do they share data externally?
+
+[00:08:37] Farhan Qureshi: Deepa would have the full picture on that. But from what I know, the compliance call data gets shared with the Field Audit and Anti-Fraud team internally. Whether they share it further, I don't know.
+
+[00:08:50] Priya Nair: We'll follow up with Deepa. Farhan, this has been very valuable, especially the live system walkthrough. Thank you.
+
+[00:08:58] Farhan Qureshi: No problem. Let me know if you need to come back and look at anything again. I'm usually at my desk.
+
+--- TRANSCRIPT ENDS ---
+
+Session Duration: 1 hour 38 minutes
+Systems Mentioned: Ameyo (IVR + call recording), Salesforce (CRM via CTI connector), WhatsApp Business (on physical handsets), Shared email mailbox (Outlook/M365)
+Third Parties: None directly from Customer Care (data stays internal). DSA network for code-related queries.
+Data Elements Identified: Customer name, loan account number, registered mobile, alternate mobile, email, residential address, PAN number, loan product type, sanctioned amount, disbursed amount, outstanding balance, EMI amount, tenure, interest rate, payment history (12 months), bounce status, co-applicant details, full case history, call recordings (audio), WhatsApp message history, email correspondence
+Key Gaps Flagged:
+  - PAN number and full address visible to all 45 Customer Care staff — no masking
+  - No row-level restriction — any agent can search any customer
+  - Call recordings: consent language says "may" but recording is mandatory; no opt-out
+  - Call recordings retained 2+ years with no defined retention policy
+  - Recordings contain highly sensitive personal disclosures (financial hardship, medical situations)
+  - WhatsApp data on physical phones with no MDM, no backup before device wipe
+  - Customer data potentially lost when WhatsApp phones are replaced
+  - Shared email mailbox has years of customer correspondence with no retention policy
+Follow-up Required:
+  - Deep dive on Compliance Calling with Deepa
+  - Verify Ameyo recording retention settings and policy
+  - Review Salesforce field-level security configuration
+  - Check WhatsApp phone MDM status with IT
+  - Review IVR recording consent language with Legal

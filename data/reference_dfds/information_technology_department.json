@@ -1,0 +1,570 @@
+{
+  "department": "Information Technology Department",
+  "version": "1.0",
+  "central_process": "ISFC Information Technology Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_it_subfunctions_0",
+          "name": "IT subfunctions",
+          "collection_sources": [
+            {
+              "name": "IT subfunctions",
+              "data_elements": [
+                "VAPT Reports",
+                "Audit Logs",
+                "Application Data",
+                "Financial Records",
+                "Customer Information",
+                "Integration Logs",
+                "Employee Information",
+                "Loan Details"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_core_services_1",
+          "name": "Core services",
+          "collection_sources": [
+            {
+              "name": "Core services",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_applications_2",
+          "name": "Applications",
+          "collection_sources": [
+            {
+              "name": "Applications",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_it_steering_committe_3",
+          "name": "IT Steering Committee",
+          "collection_sources": [
+            {
+              "name": "IT Steering Committee",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_information_security_4",
+          "name": "Information Security",
+          "collection_sources": [
+            {
+              "name": "Information Security",
+              "data_elements": [
+                "VAPT Reports",
+                "Customer Information",
+                "Employee Information",
+                "Security Logs"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_change_management_5",
+          "name": "Change Management",
+          "collection_sources": [
+            {
+              "name": "Change Management",
+              "data_elements": [
+                "Loan Details",
+                "Employee Information"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_code_repository_mana_6",
+          "name": "Code Repository Management",
+          "collection_sources": [
+            {
+              "name": "Code Repository Management",
+              "data_elements": [
+                "Loan Details",
+                "Employee Information"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_internal_audit_depar",
+      "name": "Internal Audit Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#6a1b9a"
+    },
+    {
+      "id": "sink_collections_departme",
+      "name": "Collections Department",
+      "actor_id": "internal",
+      "color": "#2e7d32"
+    },
+    {
+      "id": "sink_treasury_department",
+      "name": "Treasury Department",
+      "actor_id": "internal",
+      "color": "#ef6c00"
+    },
+    {
+      "id": "sink_technology_partners",
+      "name": "Technology Partners",
+      "actor_id": "vendors",
+      "color": "#1565c0"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "AWS",
+      "type": "cloud"
+    },
+    {
+      "name": "FinnOne Neo",
+      "type": "database"
+    },
+    {
+      "name": "GitHub",
+      "type": "cloud"
+    },
+    {
+      "name": "Local DC",
+      "type": "local"
+    },
+    {
+      "name": "MS D365",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_it_subfunctions_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "VAPT Reports"
+    },
+    {
+      "from_id": "bp_core_services_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_applications_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_it_steering_committe_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_information_security_4",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": "VAPT Reports"
+    },
+    {
+      "from_id": "bp_change_management_5",
+      "to_id": "central_process",
+      "color": "#00838f",
+      "label": "Loan Details"
+    },
+    {
+      "from_id": "bp_code_repository_mana_6",
+      "to_id": "central_process",
+      "color": "#c62828",
+      "label": "Loan Details"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_internal_audit_depar",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#6a1b9a",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_collections_departme",
+      "color": "#2e7d32",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_treasury_department",
+      "color": "#ef6c00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_technology_partners",
+      "color": "#1565c0",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_it_subfunctions_0",
+      "element_name": "IT subfunctions",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Application Development Application Support Infrastructure Support Cybersecurity",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_core_services_1",
+      "element_name": "Core services",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "FinnOne Neo \u2013 Loan management, and accounting Microsoft D365 \u2013 Accounting software, standalone function Integration of FinnOne Neo with MS D365 is taking place. Salesforce \u2013 Onboarding of Customers Pe",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_applications_2",
+      "element_name": "Applications",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "iSales App \u2013 used by Loan Officers in field, and branches iServe App \u2013 Purely customer facing application. Servicing to existing customers. It has MFA enabled. iCollect App \u2013 used by Collection team o",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_it_steering_committe_3",
+      "element_name": "IT Steering Committee",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "The IT Steering Committee is composed of key executives, including the Managing Director (MD), Chief Executive Officer (CEO), Chief Financial Officer (CFO), Chief Risk Officer (CRO), Chief Information",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_information_security_4",
+      "element_name": "Information Security",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "All new applications developed undergo an information security check. The process is checklist based. VAPT and Information Systems Audit is outsourced",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_change_management_5",
+      "element_name": "Change Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Change requests for in-house developed apps comes through support team.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_code_repository_mana_6",
+      "element_name": "Code Repository Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Code Repositories are stored on GitHub. 5 users have access on GitHub \u2013 4 developers and 1 DevOps. Limited access to upload, maker rights are restricted. Pull access is restricted. Rest of the develop",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_information",
+      "element_name": "Customer Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Information: Personal and financial details of loan applicants and customers. Purpose: Loan processing, customer onboarding, servicing loans",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_employee_information",
+      "element_name": "Employee Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Employee Information: Personal and employment details of employees. Purpose: HR management, payroll",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_financial_records",
+      "element_name": "Financial Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Financial Records: Accounting details, transaction records. Purpose: Financial accounting, audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_details",
+      "element_name": "Loan Details",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Details: Information related to loans including repayment schedules and defaults. Purpose: Loan management, collections",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_security_logs",
+      "element_name": "Security Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Security Logs: Logs related to application access, security incidents. Purpose: Security monitoring, incident response",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_application_data",
+      "element_name": "Application Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Application Data: Data generated by the use of iSales, iServe, iCollect, etc.. Purpose: Business operations, customer service",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_integration_logs",
+      "element_name": "Integration Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Integration Logs: Logs of data exchanged between FinnOne Neo and MS D365. Purpose: Integration monitoring, troubleshooting",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_development_records",
+      "element_name": "Development Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Development Records: Codebase, development changes, bug reports. Purpose: Application development, maintenance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vapt_reports",
+      "element_name": "VAPT Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "VAPT Reports: Reports from Vulnerability Assessment and Penetration Testing. Purpose: Security assessments, compliance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_audit_logs",
+      "element_name": "Audit Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Audit Logs: Records from information system audits. Purpose: Compliance, internal audits",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_aws",
+      "element_name": "AWS",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Information is stored in AWS, Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_finnone_neo",
+      "element_name": "FinnOne Neo",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Details is stored in FinnOne Neo, Snowflake Data-lake",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_github",
+      "element_name": "GitHub",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Development Records is stored in GitHub, Local DC",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_local_dc",
+      "element_name": "Local DC",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Employee Information is stored in Local DC, AWS",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_ms_d365",
+      "element_name": "MS D365",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Financial Records is stored in Local DC, MS D365",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Information is stored in AWS, Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_internal_audit_depar",
+      "element_name": "Internal Audit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Internal Audit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_collections_departme",
+      "element_name": "Collections Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Collections Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_treasury_department",
+      "element_name": "Treasury Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Treasury Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_technology_partners",
+      "element_name": "Technology Partners",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Technology Partners as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

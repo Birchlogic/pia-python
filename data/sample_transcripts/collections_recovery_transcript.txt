@@ -1,0 +1,148 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Collections & Recovery
+Date: 3rd May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Collections & Recovery as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: India Shelter’s Collections & Recovery department is tasked with the responsibility of managing collection operations and facilitating asset recovery processes. As custodians of sensitive customer information, this department plays a pivotal role in ensuring the integrity, confidentiality, and security of data throughout various activities such as case allocation, legal proceedings, and property sales. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Collections & Recovery Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA).
+
+Department SPOC: The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Collections & Recovery Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Allocation of cases to Collection Officers**. Due dates for payment of EMIs are 7th, 12th, and 15th of every month. Bounce reports are generated on 8th, 13th, and 16th which are then allocated to the Collection Officers. Pending EMIs are categorized as buckets – 0-60, 61 – 90 and above. The numbers indicate the days that the EMI was not paid fo
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Allocation of cases to Collection Officers?
+
+Department SPOC: Regarding Allocation of cases to Collection Officers, Phone Numbers can be seen in history in application and can be downloaded.
+Finance Portfolio report contains personal information of customers:
+Loan ID
+Customer ID
+Customer Name
+EMI Installment details
+
+Department SPOC: Another key process is **Cash Collection (Special Cases only)**. Collection of cash by Branch Collection Manager, Area Collection Manager, or Branch Operations can be done with prior approval from HQ. The approvals are taken on emails. The amount of cash that can be collected is limited to Rs 20,000.
+
+Department SPOC: Another key process is **Legal**. In case of non-payment of EMIs, legal route is taken by the Collections & recovery team. Section 138 – Customer PDC, court case Section 17 – Bank account attach, Lock breaking, Arbitration of Property, Broadcasting by auto, Banner display at premises Section 32 - Sarfaesi – Only taken when account i
+
+Department SPOC: Another key process is **Sale of property**. Valuation of property is done by the technical team on ground and uploaded to Salesforce. Reserve Price for the property is decided by the Back Office team which sends it to approval for Region Head and is further sent to the HOD for final approval. If the reserve price is rejected, it is sent back 
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Sale of property?
+
+Department SPOC: Regarding Sale of property, Bid Forms contain Personal Information of Bidder:
+Name
+Address
+Details of DD/ Pay order
+Signature
+Mobile Number
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Details**. Customer name, address, and pending EMIs
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Details?
+
+Department SPOC: The purpose is: Case allocation for collections
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Details stored?
+
+Department SPOC: Customer Details is stored in iCollect App/
+Salesforce/ Excel. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Contractual Obligation.
+
+Department SPOC: We collect **Collection Activity Records**. Details of customer visits and calls made by Collection Officers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Collection Activity Records?
+
+Department SPOC: The purpose is: Tracking collection activities
+
+Rajesh Kumar (K&S Digiprotect): Where is Collection Activity Records stored?
+
+Department SPOC: Collection Activity Records is stored in iCollect App/ Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Contractual Obligation.
+
+Department SPOC: We collect **Finance Portfolio Report**. Loan ID, Customer ID, Customer Name, EMI installment details
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Finance Portfolio Report?
+
+Department SPOC: The purpose is: Monitoring financial portfolio
+
+Rajesh Kumar (K&S Digiprotect): Where is Finance Portfolio Report stored?
+
+Department SPOC: Finance Portfolio Report is stored in Salesforce/ Excel/ Emails. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Legal Requirement.
+
+Department SPOC: We collect **Collection Incentive Records**. Records of cases resolved by Collection Officers, used for calculating incentives
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Collection Incentive Records?
+
+Department SPOC: The purpose is: Incentive management
+
+Rajesh Kumar (K&S Digiprotect): Where is Collection Incentive Records stored?
+
+Department SPOC: Collection Incentive Records is stored in HRIS/ Emails. Its classification is Non PII/
+Restricted. Retention period is currently not formally defined. Legal basis: Employment Contract.
+
+Department SPOC: We collect **Legal Case Records**. Records of legal actions taken for non-payment of EMIs
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Legal Case Records?
+
+Department SPOC: The purpose is: Legal enforcement and recovery
+
+Rajesh Kumar (K&S Digiprotect): Where is Legal Case Records stored?
+
+Department SPOC: Legal Case Records is stored in Physical Copies/
+Emails. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Legal Requirement.
+
+Department SPOC: We collect **Property Sale Records**. Records related to sale of property.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Property Sale Records?
+
+Department SPOC: The purpose is: Property sale management
+
+Rajesh Kumar (K&S Digiprotect): Where is Property Sale Records stored?
+
+Department SPOC: Property Sale Records is stored in Salesforce/
+Emails. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Legal Requirement.
+
+Department SPOC: We collect **Bid Forms**. Bidder information including name, address, DD/pay order details, signature, mobile number
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Bid Forms?
+
+Department SPOC: The purpose is: Auction management
+
+Rajesh Kumar (K&S Digiprotect): Where is Bid Forms stored?
+
+Department SPOC: Bid Forms is stored in CRC/ Emails. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Legal Requirement.
+
+Rajesh Kumar (K&S Digiprotect): Does the Collections & Recovery share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: Legal Department, HR Department, Finance Department, Sales Department, IT Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Collections & Recovery?
+
+Department SPOC: We primarily use: CRC, Emails, Excel, HRIS, Physical Copies, Salesforce, iCollect App. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Collections & Recovery handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Data Masking for Phone Numbers
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement data masking for customer phone numbers in the iCollect app. Ensure that phone numbers are partially obscured in history logs and reports to protect customer privacy.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Prevent the download of phone numbers unless strictly necessary and ensure such actions are logged and monitored.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Enhanced Security for iCollect Application
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

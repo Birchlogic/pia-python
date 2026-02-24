@@ -1,0 +1,369 @@
+{
+  "department": "Internal Audit",
+  "version": "1.0",
+  "central_process": "ISFC Internal Audit",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_internal_audit_ia_op_0",
+          "name": "Internal Audit (IA) Operations",
+          "collection_sources": [
+            {
+              "name": "Internal Audit (IA) Operations",
+              "data_elements": [
+                "Customer Feedback",
+                "Financial Records",
+                "Loan Documents",
+                "KYC Documents",
+                "CDR (Call Detail Record)",
+                "Vendor Information"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_field_audit_operatio_1",
+          "name": "Field Audit Operations",
+          "collection_sources": [
+            {
+              "name": "Field Audit Operations",
+              "data_elements": [
+                "Customer Feedback",
+                "Financial Records",
+                "Loan Documents",
+                "KYC Documents",
+                "CDR (Call Detail Record)",
+                "Vendor Information"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_anti_fraud_activitie_2",
+          "name": "Anti-Fraud Activities",
+          "collection_sources": [
+            {
+              "name": "Anti-Fraud Activities",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_field_audit_anti_fra",
+      "name": "Field Audit & Anti-Fraud",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_rbi_regulatory_bodie",
+      "name": "RBI / Regulatory Bodies",
+      "actor_id": "customers",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_nhb",
+      "name": "NHB",
+      "actor_id": "customers",
+      "color": "#6a1b9a"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#2e7d32"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "OneDrive Email",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce OneDrive Email",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_internal_audit_ia_op_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Customer Feedback"
+    },
+    {
+      "from_id": "bp_field_audit_operatio_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Customer Feedback"
+    },
+    {
+      "from_id": "bp_anti_fraud_activitie_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "General Data"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_field_audit_anti_fra",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_rbi_regulatory_bodie",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_nhb",
+      "color": "#6a1b9a",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#2e7d32",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_internal_audit_ia_op_0",
+      "element_name": "Internal Audit (IA) Operations",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Audit Charter Planning Identification of critical departments and processes is done based on past audits, past experiences, and management requirements. Critical departments identified for internal au",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_field_audit_operatio_1",
+      "element_name": "Field Audit Operations",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Audit Charter Audit Charter is prepared at the beginning of every financial year. All branches are audited annually, once they have been operational for six months. Branch Audits Branch audit process ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_anti_fraud_activitie_2",
+      "element_name": "Anti-Fraud Activities",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Anti-Fraud Activities The Anti-Fraud team, led by Kavit Rajput, investigates customer complaints. Anti-fraud investigations involve understanding queries, collecting proofs, and resolving issues in a ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_cdr_call_detail_reco",
+      "element_name": "CDR (Call Detail Record)",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "CDR (Call Detail Record): Records for call centre monitoring and performance assessment.. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_kyc_documents",
+      "element_name": "KYC Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "KYC Documents: Customer identity verification documents. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_documents",
+      "element_name": "Loan Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Documents: Paperwork for loan disbursements and usage verification audits.. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_feedback",
+      "element_name": "Customer Feedback",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Feedback: Input obtained from customers during field visits. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vendor_information",
+      "element_name": "Vendor Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Vendor Information: Details on vendor audits, payout information, and market insights.. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_financial_records",
+      "element_name": "Financial Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Financial Records: Records used for financial transactions and auditing purposes.. Purpose: Audit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_onedrive_email",
+      "element_name": "OneDrive Email",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Documents is stored in Salesforce OneDrive Email",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "CDR (Call Detail Record) is stored in Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce_onedrive_",
+      "element_name": "Salesforce OneDrive Email",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Documents is stored in Salesforce OneDrive Email",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_field_audit_anti_fra",
+      "element_name": "Field Audit & Anti-Fraud",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Field Audit & Anti-Fraud as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_rbi_regulatory_bodie",
+      "element_name": "RBI / Regulatory Bodies",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with RBI / Regulatory Bodies as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_nhb",
+      "element_name": "NHB",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with NHB as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

@@ -1,0 +1,409 @@
+{
+  "department": "Compliance Department",
+  "version": "1.0",
+  "central_process": "ISFC Compliance Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_compliance_process_m_0",
+          "name": "Compliance Process Management",
+          "collection_sources": [
+            {
+              "name": "Compliance Process Management",
+              "data_elements": [
+                "Compliance Actions and Notifications",
+                "Directors' Passports",
+                "Compliance Reports",
+                "Compliance Checklists",
+                "Compliance Certificates"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_compliance_monitorin_1",
+          "name": "Compliance Monitoring and Reporting",
+          "collection_sources": [
+            {
+              "name": "Compliance Monitoring and Reporting",
+              "data_elements": [
+                "Compliance Actions and Notifications",
+                "Directors' Passports",
+                "Compliance Reports",
+                "Compliance Checklists",
+                "Compliance Certificates"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_automation_and_secur_2",
+          "name": "Automation and Security Measures",
+          "collection_sources": [
+            {
+              "name": "Automation and Security Measures",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_compliance_testing_a_3",
+          "name": "Compliance Testing and Vendor Management",
+          "collection_sources": [
+            {
+              "name": "Compliance Testing and Vendor Management",
+              "data_elements": [
+                "Compliance Actions and Notifications",
+                "Directors' Passports",
+                "Compliance Reports",
+                "Compliance Checklists",
+                "Compliance Certificates"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_data_and_document_ma_4",
+          "name": "Data and Document Management",
+          "collection_sources": [
+            {
+              "name": "Data and Document Management",
+              "data_elements": [
+                "Compliance Certificates"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_nhb",
+      "name": "NHB",
+      "actor_id": "customers",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_technology_partners",
+      "name": "Technology Partners",
+      "actor_id": "vendors",
+      "color": "#c62828"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Avacom System",
+      "type": "cloud"
+    },
+    {
+      "name": "Avacom system",
+      "type": "cloud"
+    },
+    {
+      "name": "Emails",
+      "type": "cloud"
+    },
+    {
+      "name": "Excel",
+      "type": "cloud"
+    },
+    {
+      "name": "NHB portal",
+      "type": "database"
+    },
+    {
+      "name": "One Drive",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_compliance_process_m_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Compliance Actions and No"
+    },
+    {
+      "from_id": "bp_compliance_monitorin_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Compliance Actions and No"
+    },
+    {
+      "from_id": "bp_automation_and_secur_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_compliance_testing_a_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Compliance Actions and No"
+    },
+    {
+      "from_id": "bp_data_and_document_ma_4",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": "Compliance Certificates"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_nhb",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_technology_partners",
+      "color": "#c62828",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_compliance_process_m_0",
+      "element_name": "Compliance Process Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Compliance processes are decentralized, with each department responsible for their own compliance activities. Compliance reports are consolidated and shared with the Board by the Compliance team on a ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_compliance_monitorin_1",
+      "element_name": "Compliance Monitoring and Reporting",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "The Avacom compliance management system is used to automatically trigger compliance actions and notifications. Sampling methods are employed to check compliance across various processes, with a compre",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_automation_and_secur_2",
+      "element_name": "Automation and Security Measures",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Certain compliance processes, including those related to PII and ESOPs, are automated with the HR system.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_compliance_testing_a_3",
+      "element_name": "Compliance Testing and Vendor Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "New products undergo compliance testing as part of the development process to ensure they meet regulatory standards. The Compliance team collaborates with vendors and partners, with agreements coverin",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_data_and_document_ma_4",
+      "element_name": "Data and Document Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "A OneDrive folder is shared with relevant stakeholders, providing view and download rights for PDFs and Excel documents containing compliance reports, financial statements, and operational data. Direc",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_compliance_reports",
+      "element_name": "Compliance Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Compliance Reports: Compliance reports consolidated and shared with the Board. Purpose: Ensure oversight",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_compliance_certifica",
+      "element_name": "Compliance Certificates",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Compliance Certificates: Detailed certificates for all compliances prepared by HOD. Purpose: Company-wide compliance documentation",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_compliance_actions_a",
+      "element_name": "Compliance Actions and Notifications",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Compliance Actions and Notifications: Automatically triggered compliance actions and notifications. Purpose: Ensure timely compliance actions",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_compliance_checklist",
+      "element_name": "Compliance Checklists",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Compliance Checklists: Sampling methods and comprehensive checklists for verification. Purpose: Check compliance across processes",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_directors_passports",
+      "element_name": "Directors' Passports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Directors' Passports: Passports of Directors submitted to NHB for compliance purposes. Purpose: Meet regulatory requirements",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_avacom_system",
+      "element_name": "Avacom System",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Compliance Reports is stored in Avacom system/ Emails/ Physical documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_avacom_system",
+      "element_name": "Avacom system",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Compliance Reports is stored in Avacom system/ Emails/ Physical documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_emails",
+      "element_name": "Emails",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Compliance Reports is stored in Avacom system/ Emails/ Physical documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_excel",
+      "element_name": "Excel",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Compliance Checklists is stored in Excel / OneDrive/ Emails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_nhb_portal",
+      "element_name": "NHB portal",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Directors' Passports is stored in NHB portal/ One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_one_drive",
+      "element_name": "One Drive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Directors' Passports is stored in NHB portal/ One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_nhb",
+      "element_name": "NHB",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with NHB as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_technology_partners",
+      "element_name": "Technology Partners",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Technology Partners as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+{
+  "department": "Sales Department",
+  "version": "1.0",
+  "central_process": "ISFC Sales Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_loan_sourcing_and_fi_0",
+          "name": "Loan Sourcing and File Submission",
+          "collection_sources": [
+            {
+              "name": "Loan Sourcing and File Submission",
+              "data_elements": [
+                "Customer Info",
+                "Document Verification Records",
+                "Loan Sourcing Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_document_verificatio_1",
+          "name": "Document Verification and Approval",
+          "collection_sources": [
+            {
+              "name": "Document Verification and Approval",
+              "data_elements": [
+                "Document Verification Records"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_loan_applications_ma_2",
+          "name": "Loan Applications Management",
+          "collection_sources": [
+            {
+              "name": "Loan Applications Management",
+              "data_elements": [
+                "Customer Info",
+                "Document Verification Records",
+                "Loan Sourcing Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_loan_disbursement_an_3",
+          "name": "Loan Disbursement and Closure",
+          "collection_sources": [
+            {
+              "name": "Loan Disbursement and Closure",
+              "data_elements": [
+                "Customer Info",
+                "Document Verification Records",
+                "Loan Sourcing Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_legal_department",
+      "name": "Legal Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#c62828"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "One Drive",
+      "type": "cloud"
+    },
+    {
+      "name": "Physical documents",
+      "type": "local"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    },
+    {
+      "name": "iSales",
+      "type": "cloud"
+    },
+    {
+      "name": "iTrust",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_loan_sourcing_and_fi_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Customer Info"
+    },
+    {
+      "from_id": "bp_document_verificatio_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Document Verification Rec"
+    },
+    {
+      "from_id": "bp_loan_applications_ma_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Customer Info"
+    },
+    {
+      "from_id": "bp_loan_disbursement_an_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Customer Info"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_legal_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#c62828",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_loan_sourcing_and_fi_0",
+      "element_name": "Loan Sourcing and File Submission",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Loan sourcing is conducted by Loan Officers through various methods such as direct business sourcing, personal references, and cold calling. Comprehensive documentation is collected for each loan appl",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_document_verificatio_1",
+      "element_name": "Document Verification and Approval",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "The submitted documents are reviewed for accuracy and completeness. This verification step is crucial to identify any missing or incorrect information early in the process, preventing delays and ensur",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_loan_applications_ma_2",
+      "element_name": "Loan Applications Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Customers are required to self-attest their documents before these documents are digitally uploaded. Physical files are maintained for each loan application. Documents against queries raised by Intern",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_loan_disbursement_an_3",
+      "element_name": "Loan Disbursement and Closure",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Customers are flagged as early defaults if EMI payments are not received within the first 18 months. Early identification of defaults allows the department to take proactive measures to manage and mit",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_sourcing_data",
+      "element_name": "Loan Sourcing Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Sourcing Data: Potential Customer References. Purpose: Used for lead generation",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_info",
+      "element_name": "Customer Info",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Info: Personal information of customers recorded after lead generation\n(KYC documents, Bank account detail. Purpose: Used for Customer identification and loan processing",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_document_verificatio",
+      "element_name": "Document Verification Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Document Verification Records: Verified and self-attested documents. Purpose: Ensure accuracy and completeness of loan application",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_interaction",
+      "element_name": "Customer Interaction Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Interaction Records: Details of interaction with potential customers. Purpose: Improve sales pitch/ cold calling efforts",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_one_drive",
+      "element_name": "One Drive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Interaction Records is stored in Salesforce/ One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_physical_documents",
+      "element_name": "Physical documents",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Document Verification Records is stored in iSales/iTrust/Salesforce/ Physical documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Sourcing Data is stored in iSales/iTrust/Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_isales",
+      "element_name": "iSales",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Sourcing Data is stored in iSales/iTrust/Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_itrust",
+      "element_name": "iTrust",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Sourcing Data is stored in iSales/iTrust/Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_legal_department",
+      "element_name": "Legal Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Legal Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

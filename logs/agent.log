@@ -1,0 +1,286 @@
+2026-02-18 17:31:09,067 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:31:46,769 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:31:46,770 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:31:46,771 - IngestionAgent - ERROR - Error during transcript ingestion: unhashable type: 'dict'
+2026-02-18 17:32:32,367 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:33:06,707 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:33:06,707 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:33:13,000 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYFW2mYSfbgBbkEXPnUpi'}
+2026-02-18 17:33:39,178 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:35:23,321 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:35:23,321 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:35:29,057 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-latest'}, 'request_id': 'req_011CYFWCoHeH8zz2V464RRuf'}
+2026-02-18 17:35:48,490 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:36:48,272 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:38:36,777 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:38:36,777 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:39:05,021 - IngestionAgent - ERROR - Error during transcript ingestion: Expecting value: line 1 column 1 (char 0)
+2026-02-18 17:39:31,482 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:41:19,171 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:41:19,172 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:42:15,208 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:44:01,971 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:44:01,972 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:44:30,489 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-18 17:44:31,607 - Main - INFO - Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:44:31,607 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:44:55,705 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-18 17:44:56,704 - Main - INFO - Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:44:56,704 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:45:20,734 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-18 17:45:21,312 - Main - INFO - Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:45:21,312 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:45:52,398 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-18 17:45:52,968 - RetrievalAgent - INFO - Retrieving context for query: Compliance assessment for Customer Care department...
+2026-02-18 17:45:53,190 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-18 17:46:43,191 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:48:33,069 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:48:33,069 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:49:01,111 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-18 17:49:02,140 - Main - INFO - Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:49:02,140 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:49:26,215 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-18 17:49:26,994 - Main - INFO - Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:49:26,995 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:49:49,863 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-18 17:49:50,174 - Main - INFO - Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:49:50,175 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:50:20,997 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-18 17:50:21,805 - RetrievalAgent - INFO - Retrieving context for query: Compliance assessment for Customer Care department...
+2026-02-18 17:50:21,912 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-18 17:51:37,690 - Main - INFO - Report generated successfully: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer Care_Assessment_Report_20260218_175137.md
+2026-02-18 17:51:37,694 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-18 17:51:37,694 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-18 17:51:37,695 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-18 17:53:13,096 - Main - INFO - Starting compliance assessment for Customer Care
+2026-02-18 17:55:01,226 - Main - INFO - Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:55:01,226 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-18 17:55:27,226 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-18 17:55:28,063 - Main - INFO - Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:55:28,063 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-18 17:55:53,076 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-18 17:55:53,678 - Main - INFO - Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:55:53,678 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-18 17:56:17,764 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-18 17:56:18,266 - Main - INFO - Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:56:18,266 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-18 17:56:47,146 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-18 17:56:47,535 - RetrievalAgent - INFO - Retrieving context for query: Compliance assessment for Customer Care department...
+2026-02-18 17:56:47,705 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-18 17:58:16,046 - Main - INFO - Report generated successfully: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer Care_Assessment_Report_20260218_175816.md
+2026-02-18 17:58:16,048 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-18 17:58:16,048 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-18 17:58:16,048 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-19 14:45:52,370 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-19 14:46:05,686 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 14:46:05,686 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 14:46:28,384 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-19 14:46:28,764 - Main - INFO - [Customer Care] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-19 14:46:28,764 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-19 14:46:54,535 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-19 14:46:54,715 - Main - INFO - [Customer Care] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-19 14:46:54,716 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-19 14:47:18,194 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-19 14:47:18,361 - Main - INFO - [Customer Care] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-19 14:47:18,361 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-19 14:47:49,578 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-19 14:47:49,735 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Customer Care de...
+2026-02-19 14:47:49,769 - Main - INFO - [Customer Care] Generating Privacy DFD...
+2026-02-19 14:47:49,769 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-02-19 14:48:40,073 - Main - INFO - [Customer Care] Generating Assessment Report...
+2026-02-19 14:48:40,074 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-19 14:49:39,859 - Main - INFO - [Customer Care] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Assessment_Report_20260219_144939.md
+2026-02-19 14:49:39,860 - Main - INFO - [Customer Care] Standalone Privacy DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Privacy_DFD_20260219_144939.md
+2026-02-19 14:49:39,860 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-19 14:49:39,860 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-19 14:49:39,860 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-19 14:52:39,101 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-19 14:52:51,496 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 14:52:51,496 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 14:53:13,108 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-19 14:53:13,415 - Main - INFO - [Customer Care] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-19 14:53:13,416 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-19 14:53:39,949 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-19 14:53:40,085 - Main - INFO - [Customer Care] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-19 14:53:40,085 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-19 14:54:02,411 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-19 14:54:02,508 - Main - INFO - [Customer Care] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-19 14:54:02,508 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-19 14:54:33,337 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-19 14:54:33,677 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Customer Care de...
+2026-02-19 14:54:33,808 - Main - INFO - [Customer Care] Generating Privacy DFD...
+2026-02-19 14:54:33,808 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-02-19 14:55:21,566 - Main - INFO - [Customer Care] Generating Assessment Report...
+2026-02-19 14:55:21,567 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-19 14:56:30,113 - Main - INFO - [Customer Care] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Assessment_Report_20260219_145630.md
+2026-02-19 14:56:30,114 - Main - INFO - [Customer Care] Standalone Privacy DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Privacy_DFD_20260219_145630.md
+2026-02-19 14:56:30,114 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-19 14:56:30,114 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-19 14:56:30,114 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-19 15:01:41,227 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-19 15:01:54,016 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 15:01:54,016 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-19 15:01:54,465 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CYHCJUE17FoRpdjuFFUiP'}
+2026-02-20 18:29:16,944 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-20 18:29:30,521 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:29:30,521 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:29:31,053 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CYKMwcQxVkLoxnCVcq6LU'}
+2026-02-20 18:35:59,878 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-20 18:36:12,436 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:36:12,436 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:36:12,988 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CYKNTEcd2Rq1UtJtBR7k4'}
+2026-02-20 18:42:54,440 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-20 18:43:08,498 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:43:08,498 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-20 18:43:37,738 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-20 18:43:38,106 - Main - INFO - [Customer Care] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-20 18:43:38,106 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-20 18:44:08,248 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-20 18:44:08,393 - Main - INFO - [Customer Care] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-20 18:44:08,393 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-20 18:44:42,747 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-20 18:44:42,843 - Main - INFO - [Customer Care] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-20 18:44:42,844 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-20 18:45:12,653 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-20 18:45:12,794 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Customer Care de...
+2026-02-20 18:45:12,835 - Main - INFO - [Customer Care] Generating Privacy DFD...
+2026-02-20 18:45:12,835 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-02-20 18:46:09,165 - Main - INFO - [Customer Care] Generating Assessment Report...
+2026-02-20 18:46:09,165 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-20 18:47:16,481 - Main - INFO - [Customer Care] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Assessment_Report_20260220_184716.md
+2026-02-20 18:47:16,482 - Main - INFO - [Customer Care] Standalone Privacy DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Privacy_DFD_20260220_184716.md
+2026-02-20 18:47:16,482 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-20 18:47:16,482 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-20 18:47:16,482 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-21 11:46:46,413 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-21 11:46:56,721 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-21 11:46:56,721 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-21 11:47:22,630 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-21 11:47:22,910 - Main - INFO - [Customer Care] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-21 11:47:22,910 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-21 11:47:47,781 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-21 11:47:47,853 - Main - INFO - [Customer Care] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-21 11:47:47,854 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-21 11:48:11,190 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-21 11:48:11,250 - Main - INFO - [Customer Care] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-21 11:48:11,250 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-21 11:48:38,241 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-21 11:48:38,303 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Customer Care de...
+2026-02-21 11:48:38,331 - Main - INFO - [Customer Care] Generating Mermaid Privacy DFD (MD)...
+2026-02-21 11:48:38,331 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-02-21 11:50:16,736 - Main - INFO - [Customer Care] Extracting structured DFD JSON (with validation loop)...
+2026-02-21 11:50:16,737 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-21 11:50:49,186 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-21 11:50:49,186 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-02-21 11:50:49,186 - Main - INFO - [Customer Care] Final DFD validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-21 11:50:49,187 - Main - INFO - [Customer Care] Generating Assessment Report...
+2026-02-21 11:50:49,187 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-21 11:51:55,608 - Main - INFO - [Customer Care] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Assessment_Report_20260221_115155.md
+2026-02-21 11:51:55,610 - Main - INFO - [Customer Care] Privacy DFD (MD) saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_Privacy_DFD_20260221_115155.md
+2026-02-21 11:51:55,610 - Main - INFO - [Customer Care] HTML DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_DFD_20260221_115155.html
+2026-02-21 11:51:55,611 - Main - INFO - [Customer Care] DFD JSON saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Customer_Care_DFD_20260221_115155.json
+2026-02-21 11:51:55,611 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-21 11:51:55,611 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-21 11:51:55,611 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-02-23 22:53:47,022 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-23 22:53:58,240 - Main - INFO - [Birch] Processing session 1: example_input/session_test.txt
+2026-02-23 22:53:58,241 - IngestionAgent - INFO - Ingesting transcript from example_input/session_test.txt
+2026-02-23 22:54:09,846 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-23 22:54:10,075 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-23 22:54:10,101 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-23 22:54:10,102 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-23 22:54:31,350 - Main - WARNING - [Birch] No reference DFD found, falling back to LLM extraction
+2026-02-23 22:54:31,351 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-23 22:54:31,351 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-23 22:54:40,214 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (92/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 7 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Only 1 dispersal sink found. Identify all destinations where data is sent (e.g. other departments, vendors, automated systems).
+2026-02-23 22:54:40,215 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 92
+2026-02-23 22:54:40,215 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (92/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 7 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Only 1 dispersal sink found. Identify all destinations where data is sent (e.g. other departments, vendors, automated systems).
+2026-02-23 22:54:40,216 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-23 22:54:40,216 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-23 22:55:27,533 - Main - INFO - [Birch] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_Assessment_Report_20260223_225527.md
+2026-02-23 22:55:27,535 - Main - INFO - [Birch] Privacy DFD (MD) saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_Privacy_DFD_20260223_225527.md
+2026-02-23 22:55:27,535 - Main - INFO - [Birch] HTML DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_DFD_20260223_225527.html
+2026-02-23 22:55:27,537 - Main - INFO - [Birch] DFD JSON saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_DFD_20260223_225527.json
+2026-02-23 22:55:27,537 - LearningLoop - INFO - Processing learning loop for report report_Birch
+2026-02-23 22:55:27,537 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
+2026-02-23 22:55:27,537 - KBBuilder - INFO - Adding transcript report_Birch to vector DB
+2026-02-23 23:02:07,284 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-23 23:02:16,730 - Main - INFO - [Birch] Processing session 1: example_input/session_test.txt
+2026-02-23 23:02:16,731 - IngestionAgent - INFO - Ingesting transcript from example_input/session_test.txt
+2026-02-23 23:02:27,753 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-23 23:02:28,034 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-23 23:02:28,054 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-23 23:02:28,054 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-23 23:02:51,680 - Main - WARNING - [Birch] No reference DFD found, falling back to LLM extraction
+2026-02-23 23:02:51,681 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-23 23:02:51,682 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-23 23:03:05,012 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-23 23:03:05,014 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-02-23 23:03:05,014 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-23 23:03:05,015 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-23 23:03:05,015 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-23 23:03:46,484 - Main - INFO - [Birch] Report saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_Assessment_Report_20260223_230346.md
+2026-02-23 23:03:46,486 - Main - INFO - [Birch] Privacy DFD (MD) saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_Privacy_DFD_20260223_230346.md
+2026-02-23 23:03:46,486 - Main - INFO - [Birch] HTML DFD saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_DFD_20260223_230346.html
+2026-02-23 23:03:46,487 - Main - INFO - [Birch] DFD JSON saved: /Volumes/AMZN_DISK/projects/python/venv3.13/pia-python/data/reports/Birch_DFD_20260223_230346.json
+2026-02-23 23:03:46,487 - LearningLoop - INFO - Processing learning loop for report report_Birch
+2026-02-23 23:03:46,487 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
+2026-02-23 23:03:46,488 - KBBuilder - INFO - Adding transcript report_Birch to vector DB

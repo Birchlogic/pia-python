@@ -1,0 +1,117 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Collateral Legal
+Date: 1st May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Collateral Legal as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: India Shelter’s Collateral Legal Team ensures the legal integrity and compliance of collateral-related matters within the organization. This team comprises of collateral managers at various levels—regional, area, and branch—who work collaboratively to provide comprehensive legal oversight. The department is responsible for managing both internal and external teams that conduct meticulous document checks.
+
+Department SPOC: This ensures that all legal matters are handled with precision and accuracy, particularly through a second thorough document verification process before the final disbursement of funds. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Legal Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Legal Department.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Collateral Legal Team**. Collateral legal teams consists of legal managers across various levels, including regional, area, and branch levels, to ensure thorough legal oversight and coordination in handling collateral-related matters. The department manages both internal and external teams that conduct thorough document che
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Collateral Legal Team?
+
+Department SPOC: Regarding Collateral Legal Team, Credit team is the internal stakeholder for business legal department.
+
+Department SPOC: Another key process is **Verification Process**. Post property checks by the technical team, legal checks are conducted by the internal legal team or external legal vendors. The external vendors don't have system rights and all the information is sent to them via emails.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Verification Process?
+
+Department SPOC: Regarding Verification Process, Business legal team has SLA’s defined with the external legal teams. These are shared via emails only.
+Currently the Operations department initiates the legal check, and the reports are received by the operations department which in turn sends them t
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Information**. Personal and property details of customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Information?
+
+Department SPOC: The purpose is: To conduct legal checks and document verification
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Information stored?
+
+Department SPOC: Customer Information is stored in Internal database. Its classification is PII/
+Sensitive. Retention period is currently not formally defined. Legal basis: Compliance with lending regulations.
+
+Department SPOC: We collect **Document Verification**. Legal documents related to collateral
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Document Verification?
+
+Department SPOC: The purpose is: To ensure legal compliance and accuracy
+
+Rajesh Kumar (K&S Digiprotect): Where is Document Verification stored?
+
+Department SPOC: Document Verification is stored in Internal database. Its classification is PII/ 
+Sensitive. Retention period is currently not formally defined. Legal basis: Compliance with legal standards.
+
+Department SPOC: We collect **Verification Reports**. Reports from external legal vendors on property checks
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Verification Reports?
+
+Department SPOC: The purpose is: To verify property and customer details
+
+Rajesh Kumar (K&S Digiprotect): Where is Verification Reports stored?
+
+Department SPOC: Verification Reports is stored in Internal database. Its classification is Non PII/
+Confidential. Retention period is currently not formally defined. Legal basis: Regulatory compliance.
+
+Department SPOC: We collect **SLA Documents**. Service Level Agreements with external legal teams
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting SLA Documents?
+
+Department SPOC: The purpose is: To define performance standards and timelines
+
+Rajesh Kumar (K&S Digiprotect): Where is SLA Documents stored?
+
+Department SPOC: SLA Documents is stored in Email. Its classification is Non PII/ 
+Restricted. The retention period is Until updated/
+replaced. Legal basis: Contractual obligation.
+
+Department SPOC: We collect **Compliance Records**. Records of compliance checks and audits
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Records?
+
+Department SPOC: The purpose is: To ensure adherence to legal and regulatory standards
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Records stored?
+
+Department SPOC: Compliance Records is stored in Internal database. Its classification is Non PII/
+Confidential. The retention period is As per regulatory requirements. Legal basis: Regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): Does the Collateral Legal share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: Compliance Department, Credit Department, Operations Department, IT Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Collateral Legal?
+
+Department SPOC: We primarily use: Email, Internal database. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Collateral Legal handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement Robust Access Controls
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement role-based access controls (RBAC) so that only authorized personnel have access to specific data, minimizing the risk of unauthorized access.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Encrypt Sensitive Data
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Encrypt all sensitive data both in transit and at rest. This ensures that even if data is intercepted during transmission or accessed without authorization, it remains unreadable and secure.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

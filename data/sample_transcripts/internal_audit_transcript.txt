@@ -1,0 +1,130 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Internal Audit
+Date: Internal Audit – 14th March 2024
+Field Audit & Anti-Fraud Department – 25th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Internal Audit – Shivam Jain
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Internal Audit as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Internal Audit – Shivam Jain: India Shelter Finance Corporation Limited (ISFC) relies on its Internal Audit Department to ensure that the organization operates in compliance with regulatory standards and internal policies. The department is divided into two key functions: Internal Audit, Field Audit & Anti-Fraud. This team of experienced professionals conducts thorough audits across various departments and branches, employing a structured approach to audit planning and execution.
+
+Internal Audit – Shivam Jain: This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Internal Audit Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Internal Audit Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Internal Audit – Shivam Jain: Our first key process is **Internal Audit (IA) Operations**. Audit Charter Planning Identification of critical departments and processes is done based on past audits, past experiences, and management requirements. Critical departments identified for internal audit are operations, credit, finance, and sales. An annual audit charter is prepared by the IA team a
+
+Internal Audit – Shivam Jain: I should also note: ISFC to explain process audit of Sales department.
+
+Internal Audit – Shivam Jain: Another key process is **Field Audit Operations**. Audit Charter Audit Charter is prepared at the beginning of every financial year. All branches are audited annually, once they have been operational for six months. Branch Audits Branch audit process includes two days: Day 1: Compliance and Basic Hygiene Checks Field Audit team arrives at the branch
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Field Audit Operations?
+
+Internal Audit – Shivam Jain: Regarding Field Audit Operations, No defined retention period for audit trails.
+
+Internal Audit – Shivam Jain: I should also note: ISFC to share documentation on scoring models for branches.
+
+Internal Audit – Shivam Jain: Another key process is **Anti-Fraud Activities**. Anti-Fraud Activities The Anti-Fraud team, led by Kavit Rajput, investigates customer complaints. Anti-fraud investigations involve understanding queries, collecting proofs, and resolving issues in a written or verbal manner. Query Verification Customer verification involves verifying customer ident
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Anti-Fraud Activities?
+
+Internal Audit – Shivam Jain: Regarding Anti-Fraud Activities, ISFC to confirm Vendor Visit process.
+ISFC to explain what all data is captured in log sheets when a complaint is received, and who all have access to the log sheet.
+ISFC to explain how customer verification is done during Query Verification process.
+
+Internal Audit – Shivam Jain: I should also note: NA
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Internal Audit – Shivam Jain: We collect **CDR (Call Detail Record)**. Records for call centre monitoring and performance assessment.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting CDR (Call Detail Record)?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is CDR (Call Detail Record) stored?
+
+Internal Audit – Shivam Jain: CDR (Call Detail Record) is stored in Salesforce. Its classification is PII/Sensitive Data. The retention period is 8 years. Legal basis: Consent/ Internal Policy.
+
+Internal Audit – Shivam Jain: We collect **KYC Documents**. Customer identity verification documents
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting KYC Documents?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is KYC Documents stored?
+
+Internal Audit – Shivam Jain: KYC Documents is stored in Salesforce. Its classification is PII/Sensitive Data. The retention period is 8 years. Legal basis: Consent/ Internal Policy.
+
+Internal Audit – Shivam Jain: We collect **Loan Documents**. Paperwork for loan disbursements and usage verification audits.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Documents?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Documents stored?
+
+Internal Audit – Shivam Jain: Loan Documents is stored in Salesforce OneDrive Email. Its classification is PII/Sensitive Data. The retention period is 8 years. Legal basis: Legitimate Interest/ Internal Policy.
+
+Internal Audit – Shivam Jain: We collect **Customer Feedback**. Input obtained from customers during field visits
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Feedback?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Feedback stored?
+
+Internal Audit – Shivam Jain: Customer Feedback is stored in OneDrive Email. Its classification is PII/ Sensitive. The retention period is 8 years. Legal basis: Consent/ Internal Policy.
+
+Internal Audit – Shivam Jain: We collect **Vendor Information**. Details on vendor audits, payout information, and market insights.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Vendor Information?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is Vendor Information stored?
+
+Internal Audit – Shivam Jain: Vendor Information is stored in Salesforce OneDrive Email. Its classification is Non-PII/ 
+Private. The retention period is Not Applicable. Legal basis: NA.
+
+Internal Audit – Shivam Jain: We collect **Financial Records**. Records used for financial transactions and auditing purposes.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Financial Records?
+
+Internal Audit – Shivam Jain: The purpose is: Audit
+
+Rajesh Kumar (K&S Digiprotect): Where is Financial Records stored?
+
+Internal Audit – Shivam Jain: Financial Records is stored in Salesforce OneDrive Email. Its classification is Non- PII/ Confidential. The retention period is Permanent. Legal basis: Legitimate Interest.
+
+Rajesh Kumar (K&S Digiprotect): Does the Internal Audit share data with other departments or external parties?
+
+Internal Audit – Shivam Jain: Yes, we regularly share relevant data with: Finance Department, Compliance Department, Credit Department, Sales Department, Operations Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Internal Audit?
+
+Internal Audit – Shivam Jain: We primarily use: OneDrive Email, Salesforce, Salesforce OneDrive Email. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Internal Audit handle consent management for personal data processing?
+
+Internal Audit – Shivam Jain: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Ensure that all evidence maintained on Excel is encrypted to protect confidential information from unauthorized access.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Include data privacy-related audits in the annual audit charter for both internal and field audits to ensure compliance with data protection regulations.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Establish a clear policy to avoid retaining legacy data indefinitely. Retain audit data only for the necessary period as per regulatory requirements.
+
+Internal Audit – Shivam Jain: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Internal Audit – Shivam Jain: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

@@ -1,0 +1,61 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: BSG Department
+Date: 5th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the BSG Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: India Shelter’s Business Solutions Group (BSG) department translates business requirements into comprehensive technical documents, ensuring seamless communication between stakeholders and the development team. This department plays a crucial role in translating strategic, business, and regulatory requirements into actionable solutions. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the BSG Department of India Shelter Finance Corporation Limited (ISFC) for compliance with Digital Personal Data Protection Act (DPDPA) and implementation of ISO/IEC 27001:2022 The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the BSG Department.
+
+Department SPOC: Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Gathering business requirements**. BSG team gathers comprehensive data from various internal departments. The requirements can be regulatory, for ease of business, or for development of new requirements. The department has a Business Requirement Document (BRD) format. All requirements are communicated through BRD via emails.
+
+Department SPOC: I should also note: ISFC to confirm if the communication of requirements is done through emails only.
+ISFC to confirm storage location of all System analysis documentation.
+
+Department SPOC: Another key process is **Converting Business Requirements into Solutions**. BSG team then conducts system analysis on these requirements and translates business language to system language. They also conduct business process re-engineering (BPRE).
+
+Department SPOC: I should also note: Application version control is taken care of by the IT Department.
+
+Department SPOC: Another key process is **Conduct User Acceptance Testing (UAT)**. BSG department conducts a first level UAT from a functional perspective.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Business Requirements Documents
+(BRD)**. BRD containing the changes/modifications, new requirements, etc
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Business Requirements Documents
+(BRD)?
+
+Department SPOC: The purpose is: Requirements to be converted to technical documents
+
+Rajesh Kumar (K&S Digiprotect): Where is Business Requirements Documents
+(BRD) stored?
+
+Department SPOC: Business Requirements Documents
+(BRD) is stored in Emails/One Drive. Its classification is Non PII/ Private. Retention period is currently not formally defined. Legal basis: NA.
+
+Rajesh Kumar (K&S Digiprotect): Does the BSG Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the BSG Department?
+
+Department SPOC: We primarily use: Emails, One Drive. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the BSG Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

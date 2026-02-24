@@ -1,0 +1,200 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Human Resources (HR Ops, TA, Training & Development)
+Date: HR Ops – 13th March 2024
+TA (Area Manager & Above Pan India + Complete HO) – 12th April 2024
+TA (Branch Manager & Below), Training & Development – 26th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: HR Ops – Madhu Sharma
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Human Resources (HR Ops, TA, Training & Development) as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+HR Ops – Madhu Sharma: The HR Department at India Shelter Finance Corporation Limited (ISFC) facilitates the organization's human capital strategy. Talent Acquisition handles the recruitment process from sourcing candidates to conducting interviews and facilitating the onboarding process, HR ensures the organization attracts and retains top talent vital for driving ISFC's growth and success. ISFC's HR Ops Department oversees a spectrum of functions essential for employee well-being and organizational efficiency.
+
+HR Ops – Madhu Sharma: This includes managing payroll, administering benefits, and maintaining compliance with labour laws and regulatory requirements. Training & Development for employees and external partners is also taken care of by the HR Department. By nurturing a conducive work environment and supporting the diverse needs of its workforce, the HR Department at ISFC contributes significantly to the organization's overall success and sustainability.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+HR Ops – Madhu Sharma: Our first key process is **Recruitment**. Recruitment Process is split into: Area Managers and above pan India along with all HQ hiring is done by Aditya Business team communicates requirement through mails or on calls Candidate Sourcing is done from Job Portals (LinkedIn, Naukri, etc.), through external consultants, and internal references
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Recruitment?
+
+HR Ops – Madhu Sharma: Regarding Recruitment, All Resumes are retained indefinitely.
+All data is stored on Local machines and/or one drive.
+ATS might be enrolled in FY 24-25.
+ISFC to confirm the Order of interviews recorded in Talent Acquisition SOP vs On-Ground.
+ISFC to explain Re-hiring Proces
+
+HR Ops – Madhu Sharma: I should also note: Documents (KYC Documents, other information required for recruitment) are sometimes received via WhatsApp.
+No classification of emails, data, or information is done.
+No data deletion policy available/
+
+HR Ops – Madhu Sharma: Another key process is **Background Verification (BGV)**. Background Verification (BGV) is done via external vendors, post joining. This process is taken care of by HR Ops team. All documents are sent on emails to the BGV vendors. Reports are also received via emails.
+
+HR Ops – Madhu Sharma: I should also note: No specific clause for data retention/deletion with Background Verification (BGV) vendors.
+
+HR Ops – Madhu Sharma: Another key process is **Onboarding**. HR Ops team releases Offer Letter to selected candidate. Joining days are Monday & Thursday only. Joining on any other day needs special approval from CHRO. All employees are on-roll. Details for ID Card are shared with Admin Team by HR Ops via Email.
+
+HR Ops – Madhu Sharma: Another key process is **Insurance**. Employee Insurance is taken care of by HR Ops team. There are 4 types of Insurance Policies available for Employees: Individual Mediclaim, Family insurance (parental (add-on)), Accidental, Term.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Insurance?
+
+HR Ops – Madhu Sharma: Regarding Insurance, ISFC to explain Policy renewal process
+
+HR Ops – Madhu Sharma: Another key process is **Budgeting**. Budgeting for Headcount, Payroll Cost, and Non-payroll Cost is done by HR Ops team.
+
+HR Ops – Madhu Sharma: Another key process is **Training**. Training and development are done by VP HR. External Training given to people working in call centres. Training material is given to them, and a confirmation is taken over email about completion of training. Induction program – Parichay is taken by all New Joiners.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Training?
+
+HR Ops – Madhu Sharma: Regarding Training, ISFC to confirm other training programs held for employees.
+ISFC to provide details on training calendar.
+ISFC to provide training records.
+ISFC to confirm training report process.
+
+HR Ops – Madhu Sharma: Another key process is **Employee Exit**. Retention of employees is taken care of by Vijayananda Shenoi
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Employee Exit?
+
+HR Ops – Madhu Sharma: Regarding Employee Exit, ISFC to explain entire Exit process.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+HR Ops – Madhu Sharma: We collect **Employee Personal Data**. Personal information of employees including name, DOB, KYC Documents, etc.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Personal Data?
+
+HR Ops – Madhu Sharma: The purpose is: HR management and payroll processing
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Personal Data stored?
+
+HR Ops – Madhu Sharma: Employee Personal Data is stored in HRIS. Its classification is PII/Sensitive. The retention period is As required by law. Legal basis: Legal obligation.
+
+HR Ops – Madhu Sharma: We collect **Job Applications**. Applications for job positions submitted by candidates including Resumes
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Job Applications?
+
+HR Ops – Madhu Sharma: The purpose is: Recruitment and selection process
+
+Rajesh Kumar (K&S Digiprotect): Where is Job Applications stored?
+
+HR Ops – Madhu Sharma: Job Applications is stored in HRIS/ Emails/ One Drive. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+HR Ops – Madhu Sharma: We collect **Performance Reviews**. Records of employee performance evaluations
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Performance Reviews?
+
+HR Ops – Madhu Sharma: The purpose is: Performance assessment and improvement
+
+Rajesh Kumar (K&S Digiprotect): Where is Performance Reviews stored?
+
+HR Ops – Madhu Sharma: Performance Reviews is stored in HRIS/ Emails. Its classification is Non - PII/
+Private. Retention period is currently not formally defined. Legal basis: NA.
+
+HR Ops – Madhu Sharma: We collect **Training Records**. Information about employee training and development activities
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Training Records?
+
+HR Ops – Madhu Sharma: The purpose is: Employee skill enhancement
+
+Rajesh Kumar (K&S Digiprotect): Where is Training Records stored?
+
+HR Ops – Madhu Sharma: Training Records is stored in Emails. Its classification is Non - PII/
+Private. Retention period is currently not formally defined. Legal basis: NA.
+
+HR Ops – Madhu Sharma: We collect **Disciplinary Records**. Documentation of employee disciplinary actions
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Disciplinary Records?
+
+HR Ops – Madhu Sharma: The purpose is: Maintain discipline and compliance
+
+Rajesh Kumar (K&S Digiprotect): Where is Disciplinary Records stored?
+
+HR Ops – Madhu Sharma: Disciplinary Records is stored in HRIS. Its classification is Non - PII/
+Sensitive. Retention period is currently not formally defined. Legal basis: NA.
+
+HR Ops – Madhu Sharma: We collect **Employee Emergency Contact Details**. Contact information of employees’ family including phone and email
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Emergency Contact Details?
+
+HR Ops – Madhu Sharma: The purpose is: Communication and HR administration
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Emergency Contact Details stored?
+
+HR Ops – Madhu Sharma: Employee Emergency Contact Details is stored in HRIS/ Emails/ One Drive/ End Point Devices. Its classification is PII/
+Sensitive. Retention period is currently not formally defined. Legal basis: Legitimate Interest.
+
+HR Ops – Madhu Sharma: We collect **Leave Records**. Records of employee leave applications and approvals
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Leave Records?
+
+HR Ops – Madhu Sharma: The purpose is: Manage employee leave
+
+Rajesh Kumar (K&S Digiprotect): Where is Leave Records stored?
+
+HR Ops – Madhu Sharma: Leave Records is stored in Emails. Its classification is Non -PII/ 
+Private. Retention period is currently not formally defined. Legal basis: NA.
+
+HR Ops – Madhu Sharma: We collect **Salary Information**. Details of employee compensation and benefits
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Salary Information?
+
+HR Ops – Madhu Sharma: The purpose is: Payroll processing and administration
+
+Rajesh Kumar (K&S Digiprotect): Where is Salary Information stored?
+
+HR Ops – Madhu Sharma: Salary Information is stored in HRIS/One Drive/ End Point Devices. Its classification is PII/
+Sensitive. The retention period is As required by law. Legal basis: Legal obligation.
+
+HR Ops – Madhu Sharma: We collect **Employee Surveys**. Feedback and opinions provided by employees
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Surveys?
+
+HR Ops – Madhu Sharma: The purpose is: Measure employee satisfaction
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Surveys stored?
+
+HR Ops – Madhu Sharma: Employee Surveys is stored in HRIS/ Emails. Its classification is Non - PII/
+Restricted. Retention period is currently not formally defined. Legal basis: NA.
+
+HR Ops – Madhu Sharma: We collect **Employee & Family Personal Details and Health Records**. Details of Employee Insurances, Parental Insurance (if opted by employee)
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee & Family Personal Details and Health Records?
+
+HR Ops – Madhu Sharma: The purpose is: Employee/ Group Insurance
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee & Family Personal Details and Health Records stored?
+
+HR Ops – Madhu Sharma: Employee & Family Personal Details and Health Records is stored in HRIS/ One Drive. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Legal Obligation.
+
+Rajesh Kumar (K&S Digiprotect): Does the Human Resources (HR Ops, TA, Training & Development) share data with other departments or external parties?
+
+HR Ops – Madhu Sharma: Yes, we regularly share relevant data with: Sales Department, IT Department, Operations Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Human Resources (HR Ops, TA, Training & Development)?
+
+HR Ops – Madhu Sharma: We primarily use: Emails, End Point Devices, HRIS, One Drive. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Human Resources (HR Ops, TA, Training & Development) handle consent management for personal data processing?
+
+HR Ops – Madhu Sharma: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Document Data Management Review:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Conduct a comprehensive review of document management practices, including data classification, storage, sharing, and retention policies, to ensure alignment with data protection and privacy requireme
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Establish clear guidelines for handling sensitive documents, including encryption protocols and access controls, to minimize the risk of unauthorized disclosure.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Training & Awareness on Personally Identifiable Information (PII) data:
+
+HR Ops – Madhu Sharma: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+HR Ops – Madhu Sharma: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

@@ -1,0 +1,102 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Sales Department
+Date: 7th May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Sales Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The Sales Department of India Shelter Finance Corporation Limited (ISFC) is instrumental in driving the company's growth by acquiring new customers and managing loan disbursements. The team operates across seven zones and handles a significant volume of loan applications, ensuring thorough documentation. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Sales Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA).
+
+Department SPOC: The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Sales Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Loan Sourcing and File Submission**. Loan sourcing is conducted by Loan Officers through various methods such as direct business sourcing, personal references, and cold calling. Comprehensive documentation is collected for each loan application to ensure eligibility and credibility. This includes basic personal information, income docu
+
+Department SPOC: Another key process is **Document Verification and Approval**. The submitted documents are reviewed for accuracy and completeness. This verification step is crucial to identify any missing or incorrect information early in the process, preventing delays and ensuring smooth processing. Business Managers and Loan Officers engage with customers to clarify any doub
+
+Department SPOC: Another key process is **Loan Applications Management**. Customers are required to self-attest their documents before these documents are digitally uploaded. Physical files are maintained for each loan application. Documents against queries raised by Internal teams during verification process are collected by Loan Officers. Visibility of all customer data
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Loan Applications Management?
+
+Department SPOC: Regarding Loan Applications Management, All sales-generated leads are kept indefinitely, even if initially uninterested. 
+There is no expiration on lead generation.
+
+Department SPOC: Another key process is **Loan Disbursement and Closure**. Customers are flagged as early defaults if EMI payments are not received within the first 18 months. Early identification of defaults allows the department to take proactive measures to manage and mitigate credit risk effectively. The department processes approximately 3000 fresh disbursements per m
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Loan Sourcing Data**. Potential Customer References
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Sourcing Data?
+
+Department SPOC: The purpose is: Used for lead generation
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Sourcing Data stored?
+
+Department SPOC: Loan Sourcing Data is stored in iSales/iTrust/Salesforce. Its classification is PII/Sensitive data. Retention period is currently not formally defined. Legal basis: Consent.
+
+Department SPOC: We collect **Customer Info**. Personal information of customers recorded after lead generation
+(KYC documents, Bank account details, Property papers and Income documents)
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Info?
+
+Department SPOC: The purpose is: Used for Customer identification and loan processing
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Info stored?
+
+Department SPOC: Customer Info is stored in iSales/iTrust/Salesforce. Its classification is PII/Sensitive data. Retention period is currently not formally defined. Legal basis: Consent.
+
+Department SPOC: We collect **Document Verification Records**. Verified and self-attested documents
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Document Verification Records?
+
+Department SPOC: The purpose is: Ensure accuracy and completeness of loan application
+
+Rajesh Kumar (K&S Digiprotect): Where is Document Verification Records stored?
+
+Department SPOC: Document Verification Records is stored in iSales/iTrust/Salesforce/ Physical documents. Its classification is PII/Sensitive data. Retention period is currently not formally defined. Legal basis: Legal Requirement.
+
+Department SPOC: We collect **Customer Interaction Records**. Details of interaction with potential customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Interaction Records?
+
+Department SPOC: The purpose is: Improve sales pitch/ cold calling efforts
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Interaction Records stored?
+
+Department SPOC: Customer Interaction Records is stored in Salesforce/ One Drive. Its classification is PII/Sensitive data. Retention period is currently not formally defined. Legal basis: Consent.
+
+Rajesh Kumar (K&S Digiprotect): Does the Sales Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: Legal Department, HR Department, Credit Department, IT Department, Operations Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Sales Department?
+
+Department SPOC: We primarily use: One Drive, Physical documents, Salesforce, iSales, iTrust. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Sales Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Data Minimization and Purpose Limitation
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Ensure that only necessary data is collected for loan processing and lead generation purposes.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Consent Mechanism
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement clear and explicit consent mechanisms for collecting customer information and potential customer references.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

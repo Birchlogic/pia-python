@@ -1,0 +1,143 @@
+INTERVIEW TRANSCRIPT
+Project: DPDPA Compliance Assessment 2026
+Department: Customer Care — Compliance Calling & Escalation
+Session: 3 of 4 — Compliance Calling Process & Escalation Handling
+Date: Tuesday, 21 January 2026
+Time: 11:00 AM – 12:20 PM IST
+Location: Virtual (MS Teams Call)
+Interviewer: Rohan Desai (Privacy Analyst, Birchlogic)
+Interviewee: Deepa Lakshmi (Lead – Compliance Calling)
+Note-taker: Priya Nair (Senior Privacy Analyst, Birchlogic)
+Recording: MS Teams recording (File: CC_S3_recording_21Jan.mp4)
+Assessment Criteria: Data Collection Practices, Third-Party Sharing, Consent Mechanisms, Data Storage
+
+--- TRANSCRIPT BEGINS ---
+
+[00:00:07] Rohan Desai: Hi Deepa, thanks for joining. Nikhil and Farhan have given us good context on the inbound call centre operations. Today we want to understand the Compliance Calling function — what it is, what data is involved, and how it flows downstream.
+
+[00:00:22] Deepa Lakshmi: Hi Rohan, Priya. Happy to help. Compliance Calling is a bit different from the regular call centre. We don't take inbound calls. We make outbound calls to existing customers for verification purposes.
+
+[00:00:36] Rohan Desai: Walk us through what Compliance Calling actually entails.
+
+[00:00:40] Deepa Lakshmi: So we call it Compliance Calling or sometimes Hygiene Calling. The purpose is to verify that the loan was originated properly and that the customer's information is accurate. Think of it as a quality check on the lending process.
+
+[00:00:55] Deepa Lakshmi: There are four types of compliance calls we make:
+
+Type 1 is a Pre-Disbursement Verification call. Before the loan amount is disbursed, we call the customer to confirm they actually applied for the loan, they know the terms, they've met the branch staff, and everything is above board. This is a fraud prevention measure.
+
+Type 2 is Post-Disbursement. Within a week of the loan being disbursed, we call to confirm the customer received the funds, confirm the loan amount and EMI, and check if the customer has any concerns.
+
+Type 3 is a Welcome Call. This is more of a relationship call — we welcome the customer, explain how to reach customer care, tell them about the app, explain their EMI schedule.
+
+Type 4 is a Periodic Hygiene Check. These happen at random intervals during the loan tenure. We verify the customer's contact details are still current, ask if they've had any issues, check if they've been asked for any unofficial payments by branch staff.
+
+[00:01:55] Rohan Desai: That's quite structured. For each of these call types, what data do you collect?
+
+[00:02:01] Deepa Lakshmi: Each call type has a questionnaire. The questions are different for each type. My team makes the call, asks the questions, and fills in the answers.
+
+[00:02:12] Rohan Desai: Where are the answers recorded?
+
+[00:02:15] Deepa Lakshmi: In Excel. We have a master Excel file per month. Each row is one call. The columns include the customer's name, loan account number, mobile number, date of call, call type, and then the individual question responses. The questionnaire varies by type but for example, the Pre-Disbursement one asks things like: "Did you visit the branch?", "Did you meet the loan officer?", "Were you explained the terms of the loan?", "Was any unofficial payment requested?", "Are you aware of your EMI amount and tenure?"
+
+[00:02:50] Rohan Desai: Is the customer informed at the start of the call that their responses will be recorded and may be shared with other teams?
+
+[00:02:57] Deepa Lakshmi: We identify ourselves as calling from the company and state the purpose of the call — that we're calling for verification. But we don't give a formal data privacy notice or say anything about how the data will be used or shared.
+
+[00:03:12] Rohan Desai: And these calls, are they recorded in Ameyo like the inbound calls?
+
+[00:03:17] Deepa Lakshmi: Yes. All our outbound calls are also recorded through Ameyo. Same system, same storage.
+
+[00:03:24] Rohan Desai: Same consent gap then. The customer doesn't know the call is being recorded. For outbound calls, there may not even be the "this call may be recorded" disclaimer that plays on inbound.
+
+[00:03:35] Deepa Lakshmi: Hmm, you're right. The disclaimer is only on the inbound IVR. When we make outbound calls, there's no automated disclaimer. The agent is supposed to verbally mention it, but honestly I'm not confident that happens consistently.
+
+[00:03:50] Rohan Desai: That's a definite gap. Now tell me about what happens to the compliance calling data after it's collected.
+
+[00:03:57] Deepa Lakshmi: At the end of each month, I compile the data from the daily sheets into a consolidated monthly report. That report is shared with the Field Audit and Anti-Fraud team. They use it to flag cases that need investigation — for example, if a customer says they were asked for an unofficial payment, or if they say they never visited the branch.
+
+[00:04:18] Rohan Desai: How is the report shared with the Field Audit team?
+
+[00:04:21] Deepa Lakshmi: Email. I email the consolidated Excel to the Field Audit team lead. Sometimes I also share individual call recordings if a specific case needs investigation.
+
+[00:04:32] Rohan Desai: The Excel with customer names, account numbers, mobile numbers, and potentially sensitive fraud-related responses — sent as an email attachment?
+
+[00:04:40] Deepa Lakshmi: Yes.
+
+[00:04:42] Rohan Desai: Is the file encrypted or password-protected?
+
+[00:04:45] Deepa Lakshmi: No. It's just a regular Excel file.
+
+[00:04:49] Rohan Desai: What happens to the daily Excel files? Are they kept after the monthly consolidation?
+
+[00:04:54] Deepa Lakshmi: They stay on my machine. I have them organized by month in folders on my OneDrive. The daily files, the monthly consolidated file, everything.
+
+[00:05:04] Rohan Desai: For how far back?
+
+[00:05:06] Deepa Lakshmi: Since I started in this role, which was April 2024. So about a year and a half of data.
+
+[00:05:14] Rohan Desai: And when you leave this role or the company, what happens to that data?
+
+[00:05:18] Deepa Lakshmi: [pause] I haven't really thought about that. I guess it would stay on my OneDrive unless someone actively moved it.
+
+[00:05:27] Rohan Desai: Let me shift to the escalation process. Nikhil mentioned there's a defined escalation matrix. Can you walk me through how escalations work?
+
+[00:05:36] Deepa Lakshmi: Sure, though escalation is more Farhan's territory since it mainly applies to inbound calls. But I can give you the overview.
+
+When a case isn't resolved within the 48-hour TAT, it escalates. Level 1 escalation goes to the respective Team Lead. If still unresolved in another 24 hours, Level 2 goes to Nikhil. Level 3 goes to the COO. Each escalation triggers an email notification to the escalation recipient.
+
+For complaints specifically — the bribery/misconduct ones — escalation is immediate to the Ethics committee.
+
+[00:06:10] Rohan Desai: Is the escalation automated through Salesforce or manual?
+
+[00:06:14] Deepa Lakshmi: The TAT-based escalation is automated in Salesforce. It tracks the case age and sends email alerts. The complaint escalation is manual — the agent or Team Lead manually routes it.
+
+[00:06:27] Rohan Desai: The escalation emails, do they contain the full case details including customer personal data?
+
+[00:06:32] Deepa Lakshmi: Yes. The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description. So the recipient can act on it without necessarily logging into Salesforce.
+
+[00:06:46] Rohan Desai: That means customer data is being emailed in plain text as part of the escalation workflow. If someone's email is compromised, every escalation email becomes a data exposure.
+
+[00:06:58] Deepa Lakshmi: I see the concern. But that's how Salesforce is configured.
+
+[00:07:04] Rohan Desai: Understood. We'll review the Salesforce email template configuration as part of our recommendations.
+
+[00:07:10] Rohan Desai: Deepa, one more area. The Quality team — Smita's team. They audit calls. What does that process look like from a data perspective?
+
+[00:07:19] Deepa Lakshmi: Smita's team pulls recordings from Ameyo, listens to them, and scores the agents on a quality scorecard. The scorecard covers things like greeting, tone, accuracy of information given, compliance with scripts, handling of sensitive situations. The scores go into an Excel tracker. Smita also conducts training for new hires based on call audit findings.
+
+[00:07:42] Rohan Desai: Do the quality scorecards contain customer information? Or just agent performance data?
+
+[00:07:47] Deepa Lakshmi: The scorecard itself is about agent performance. But it references the call by Ameyo recording ID and date, and it usually notes the customer's name or account number so they can cross-reference if needed.
+
+[00:07:59] Rohan Desai: So the quality tracking Excel has customer identifiers linked to call recordings?
+
+[00:08:04] Deepa Lakshmi: Technically, yes. But the main purpose is agent evaluation, not customer data tracking.
+
+[00:08:11] Rohan Desai: The purpose might be agent evaluation, but the data processing still involves customer personal data. Under DPDPA, the purpose doesn't override the fact that personal data is being processed. It still needs to be governed.
+
+[00:08:25] Deepa Lakshmi: That makes sense. I hadn't thought of the quality audit data as customer data, but you're right that it includes customer identifiers.
+
+[00:08:35] Rohan Desai: Exactly. Deepa, this has been really thorough. Thank you for your time.
+
+[00:08:40] Deepa Lakshmi: Happy to help. Let me know if you need anything else.
+
+--- TRANSCRIPT ENDS ---
+
+Session Duration: 1 hour 18 minutes
+Systems Mentioned: Ameyo (outbound calling + recording), Salesforce (case management + automated escalation), Excel (compliance call data collection), OneDrive, Email
+Third Parties: Field Audit & Anti-Fraud team (internal but separate department), Ethics & Compliance committee
+Data Elements Identified: Customer name, loan account number, mobile number, compliance call questionnaire responses (including fraud-related questions about unofficial payments), call recordings (outbound, no consent disclaimer), quality audit scorecards with customer identifiers
+Key Gaps Flagged:
+  - No data privacy notice given to customers during outbound compliance calls
+  - No recording disclaimer on outbound calls (unlike inbound IVR)
+  - Compliance call data (potentially fraud-sensitive) in unencrypted Excel, emailed to Field Audit
+  - 1.5+ years of compliance call data in personal OneDrive with no succession/transfer plan
+  - No retention policy for compliance calling data
+  - Salesforce escalation emails contain customer PII in plain text
+  - Quality audit tracker contains customer identifiers — treated as agent data but includes PII
+  - Customers not informed that their compliance call responses are shared with Anti-Fraud team
+Follow-up Required:
+  - Session 4: Systems walkthrough with Farhan to verify data storage, retention, Salesforce config
+  - Review Salesforce escalation email templates
+  - Confirm Ameyo recording retention configuration
+  - Assess whether compliance call data sharing with Anti-Fraud needs separate consent

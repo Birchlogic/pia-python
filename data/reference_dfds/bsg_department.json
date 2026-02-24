@@ -1,0 +1,218 @@
+{
+  "department": "BSG Department",
+  "version": "1.0",
+  "central_process": "ISFC BSG Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_gathering_business_r_0",
+          "name": "Gathering business requirements",
+          "collection_sources": [
+            {
+              "name": "Gathering business requirements",
+              "data_elements": [
+                "Business Requirements Documents\n(BRD)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_converting_business__1",
+          "name": "Converting Business Requirements into Solutions",
+          "collection_sources": [
+            {
+              "name": "Converting Business Requirements into Solutions",
+              "data_elements": [
+                "Business Requirements Documents\n(BRD)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_conduct_user_accepta_2",
+          "name": "Conduct User Acceptance Testing (UAT)",
+          "collection_sources": [
+            {
+              "name": "Conduct User Acceptance Testing (UAT)",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Emails",
+      "type": "cloud"
+    },
+    {
+      "name": "One Drive",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_gathering_business_r_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Business Requirements Doc"
+    },
+    {
+      "from_id": "bp_converting_business__1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Business Requirements Doc"
+    },
+    {
+      "from_id": "bp_conduct_user_accepta_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "General Data"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#7b1fa2",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_gathering_business_r_0",
+      "element_name": "Gathering business requirements",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "BSG team gathers comprehensive data from various internal departments. The requirements can be regulatory, for ease of business, or for development of new requirements. The department has a Business R",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_converting_business__1",
+      "element_name": "Converting Business Requirements into Solutions",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "BSG team then conducts system analysis on these requirements and translates business language to system language. They also conduct business process re-engineering (BPRE).",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_conduct_user_accepta_2",
+      "element_name": "Conduct User Acceptance Testing (UAT)",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "BSG department conducts a first level UAT from a functional perspective.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_business_requirement",
+      "element_name": "Business Requirements Documents\n(BRD)",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Business Requirements Documents\n(BRD): BRD containing the changes/modifications, new requirements, etc. Purpose: Requirements to be converted to technical documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_emails",
+      "element_name": "Emails",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Business Requirements Documents\n(BRD) is stored in Emails/One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_one_drive",
+      "element_name": "One Drive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Business Requirements Documents\n(BRD) is stored in Emails/One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

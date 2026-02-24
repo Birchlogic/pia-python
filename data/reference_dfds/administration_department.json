@@ -1,0 +1,481 @@
+{
+  "department": "Administration Department",
+  "version": "1.0",
+  "central_process": "ISFC Administration Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_office_maintenance_a_0",
+          "name": "Office Maintenance and Support",
+          "collection_sources": [
+            {
+              "name": "Office Maintenance and Support",
+              "data_elements": [
+                "Facility Maintenance Records"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_travel_event_managem_1",
+          "name": "Travel & Event Management",
+          "collection_sources": [
+            {
+              "name": "Travel & Event Management",
+              "data_elements": [
+                "Employee Travel Profiles",
+                "Event Registrations",
+                "Vendor Information",
+                "Travel Bookings"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_physical_security_2",
+          "name": "Physical Security",
+          "collection_sources": [
+            {
+              "name": "Physical Security",
+              "data_elements": [
+                "CCTV Footage",
+                "Facility Maintenance Records",
+                "Visitor Logs",
+                "Security Incident Reports"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_office_supplies_3",
+          "name": "Office Supplies",
+          "collection_sources": [
+            {
+              "name": "Office Supplies",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_rent_leasing_4",
+          "name": "Rent & Leasing",
+          "collection_sources": [
+            {
+              "name": "Rent & Leasing",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_courier_management_5",
+          "name": "Courier Management",
+          "collection_sources": [
+            {
+              "name": "Courier Management",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_others_6",
+          "name": "Others",
+          "collection_sources": [
+            {
+              "name": "Others",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_legal_department",
+      "name": "Legal Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_marketing_department",
+      "name": "Marketing Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#c62828"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "CCTV Server",
+      "type": "cloud"
+    },
+    {
+      "name": "ESSL",
+      "type": "cloud"
+    },
+    {
+      "name": "Emails",
+      "type": "cloud"
+    },
+    {
+      "name": "HR Database",
+      "type": "database"
+    },
+    {
+      "name": "Maintenance Logs",
+      "type": "cloud"
+    },
+    {
+      "name": "One Drive",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_office_maintenance_a_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Facility Maintenance Reco"
+    },
+    {
+      "from_id": "bp_travel_event_managem_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Employee Travel Profiles"
+    },
+    {
+      "from_id": "bp_physical_security_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "CCTV Footage"
+    },
+    {
+      "from_id": "bp_office_supplies_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_rent_leasing_4",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_courier_management_5",
+      "to_id": "central_process",
+      "color": "#00838f",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_others_6",
+      "to_id": "central_process",
+      "color": "#c62828",
+      "label": "General Data"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_legal_department",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_marketing_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#c62828",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_office_maintenance_a_0",
+      "element_name": "Office Maintenance and Support",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Limited maintenance within office premises. Rest is taken care by the building management. Limited maintenance covers \u2013 Furniture & fixtures, stand-alone air conditioners, A/V(audio/video) maintenance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_travel_event_managem_1",
+      "element_name": "Travel & Event Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Only Air ticketing is centrally managed. For other modes of travelling, the employees make bookings on their own and then get reimbursed. Does not have dedicated vendors, they seek quotes from 2-3 ven",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_physical_security_2",
+      "element_name": "Physical Security",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Security guards are outsourced via vendor through a lowest quote process Security guards are changed on a yearly basis All visitors have to provide details at the reception counter (such as name, mobi",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_office_supplies_3",
+      "element_name": "Office Supplies",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "General office supplies are taken care of by the Admin team, except IT and Marketing materials. Branch Office supplies are sourced locally, and reimbursement is claimed.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_rent_leasing_4",
+      "element_name": "Rent & Leasing",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "All offices\u2019 rent and leasing done by Admin team",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_courier_management_5",
+      "element_name": "Courier Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Admin department handles Courier services between HO and Branch offices of ISFC.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_others_6",
+      "element_name": "Others",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Data stored on individual OneDrives EPABX (Suvision) is managed by Admin team",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_travel_bookings",
+      "element_name": "Travel Bookings",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Travel Bookings: Details of travel bookings for employees. Purpose: Facilitate employee travel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_event_registrations",
+      "element_name": "Event Registrations",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Event Registrations: Registrations for external events and meetings. Purpose: Organize corporate events",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_visitor_logs",
+      "element_name": "Visitor Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Visitor Logs: Records of visitors entering the premises. Purpose: Ensure premises security",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_access_logs",
+      "element_name": "Access Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Access Logs: Logs of access to office premises. Purpose: Monitor facility access",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_employee_travel_prof",
+      "element_name": "Employee Travel Profiles",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Employee Travel Profiles: Profiles containing employee travel preferences and requirements. Purpose: Plan and manage employee travel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vendor_information",
+      "element_name": "Vendor Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Vendor Information: Contact details and contracts with event vendors. Purpose: Engage with event vendors",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_security_incident_re",
+      "element_name": "Security Incident Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Security Incident Reports: Reports of security incidents and breaches. Purpose: Record and address security incidents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_facility_maintenance",
+      "element_name": "Facility Maintenance Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Facility Maintenance Records: Records of maintenance activities for physical security equipment and facilities. Purpose: Ensure physical security infrastructure reliability",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_cctv_footage",
+      "element_name": "CCTV Footage",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "CCTV Footage: Video recordings from CCTV cameras monitoring premises. Purpose: Monitor and investigate security incidents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_cctv_server",
+      "element_name": "CCTV Server",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "CCTV Footage is stored in CCTV Server",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_essl",
+      "element_name": "ESSL",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Access Logs is stored in ESSL",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_emails",
+      "element_name": "Emails",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Travel Bookings is stored in Emails/One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_hr_database",
+      "element_name": "HR Database",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Employee Travel Profiles is stored in HR Database",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_maintenance_logs",
+      "element_name": "Maintenance Logs",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Facility Maintenance Records is stored in Maintenance Logs",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_one_drive",
+      "element_name": "One Drive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Travel Bookings is stored in Emails/One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_legal_department",
+      "element_name": "Legal Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Legal Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_marketing_department",
+      "element_name": "Marketing Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Marketing Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+ANALYST FIELD NOTES — SYSTEMS WALKTHROUGH & DATA MAPPING
+Project: DPDPA Compliance Assessment 2026
+Department: Customer Care — Systems & Data Mapping Verification
+Session: 4 of 4 — Systems Walkthrough & Data Inventory Verification
+Date: Thursday, 23 January 2026
+Time: 2:00 PM – 4:00 PM IST
+Location: Client HQ, Customer Care Floor (In-Person, working session)
+Analyst: Rohan Desai (Privacy Analyst, Birchlogic)
+Participants: Farhan Qureshi (TL – Call Centre), Smita Verma (Lead – Quality)
+Recording: None (Working session, not recorded)
+Assessment Criteria: Data Storage, Security Measures, Retention & Deletion, Access Controls
+
+--- NOTES BEGIN ---
+
+PURPOSE: Hands-on walkthrough of all Customer Care systems to verify data inventory
+compiled from Sessions 1-3. Farhan demonstrated Salesforce and Ameyo. Smita showed
+Quality audit processes.
+
+== SALESFORCE WALKTHROUGH ==
+
+Farhan logged into Salesforce and walked through the configuration.
+
+1. CUSTOMER RECORD STRUCTURE
+   Fields visible in default Customer Care page layout:
+   - Account Name (customer full name)
+   - Loan Account Number
+   - PAN Number [UNMASKED — full PAN visible]
+   - Aadhaar Number [UNMASKED — full 12 digits visible]
+   - Registered Mobile Number
+   - Alternate Mobile Number
+   - Email Address
+   - Residential Address (full address with PIN code)
+   - Loan Product Type
+   - Sanctioned Loan Amount
+   - Disbursed Amount
+   - Current Outstanding Principal
+   - Interest Rate
+   - EMI Amount
+   - Loan Tenure (months)
+   - Next EMI Due Date
+   - Account Status (Active/Closed/NPA)
+   - Branch Name
+   - Branch Code
+   - Loan Officer Name
+   - Co-Applicant Name
+   - Co-Applicant PAN [UNMASKED]
+   - Co-Applicant Aadhaar [UNMASKED]
+   - Co-Applicant Mobile
+   - Date of Birth
+   - Property Address (for home loans)
+
+   NOTE: Aadhaar was not mentioned in previous sessions. This is a CRITICAL finding.
+   Full Aadhaar numbers of both primary applicant AND co-applicant are visible to ALL
+   45 Customer Care staff. Aadhaar is classified as sensitive personal data. Under
+   Aadhaar Act provisions, storage and display of full Aadhaar is restricted.
+
+2. CASE MANAGEMENT
+   Farhan created a test case to show the workflow:
+   - Case is auto-created when agent logs a call
+   - Fields: Case Number (auto), Customer Name (auto from account), Case Category
+     (Query/Service Request/Customer Issue/Complaint), Sub-Category (dropdown),
+     Description (free text), Priority, Status, Assigned To, Created Date, TAT Date
+   - Case history tracks all status changes with timestamps
+   - Email notifications sent on case creation and status change
+
+   OBSERVATION: The Description field is free-text. Agents type anything. Reviewed a
+   sample of recent cases. Some descriptions include:
+     - "Customer says he is facing financial difficulty due to wife's hospitalization.
+        Requested EMI moratorium."
+     - "Customer alleges that LO Mr. [Name] asked for Rs 5000 as processing fee which
+        was not in agreement. Customer has WhatsApp messages as proof."
+     - "Customer wants to change nominee from mother to wife after recent marriage."
+
+   These descriptions contain sensitive personal information (health situations,
+   corruption allegations with named employees, family relationship changes). All
+   accessible to the full Customer Care team.
+
+3. SALESFORCE USER PROFILES
+   Farhan showed the user management section. Three Salesforce profiles for CC:
+   - "CC Agent" — can view/create/edit cases and customer records. Cannot delete.
+   - "CC Team Lead" — same as agent plus can reassign cases and view reports.
+   - "CC Manager" — full access including reports, dashboards, and user management.
+
+   KEY ISSUE: All three profiles have IDENTICAL read access to customer records.
+   There is no field-level security configured. The "CC Agent" profile sees every
+   field including PAN, Aadhaar, financial data.
+
+   Farhan confirmed he has raised this with the Salesforce admin team twice. Response
+   was "we'll look into it in the next release."
+
+4. SALESFORCE DATA EXPORT
+   Asked about data export capabilities. Farhan showed that Team Lead and Manager
+   profiles can export data via Salesforce reports. They can run a report on all
+   customers and export to CSV.
+
+   NOTE: No DLP controls. A team lead could export the entire customer database —
+   including PAN, Aadhaar, financial data — to a CSV file on their local machine.
+
+== AMEYO WALKTHROUGH ==
+
+Farhan logged into the Ameyo admin panel.
+
+1. CALL RECORDINGS
+   - All inbound and outbound calls recorded
+   - Recordings stored on Ameyo's cloud infrastructure (hosted by the vendor)
+   - Farhan showed the recording search interface — searchable by date, agent, phone
+     number, duration
+   - Played back a sample recording (with customer consent data audible)
+   - Recordings are in MP3 format
+   - Oldest recording accessible: March 2024 (nearly 2 years)
+
+   Asked about retention policy: Farhan said "I don't think anyone has set one. Ameyo
+   just keeps everything." Checked Ameyo admin settings — no auto-deletion configured.
+
+   STORAGE LOCATION: Farhan was unsure if Ameyo's cloud is in India or outside.
+   "Their sales team said India, but I've never verified." Need to confirm with IT
+   or directly with Ameyo vendor.
+
+   NOTE: If Ameyo stores recordings outside India, this is a cross-border transfer of
+   customer call recordings containing financial and personal data.
+
+2. AMEYO-SALESFORCE INTEGRATION
+   - CTI connector passes caller phone number to Salesforce for auto-lookup
+   - Call metadata (duration, timestamp, agent ID, recording link) is written back to
+     Salesforce on the case record
+   - The recording link in Salesforce opens the recording in Ameyo's web player
+   - Any Salesforce user with case access can click the link and listen to the recording
+
+   NOTE: This means the call recordings are effectively accessible to anyone with
+   Salesforce case access — not just Ameyo admins. The recording link embedded in
+   the case record bypasses Ameyo's access controls.
+
+== QUALITY AUDIT WALKTHROUGH (with Smita) ==
+
+Smita showed the quality audit process:
+
+1. CALL SAMPLING
+   - Smita's team audits approximately 10% of total calls monthly
+   - Calls are selected randomly but with weighted sampling — more calls audited for
+     newer agents and agents with previous low scores
+   - Selection is done manually — Smita picks recording IDs from Ameyo reports
+
+2. QUALITY SCORECARD
+   Smita showed the scorecard template (Excel):
+   Columns: Agent Name, Agent ID, Call Date, Recording ID, Customer Name, Account Number,
+   Call Category, Q1-Q15 (scoring parameters), Total Score, Comments
+
+   Scoring parameters include:
+   Q1: Greeting and introduction
+   Q2: Verification of customer identity
+   Q3: Listening skills
+   Q4: Product knowledge
+   Q5: Accuracy of information provided
+   Q6: Script adherence
+   Q7: Handling of sensitive information (do they avoid reading out full PAN/account?)
+   Q8: Professionalism
+   Q9: Resolution provided
+   Q10: Call closure and next steps
+   Q11-Q15: Category-specific parameters
+
+   NOTE: Q7 is interesting — there's a scoring parameter for "handling of sensitive
+   information" which suggests awareness that agents shouldn't read out full PAN etc.
+   Yet the system shows full PAN without masking. Contradiction between the scorecard
+   expectation and the system configuration.
+
+3. SCORECARD STORAGE
+   - Excel files on Smita's OneDrive, organized by month
+   - Shared with Nikhil monthly via email
+   - Individual agent scores shared with Team Leads for coaching
+
+   DATA IN QUALITY TRACKER: ~200-250 audited calls per month, each with customer
+   name and account number. Over time, this accumulates into a substantial dataset
+   of customer identifiers linked to call quality assessments.
+
+4. TRAINING RECORDS
+   Smita also maintains training records for new hires:
+   - Training attendance, topics covered, assessment scores
+   - New hires go through 2 weeks of classroom training before going live on calls
+   - Training materials include sample call scripts, objection handling guides, product
+     knowledge documents
+   - No customer data used in training (they use dummy data for role plays)
+   - This is a positive finding — no real customer data in training.
+
+== WHATSAPP VERIFICATION ==
+
+Asked Farhan to show the WhatsApp setup:
+- Two Samsung phones, company-issued
+- WhatsApp Business app installed
+- Business profile shows company name and customer care number
+- Chat history visible going back several months
+- Customers send: text messages, screenshots of payment confirmations, photos of
+  property documents, PAN card images (when asked for ID verification over chat)
+
+CRITICAL: Customers are sending PAN card images over WhatsApp. These images are stored
+on the phone with no encryption beyond WhatsApp's E2E encryption.
+
+Phones are not MDM-managed (confirmed with Farhan, who checked with IT over chat during
+our session).
+
+== EXCEL/ONEDRIVE STORAGE ==
+
+Compliance Calling data structure on Deepa's OneDrive (verified via screen share in
+previous session, confirming here):
+
+Compliance_Calling/
+  ├── Daily_Sheets/
+  │   ├── 2024-04/
+  │   │   ├── CC_Daily_01Apr2024.xlsx
+  │   │   └── ...
+  │   ├── ...
+  │   └── 2026-01/
+  │       ├── CC_Daily_13Jan2026.xlsx
+  │       └── ...
+  └── Monthly_Consolidated/
+      ├── CC_Consolidated_Apr2024.xlsx
+      ├── ...
+      └── CC_Consolidated_Dec2025.xlsx
+
+Each daily sheet contains 15-30 rows (one per call).
+Each monthly consolidated sheet: 300-500 rows.
+Total estimated rows across all files: ~8,000-10,000 customer records with PII.
+
+== CROSS-BORDER TRANSFER ASSESSMENT ==
+
+Based on systems identified:
+1. Salesforce — Instance location unknown. Need to check with IT. Salesforce typically
+   hosts Indian customers on Indian instances but not guaranteed.
+2. Ameyo — Vendor claims India hosting. Unverified.
+3. WhatsApp — Meta's servers. Data likely processed outside India. WhatsApp Business
+   terms may include international data transfer clauses.
+4. Microsoft 365 (shared mailbox) — Same question as HR department. Tenant data
+   residency needs verification.
+
+NOTE: At minimum, WhatsApp is almost certainly a cross-border transfer. The company is
+using WhatsApp Business to handle customer financial inquiries, and Meta processes data
+globally.
+
+== SUMMARY OF KEY FINDINGS FROM THIS SESSION ==
+
+1. Aadhaar numbers (full, unmasked) visible to all 45 CC staff — NOT previously known
+2. Co-applicant PAN and Aadhaar also fully visible
+3. No field-level security in Salesforce — all profiles have identical read access
+4. Salesforce data export with no DLP — full customer database exportable to CSV
+5. Ameyo recordings: no retention policy, no confirmed India hosting, ~2 years stored
+6. Ameyo recording links embedded in Salesforce cases — bypasses Ameyo access controls
+7. Quality scorecard acknowledges sensitive data handling but system doesn't enforce it
+8. WhatsApp phones: not MDM-managed, customers sending PAN images, no backup policy
+9. WhatsApp is almost certainly a cross-border data transfer via Meta
+10. Compliance calling data: ~10,000 rows of customer PII in personal OneDrive
+11. Case descriptions contain deeply sensitive free-text (health, corruption, family)
+
+--- NOTES END ---
+
+Next Steps:
+  - Compile consolidated data inventory for Customer Care vertical
+  - Cross-reference with Salesforce field-level security documentation
+  - Verify Ameyo hosting location (request vendor documentation)
+  - Verify Salesforce instance location
+  - Verify M365 data residency
+  - Draft Data Matrix rows for AI pipeline testing
+  - Present preliminary findings to Nikhil Joshi for factual review

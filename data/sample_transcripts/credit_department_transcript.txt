@@ -1,0 +1,83 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Credit Department
+Date: 2nd May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Credit Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The credit department of India Shelter Finance Corporation Limited acts as the financial gatekeeper. They assess loan applicants, determine creditworthiness, and approve loans with minimal risk. They also monitor repayments.
+
+Department SPOC: This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the credit Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Credit Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Credit requests**. Customer credit requests are automatically queued in Salesforce after approval from operations department. Bank credit manager performs a Screening on Customer about: CIBIL check Eligibility (Credit policies) KYC Residence/Business place After positive Feedback from Bank credit manager the case is t
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Credit requests?
+
+Department SPOC: Regarding Credit requests, Deviations can also be approved and there is 
+Hind-sighting involved in the verification process.
+They have both digital and offline sources for customer data (KYC document, Bank account details, Family background, Salaried/Self-employed, Property pa
+
+Department SPOC: Another key process is **Credit approval**. Loan amount is decided on the basis of: Loan to value-The LTV ratio serves as a quantitative measure of credit risk CIBIL score - Credit Information Bureau India Limited. CIBIL score is a key indicator of your past borrowing behaviour and repayment history, making it a valuable tool for assessment. 
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Information**. Personal information of customers 
+(Self-employed/salaried
+Address, Application form, Photo, KYC documents, Bank account details, ITR and Income documents)
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Information?
+
+Department SPOC: The purpose is: Used for identification and approval of credit
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Information stored?
+
+Department SPOC: Customer Information is stored in Salesforce. Its classification is PII/Sensitive data. Retention period is currently not formally defined. Legal basis: Consent.
+
+Department SPOC: We collect **Customer information 
+(3rd party verification)**. Verification for deviations from loan applications if any
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer information 
+(3rd party verification)?
+
+Department SPOC: The purpose is: Used for Verification of customer provided information
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer information 
+(3rd party verification) stored?
+
+Department SPOC: Customer information 
+(3rd party verification) is stored in Email/
+OneDrive. Its classification is PII/Sensitive data. The retention period is Not defined. Legal basis: Legitimate interest.
+
+Department SPOC: We collect **Property papers**. Physical property papers are also taken as proof
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Property papers?
+
+Department SPOC: The purpose is: Verification of asset
+
+Rajesh Kumar (K&S Digiprotect): Where is Property papers stored?
+
+Department SPOC: Property papers is stored in CRC Vendor. Its classification is PII/Sensitive data. The retention period is Until loan closure. Legal basis: Legitimate interest.
+
+Rajesh Kumar (K&S Digiprotect): Does the Credit Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: Compliance Department, Sales Department, Operations Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Credit Department?
+
+Department SPOC: We primarily use: CRC Vendor, Email, OneDrive, Salesforce. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Credit Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

@@ -1,0 +1,144 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Customer Care Department
+Date: 30th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Customer Care Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The Customer Care team specializes in offering assistance and solutions to customers, adeptly handling their inquiries, concerns, and issues pertaining to ISFC’s products. Their primary objectives include maximizing customer satisfaction, swiftly resolving issues, and facilitating seamless communication between customers and the company. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Customer Care Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA).
+
+Department SPOC: The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Customer Care Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Channels of Communication**. There are three channels for customers to reach ISFC – Toll free number, WhatsApp, Emails
+
+Department SPOC: Another key process is **Compliance Calling**. Compliance Calling/Hygiene Calling are of 4 types. Questionnaire based information is collected and stored in Excel. This information is transferred to Field Audit & Anti-Fraud team.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Compliance Calling?
+
+Department SPOC: Regarding Compliance Calling, ISFC to explain the process of recording information taken during compliance calling.
+ISFC to explain Cash calling process, along with the definition of old customers. 
+ISFC to clarify whether data sharing is done with Compliance team or Field Audit 
+
+Department SPOC: I should also note: ISFC to share Set script for HLA Calling
+
+Department SPOC: Another key process is **Customer Care**. Calls from unregistered numbers have 3 IVR workflows: If the call is for a new loan, the call is transferred to the Sales team. If the call is related to DSA, then the customer is given 2 further options: New code Payment related inquiry In both the options, a new case is generated, and update is sh
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Customer Care?
+
+Department SPOC: Regarding Customer Care, ISFC to explain DSA related calls from unregistered numbers.
+ISFC to confirm if cases are only categorized as complaints when a customer is reporting for bribery.
+
+Department SPOC: I should also note: ISFC to explain the concept of DSA with regards to their business.
+
+Department SPOC: Another key process is **Escalation Handling**. Escalation matrix has been defined and recorded in the document “V2 Customer care SOP”.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Escalation Handling?
+
+Department SPOC: Regarding Escalation Handling, ISFC to explain the escalation procedure.
+
+Department SPOC: Another key process is **Loan Information Assistance**. Providing customers with information about their loan accounts, including balance, payment due dates, and account status. Ameyo IVR software is integrated with Salesforce for Loan information
+
+Department SPOC: Another key process is **Call Audit Process**. Customer care calls are audited by Quality team. Quality team also conducts training for new hires.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Call Audit Process?
+
+Department SPOC: Regarding Call Audit Process, ISFC to share training process/procedure and evidence of training in the past 1 year for new hires.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Contact Details**. Contact information of customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Contact Details?
+
+Department SPOC: The purpose is: Communication with customers and marketing efforts
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Contact Details stored?
+
+Department SPOC: Customer Contact Details is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent
+Required.
+
+Department SPOC: We collect **Loan Account Information**. Information about customers' loan accounts, including balance, payment history, and account status
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Account Information?
+
+Department SPOC: The purpose is: Assisting customers with loan-related inquiries and managing accounts
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Account Information stored?
+
+Department SPOC: Loan Account Information is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Department SPOC: We collect **Customer Complaints**. Details of customer complaints, including nature, resolution status, and any related correspondence
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Complaints?
+
+Department SPOC: The purpose is: Resolving customer issues
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Complaints stored?
+
+Department SPOC: Customer Complaints is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Department SPOC: We collect **Customer Feedback**. Feedback and opinions provided by customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Feedback?
+
+Department SPOC: The purpose is: Measuring customer satisfaction and identifying areas for improvement
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Feedback stored?
+
+Department SPOC: Customer Feedback is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Department SPOC: We collect **Customer Interaction Logs**. Records of interactions between customers and customer care representatives
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Interaction Logs?
+
+Department SPOC: The purpose is: Documenting customer inquiries, complaints, and resolutions
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Interaction Logs stored?
+
+Department SPOC: Customer Interaction Logs is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Department SPOC: We collect **Compliance Checks**. Checklist based opinions provided by customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Checks?
+
+Department SPOC: The purpose is: Gathering information for field audit and anti-fraud team
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Checks stored?
+
+Department SPOC: Compliance Checks is stored in Excel/One Drive. Its classification is PII/Restricted. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Rajesh Kumar (K&S Digiprotect): Does the Customer Care Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department, Internal Audit, Compliance Department, Sales Department, IT Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Customer Care Department?
+
+Department SPOC: We primarily use: Excel, One Drive, Salesforce. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Customer Care Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Consent Management and Documentation:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Ensure that consent is obtained for data collection during compliance calls and that data sharing with the Field Audit & Anti-Fraud team follows DPDPA requirements.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement robust consent management processes for handling customer data, ensuring clear consent is obtained for data processing activities.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Document and maintain records of customer consent for data processing to demonstrate compliance with DPDPA requirements.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

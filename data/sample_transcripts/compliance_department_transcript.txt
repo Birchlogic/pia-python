@@ -1,0 +1,127 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Compliance Department
+Date: 3rd May 2024
+4th July 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Compliance Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The Compliance Department at India Shelter Finance Corporation Limited (ISFC) is dedicated to ensuring that all departments adhere to internal policies, regulatory requirements, and industry standards. It manages compliance checklists, handles non-compliance issues, and coordinates with various departments to maintain accurate records and ensure adherence to compliance policies. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Compliance Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA).
+
+Department SPOC: The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Compliance Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Compliance Process Management**. Compliance processes are decentralized, with each department responsible for their own compliance activities. Compliance reports are consolidated and shared with the Board by the Compliance team on a regular basis to ensure oversight.
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Compliance Monitoring and Reporting**. The Avacom compliance management system is used to automatically trigger compliance actions and notifications. Sampling methods are employed to check compliance across various processes, with a comprehensive checklist used for verification. In the last quarter, 4-5 key areas were covered The Head of
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Compliance Monitoring and Reporting?
+
+Department SPOC: Regarding Compliance Monitoring and Reporting, Avacom System has been implemented in June 2024.
+
+Department SPOC: I should also note: ISFC to confirm is the Avacom System is in place or it is going to be deployed soon. – Updated and recorded in Observations and Asks
+
+Department SPOC: Another key process is **Automation and Security Measures**. Certain compliance processes, including those related to PII and ESOPs, are automated with the HR system.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Automation and Security Measures?
+
+Department SPOC: Regarding Automation and Security Measures, Multi-Factor Authentication (MFA) enabled for Avacom System.
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Compliance Testing and Vendor Management**. New products undergo compliance testing as part of the development process to ensure they meet regulatory standards. The Compliance team collaborates with vendors and partners, with agreements covering the handling of calls, WhatsApp messages, and emails on a day-to-day basis.
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Data and Document Management**. A OneDrive folder is shared with relevant stakeholders, providing view and download rights for PDFs and Excel documents containing compliance reports, financial statements, and operational data. Directors' passports are submitted to the National Housing Bank (NHB) for compliance purpose.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Data and Document Management?
+
+Department SPOC: Regarding Data and Document Management, Compliance team has limited access of Salesforce for regulatory reporting, refinance purpose and complaint handling. The view rights are pertaining to data fields which are necessary for data reporting.
+
+Department SPOC: I should also note: ISFC to explain business case for giving compliance team entire salesforce view access. – Updated and recorded in Observations and Asks
+The Treasury team also has access to these passports and shares 
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Compliance Reports**. Compliance reports consolidated and shared with the Board
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Reports?
+
+Department SPOC: The purpose is: Ensure oversight
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Reports stored?
+
+Department SPOC: Compliance Reports is stored in Avacom system/ Emails/ Physical documents. Its classification is Non PII/ Confidential. Retention period is currently not formally defined. Legal basis: Regulatory Compliance.
+
+Department SPOC: We collect **Compliance Certificates**. Detailed certificates for all compliances prepared by HOD
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Certificates?
+
+Department SPOC: The purpose is: Company-wide compliance documentation
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Certificates stored?
+
+Department SPOC: Compliance Certificates is stored in Avacom System/
+Emails/ OneDrive. Its classification is Non PII/ Confidential. Retention period is currently not formally defined. Legal basis: Regulatory Compliance.
+
+Department SPOC: We collect **Compliance Actions and Notifications**. Automatically triggered compliance actions and notifications
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Actions and Notifications?
+
+Department SPOC: The purpose is: Ensure timely compliance actions
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Actions and Notifications stored?
+
+Department SPOC: Compliance Actions and Notifications is stored in Avacom system. Its classification is Non PII/ Confidential. Retention period is currently not formally defined. Legal basis: Regulatory Compliance.
+
+Department SPOC: We collect **Compliance Checklists**. Sampling methods and comprehensive checklists for verification
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Compliance Checklists?
+
+Department SPOC: The purpose is: Check compliance across processes
+
+Rajesh Kumar (K&S Digiprotect): Where is Compliance Checklists stored?
+
+Department SPOC: Compliance Checklists is stored in Excel / OneDrive/ Emails. Its classification is Non PII/ Confidential. Retention period is currently not formally defined. Legal basis: Regulatory Compliance.
+
+Department SPOC: We collect **Directors' Passports**. Passports of Directors submitted to NHB for compliance purposes
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Directors' Passports?
+
+Department SPOC: The purpose is: Meet regulatory requirements
+
+Rajesh Kumar (K&S Digiprotect): Where is Directors' Passports stored?
+
+Department SPOC: Directors' Passports is stored in NHB portal/ One Drive. Its classification is PII/ Sensitive. Retention period is currently not formally defined. Legal basis: Regulatory Requirement.
+
+Rajesh Kumar (K&S Digiprotect): Does the Compliance Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department, Finance Department, Sales Department, IT Department, NHB. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Compliance Department?
+
+Department SPOC: We primarily use: Avacom System, Avacom system, Emails, Excel, NHB portal, One Drive, OneDrive, Physical documents. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Compliance Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Continuous Compliance Testing
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

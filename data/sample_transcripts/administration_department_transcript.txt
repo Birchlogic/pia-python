@@ -1,0 +1,170 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Administration Department
+Date: 18th March 2024
+21st May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Administration Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: India Shelter’s Admin Department manages office maintenance and support along with overseeing travel arrangements and event logistics, our team is dedicated to upholding efficiency and driving our objectives forward. Additionally, they handle office supplies, rent agreements, courier logistics, and maintain attendance systems. This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Administration Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA).
+
+Department SPOC: The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Administration Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation. By delving into the details of the department's organizational setup, operational workflows, and data handling procedures, this report aims to identify both the strengths and areas of improvement in information security management and DPDPA compliance within the department..
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Office Maintenance and Support**. Limited maintenance within office premises. Rest is taken care by the building management. Limited maintenance covers – Furniture & fixtures, stand-alone air conditioners, A/V(audio/video) maintenance (e.g., Conference hall TVs). No PO released for order value less than Rs.10,000. Transaction is mad
+
+Department SPOC: I should also note: To be verified by ISFC regarding maintenance of:
+A/V(audio/video) 
+Stand-alone air conditioners
+
+Department SPOC: Another key process is **Travel & Event Management**. Only Air ticketing is centrally managed. For other modes of travelling, the employees make bookings on their own and then get reimbursed. Does not have dedicated vendors, they seek quotes from 2-3 vendors and the lowest bidder is issued a PO. Any events hosted by the company; all logistics are taken
+
+Department SPOC: I should also note: Reimbursement Process to be explained by ISFC.
+A proper travel management process needs to be defined by ISFC admin team so that any organizational information or personally identifiable information o
+
+Department SPOC: Another key process is **Physical Security**. Security guards are outsourced via vendor through a lowest quote process Security guards are changed on a yearly basis All visitors have to provide details at the reception counter (such as name, mobile, address, purpose of visit, in/out time, signature) Access Cards for employees contains Name, Emp
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Physical Security?
+
+Department SPOC: Regarding Physical Security, Current security vendor has been providing services for last 10 years
+High dependency on one individual for Biometric system (refer point e)
+Request for CCTV Footage should also loop in HR, Legal, and Risk Departments, since it may have an impact on 
+
+Department SPOC: Another key process is **Office Supplies**. General office supplies are taken care of by the Admin team, except IT and Marketing materials. Branch Office supplies are sourced locally, and reimbursement is claimed.
+
+Department SPOC: I should also note: Reimbursement Process for Branch Offices to be confirmed
+
+Department SPOC: Another key process is **Rent & Leasing**. All offices’ rent and leasing done by Admin team
+
+Department SPOC: Another key process is **Courier Management**. Admin department handles Courier services between HO and Branch offices of ISFC.
+
+Department SPOC: Another key process is **Others**. Data stored on individual OneDrives EPABX (Suvision) is managed by Admin team
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Travel Bookings**. Details of travel bookings for employees
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Travel Bookings?
+
+Department SPOC: The purpose is: Facilitate employee travel
+
+Rajesh Kumar (K&S Digiprotect): Where is Travel Bookings stored?
+
+Department SPOC: Travel Bookings is stored in Emails/One Drive. Its classification is Non-PII/ Private. Retention period is currently not formally defined. Legal basis: NA.
+
+Department SPOC: We collect **Event Registrations**. Registrations for external events and meetings
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Event Registrations?
+
+Department SPOC: The purpose is: Organize corporate events
+
+Rajesh Kumar (K&S Digiprotect): Where is Event Registrations stored?
+
+Department SPOC: Event Registrations is stored in Emails/One Drive. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent Required.
+
+Department SPOC: We collect **Visitor Logs**. Records of visitors entering the premises
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Visitor Logs?
+
+Department SPOC: The purpose is: Ensure premises security
+
+Rajesh Kumar (K&S Digiprotect): Where is Visitor Logs stored?
+
+Department SPOC: Visitor Logs is stored in Physical Registers. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: NA.
+
+Department SPOC: We collect **Access Logs**. Logs of access to office premises
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Access Logs?
+
+Department SPOC: The purpose is: Monitor facility access
+
+Rajesh Kumar (K&S Digiprotect): Where is Access Logs stored?
+
+Department SPOC: Access Logs is stored in ESSL. Its classification is Non-PII/ Private. Retention period is currently not formally defined. Legal basis: NA.
+
+Department SPOC: We collect **Employee Travel Profiles**. Profiles containing employee travel preferences and requirements
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Travel Profiles?
+
+Department SPOC: The purpose is: Plan and manage employee travel
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Travel Profiles stored?
+
+Department SPOC: Employee Travel Profiles is stored in HR Database. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent
+Required.
+
+Department SPOC: We collect **Vendor Information**. Contact details and contracts with event vendors
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Vendor Information?
+
+Department SPOC: The purpose is: Engage with event vendors
+
+Rajesh Kumar (K&S Digiprotect): Where is Vendor Information stored?
+
+Department SPOC: Vendor Information is stored in Vendor Database. Its classification is Non PII/Restricted. Retention period is currently not formally defined. Legal basis: Contractual necessity.
+
+Department SPOC: We collect **Security Incident Reports**. Reports of security incidents and breaches
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Security Incident Reports?
+
+Department SPOC: The purpose is: Record and address security incidents
+
+Rajesh Kumar (K&S Digiprotect): Where is Security Incident Reports stored?
+
+Department SPOC: Security Incident Reports is stored in Emails/One Drive. Its classification is Non PII/ Confidential. Retention period is currently not formally defined. Legal basis: Legitimate Interest.
+
+Department SPOC: We collect **Facility Maintenance Records**. Records of maintenance activities for physical security equipment and facilities
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Facility Maintenance Records?
+
+Department SPOC: The purpose is: Ensure physical security infrastructure reliability
+
+Rajesh Kumar (K&S Digiprotect): Where is Facility Maintenance Records stored?
+
+Department SPOC: Facility Maintenance Records is stored in Maintenance Logs. Its classification is Non PII/ Private. Retention period is currently not formally defined. Legal basis: NA.
+
+Department SPOC: We collect **CCTV Footage**. Video recordings from CCTV cameras monitoring premises
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting CCTV Footage?
+
+Department SPOC: The purpose is: Monitor and investigate security incidents
+
+Rajesh Kumar (K&S Digiprotect): Where is CCTV Footage stored?
+
+Department SPOC: CCTV Footage is stored in CCTV Server. Its classification is PII/Sensitive. The retention period is Cloud: 7 days
+Local: 30 days. Legal basis: Legitimate Interest.
+
+Rajesh Kumar (K&S Digiprotect): Does the Administration Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: Legal Department, HR Department, IT Department, Marketing Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Administration Department?
+
+Department SPOC: We primarily use: CCTV Server, ESSL, Emails, HR Database, Maintenance Logs, One Drive, Physical Registers, Vendor Database. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Administration Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Streamline Purchase Order Process:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Standardize the purchase order process for transactions below Rs.10,000 to ensure consistency and accountability.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement a formal purchase order (PO) process for all transactions to enhance financial control and auditability.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Centralize Travel and Event Management:
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

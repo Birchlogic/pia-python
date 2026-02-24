@@ -1,0 +1,185 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Information Technology Department
+Date: IT - 15th March 2024
+Software Development - 7th May 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Information Technology Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: India Shelter’s IT Department serves as a cornerstone of operational efficiency and data security within the organization, providing crucial support to the core business of India Shelter in managing critical applications and systems. As technology continues to evolve, the department's role extends beyond traditional IT functions to driving innovation, enhancing efficiency, and fostering seamless integration of cutting-edge solutions. Information security, data protection, and cybersecurity fall within the ambit of this department.
+
+Department SPOC: This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Information Technology Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Information Technology Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **IT subfunctions**. Application Development Application Support Infrastructure Support Cybersecurity
+
+Department SPOC: I should also note: These contain mobile apps, and PaaS based applications.
+
+Department SPOC: Another key process is **Core services**. FinnOne Neo – Loan management, and accounting Microsoft D365 – Accounting software, standalone function Integration of FinnOne Neo with MS D365 is taking place. Salesforce – Onboarding of Customers Peripheral systems – Front end channels
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Core services?
+
+Department SPOC: Regarding Core services, Super-admin role for the Treasury management system will be with the IT team. It is under evaluation process.
+For People Strong IT does not have the Super-Admin or Admin roles. They are managed separately by HR.
+
+Department SPOC: I should also note: Talent Acquisition system is under development by third party.
+
+Department SPOC: Another key process is **Applications**. iSales App – used by Loan Officers in field, and branches iServe App – Purely customer facing application. Servicing to existing customers. It has MFA enabled. iCollect App – used by Collection team on ground iTech App – Used by Technical verification team (in-house and partners) for property visits
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Applications?
+
+Department SPOC: Regarding Applications, iSales, iCollect, iCredit through one partner. Rest all are developed in-house.
+CI/CD pipeline implementation has been initiated in the iTrust App. Salesforce CI/CD pipeline is in place.
+No repository is in place for issues or bugs resolved in differ
+
+Department SPOC: I should also note: Internal and External VAPT is conducted quarterly.
+Developers do not have access to Salesforce database.
+FinnOne database access is with MSP (Nucleus Systems).
+ISFC has a local datacentre (on-prem), m
+
+Department SPOC: Another key process is **IT Steering Committee**. The IT Steering Committee is composed of key executives, including the Managing Director (MD), Chief Executive Officer (CEO), Chief Financial Officer (CFO), Chief Risk Officer (CRO), Chief Information Officer (CIO), and the respective business heads.
+
+Department SPOC: Another key process is **Information Security**. All new applications developed undergo an information security check. The process is checklist based. VAPT and Information Systems Audit is outsourced
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Information Security?
+
+Department SPOC: Regarding Information Security, All new developments should require an approval from the infosec team.
+
+Department SPOC: I should also note: Security and patch management is taken care of by the Infra and network team.
+
+Department SPOC: Another key process is **Change Management**. Change requests for in-house developed apps comes through support team.
+
+Department SPOC: Another key process is **Code Repository Management**. Code Repositories are stored on GitHub. 5 users have access on GitHub – 4 developers and 1 DevOps. Limited access to upload, maker rights are restricted. Pull access is restricted. Rest of the development team has a limited access to GitHub; they are majorly in training mode. These trainees submit t
+
+Department SPOC: I should also note: Outsourced developers send code to the internal development team. The code is reviewed by tech architect before it is further submitted to Business Analysts for a sanity check and UAT is performed.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Information**. Personal and financial details of loan applicants and customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Information?
+
+Department SPOC: The purpose is: Loan processing, customer onboarding, servicing loans
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Information stored?
+
+Department SPOC: Customer Information is stored in AWS, Salesforce. Its classification is Confidential. The retention period is As per regulatory requirements. Legal basis: Contractual, Legal obligation.
+
+Department SPOC: We collect **Employee Information**. Personal and employment details of employees
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Information?
+
+Department SPOC: The purpose is: HR management, payroll
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Information stored?
+
+Department SPOC: Employee Information is stored in Local DC, AWS. Its classification is Confidential. The retention period is As per company policy. Legal basis: Contractual, Legal obligation.
+
+Department SPOC: We collect **Financial Records**. Accounting details, transaction records
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Financial Records?
+
+Department SPOC: The purpose is: Financial accounting, audit
+
+Rajesh Kumar (K&S Digiprotect): Where is Financial Records stored?
+
+Department SPOC: Financial Records is stored in Local DC, MS D365. Its classification is Confidential. The retention period is As per regulatory requirements. Legal basis: Legal obligation, Compliance.
+
+Department SPOC: We collect **Loan Details**. Information related to loans including repayment schedules and defaults
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Details?
+
+Department SPOC: The purpose is: Loan management, collections
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Details stored?
+
+Department SPOC: Loan Details is stored in FinnOne Neo, Snowflake Data-lake. Its classification is Confidential. The retention period is As per regulatory requirements. Legal basis: Legal obligation, Contractual.
+
+Department SPOC: We collect **Security Logs**. Logs related to application access, security incidents
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Security Logs?
+
+Department SPOC: The purpose is: Security monitoring, incident response
+
+Rajesh Kumar (K&S Digiprotect): Where is Security Logs stored?
+
+Department SPOC: Security Logs is stored in Local DC. Its classification is Confidential. The retention period is As per security policy. Legal basis: Legitimate interest, Compliance.
+
+Department SPOC: We collect **Application Data**. Data generated by the use of iSales, iServe, iCollect, etc.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Application Data?
+
+Department SPOC: The purpose is: Business operations, customer service
+
+Rajesh Kumar (K&S Digiprotect): Where is Application Data stored?
+
+Department SPOC: Application Data is stored in AWS. Its classification is Confidential. The retention period is As per business requirements. Legal basis: Contractual, Legitimate interest.
+
+Department SPOC: We collect **Integration Logs**. Logs of data exchanged between FinnOne Neo and MS D365
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Integration Logs?
+
+Department SPOC: The purpose is: Integration monitoring, troubleshooting
+
+Rajesh Kumar (K&S Digiprotect): Where is Integration Logs stored?
+
+Department SPOC: Integration Logs is stored in Local DC, AWS. Its classification is Confidential. The retention period is As per business requirements. Legal basis: Legitimate interest.
+
+Department SPOC: We collect **Development Records**. Codebase, development changes, bug reports
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Development Records?
+
+Department SPOC: The purpose is: Application development, maintenance
+
+Rajesh Kumar (K&S Digiprotect): Where is Development Records stored?
+
+Department SPOC: Development Records is stored in GitHub, Local DC. Its classification is Confidential. The retention period is As per business requirements. Legal basis: Legitimate interest.
+
+Department SPOC: We collect **VAPT Reports**. Reports from Vulnerability Assessment and Penetration Testing
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting VAPT Reports?
+
+Department SPOC: The purpose is: Security assessments, compliance
+
+Rajesh Kumar (K&S Digiprotect): Where is VAPT Reports stored?
+
+Department SPOC: VAPT Reports is stored in Local DC. Its classification is Confidential. The retention period is As per security policy. Legal basis: Compliance, Legal obligation.
+
+Department SPOC: We collect **Audit Logs**. Records from information system audits
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Audit Logs?
+
+Department SPOC: The purpose is: Compliance, internal audits
+
+Rajesh Kumar (K&S Digiprotect): Where is Audit Logs stored?
+
+Department SPOC: Audit Logs is stored in Local DC. Its classification is Confidential. The retention period is As per audit policy. Legal basis: Compliance, Legal obligation.
+
+Rajesh Kumar (K&S Digiprotect): Does the Information Technology Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department, Finance Department, Internal Audit, Credit Department, Collections Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Information Technology Department?
+
+Department SPOC: We primarily use: AWS, FinnOne Neo, GitHub, Local DC, MS D365, Salesforce, Snowflake Data-lake. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Information Technology Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Data Analytics team should not be the custodian of Snowflake Data-lake, ideally IT department shall be the custodian.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

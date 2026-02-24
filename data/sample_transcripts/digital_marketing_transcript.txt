@@ -1,0 +1,207 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Digital Marketing
+Date: Digital Marketing & Digital Business - 24th April 2024
+Marketing (Branding & Customer Testimonials) - 26th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Digital Marketing – Siddharth Bhargava
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Digital Marketing as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Digital Marketing – Siddharth Bhargava: Digital Marketing Department in ISFC crafts strategic campaigns to enhance brand visibility and engage target audiences effectively. They optimize online channels through data-driven approaches to drive customer acquisition and play a key role in this. The Digital Business Department scrutinizes the lead quality, through a rigorous assessment criteria and manual checklist-based process, sifting through leads with precision, ensuring that each prospect meets the standards before they are transferred further into the sales funnel.
+
+Digital Marketing – Siddharth Bhargava: This meticulous approach aims to enhance the conversion rate, maximizing the return on investment on marketing endeavours. The emphasis on branding goes beyond mere visibility; it ensures a commitment to excellence and customer satisfaction. Through compelling storytelling and consistent messaging, they cultivate a distinct brand identity that resonates with their target audience.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Digital Marketing – Siddharth Bhargava: Our first key process is **Marketing through Digital Partners and Channels**. Online lead generation is done through partners such as Facebook, Home Credit, Bajaj Marketplace, Credit Mantri, etc. These platforms also provide analytics data on the leads generated including demographics, and responsiveness of digital campaigns.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Marketing through Digital Partners and Channels?
+
+Digital Marketing – Siddharth Bhargava: Regarding Marketing through Digital Partners and Channels, ISFC to confirm if the digital partners retain lead data, and the time period of retention.
+
+Digital Marketing – Siddharth Bhargava: I should also note: Contracts with lead generation platforms should have clearly defined roles in terms of Data Fiduciary and Data processor.
+Data retention period clause to be added in contracts.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Campaign Management**. Digital marketing campaigns are created and managed across various platforms such as Google Ads, Meta, etc. Continuous optimization of campaigns based on performance metrics is also done inhouse. The leads generated through these platforms are transferred to Digital Business department. Marketing de
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Lead Conversion**. Leads undergo rigorous checks by Digital Business based on a predefined checklist. Filtering is done to determine policy fit according to ISFC's Loan Policy. Qualified leads interested in loans are transferred to respective branches. Branch managers and loan officers receive SMS notifications and ca
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Lead Conversion?
+
+Digital Marketing – Siddharth Bhargava: Regarding Lead Conversion, Calling script shared by ISFC has PII (mobile number).
+Responses on negative answers not recorded in calling script.
+All Loan Officers have their personal mobiles and numbers.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Lead Follow-up**. Engaging with leads through targeted communication and follow-up to guide them through the loan application process and address any inquiries or concerns.
+
+Digital Marketing – Siddharth Bhargava: I should also note: Explicit consent to be taken prior to contacting leads.
+ISFC to also ensure that their Digital Partners also take prior consent.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Analytics on Leads Generated**. Analysing raw data to understand the performance of different partners in generating high-quality leads.
+
+Digital Marketing – Siddharth Bhargava: I should also note: Analytics is done on raw data of leads. ISFC to explain business case for the same.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Customer Testimonials**. Digital Marketing also takes care of Customer Testimonials. All videography is done in-house by ISFC. The videos are stored in memory cards as well as on One Drive. Consent is taken from all customers prior to filming them for the testimonial. Consent is stored in One drive in scanned format.
+
+Digital Marketing – Siddharth Bhargava: I should also note: ISFC to share customer consent form.
+Data retention for customer testimonial videos to be defined by ISFC.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Social Media Advertising**. Planning and executing advertising campaigns on social media platforms such as Facebook, Instagram, LinkedIn, and Twitter. Targeting specific audience segments, creating ad creatives, and monitoring campaign performance to achieve marketing objectives.
+
+Digital Marketing – Siddharth Bhargava: I should also note: ISFC to explain process of demographic identification on social media platforms.
+
+Digital Marketing – Siddharth Bhargava: Another key process is **Content Creation and Management**. All content for marketing and branding is created in-house by the digital marketing team.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Digital Marketing – Siddharth Bhargava: We collect **Customer Contact Details**. Contact information of customers including phone and email
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Contact Details?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Communication and marketing efforts
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Contact Details stored?
+
+Digital Marketing – Siddharth Bhargava: Customer Contact Details is stored in Salesforce. Its classification is PII/
+Sensitive. Retention period is currently not formally defined. Legal basis: Consent.
+
+Digital Marketing – Siddharth Bhargava: We collect **Marketing Campaign Data**. Data related to marketing campaigns (analytics data – channels, ad views, bounce rate, etc.)
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Marketing Campaign Data?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Assess campaign effectiveness
+
+Rajesh Kumar (K&S Digiprotect): Where is Marketing Campaign Data stored?
+
+Digital Marketing – Siddharth Bhargava: Marketing Campaign Data is stored in Salesforce. Its classification is Non - PII/
+Non-Sensitive. Retention period is currently not formally defined. Legal basis: NA.
+
+Digital Marketing – Siddharth Bhargava: We collect **Social Media Interactions**. Interactions and engagements on social media platforms
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Social Media Interactions?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Engage with audience and analyse trends
+
+Rajesh Kumar (K&S Digiprotect): Where is Social Media Interactions stored?
+
+Digital Marketing – Siddharth Bhargava: Social Media Interactions is stored in Social Media Channels. Its classification is PII/
+Non-Sensitive. Retention period is currently not formally defined. Legal basis: Legitimate interest.
+
+Digital Marketing – Siddharth Bhargava: We collect **Customer Testimonials**. Feedback and opinions provided by customers
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Testimonials?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Measure customer satisfaction
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Testimonials stored?
+
+Digital Marketing – Siddharth Bhargava: Customer Testimonials is stored in Memory Cards / One Drive. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent.
+
+Digital Marketing – Siddharth Bhargava: We collect **Lead Generation Data**. Information on potential leads and prospects
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Lead Generation Data?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Identify and nurture potential customers
+
+Rajesh Kumar (K&S Digiprotect): Where is Lead Generation Data stored?
+
+Digital Marketing – Siddharth Bhargava: Lead Generation Data is stored in Salesforce. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent.
+
+Digital Marketing – Siddharth Bhargava: We collect **Email Marketing Lists**. Lists of email subscribers and recipients
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Email Marketing Lists?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Send targeted marketing communications
+
+Rajesh Kumar (K&S Digiprotect): Where is Email Marketing Lists stored?
+
+Digital Marketing – Siddharth Bhargava: Email Marketing Lists is stored in Salesforce. Its classification is PII/Sensitive. The retention period is Until unsubscribed. Legal basis: Consent.
+
+Digital Marketing – Siddharth Bhargava: We collect **Market Research Reports**. Reports and findings from market research activities
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Market Research Reports?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Understand market trends and preferences
+
+Rajesh Kumar (K&S Digiprotect): Where is Market Research Reports stored?
+
+Digital Marketing – Siddharth Bhargava: Market Research Reports is stored in One Drive. Its classification is Non-PII/
+Public. The retention period is As required. Legal basis: NA.
+
+Digital Marketing – Siddharth Bhargava: We collect **Advertising Contracts**. Contracts and agreements with advertising partners
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Advertising Contracts?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Manage advertising partnerships
+
+Rajesh Kumar (K&S Digiprotect): Where is Advertising Contracts stored?
+
+Digital Marketing – Siddharth Bhargava: Advertising Contracts is stored in One Drive. Its classification is Non-PII/
+Confidential. The retention period is As per contract terms. Legal basis: Contractual necessity.
+
+Digital Marketing – Siddharth Bhargava: We collect **Demographic Data**. Information about customers' demographics such as age, gender, etc.
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Demographic Data?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Target marketing campaigns
+
+Rajesh Kumar (K&S Digiprotect): Where is Demographic Data stored?
+
+Digital Marketing – Siddharth Bhargava: Demographic Data is stored in Salesforce. Its classification is Non -PII/
+Sensitive. Retention period is currently not formally defined. Legal basis: NA.
+
+Digital Marketing – Siddharth Bhargava: We collect **Ad Performance Metrics**. Metrics related to the performance of advertisements
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Ad Performance Metrics?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Evaluate ad effectiveness and ROI
+
+Rajesh Kumar (K&S Digiprotect): Where is Ad Performance Metrics stored?
+
+Digital Marketing – Siddharth Bhargava: Ad Performance Metrics is stored in Salesforce/
+One Drive/ End point devices. Its classification is Non-PII/
+Confidential. The retention period is As required. Legal basis: NA.
+
+Digital Marketing – Siddharth Bhargava: We collect **Market Segmentation Data**. Data used to segment the market based on various criteria
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Market Segmentation Data?
+
+Digital Marketing – Siddharth Bhargava: The purpose is: Target specific audience segments
+
+Rajesh Kumar (K&S Digiprotect): Where is Market Segmentation Data stored?
+
+Digital Marketing – Siddharth Bhargava: Market Segmentation Data is stored in Salesforce. Its classification is Non -PII/
+Private. The retention period is As required. Legal basis: NA.
+
+Rajesh Kumar (K&S Digiprotect): Does the Digital Marketing share data with other departments or external parties?
+
+Digital Marketing – Siddharth Bhargava: Yes, we regularly share relevant data with: HR Department, Credit Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Digital Marketing?
+
+Digital Marketing – Siddharth Bhargava: We primarily use: End point devices, Memory Cards, One Drive, Salesforce, Social Media Channels. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Digital Marketing handle consent management for personal data processing?
+
+Digital Marketing – Siddharth Bhargava: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Due Diligence of Digital Partners:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Conduct due diligence on all digital partners to ensure compliance with ISFC’s information security, and data privacy standards.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Establish data processing agreements (DPAs) with digital partners to clearly define roles, responsibilities, and data protection obligations.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Regularly review and assess the security measures and data handling practices of digital partners to mitigate risks of data breaches.
+
+Digital Marketing – Siddharth Bhargava: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Digital Marketing – Siddharth Bhargava: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

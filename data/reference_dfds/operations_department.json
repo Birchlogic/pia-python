@@ -1,0 +1,453 @@
+{
+  "department": "Operations Department",
+  "version": "1.0",
+  "central_process": "ISFC Operations Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_sales_conversion_and_0",
+          "name": "Sales Conversion and Application Processing",
+          "collection_sources": [
+            {
+              "name": "Sales Conversion and Application Processing",
+              "data_elements": [
+                "Loan Application Documents"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_credit_appraisal_and_1",
+          "name": "Credit Appraisal and Technical Validation",
+          "collection_sources": [
+            {
+              "name": "Credit Appraisal and Technical Validation",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_disbursement_process_2",
+          "name": "Disbursement Process Management",
+          "collection_sources": [
+            {
+              "name": "Disbursement Process Management",
+              "data_elements": [
+                "Disbursement Hygiene Checks",
+                "Disbursement Details",
+                "Loan Application Documents"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_loan_closure_and_doc_3",
+          "name": "Loan Closure and Document Retrieval",
+          "collection_sources": [
+            {
+              "name": "Loan Closure and Document Retrieval",
+              "data_elements": [
+                "Physical Verification Data",
+                "Document Access Records",
+                "Loan Closure Documents",
+                "Loan Agreement Documents",
+                "Disbursement Details",
+                "Loan Application Documents",
+                "Disbursement Hygiene Checks"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_access_management_4",
+          "name": "Access Management",
+          "collection_sources": [
+            {
+              "name": "Access Management",
+              "data_elements": [
+                "Document Access Records",
+                "Employee Access Records"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_internal_audit_depar",
+      "name": "Internal Audit Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_legal_department",
+      "name": "Legal Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#6a1b9a"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Branch storage",
+      "type": "local"
+    },
+    {
+      "name": "HO",
+      "type": "cloud"
+    },
+    {
+      "name": "Internal secure storage",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    },
+    {
+      "name": "Scanned and stored in secure digital storage",
+      "type": "cloud"
+    },
+    {
+      "name": "Secure digital logs",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_sales_conversion_and_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Loan Application Document"
+    },
+    {
+      "from_id": "bp_credit_appraisal_and_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_disbursement_process_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Disbursement Hygiene Chec"
+    },
+    {
+      "from_id": "bp_loan_closure_and_doc_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Physical Verification Dat"
+    },
+    {
+      "from_id": "bp_access_management_4",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": "Document Access Records"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_internal_audit_depar",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_legal_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#6a1b9a",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_sales_conversion_and_0",
+      "element_name": "Sales Conversion and Application Processing",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Customer information and lead data is uploaded on the iSales Application by the sales team, which is integrated with the CRM system, Salesforce. A new loan file is created for processing. The initial ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_credit_appraisal_and_1",
+      "element_name": "Credit Appraisal and Technical Validation",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "The verified documents are sent to the credit team for technical validation and credit appraisal which is done through the iCredit App. Field visits are conducted for physical verification of document",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_disbursement_process_2",
+      "element_name": "Disbursement Process Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "After technical valuation, field visits, and document verification is done, the disbursement process is initiated. Hygiene checks are performed to ensure all pre-disbursement conditions are met. Physi",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_loan_closure_and_doc_3",
+      "element_name": "Loan Closure and Document Retrieval",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Loan closure involves returning of property papers, issuing of NOC, which are sent from HO to branch and then to customers via DTDC. Physical documents are scanned and validated before finalizing the ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_access_management_4",
+      "element_name": "Access Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Newly joined employees receive view-only access initially and gain full rights post-training, allowing them to start a few cases.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_application_doc",
+      "element_name": "Loan Application Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Application Documents: Documents submitted by customers for loan application. Purpose: To assess and process home loan applications",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_physical_verificatio",
+      "element_name": "Physical Verification Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Physical Verification Data: Data collected during field visits for document verification. Purpose: To verify the authenticity of submitted documents",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_agreement_docum",
+      "element_name": "Loan Agreement Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Agreement Documents: 40-45 documents involved in the loan agreement process. Purpose: To finalize and legally bind the loan agreement",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_disbursement_hygiene",
+      "element_name": "Disbursement Hygiene Checks",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Disbursement Hygiene Checks: Details of hygiene checks conducted before disbursement. Purpose: To ensure compliance and accuracy before loan disbursement",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_closure_documen",
+      "element_name": "Loan Closure Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Closure Documents: Documents related to the closure of loans. Purpose: To manage the return of property papers and close loans",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_document_access_reco",
+      "element_name": "Document Access Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Document Access Records: Logs of document access and modifications. Purpose: To maintain accountability and facilitate audits",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_employee_access_reco",
+      "element_name": "Employee Access Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Employee Access Records: Access levels and permissions for employees. Purpose: To manage access controls and ensure data security",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_mis_reports",
+      "element_name": "MIS Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "MIS Reports: Management Information System reports. Purpose: To keep teams informed and aligned with goals",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_disbursement_details",
+      "element_name": "Disbursement Details",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Disbursement Details: Data related to disbursement activities. Purpose: To manage and track loan disbursements",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_branch_storage",
+      "element_name": "Branch storage",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Closure Documents is stored in HO, Branch storage",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_ho",
+      "element_name": "HO",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Closure Documents is stored in HO, Branch storage",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_internal_secure_stor",
+      "element_name": "Internal secure storage",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "MIS Reports is stored in Internal secure storage",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Application Documents is stored in iSales App, iCredit App, Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_scanned_and_stored_i",
+      "element_name": "Scanned and stored in secure digital storage",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Agreement Documents is stored in Scanned and stored in secure digital storage",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_secure_digital_logs",
+      "element_name": "Secure digital logs",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Document Access Records is stored in Secure digital logs",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_internal_audit_depar",
+      "element_name": "Internal Audit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Internal Audit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_legal_department",
+      "element_name": "Legal Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Legal Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

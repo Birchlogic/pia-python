@@ -1,0 +1,495 @@
+{
+  "department": "Digital Marketing",
+  "version": "1.0",
+  "central_process": "ISFC Digital Marketing",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_marketing_through_di_0",
+          "name": "Marketing through Digital Partners and Channels",
+          "collection_sources": [
+            {
+              "name": "Marketing through Digital Partners and Channels",
+              "data_elements": [
+                "Social Media Interactions",
+                "Ad Performance Metrics",
+                "Customer Testimonials",
+                "Lead Generation Data",
+                "Advertising Contracts",
+                "Email Marketing Lists",
+                "Market Segmentation Data",
+                "Market Research Reports"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_customer_testimonial_5",
+          "name": "Customer Testimonials",
+          "collection_sources": [
+            {
+              "name": "Customer Testimonials",
+              "data_elements": [
+                "Lead Generation Data",
+                "Customer Contact Details",
+                "Customer Testimonials"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_campaign_management_1",
+          "name": "Campaign Management",
+          "collection_sources": [
+            {
+              "name": "Campaign Management",
+              "data_elements": [
+                "Marketing Campaign Data",
+                "Demographic Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_lead_conversion_2",
+          "name": "Lead Conversion",
+          "collection_sources": [
+            {
+              "name": "Lead Conversion",
+              "data_elements": [
+                "Lead Generation Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_lead_follow_up_3",
+          "name": "Lead Follow-up",
+          "collection_sources": [
+            {
+              "name": "Lead Follow-up",
+              "data_elements": [
+                "Lead Generation Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_analytics_on_leads_g_4",
+          "name": "Analytics on Leads Generated",
+          "collection_sources": [
+            {
+              "name": "Analytics on Leads Generated",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_social_media_adverti_6",
+          "name": "Social Media Advertising",
+          "collection_sources": [
+            {
+              "name": "Social Media Advertising",
+              "data_elements": [
+                "Advertising Contracts",
+                "Social Media Interactions"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_content_creation_and_7",
+          "name": "Content Creation and Management",
+          "collection_sources": [
+            {
+              "name": "Content Creation and Management",
+              "data_elements": [
+                "General Data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_technology_partners",
+      "name": "Technology Partners",
+      "actor_id": "vendors",
+      "color": "#00838f"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "End point devices",
+      "type": "local"
+    },
+    {
+      "name": "Memory Cards",
+      "type": "cloud"
+    },
+    {
+      "name": "One Drive",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    },
+    {
+      "name": "Social Media Channels",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_marketing_through_di_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Social Media Interactions"
+    },
+    {
+      "from_id": "bp_customer_testimonial_5",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Lead Generation Data"
+    },
+    {
+      "from_id": "bp_campaign_management_1",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Marketing Campaign Data"
+    },
+    {
+      "from_id": "bp_lead_conversion_2",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Lead Generation Data"
+    },
+    {
+      "from_id": "bp_lead_follow_up_3",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": "Lead Generation Data"
+    },
+    {
+      "from_id": "bp_analytics_on_leads_g_4",
+      "to_id": "central_process",
+      "color": "#00838f",
+      "label": "General Data"
+    },
+    {
+      "from_id": "bp_social_media_adverti_6",
+      "to_id": "central_process",
+      "color": "#c62828",
+      "label": "Advertising Contracts"
+    },
+    {
+      "from_id": "bp_content_creation_and_7",
+      "to_id": "central_process",
+      "color": "#6a1b9a",
+      "label": "General Data"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_technology_partners",
+      "color": "#00838f",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_marketing_through_di_0",
+      "element_name": "Marketing through Digital Partners and Channels",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Online lead generation is done through partners such as Facebook, Home Credit, Bajaj Marketplace, Credit Mantri, etc. These platforms also provide analytics data on the leads generated including demog",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_campaign_management_1",
+      "element_name": "Campaign Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Digital marketing campaigns are created and managed across various platforms such as Google Ads, Meta, etc. Continuous optimization of campaigns based on performance metrics is also done inhouse. The ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_lead_conversion_2",
+      "element_name": "Lead Conversion",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Leads undergo rigorous checks by Digital Business based on a predefined checklist. Filtering is done to determine policy fit according to ISFC's Loan Policy. Qualified leads interested in loans are tr",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_lead_follow_up_3",
+      "element_name": "Lead Follow-up",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Engaging with leads through targeted communication and follow-up to guide them through the loan application process and address any inquiries or concerns.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_analytics_on_leads_g_4",
+      "element_name": "Analytics on Leads Generated",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Analysing raw data to understand the performance of different partners in generating high-quality leads.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_customer_testimonial_5",
+      "element_name": "Customer Testimonials",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Digital Marketing also takes care of Customer Testimonials. All videography is done in-house by ISFC. The videos are stored in memory cards as well as on One Drive. Consent is taken from all customers",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_social_media_adverti_6",
+      "element_name": "Social Media Advertising",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Planning and executing advertising campaigns on social media platforms such as Facebook, Instagram, LinkedIn, and Twitter. Targeting specific audience segments, creating ad creatives, and monitoring c",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_content_creation_and_7",
+      "element_name": "Content Creation and Management",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "All content for marketing and branding is created in-house by the digital marketing team.",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_contact_det",
+      "element_name": "Customer Contact Details",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Contact Details: Contact information of customers including phone and email. Purpose: Communication and marketing efforts",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_marketing_campaign_d",
+      "element_name": "Marketing Campaign Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Marketing Campaign Data: Data related to marketing campaigns (analytics data \u2013 channels, ad views, bounce rate, etc.). Purpose: Assess campaign effectiveness",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_social_media_interac",
+      "element_name": "Social Media Interactions",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Social Media Interactions: Interactions and engagements on social media platforms. Purpose: Engage with audience and analyse trends",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_testimonial",
+      "element_name": "Customer Testimonials",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Testimonials: Feedback and opinions provided by customers. Purpose: Measure customer satisfaction",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_lead_generation_data",
+      "element_name": "Lead Generation Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Lead Generation Data: Information on potential leads and prospects. Purpose: Identify and nurture potential customers",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_email_marketing_list",
+      "element_name": "Email Marketing Lists",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Email Marketing Lists: Lists of email subscribers and recipients. Purpose: Send targeted marketing communications",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_market_research_repo",
+      "element_name": "Market Research Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Market Research Reports: Reports and findings from market research activities. Purpose: Understand market trends and preferences",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_advertising_contract",
+      "element_name": "Advertising Contracts",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Advertising Contracts: Contracts and agreements with advertising partners. Purpose: Manage advertising partnerships",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_demographic_data",
+      "element_name": "Demographic Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Demographic Data: Information about customers' demographics such as age, gender, etc.. Purpose: Target marketing campaigns",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_ad_performance_metri",
+      "element_name": "Ad Performance Metrics",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Ad Performance Metrics: Metrics related to the performance of advertisements. Purpose: Evaluate ad effectiveness and ROI",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_market_segmentation_",
+      "element_name": "Market Segmentation Data",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Market Segmentation Data: Data used to segment the market based on various criteria. Purpose: Target specific audience segments",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_end_point_devices",
+      "element_name": "End point devices",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Ad Performance Metrics is stored in Salesforce/\nOne Drive/ End point devices",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_memory_cards",
+      "element_name": "Memory Cards",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Testimonials is stored in Memory Cards / One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_one_drive",
+      "element_name": "One Drive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Testimonials is stored in Memory Cards / One Drive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Contact Details is stored in Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_social_media_channel",
+      "element_name": "Social Media Channels",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Social Media Interactions is stored in Social Media Channels",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_technology_partners",
+      "element_name": "Technology Partners",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Technology Partners as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

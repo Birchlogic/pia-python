@@ -1,0 +1,284 @@
+{
+  "department": "Collateral Legal",
+  "version": "1.0",
+  "central_process": "ISFC Collateral Legal",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_collateral_legal_tea_0",
+          "name": "Collateral Legal Team",
+          "collection_sources": [
+            {
+              "name": "Collateral Legal Team",
+              "data_elements": [
+                "Customer Information",
+                "Compliance Records",
+                "Verification Reports",
+                "SLA Documents",
+                "Document Verification"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_verification_process_1",
+          "name": "Verification Process",
+          "collection_sources": [
+            {
+              "name": "Verification Process",
+              "data_elements": [
+                "Document Verification",
+                "Customer Information",
+                "Verification Reports"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#c62828"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Email",
+      "type": "cloud"
+    },
+    {
+      "name": "Internal database",
+      "type": "database"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_collateral_legal_tea_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Customer Information"
+    },
+    {
+      "from_id": "bp_verification_process_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Document Verification"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#c62828",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_collateral_legal_tea_0",
+      "element_name": "Collateral Legal Team",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Collateral legal teams consists of legal managers across various levels, including regional, area, and branch levels, to ensure thorough legal oversight and coordination in handling collateral-related",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_verification_process_1",
+      "element_name": "Verification Process",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Post property checks by the technical team, legal checks are conducted by the internal legal team or external legal vendors. The external vendors don't have system rights and all the information is se",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_information",
+      "element_name": "Customer Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Information: Personal and property details of customers. Purpose: To conduct legal checks and document verification",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_document_verificatio",
+      "element_name": "Document Verification",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Document Verification: Legal documents related to collateral. Purpose: To ensure legal compliance and accuracy",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_verification_reports",
+      "element_name": "Verification Reports",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Verification Reports: Reports from external legal vendors on property checks. Purpose: To verify property and customer details",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_sla_documents",
+      "element_name": "SLA Documents",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "SLA Documents: Service Level Agreements with external legal teams. Purpose: To define performance standards and timelines",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_compliance_records",
+      "element_name": "Compliance Records",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Compliance Records: Records of compliance checks and audits. Purpose: To ensure adherence to legal and regulatory standards",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_email",
+      "element_name": "Email",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "SLA Documents is stored in Email",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_internal_database",
+      "element_name": "Internal database",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Information is stored in Internal database",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

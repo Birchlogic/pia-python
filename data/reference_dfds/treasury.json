@@ -1,0 +1,581 @@
+{
+  "department": "Treasury",
+  "version": "1.0",
+  "central_process": "ISFC Treasury",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_finance_accounts_0",
+          "name": "Finance & Accounts",
+          "collection_sources": [
+            {
+              "name": "Finance & Accounts",
+              "data_elements": [
+                "Statutory Returns",
+                "Vendor Invoices",
+                "Financial Reporting",
+                "Taxation",
+                "Financial Transactions of ISFC",
+                "Vendor Payments",
+                "Budgetary Information",
+                "Vendor Registration"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_treasury_1",
+          "name": "Treasury",
+          "collection_sources": [
+            {
+              "name": "Treasury",
+              "data_elements": [
+                "Investment Portfolio",
+                "Co-Lending with Banks"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_loan_accounting_2",
+          "name": "Loan Accounting",
+          "collection_sources": [
+            {
+              "name": "Loan Accounting",
+              "data_elements": [
+                "Loan Disbursement",
+                "Insurance Payments",
+                "Portfolio Reporting"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_investor_relations_i_3",
+          "name": "Investor Relations (IR)",
+          "collection_sources": [
+            {
+              "name": "Investor Relations (IR)",
+              "data_elements": [
+                "BENPOS Files",
+                "Investor Communications"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_credit_department",
+      "name": "Credit Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_operations_departmen",
+      "name": "Operations Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_internal_audit_depar",
+      "name": "Internal Audit Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_legal_department",
+      "name": "Legal Department",
+      "actor_id": "internal",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#6a1b9a"
+    },
+    {
+      "id": "sink_collections_departme",
+      "name": "Collections Department",
+      "actor_id": "internal",
+      "color": "#2e7d32"
+    },
+    {
+      "id": "sink_secretarial_departme",
+      "name": "Secretarial Department",
+      "actor_id": "internal",
+      "color": "#ef6c00"
+    },
+    {
+      "id": "sink_rbi_regulatory_bodie",
+      "name": "RBI / Regulatory Bodies",
+      "actor_id": "customers",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_nhb",
+      "name": "NHB",
+      "actor_id": "customers",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_third_party_vendors",
+      "name": "Third-Party Vendors",
+      "actor_id": "vendors",
+      "color": "#4caf50"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Bank portals",
+      "type": "database"
+    },
+    {
+      "name": "Co-lending platform",
+      "type": "cloud"
+    },
+    {
+      "name": "Emails",
+      "type": "cloud"
+    },
+    {
+      "name": "End point device",
+      "type": "local"
+    },
+    {
+      "name": "Excel",
+      "type": "cloud"
+    },
+    {
+      "name": "FinnOne",
+      "type": "database"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_finance_accounts_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Statutory Returns"
+    },
+    {
+      "from_id": "bp_treasury_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Investment Portfolio"
+    },
+    {
+      "from_id": "bp_loan_accounting_2",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Loan Disbursement"
+    },
+    {
+      "from_id": "bp_investor_relations_i_3",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "BENPOS Files"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_credit_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_operations_departmen",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_internal_audit_depar",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_legal_department",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#6a1b9a",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_collections_departme",
+      "color": "#2e7d32",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_secretarial_departme",
+      "color": "#ef6c00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_rbi_regulatory_bodie",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_nhb",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_third_party_vendors",
+      "color": "#4caf50",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_finance_accounts_0",
+      "element_name": "Finance & Accounts",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Regulatory returns are filed by this team. All data required for regulatory returns is handled by Chirag. Incentive calculation and payout is also handled by Chirag and this team. Shiv, Sunil, Neha cr",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_treasury_1",
+      "element_name": "Treasury",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Investment For the investment process, the department determines investment goals and risk tolerances, conducts market research on investment opportunities and their viability. The investment transact",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_loan_accounting_2",
+      "element_name": "Loan Accounting",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Collection End-to-end collection reconciliation is done by the Loan Accounting team. These include EMI collection, Vendor collection, customer collections, loan closure(settlement), etc. Posting of ac",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_investor_relations_i_3",
+      "element_name": "Investor Relations (IR)",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "The core activity of Investor Relations is to act as a bridge between the company and investors. Investors are apprised about business performance, strategy, collection, state-wise issues faced, attri",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_financial_transactio",
+      "element_name": "Financial Transactions of ISFC",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Financial Transactions of ISFC: Records of financial transactions, including payments and receipts. Purpose: Manage financial operations",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_statutory_returns",
+      "element_name": "Statutory Returns",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Statutory Returns: Statutory returns filed for regulators. Purpose: Regulatory compliance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_employee_incentives",
+      "element_name": "Employee Incentives",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Employee Incentives: Incentive calculation and payout documentation. Purpose: Employee compensation management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vendor_registration",
+      "element_name": "Vendor Registration",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Vendor Registration: KYC documents of vendors collected during registration. Purpose: Vendor management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vendor_invoices",
+      "element_name": "Vendor Invoices",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Vendor Invoices: Processing invoices through vendor portal and integrated accounting system. Purpose: Invoice management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_vendor_payments",
+      "element_name": "Vendor Payments",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Vendor Payments: Accounts payable for vendors, including invoice processing and payment. Purpose: Vendor payment processing",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_taxation",
+      "element_name": "Taxation",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Taxation: GST, direct and indirect taxation management. Purpose: Tax compliance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_financial_reporting",
+      "element_name": "Financial Reporting",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Financial Reporting: Balance sheet preparation and approval. Purpose: Financial reporting",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_cash_management",
+      "element_name": "Cash Management",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Cash Management: Records of cash flow, including cash reserves and disbursements. Purpose: Monitor and manage cash flow",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_budgetary_informatio",
+      "element_name": "Budgetary Information",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Budgetary Information: Information pertaining to budget allocation and expenditure. Purpose: Plan and manage financial resources",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_investment_portfolio",
+      "element_name": "Investment Portfolio",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Investment Portfolio: Details of investments made by the ISFC. Purpose: Manage investment activities",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_co_lending_with_bank",
+      "element_name": "Co-Lending with Banks",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Co-Lending with Banks: Customer data shared with banks for due diligence. Purpose: Co-lending operations",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_loan_disbursement",
+      "element_name": "Loan Disbursement",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Loan Disbursement: Disbursement of loans sanctioned by the operations team via NEFT/RTGS and cheque. Purpose: Loan disbursement",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_insurance_payments",
+      "element_name": "Insurance Payments",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Insurance Payments: Insurance payments, reconciliation, and refund management. Purpose: Insurance payment processing",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_portfolio_reporting",
+      "element_name": "Portfolio Reporting",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Portfolio Reporting: Monthly reports on AUM, interests, and loan-related income. Purpose: Financial performance reporting",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_investor_communicati",
+      "element_name": "Investor Communications",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Investor Communications: Communication with investors including reports, queries, and updates. Purpose: Investor communication and compliance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_benpos_files",
+      "element_name": "BENPOS Files",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "BENPOS Files: Weekly BENPOS file containing details of all share transactions. Purpose: Regulatory reporting and investor management",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_bank_portals",
+      "element_name": "Bank portals",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Loan Disbursement is stored in Bank portals/ Excel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_co_lending_platform",
+      "element_name": "Co-lending platform",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Co-Lending with Banks is stored in Co-lending platform/ Excel",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_emails",
+      "element_name": "Emails",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Portfolio Reporting is stored in FinnOne/ Excel/Emails",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_end_point_device",
+      "element_name": "End point device",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Investor Communications is stored in End point device",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_excel",
+      "element_name": "Excel",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Investment Portfolio is stored in Excel/ One drive/ Investment Portals",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_finnone",
+      "element_name": "FinnOne",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Cash Management is stored in FinnOne",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_credit_department",
+      "element_name": "Credit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Credit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_operations_departmen",
+      "element_name": "Operations Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Operations Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_internal_audit_depar",
+      "element_name": "Internal Audit Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Internal Audit Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_legal_department",
+      "element_name": "Legal Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Legal Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_collections_departme",
+      "element_name": "Collections Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Collections Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_secretarial_departme",
+      "element_name": "Secretarial Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Secretarial Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_rbi_regulatory_bodie",
+      "element_name": "RBI / Regulatory Bodies",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with RBI / Regulatory Bodies as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_nhb",
+      "element_name": "NHB",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with NHB as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_third_party_vendors",
+      "element_name": "Third-Party Vendors",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Third-Party Vendors as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

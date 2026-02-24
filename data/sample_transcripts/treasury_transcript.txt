@@ -1,0 +1,246 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Treasury
+Date: Treasury - 17th April 2024
+Finance & Accounts – 19thApril 2024
+Investor Relations – 22nd April 2024
+Loan Accounting – 21st May 2024
+Interviewer: Priya Sharma (K&S Digiprotect)
+Interviewee: Treasury – Vikas Sharma
+======================================================================
+
+Priya Sharma (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Treasury as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Treasury – Vikas Sharma: India Shelter’s Finance & Accounts department manages financial operations, including statutory returns, vendor registrations, vendor payments, employee incentives, and financial reporting, ensuring regulatory compliance and financial integrity. Treasury is responsible for investment activities, co-lending with banks, and managing borrowings, they handle sensitive financial data and oversee the company's investment portfolio. Treasury is responsible for fund raising from Banks and Financial Institution.
+
+Treasury – Vikas Sharma: They also ensure adequate liquidity and handle monthly ALCO meetings. Loan Accounting Oversees Loan collection, Receipt creation in system, posting accounting entries, insurance premium payments to vendors, refunds/Claims received from Insurance vendors, refunds to borrowers, loan account rescheduling (Part-payment/ROI change/ etc), and reconciliation of funds credited in bank with credit provided in Books. Similarly, oversees, Disbursement approvals, disbursement Payments, posting of accounting entries and its reconciliation.
+
+Priya Sharma (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Treasury – Vikas Sharma: Our first key process is **Finance & Accounts**. Regulatory returns are filed by this team. All data required for regulatory returns is handled by Chirag. Incentive calculation and payout is also handled by Chirag and this team. Shiv, Sunil, Neha create the incentive documentation for employees which is then sent to Chirag for final approval. Chir
+
+Treasury – Vikas Sharma: I should also note: ISFC to appraise about GA balances
+ISFC to provide clarification on invest approval process. (Point g and point h)
+ISFC to provide clarification on Incentive calculation process, what all data is acce
+
+Treasury – Vikas Sharma: Another key process is **Treasury**. Investment For the investment process, the department determines investment goals and risk tolerances, conducts market research on investment opportunities and their viability. The investment transactions are also done by the treasury team, and documents are retained for record-keeping and complianc
+
+Priya Sharma (K&S Digiprotect): What are the key observations around Treasury?
+
+Treasury – Vikas Sharma: Regarding Treasury, Treasury team shares a lot of sensitive personal data on Co-lending platform including but not limited to Name, DoB, Address, Religion, Parents Name, Marriage status, Caste, Contact Details etc.
+Treasury team sends information to DA investors consist
+
+Treasury – Vikas Sharma: I should also note: Treasury team shares and stores sensitive personal information of customers in plain text format. 
+Treasury team to confirm if they have access to passports of Directors for sharing with regulators.
+
+Treasury – Vikas Sharma: Another key process is **Loan Accounting**. Collection End-to-end collection reconciliation is done by the Loan Accounting team. These include EMI collection, Vendor collection, customer collections, loan closure(settlement), etc. Posting of accounting entries is also taken care of by the Loan Accounting team, including fund inflow, monthly r
+
+Treasury – Vikas Sharma: I should also note: The Loan Accounting team receives DM (disbursement) reports from Operations team which contains personal data of customers; however, Loan accounting team has no use for it.
+ISFC to describe the scenar
+
+Treasury – Vikas Sharma: Another key process is **Investor Relations (IR)**. The core activity of Investor Relations is to act as a bridge between the company and investors. Investors are apprised about business performance, strategy, collection, state-wise issues faced, attrition rate of employees, among other updates. Investors queries are also looked after, along with con
+
+Priya Sharma (K&S Digiprotect): What are the key observations around Investor Relations (IR)?
+
+Treasury – Vikas Sharma: Regarding Investor Relations (IR), BENPOS file can also be accessed by CFO and Secretarial team.
+
+Treasury – Vikas Sharma: I should also note: BENPOS file is received weekly by the department. It contains sensitive personal information of all personnel that have transacted with the ISFC stock during that week, including NRIs, personnel of na
+
+Priya Sharma (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Treasury – Vikas Sharma: We collect **Financial Transactions of ISFC**. Records of financial transactions, including payments and receipts
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Financial Transactions of ISFC?
+
+Treasury – Vikas Sharma: The purpose is: Manage financial operations
+
+Priya Sharma (K&S Digiprotect): Where is Financial Transactions of ISFC stored?
+
+Treasury – Vikas Sharma: Financial Transactions of ISFC is stored in MS - D365. Its classification is Non PII / Confidential. The retention period is As per regulations. Legal basis: Legal Requirement.
+
+Treasury – Vikas Sharma: We collect **Statutory Returns**. Statutory returns filed for regulators
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Statutory Returns?
+
+Treasury – Vikas Sharma: The purpose is: Regulatory compliance
+
+Priya Sharma (K&S Digiprotect): Where is Statutory Returns stored?
+
+Treasury – Vikas Sharma: Statutory Returns is stored in MS - D365. Its classification is Non PII/
+Confidential. The retention period is As per regulations. Legal basis: Legal requirement.
+
+Treasury – Vikas Sharma: We collect **Employee Incentives**. Incentive calculation and payout documentation
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Employee Incentives?
+
+Treasury – Vikas Sharma: The purpose is: Employee compensation management
+
+Priya Sharma (K&S Digiprotect): Where is Employee Incentives stored?
+
+Treasury – Vikas Sharma: Employee Incentives is stored in MS - D365. Its classification is Non PII/
+Restricted. Retention period is currently not formally defined. Legal basis: Employment contract.
+
+Treasury – Vikas Sharma: We collect **Vendor Registration**. KYC documents of vendors collected during registration
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Vendor Registration?
+
+Treasury – Vikas Sharma: The purpose is: Vendor management
+
+Priya Sharma (K&S Digiprotect): Where is Vendor Registration stored?
+
+Treasury – Vikas Sharma: Vendor Registration is stored in MS - D365. Its classification is Non PII/
+Private. Retention period is currently not formally defined. Legal basis: Legitimate Interest.
+
+Treasury – Vikas Sharma: We collect **Vendor Invoices**. Processing invoices through vendor portal and integrated accounting system
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Vendor Invoices?
+
+Treasury – Vikas Sharma: The purpose is: Invoice management
+
+Priya Sharma (K&S Digiprotect): Where is Vendor Invoices stored?
+
+Treasury – Vikas Sharma: Vendor Invoices is stored in Vendor portal, MS - D365. Its classification is Non PII/ Restricted. Retention period is currently not formally defined. Legal basis: Contractual obligation.
+
+Treasury – Vikas Sharma: We collect **Vendor Payments**. Accounts payable for vendors, including invoice processing and payment
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Vendor Payments?
+
+Treasury – Vikas Sharma: The purpose is: Vendor payment processing
+
+Priya Sharma (K&S Digiprotect): Where is Vendor Payments stored?
+
+Treasury – Vikas Sharma: Vendor Payments is stored in MS - D365. Its classification is Non PII/ Restricted. Retention period is currently not formally defined. Legal basis: Contractual obligation.
+
+Treasury – Vikas Sharma: We collect **Taxation**. GST, direct and indirect taxation management
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Taxation?
+
+Treasury – Vikas Sharma: The purpose is: Tax compliance
+
+Priya Sharma (K&S Digiprotect): Where is Taxation stored?
+
+Treasury – Vikas Sharma: Taxation is stored in MS - D365. Its classification is Non PII/
+Confidential. The retention period is As per regulation. Legal basis: Legal requirement.
+
+Treasury – Vikas Sharma: We collect **Financial Reporting**. Balance sheet preparation and approval
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Financial Reporting?
+
+Treasury – Vikas Sharma: The purpose is: Financial reporting
+
+Priya Sharma (K&S Digiprotect): Where is Financial Reporting stored?
+
+Treasury – Vikas Sharma: Financial Reporting is stored in MS - D365. Its classification is Non PII/
+Confidential. The retention period is As per regulation. Legal basis: Legal requirement.
+
+Treasury – Vikas Sharma: We collect **Cash Management**. Records of cash flow, including cash reserves and disbursements
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Cash Management?
+
+Treasury – Vikas Sharma: The purpose is: Monitor and manage cash flow
+
+Priya Sharma (K&S Digiprotect): Where is Cash Management stored?
+
+Treasury – Vikas Sharma: Cash Management is stored in FinnOne. Its classification is Non PII / Confidential. The retention period is As per regulation. Legal basis: Legal Requirement.
+
+Treasury – Vikas Sharma: We collect **Budgetary Information**. Information pertaining to budget allocation and expenditure
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Budgetary Information?
+
+Treasury – Vikas Sharma: The purpose is: Plan and manage financial resources
+
+Priya Sharma (K&S Digiprotect): Where is Budgetary Information stored?
+
+Treasury – Vikas Sharma: Budgetary Information is stored in FinnOne. Its classification is Non PII / Confidential. The retention period is As per regulation. Legal basis: Legal Requirement.
+
+Treasury – Vikas Sharma: We collect **Investment Portfolio**. Details of investments made by the ISFC
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Investment Portfolio?
+
+Treasury – Vikas Sharma: The purpose is: Manage investment activities
+
+Priya Sharma (K&S Digiprotect): Where is Investment Portfolio stored?
+
+Treasury – Vikas Sharma: Investment Portfolio is stored in Excel/ One drive/ Investment Portals. Its classification is Non PII / Confidential. The retention period is As per regulation. Legal basis: Legitimate Interest.
+
+Treasury – Vikas Sharma: We collect **Co-Lending with Banks**. Customer data shared with banks for due diligence
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Co-Lending with Banks?
+
+Treasury – Vikas Sharma: The purpose is: Co-lending operations
+
+Priya Sharma (K&S Digiprotect): Where is Co-Lending with Banks stored?
+
+Treasury – Vikas Sharma: Co-Lending with Banks is stored in Co-lending platform/ Excel. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: Consent.
+
+Treasury – Vikas Sharma: We collect **Loan Disbursement**. Disbursement of loans sanctioned by the operations team via NEFT/RTGS and cheque
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Loan Disbursement?
+
+Treasury – Vikas Sharma: The purpose is: Loan disbursement
+
+Priya Sharma (K&S Digiprotect): Where is Loan Disbursement stored?
+
+Treasury – Vikas Sharma: Loan Disbursement is stored in Bank portals/ Excel. Its classification is Non PII/
+Confidential. The retention period is As per policy. Legal basis: Contractual obligation.
+
+Treasury – Vikas Sharma: We collect **Insurance Payments**. Insurance payments, reconciliation, and refund management
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Insurance Payments?
+
+Treasury – Vikas Sharma: The purpose is: Insurance payment processing
+
+Priya Sharma (K&S Digiprotect): Where is Insurance Payments stored?
+
+Treasury – Vikas Sharma: Insurance Payments is stored in Excel/One Drive. Its classification is Non PII/
+Confidential. Retention period is currently not formally defined. Legal basis: Contractual obligation.
+
+Treasury – Vikas Sharma: We collect **Portfolio Reporting**. Monthly reports on AUM, interests, and loan-related income
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Portfolio Reporting?
+
+Treasury – Vikas Sharma: The purpose is: Financial performance reporting
+
+Priya Sharma (K&S Digiprotect): Where is Portfolio Reporting stored?
+
+Treasury – Vikas Sharma: Portfolio Reporting is stored in FinnOne/ Excel/Emails. Its classification is Non PII/ Restricted. The retention period is As per policy. Legal basis: Not Applicable.
+
+Treasury – Vikas Sharma: We collect **Investor Communications**. Communication with investors including reports, queries, and updates
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting Investor Communications?
+
+Treasury – Vikas Sharma: The purpose is: Investor communication and compliance
+
+Priya Sharma (K&S Digiprotect): Where is Investor Communications stored?
+
+Treasury – Vikas Sharma: Investor Communications is stored in End point device. Its classification is Non PII/
+Confidential. The retention period is As per policy. Legal basis: Regulatory and internal policy compliance.
+
+Treasury – Vikas Sharma: We collect **BENPOS Files**. Weekly BENPOS file containing details of all share transactions
+
+Priya Sharma (K&S Digiprotect): What is the purpose of collecting BENPOS Files?
+
+Treasury – Vikas Sharma: The purpose is: Regulatory reporting and investor management
+
+Priya Sharma (K&S Digiprotect): Where is BENPOS Files stored?
+
+Treasury – Vikas Sharma: BENPOS Files is stored in Excel/ End point device. Its classification is PII/Sensitive. Retention period is currently not formally defined. Legal basis: SEBI regulations.
+
+Priya Sharma (K&S Digiprotect): Does the Treasury share data with other departments or external parties?
+
+Treasury – Vikas Sharma: Yes, we regularly share relevant data with: Legal Department, HR Department, Finance Department, Internal Audit, Compliance Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Priya Sharma (K&S Digiprotect): What are the primary IT systems and tools used by the Treasury?
+
+Treasury – Vikas Sharma: We primarily use: Bank portals, Co-lending platform, Emails, End point device, Excel, FinnOne, Investment Portals, MS - D365, One Drive, One drive, Vendor portal. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Priya Sharma (K&S Digiprotect): How does the Treasury handle consent management for personal data processing?
+
+Treasury – Vikas Sharma: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Priya Sharma (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Treasury – Vikas Sharma: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

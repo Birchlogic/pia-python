@@ -1,0 +1,93 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Grievance Department
+Date: 24th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Grievance Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The Grievance department of India Shelter ensures a fair and impartial channel for addressing customer dissatisfaction. They listen to concerns and strive to find solutions that leave everyone involved feeling heard and respected. This vital service promotes a positive and productive work environment.
+
+Department SPOC: This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Grievance Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Grievance Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Customer communication**. Communication channels including mobile messaging platform (WhatsApp), electronic mail (email), and calls will serve as data sources for grievance redressal. Letters are also Received by the grievance team. Customer Grievances are divided into: Query – Resolved immediately on call Request Complaint.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Customer communication?
+
+Department SPOC: Regarding Customer communication, No involvement of branches to send or draft the response of grievance. However, sometimes branches have discussions/ interactions with customer(s) when grievance team inform them about the concern.
+Access of external portals is with Rohit Singh and c
+
+Department SPOC: I should also note: No SOP for grievance redressal.
+All legacy data is still available with the team. No data retention period defined.
+
+Department SPOC: Another key process is **Customer Verification**. All calls are captured via IVR solution which is integrated with Salesforce. Customer Verification is done using Physical address, phone number, or registered emails. Reverse confirmation of receipts of physical letters is taken through Courier.
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Customer Queries (Tickets Generated)**. Issues raised by customers are stored to be addressed
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Customer Queries (Tickets Generated)?
+
+Department SPOC: The purpose is: Resolution of Customer Queries
+
+Rajesh Kumar (K&S Digiprotect): Where is Customer Queries (Tickets Generated) stored?
+
+Department SPOC: Customer Queries (Tickets Generated) is stored in Salesforce. Its classification is PII/ Sensitive data. The retention period is Not defined. Legal basis: Consent.
+
+Department SPOC: We collect **Call Logs**. Query, Request and Complaint calls by customers are recorded
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Call Logs?
+
+Department SPOC: The purpose is: Quality Assurance and Training,
+Dispute Resolution
+
+Rajesh Kumar (K&S Digiprotect): Where is Call Logs stored?
+
+Department SPOC: Call Logs is stored in Salesforce. Its classification is PII/ Sensitive data. The retention period is Not defined. Legal basis: Consent.
+
+Department SPOC: We collect **Confirmation receipt**. Reverse confirmation of Customer queries to resolve issues
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Confirmation receipt?
+
+Department SPOC: The purpose is: Efficient Customer Service and 
+Fraud Prevention
+
+Rajesh Kumar (K&S Digiprotect): Where is Confirmation receipt stored?
+
+Department SPOC: Confirmation receipt is stored in Email/
+OneDrive. Its classification is PII/Sensitive data. The retention period is Not defined. Legal basis: Legitimate Interest.
+
+Rajesh Kumar (K&S Digiprotect): Does the Grievance Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department, Customer Care Department, Compliance Department, Sales Department, IT Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Grievance Department?
+
+Department SPOC: We primarily use: Email, OneDrive, Salesforce. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Grievance Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Implement Standard Operating Procedures (SOPs) for Grievance Redressal:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Develop and implement detailed SOPs for handling queries, requests, and complaints, to ensure consistency and efficiency throughout the process.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Define Data Retention Policies:
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Establish and enforce data retention policies for grievance records and customer communication.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

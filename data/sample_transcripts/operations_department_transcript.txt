@@ -1,0 +1,175 @@
+TRANSCRIPT — Privacy Impact Assessment Interview
+Organization: India Shelter Finance Corporation Limited
+Department: Operations Department
+Date: 26th April 2024
+Interviewer: Rajesh Kumar (K&S Digiprotect)
+Interviewee: Department SPOC
+======================================================================
+
+Rajesh Kumar (K&S Digiprotect): Good morning. Thank you for taking the time for this interview. We are conducting a privacy assessment of the Operations Department as part of ISFC's DPDPA 2023 compliance initiative. Could you start by giving us an overview of your department?
+
+Department SPOC: The Operations Department plays an important role in the overall functioning of India Shelter Finance Corporation Limited (ISFC), acting as the central hub for all major operational activities. It is responsible for ensuring seamless coordination among various departments, managing day-to-day operations, and maintaining the efficiency and effectiveness of processes critical to the organization's success. By overseeing functions such as document verification, loan processing, disbursement, loan closures, and field verifications, the Operations Department guarantees that the operational activities comply with regulatory requirements and support the company’s strategic objectives.
+
+Department SPOC: This report encapsulates critical insights for As-Is study, derived from the initial interview conducted with the Operations Department of India Shelter Finance Corporation Limited (ISFC) for the implementation of ISO/IEC 27001:2022 and compliance with the Digital Personal Data Protection Act (DPDPA). The overarching objectives of this interview were dual fold: first, to gain an understanding of the departmental structure, and second, to delve into the core operational processes of the Operations Department. Additionally, the interview aimed to assess the existing information security practices, focusing on evaluating adherence to DPDPA requirements and the readiness for ISO/IEC 27001:2022 implementation.
+
+Rajesh Kumar (K&S Digiprotect): Let's walk through the key processes in your department. Can you describe each major activity and how data flows through it?
+
+Department SPOC: Our first key process is **Sales Conversion and Application Processing**. Customer information and lead data is uploaded on the iSales Application by the sales team, which is integrated with the CRM system, Salesforce. A new loan file is created for processing. The initial loan application is then reviewed by the operations team for completeness and accuracy, ensuring all
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Credit Appraisal and Technical Validation**. The verified documents are sent to the credit team for technical validation and credit appraisal which is done through the iCredit App. Field visits are conducted for physical verification of documents, which are then processed via the iCredit App. The loan application status is communicated to the 
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Disbursement Process Management**. After technical valuation, field visits, and document verification is done, the disbursement process is initiated. Hygiene checks are performed to ensure all pre-disbursement conditions are met. Physical documents are validated at HO before proceeding with the final disbursement. The operations team
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Disbursement Process Management?
+
+Department SPOC: Regarding Disbursement Process Management, Edit rights on Salesforce is with only 2-3 people in the central operations team.
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Loan Closure and Document Retrieval**. Loan closure involves returning of property papers, issuing of NOC, which are sent from HO to branch and then to customers via DTDC. Physical documents are scanned and validated before finalizing the closure.
+
+Rajesh Kumar (K&S Digiprotect): What are the key observations around Loan Closure and Document Retrieval?
+
+Department SPOC: Regarding Loan Closure and Document Retrieval, Unused cheques are no more returned to customer and the same is mentioned on the NOC as well
+The acknowledgement from customer taken at the time of returning Property documents, is scanned and uploaded in Sales Force and further the same is verified 
+
+Department SPOC: I should also note: NA
+
+Department SPOC: Another key process is **Access Management**. Newly joined employees receive view-only access initially and gain full rights post-training, allowing them to start a few cases.
+
+Department SPOC: I should also note: NA
+
+Rajesh Kumar (K&S Digiprotect): Now let's talk about the types of personal data your department collects. What categories of data do you handle, and where is it stored?
+
+Department SPOC: We collect **Loan Application Documents**. Documents submitted by customers for loan application
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Application Documents?
+
+Department SPOC: The purpose is: To assess and process home loan applications
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Application Documents stored?
+
+Department SPOC: Loan Application Documents is stored in iSales App, iCredit App, Salesforce. Its classification is PII/ 
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Consent.
+
+Department SPOC: We collect **Physical Verification Data**. Data collected during field visits for document verification
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Physical Verification Data?
+
+Department SPOC: The purpose is: To verify the authenticity of submitted documents
+
+Rajesh Kumar (K&S Digiprotect): Where is Physical Verification Data stored?
+
+Department SPOC: Physical Verification Data is stored in Secure physical storage, iCredit App. Its classification is PII/ 
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Consent.
+
+Department SPOC: We collect **Loan Agreement Documents**. 40-45 documents involved in the loan agreement process
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Agreement Documents?
+
+Department SPOC: The purpose is: To finalize and legally bind the loan agreement
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Agreement Documents stored?
+
+Department SPOC: Loan Agreement Documents is stored in Scanned and stored in secure digital storage. Its classification is PII/ 
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Consent.
+
+Department SPOC: We collect **Disbursement Hygiene Checks**. Details of hygiene checks conducted before disbursement
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Disbursement Hygiene Checks?
+
+Department SPOC: The purpose is: To ensure compliance and accuracy before loan disbursement
+
+Rajesh Kumar (K&S Digiprotect): Where is Disbursement Hygiene Checks stored?
+
+Department SPOC: Disbursement Hygiene Checks is stored in iSales App, iCredit App. Its classification is PII/ 
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Contract.
+
+Department SPOC: We collect **Loan Closure Documents**. Documents related to the closure of loans
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Loan Closure Documents?
+
+Department SPOC: The purpose is: To manage the return of property papers and close loans
+
+Rajesh Kumar (K&S Digiprotect): Where is Loan Closure Documents stored?
+
+Department SPOC: Loan Closure Documents is stored in HO, Branch storage. Its classification is PII/ 
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Contract.
+
+Department SPOC: We collect **Document Access Records**. Logs of document access and modifications
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Document Access Records?
+
+Department SPOC: The purpose is: To maintain accountability and facilitate audits
+
+Rajesh Kumar (K&S Digiprotect): Where is Document Access Records stored?
+
+Department SPOC: Document Access Records is stored in Secure digital logs. Its classification is Non PII/
+Restricted. The retention period is As per regulatory requirements. Legal basis: Legal Obligation.
+
+Department SPOC: We collect **Employee Access Records**. Access levels and permissions for employees
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Employee Access Records?
+
+Department SPOC: The purpose is: To manage access controls and ensure data security
+
+Rajesh Kumar (K&S Digiprotect): Where is Employee Access Records stored?
+
+Department SPOC: Employee Access Records is stored in Secure digital storage. Its classification is Non PII/
+Restricted. The retention period is Duration of employment and regulatory requirements. Legal basis: Legitimate Interest.
+
+Department SPOC: We collect **MIS Reports**. Management Information System reports
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting MIS Reports?
+
+Department SPOC: The purpose is: To keep teams informed and aligned with goals
+
+Rajesh Kumar (K&S Digiprotect): Where is MIS Reports stored?
+
+Department SPOC: MIS Reports is stored in Internal secure storage. Its classification is PII/
+Sensitive. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest.
+
+Department SPOC: We collect **Disbursement Details**. Data related to disbursement activities
+
+Rajesh Kumar (K&S Digiprotect): What is the purpose of collecting Disbursement Details?
+
+Department SPOC: The purpose is: To manage and track loan disbursements
+
+Rajesh Kumar (K&S Digiprotect): Where is Disbursement Details stored?
+
+Department SPOC: Disbursement Details is stored in Internal secure storage. Its classification is Non PII/ Restricted. The retention period is As per regulatory requirements. Legal basis: Legitimate Interest, Contract.
+
+Rajesh Kumar (K&S Digiprotect): Does the Operations Department share data with other departments or external parties?
+
+Department SPOC: Yes, we regularly share relevant data with: HR Department, Sales Department, Credit Department, IT Department. This is necessary for cross-departmental coordination and regulatory compliance.
+
+Rajesh Kumar (K&S Digiprotect): What are the primary IT systems and tools used by the Operations Department?
+
+Department SPOC: We primarily use: Branch storage, HO, Internal secure storage, Salesforce, Scanned and stored in secure digital storage, Secure digital logs, Secure digital storage, Secure physical storage, iCredit App, iSales App. These systems are managed by our IT department and access is controlled through role-based access controls.
+
+Rajesh Kumar (K&S Digiprotect): How does the Operations Department handle consent management for personal data processing?
+
+Department SPOC: Consent is obtained as part of our standard onboarding and data collection processes. However, I acknowledge that we need to formalize our consent management mechanism in line with DPDPA 2023 requirements. This is something we're actively working on with the Compliance team.
+
+Rajesh Kumar (K&S Digiprotect): Based on our assessment so far, we have some preliminary recommendations. Let me share them with you.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Document Processing and Verification
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Secure Document Handling through iSales and iCredit Apps
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Ensure that all documents processed through iSales and iCredit Apps are encrypted both in transit and at rest to protect sensitive information.
+
+Rajesh Kumar (K&S Digiprotect): Recommendation: Maintain detailed logs of document access and modifications to ensure accountability and facilitate audits.
+
+Department SPOC: Thank you. These are very helpful. We will take these into consideration and work with our management to implement the necessary changes.
+
+Rajesh Kumar (K&S Digiprotect): Thank you for your time. This has been very informative. We'll compile our findings and share the assessment report with you.
+
+Department SPOC: Thank you. Please let us know if you need any additional information.
+
+======================================================================
+[END OF TRANSCRIPT]

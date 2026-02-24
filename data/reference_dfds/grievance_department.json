@@ -1,0 +1,261 @@
+{
+  "department": "Grievance Department",
+  "version": "1.0",
+  "central_process": "ISFC Grievance Department",
+  "actors": [
+    {
+      "id": "customers",
+      "name": "Customers",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_customer_communicati_0",
+          "name": "Customer communication",
+          "collection_sources": [
+            {
+              "name": "Customer communication",
+              "data_elements": [
+                "Call Logs",
+                "Confirmation receipt",
+                "Customer Queries (Tickets Generated)"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_customer_verificatio_1",
+          "name": "Customer Verification",
+          "collection_sources": [
+            {
+              "name": "Customer Verification",
+              "data_elements": [
+                "Call Logs",
+                "Confirmation receipt",
+                "Customer Queries (Tickets Generated)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_customer_verificatio_1",
+          "name": "Customer Verification",
+          "collection_sources": [
+            {
+              "name": "Customer Verification",
+              "data_elements": [
+                "Call Logs",
+                "Confirmation receipt",
+                "Customer Queries (Tickets Generated)"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_sales_department",
+      "name": "Sales Department",
+      "actor_id": "internal",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_compliance_departmen",
+      "name": "Compliance Department",
+      "actor_id": "internal",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_hr_department",
+      "name": "HR Department",
+      "actor_id": "internal",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_finance_department",
+      "name": "Finance Department",
+      "actor_id": "internal",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_it_department",
+      "name": "IT Department",
+      "actor_id": "internal",
+      "color": "#ff6f00"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Email",
+      "type": "cloud"
+    },
+    {
+      "name": "OneDrive",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_customer_communicati_0",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Call Logs"
+    },
+    {
+      "from_id": "bp_customer_verificatio_1",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Call Logs"
+    },
+    {
+      "from_id": "bp_customer_verificatio_1",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Call Logs"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_sales_department",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_departmen",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_hr_department",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_finance_department",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_it_department",
+      "color": "#ff6f00",
+      "label": ""
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_customer_communicati_0",
+      "element_name": "Customer communication",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "Communication channels including mobile messaging platform (WhatsApp), electronic mail (email), and calls will serve as data sources for grievance redressal. Letters are also Received by the grievance",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "bp_customer_verificatio_1",
+      "element_name": "Customer Verification",
+      "source_section": "Key Processes (Table 2)",
+      "source_text": "All calls are captured via IVR solution which is integrated with Salesforce. Customer Verification is done using Physical address, phone number, or registered emails. Reverse confirmation of receipts ",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_customer_queries_tic",
+      "element_name": "Customer Queries (Tickets Generated)",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Customer Queries (Tickets Generated): Issues raised by customers are stored to be addressed. Purpose: Resolution of Customer Queries",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_call_logs",
+      "element_name": "Call Logs",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Call Logs: Query, Request and Complaint calls by customers are recorded. Purpose: Quality Assurance and Training,\nDispute Resolution",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "data_confirmation_receipt",
+      "element_name": "Confirmation receipt",
+      "source_section": "Data Mapping (Table 3)",
+      "source_text": "Confirmation receipt: Reverse confirmation of Customer queries to resolve issues. Purpose: Efficient Customer Service and \nFraud Prevention",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_email",
+      "element_name": "Email",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Confirmation receipt is stored in Email/\nOneDrive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_onedrive",
+      "element_name": "OneDrive",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Confirmation receipt is stored in Email/\nOneDrive",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "storage_salesforce",
+      "element_name": "Salesforce",
+      "source_section": "Data Mapping (Table 3) \u2014 Storage Location",
+      "source_text": "Customer Queries (Tickets Generated) is stored in Salesforce",
+      "source_type": "docx_table"
+    },
+    {
+      "element_id": "sink_sales_department",
+      "element_name": "Sales Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Sales Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_compliance_departmen",
+      "element_name": "Compliance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Compliance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_hr_department",
+      "element_name": "HR Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with HR Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_finance_department",
+      "element_name": "Finance Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with Finance Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_it_department",
+      "element_name": "IT Department",
+      "source_section": "Key Processes \u2014 Observations / Data Mapping \u2014 Purpose",
+      "source_text": "Data shared with IT Department as identified in process observations and data flow analysis",
+      "source_type": "inferred"
+    }
+  ]
+}

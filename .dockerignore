@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env
+__pycache__
+*.pyc
+*.pyo
+data/vectors/
+data/reports/
+alembic/versions/__pycache__
+.venv
+node_modules
+.gemini

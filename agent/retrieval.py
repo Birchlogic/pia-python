@@ -1,33 +1,58 @@
+import os
+import json
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
 from config import Config
 from utils.logger import setup_logger
-import chromadb
-from chromadb.utils import embedding_functions
 from typing import List, Dict, Any
 
 logger = setup_logger("RetrievalAgent")
 
 class RetrievalAgent:
     def __init__(self):
-        self.chroma_client = chromadb.PersistentClient(path=Config.VECTOR_DB_DIR)
-        self.embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=Config.EMBEDDING_MODEL
-        )
-        self.collection = self.chroma_client.get_or_create_collection(
-            name="compliance_knowledge",
-            embedding_function=self.embedding_fn
-        )
+        self.index_path = os.path.join(Config.VECTOR_DB_DIR, "index.faiss")
+        self.meta_path = os.path.join(Config.VECTOR_DB_DIR, "metadata.json")
+        
+        # Load embedding model
+        self.embedding_model = SentenceTransformer(Config.EMBEDDING_MODEL)
+        
+        # Load FAISS index and metadata if they exist
+        self.index = None
+        self.metadata_store = {}
+        
+        if os.path.exists(self.index_path) and os.path.exists(self.meta_path):
+            try:
+                self.index = faiss.read_index(self.index_path)
+                with open(self.meta_path, 'r') as f:
+                    self.metadata_store = json.load(f)
+            except Exception as e:
+                logger.error(f"Error loading vector DB: {e}")
 
     def retrieve_context(self, query: str, n_results: int = 5) -> str:
         logger.info(f"Retrieving context for query: {query[:50]}...")
         
-        results = self.collection.query(
-            query_texts=[query],
-            n_results=n_results
-        )
+        if not self.index or self.index.ntotal == 0 or not self.metadata_store:
+            logger.warning("Vector DB is empty or not loaded.")
+            return ""
+            
+        # Generate query embedding
+        query_embedding = self.embedding_model.encode([query])
+        query_embedding = np.array(query_embedding).astype('float32')
         
-        if not results['documents'] or not results['documents'][0]:
+        # Search FAISS
+        distances, indices = self.index.search(query_embedding, n_results)
+        
+        documents = []
+        for idx in indices[0]:
+            if idx != -1:  # -1 means no result found
+                str_idx = str(idx)
+                if str_idx in self.metadata_store:
+                    documents.append(self.metadata_store[str_idx]["text"])
+                    
+        if not documents:
             logger.warning("No relevant context found.")
             return ""
             
-        context = "\n---\n".join(results['documents'][0])
+        context = "\n---\n".join(documents)
         return context

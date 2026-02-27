@@ -1,5 +1,8 @@
-import chromadb
-from chromadb.utils import embedding_functions
+import os
+import json
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
 from config import Config
 from utils.logger import setup_logger
 from typing import List, Dict, Any
@@ -8,29 +11,63 @@ logger = setup_logger("KBBuilder")
 
 class KBBuilder:
     def __init__(self):
-        self.chroma_client = chromadb.PersistentClient(path=Config.VECTOR_DB_DIR)
-        self.embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=Config.EMBEDDING_MODEL
-        )
-        self.collection = self.chroma_client.get_or_create_collection(
-            name="compliance_knowledge",
-            embedding_function=self.embedding_fn
-        )
+        self.index_path = os.path.join(Config.VECTOR_DB_DIR, "index.faiss")
+        self.meta_path = os.path.join(Config.VECTOR_DB_DIR, "metadata.json")
+        
+        # Ensure directory exists
+        os.makedirs(Config.VECTOR_DB_DIR, exist_ok=True)
+        
+        # Load embedding model
+        self.embedding_model = SentenceTransformer(Config.EMBEDDING_MODEL)
+        self.dimension = self.embedding_model.get_sentence_embedding_dimension()
+        
+        # Load or create FAISS index
+        if os.path.exists(self.index_path):
+            self.index = faiss.read_index(self.index_path)
+        else:
+            self.index = faiss.IndexFlatL2(self.dimension)
+            
+        # Load or create metadata store
+        if os.path.exists(self.meta_path):
+            with open(self.meta_path, 'r') as f:
+                self.metadata_store = json.load(f)
+        else:
+            self.metadata_store = {}
+
+    def _save(self):
+        faiss.write_index(self.index, self.index_path)
+        with open(self.meta_path, 'w') as f:
+            json.dump(self.metadata_store, f)
 
     def add_transcript(self, transcript_id: str, content: str, metadata: Dict[str, Any]):
         logger.info(f"Adding transcript {transcript_id} to vector DB")
         
         # Simple chunking
         chunks = self._chunk_text(content)
+        if not chunks:
+            return
+            
+        # Generate embeddings
+        embeddings = self.embedding_model.encode(chunks)
+        embeddings = np.array(embeddings).astype('float32')
         
-        ids = [f"{transcript_id}_{i}" for i in range(len(chunks))]
-        metadatas = [metadata] * len(chunks)
+        # Get start index for new items
+        start_idx = self.index.ntotal
         
-        self.collection.add(
-            documents=chunks,
-            ids=ids,
-            metadatas=metadatas
-        )
+        # Add to FAISS
+        self.index.add(embeddings)
+        
+        # Add to metadata store
+        for i, chunk in enumerate(chunks):
+            idx = str(start_idx + i)
+            doc_id = f"{transcript_id}_{i}"
+            self.metadata_store[idx] = {
+                "id": doc_id,
+                "text": chunk,
+                "metadata": metadata
+            }
+            
+        self._save()
 
     def _chunk_text(self, text: str) -> List[str]:
         # Basic sliding window chunking

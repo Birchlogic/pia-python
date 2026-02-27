@@ -464,34 +464,42 @@ body.edit-mode [contenteditable] {
   <div class="swimlane-body" id="swimlane-body">
     
     <div class="swimlane-row" style="--row-bg:#fffde7;--row-border:#f9a825;"
-         data-actor-id="customers">
+         data-actor-id="external">
       <!-- Actor label -->
       <div class="actor-label" style="background:#fffde7;border-right:3px solid #f9a825;">
-        <div class="actor-label-text" style="color:#f57f17;">Customers</div>
+        <div class="actor-label-text" style="color:#f57f17;">External Parties</div>
       </div>
       <!-- Data Collection -->
-      <div class="cell cell-collection" data-col="collection" data-actor="customers">
+      <div class="cell cell-collection" data-col="collection" data-actor="external">
         
-            <div class="biz-process-group" data-id="bp_whatsapp_communications"
-                 data-bp-name="WhatsApp Communications">
-              <div class="biz-process-label" contenteditable="false">WhatsApp Communications</div>
+            <div class="biz-process-group" data-id="bp_birchlogic_assessment"
+                 data-bp-name="Birchlogic Assessment Coordination">
+              <div class="biz-process-label" contenteditable="false">Birchlogic Assessment Coordination</div>
               
-                <div class="data-source-box" data-id="src_WhatsApp_Message_Participants">
-                  <div class="data-source-name" contenteditable="false">WhatsApp Message Participants</div>
-                  <ul><li>WhatsApp messages</li><li>Communication data</li><li>Contact information</li><li>Phone numbers</li><li>Message metadata</li><li>Timestamps</li><li>Delivery status</li><li>Communication patterns</li></ul>
+                <div class="data-source-box" data-id="src_Birchlogic_Team">
+                  <div class="data-source-name" contenteditable="false">Birchlogic Team</div>
+                  <ul><li>Contact details</li><li>Business communications</li><li>Assessment coordination data</li></ul>
                 </div>
             </div>
       </div>
       <!-- Data Processing (central process only in internal row) -->
-      <div class="cell cell-processing" data-col="processing" data-actor="customers">
+      <div class="cell cell-processing" data-col="processing" data-actor="external">
         
       </div>
       <!-- Data Dispersal -->
-      <div class="cell cell-dispersal" data-col="dispersal" data-actor="customers">
+      <div class="cell cell-dispersal" data-col="dispersal" data-actor="external">
         
+            <div class="sink-box" data-id="sink_birchlogic_team"
+                 style="--sink-color:#9c27b0;">
+              <div class="sink-color-bar" style="background:#9c27b0;"></div>
+              <div class="sink-content">
+                <span class="sink-icon">➡️</span>
+                <span class="sink-name" contenteditable="false">Birchlogic Assessment Team</span>
+              </div>
+            </div>
       </div>
       <!-- Storage (show items only in internal row; all rows get the cell to maintain grid) -->
-      <div class="cell cell-storage" data-col="storage" data-actor="customers">
+      <div class="cell cell-storage" data-col="storage" data-actor="external">
         
       </div>
     </div>
@@ -504,13 +512,13 @@ body.edit-mode [contenteditable] {
       <!-- Data Collection -->
       <div class="cell cell-collection" data-col="collection" data-actor="internal">
         
-            <div class="biz-process-group" data-id="bp_data_extraction"
-                 data-bp-name="Data Extraction Activities">
-              <div class="biz-process-label" contenteditable="false">Data Extraction Activities</div>
+            <div class="biz-process-group" data-id="bp_customer_care"
+                 data-bp-name="Customer Care Operations">
+              <div class="biz-process-label" contenteditable="false">Customer Care Operations</div>
               
-                <div class="data-source-box" data-id="src_Manish_Employee">
-                  <div class="data-source-name" contenteditable="false">Manish Employee</div>
-                  <ul><li>WhatsApp data extraction</li><li>Message downloading</li><li>Data copying activities</li></ul>
+                <div class="data-source-box" data-id="src_Customer_Care_Head">
+                  <div class="data-source-name" contenteditable="false">Customer Care Head</div>
+                  <ul><li>Business communications</li><li>Contact information</li><li>Assessment data</li></ul>
                 </div>
             </div>
       </div>
@@ -518,31 +526,23 @@ body.edit-mode [contenteditable] {
       <div class="cell cell-processing" data-col="processing" data-actor="internal">
         
             <div class="central-process-box" id="central-process" data-id="central_process">
-              <div class="central-label" contenteditable="false">Birchlogic Developer Department</div>
+              <div class="central-label" contenteditable="false">Customer Care Department</div>
             </div>
       </div>
       <!-- Data Dispersal -->
       <div class="cell cell-dispersal" data-col="dispersal" data-actor="internal">
         
-            <div class="sink-box" data-id="sink_developer_access"
-                 style="--sink-color:#9c27b0;">
-              <div class="sink-color-bar" style="background:#9c27b0;"></div>
-              <div class="sink-content">
-                <span class="sink-icon">🏢</span>
-                <span class="sink-name" contenteditable="false">Developer Department Access</span>
-              </div>
-            </div>
       </div>
       <!-- Storage (show items only in internal row; all rows get the cell to maintain grid) -->
       <div class="cell cell-storage" data-col="storage" data-actor="internal">
         
+            <div class="storage-item" data-id="st_WhatsApp_Servers">
+              <div class="storage-icon">☁️</div>
+              <div class="storage-name" contenteditable="false">WhatsApp Servers</div>
+            </div>
             <div class="storage-item" data-id="st_Google_Drive">
               <div class="storage-icon">☁️</div>
               <div class="storage-name" contenteditable="false">Google Drive</div>
-            </div>
-            <div class="storage-item" data-id="st_WhatsApp_Platform">
-              <div class="storage-icon">☁️</div>
-              <div class="storage-name" contenteditable="false">WhatsApp Platform</div>
             </div>
       </div>
     </div>
@@ -550,27 +550,27 @@ body.edit-mode [contenteditable] {
          data-actor-id="vendors">
       <!-- Actor label -->
       <div class="actor-label" style="background:#f1f8e9;border-right:3px solid #7cb342;">
-        <div class="actor-label-text" style="color:#33691e;">Vendors/Partners</div>
+        <div class="actor-label-text" style="color:#33691e;">Third-Party Vendors</div>
       </div>
       <!-- Data Collection -->
       <div class="cell cell-collection" data-col="collection" data-actor="vendors">
         
-            <div class="biz-process-group" data-id="bp_whatsapp_platform"
-                 data-bp-name="WhatsApp Platform Services">
-              <div class="biz-process-label" contenteditable="false">WhatsApp Platform Services</div>
+            <div class="biz-process-group" data-id="bp_whatsapp_messaging"
+                 data-bp-name="WhatsApp Business Communications">
+              <div class="biz-process-label" contenteditable="false">WhatsApp Business Communications</div>
               
-                <div class="data-source-box" data-id="src_Meta_WhatsApp">
-                  <div class="data-source-name" contenteditable="false">Meta WhatsApp</div>
-                  <ul><li>Message data processing</li><li>Platform data retention</li></ul>
+                <div class="data-source-box" data-id="src_WhatsApp_Platform">
+                  <div class="data-source-name" contenteditable="false">WhatsApp Platform</div>
+                  <ul><li>Message content</li><li>Timestamps</li><li>Delivery status</li><li>Read receipts</li><li>Contact details</li></ul>
                 </div>
             </div>
-            <div class="biz-process-group" data-id="bp_cloud_storage"
-                 data-bp-name="Cloud Storage Services">
-              <div class="biz-process-label" contenteditable="false">Cloud Storage Services</div>
+            <div class="biz-process-group" data-id="bp_google_backup"
+                 data-bp-name="Google Drive Backup Services">
+              <div class="biz-process-label" contenteditable="false">Google Drive Backup Services</div>
               
                 <div class="data-source-box" data-id="src_Google_Drive">
                   <div class="data-source-name" contenteditable="false">Google Drive</div>
-                  <ul><li>Communication data backup</li><li>Personal information storage</li></ul>
+                  <ul><li>Complete WhatsApp message history</li><li>Business discussions</li><li>Assessment information</li></ul>
                 </div>
             </div>
       </div>
@@ -581,20 +581,20 @@ body.edit-mode [contenteditable] {
       <!-- Data Dispersal -->
       <div class="cell cell-dispersal" data-col="dispersal" data-actor="vendors">
         
+            <div class="sink-box" data-id="sink_whatsapp_servers"
+                 style="--sink-color:#4caf50;">
+              <div class="sink-color-bar" style="background:#4caf50;"></div>
+              <div class="sink-content">
+                <span class="sink-icon">➡️</span>
+                <span class="sink-name" contenteditable="false">WhatsApp Servers</span>
+              </div>
+            </div>
             <div class="sink-box" data-id="sink_google_drive"
-                 style="--sink-color:#4285f4;">
-              <div class="sink-color-bar" style="background:#4285f4;"></div>
+                 style="--sink-color:#2196f3;">
+              <div class="sink-color-bar" style="background:#2196f3;"></div>
               <div class="sink-content">
                 <span class="sink-icon">➡️</span>
                 <span class="sink-name" contenteditable="false">Google Drive Storage</span>
-              </div>
-            </div>
-            <div class="sink-box" data-id="sink_whatsapp_meta"
-                 style="--sink-color:#25d366;">
-              <div class="sink-color-bar" style="background:#25d366;"></div>
-              <div class="sink-content">
-                <span class="sink-icon">➡️</span>
-                <span class="sink-name" contenteditable="false">WhatsApp Meta Processing</span>
               </div>
             </div>
       </div>
@@ -613,29 +613,24 @@ body.edit-mode [contenteditable] {
   {
   "department": "Birch",
   "version": "1.0",
-  "central_process": "Birchlogic Developer Department",
+  "central_process": "Customer Care Department",
   "actors": [
     {
-      "id": "customers",
-      "name": "Customers",
+      "id": "external",
+      "name": "External Parties",
       "type": "external",
       "color": "#fffde7",
       "business_processes": [
         {
-          "id": "bp_whatsapp_communications",
-          "name": "WhatsApp Communications",
+          "id": "bp_birchlogic_assessment",
+          "name": "Birchlogic Assessment Coordination",
           "collection_sources": [
             {
-              "name": "WhatsApp Message Participants",
+              "name": "Birchlogic Team",
               "data_elements": [
-                "WhatsApp messages",
-                "Communication data",
-                "Contact information",
-                "Phone numbers",
-                "Message metadata",
-                "Timestamps",
-                "Delivery status",
-                "Communication patterns"
+                "Contact details",
+                "Business communications",
+                "Assessment coordination data"
               ]
             }
           ]
@@ -649,15 +644,15 @@ body.edit-mode [contenteditable] {
       "color": "#fce4ec",
       "business_processes": [
         {
-          "id": "bp_data_extraction",
-          "name": "Data Extraction Activities",
+          "id": "bp_customer_care",
+          "name": "Customer Care Operations",
           "collection_sources": [
             {
-              "name": "Manish Employee",
+              "name": "Customer Care Head",
               "data_elements": [
-                "WhatsApp data extraction",
-                "Message downloading",
-                "Data copying activities"
+                "Business communications",
+                "Contact information",
+                "Assessment data"
               ]
             }
           ]
@@ -666,32 +661,36 @@ body.edit-mode [contenteditable] {
     },
     {
       "id": "vendors",
-      "name": "Vendors/Partners",
+      "name": "Third-Party Vendors",
       "type": "vendor",
       "color": "#f1f8e9",
       "business_processes": [
         {
-          "id": "bp_whatsapp_platform",
-          "name": "WhatsApp Platform Services",
+          "id": "bp_whatsapp_messaging",
+          "name": "WhatsApp Business Communications",
           "collection_sources": [
             {
-              "name": "Meta WhatsApp",
+              "name": "WhatsApp Platform",
               "data_elements": [
-                "Message data processing",
-                "Platform data retention"
+                "Message content",
+                "Timestamps",
+                "Delivery status",
+                "Read receipts",
+                "Contact details"
               ]
             }
           ]
         },
         {
-          "id": "bp_cloud_storage",
-          "name": "Cloud Storage Services",
+          "id": "bp_google_backup",
+          "name": "Google Drive Backup Services",
           "collection_sources": [
             {
               "name": "Google Drive",
               "data_elements": [
-                "Communication data backup",
-                "Personal information storage"
+                "Complete WhatsApp message history",
+                "Business discussions",
+                "Assessment information"
               ]
             }
           ]
@@ -701,64 +700,114 @@ body.edit-mode [contenteditable] {
   ],
   "dispersal_sinks": [
     {
+      "id": "sink_whatsapp_servers",
+      "name": "WhatsApp Servers",
+      "actor_id": "vendors",
+      "color": "#4caf50"
+    },
+    {
       "id": "sink_google_drive",
       "name": "Google Drive Storage",
       "actor_id": "vendors",
-      "color": "#4285f4"
+      "color": "#2196f3"
     },
     {
-      "id": "sink_developer_access",
-      "name": "Developer Department Access",
-      "actor_id": "internal",
+      "id": "sink_birchlogic_team",
+      "name": "Birchlogic Assessment Team",
+      "actor_id": "external",
       "color": "#9c27b0"
-    },
-    {
-      "id": "sink_whatsapp_meta",
-      "name": "WhatsApp Meta Processing",
-      "actor_id": "vendors",
-      "color": "#25d366"
     }
   ],
   "storage_systems": [
     {
-      "name": "Google Drive",
+      "name": "WhatsApp Servers",
       "type": "cloud"
     },
     {
-      "name": "WhatsApp Platform",
+      "name": "Google Drive",
       "type": "cloud"
     }
   ],
   "data_flows": [
     {
-      "from_id": "bp_whatsapp_communications",
+      "from_id": "bp_birchlogic_assessment",
       "to_id": "central_process",
-      "color": "#ff5722",
-      "label": "Communication Data"
-    },
-    {
-      "from_id": "bp_data_extraction",
-      "to_id": "central_process",
-      "color": "#e91e63",
-      "label": "Extraction Activities"
-    },
-    {
-      "from_id": "central_process",
-      "to_id": "sink_google_drive",
-      "color": "#4285f4",
-      "label": "Data Storage"
-    },
-    {
-      "from_id": "central_process",
-      "to_id": "sink_developer_access",
       "color": "#9c27b0",
-      "label": "Internal Access"
+      "label": "Assessment coordination"
     },
     {
-      "from_id": "bp_whatsapp_communications",
-      "to_id": "sink_whatsapp_meta",
-      "color": "#25d366",
-      "label": "Platform Processing"
+      "from_id": "central_process",
+      "to_id": "bp_whatsapp_messaging",
+      "color": "#4caf50",
+      "label": "Business communications"
+    },
+    {
+      "from_id": "bp_whatsapp_messaging",
+      "to_id": "sink_whatsapp_servers",
+      "color": "#4caf50",
+      "label": "Message storage"
+    },
+    {
+      "from_id": "bp_whatsapp_messaging",
+      "to_id": "bp_google_backup",
+      "color": "#2196f3",
+      "label": "Automated backup"
+    },
+    {
+      "from_id": "bp_google_backup",
+      "to_id": "sink_google_drive",
+      "color": "#2196f3",
+      "label": "Cloud storage"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_birchlogic_team",
+      "color": "#9c27b0",
+      "label": "Assessment data sharing"
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_birchlogic_assessment",
+      "element_name": "Birchlogic Assessment Coordination",
+      "source_text": "Birchlogic: External privacy assessment service provider",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_customer_care",
+      "element_name": "Customer Care Operations",
+      "source_text": "Customer Care Department, which operates under the leadership of Manish (Head \u2013 Customer Care)",
+      "source_section": "Department Overview",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_whatsapp_messaging",
+      "element_name": "WhatsApp Business Communications",
+      "source_text": "WhatsApp: Third-party messaging platform utilized for business communications with external parties",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_google_backup",
+      "element_name": "Google Drive Backup Services",
+      "source_text": "Google Drive: Cloud storage service employed for automated backup of communication records",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_whatsapp_servers",
+      "element_name": "WhatsApp Servers",
+      "source_text": "WhatsApp messages are backed up to Google Drive with no defined retention period",
+      "source_section": "Privacy Risk Summary",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_google_drive",
+      "element_name": "Google Drive Storage",
+      "source_text": "Complete WhatsApp message history including business discussions",
+      "source_section": "Privacy Data Mapping and Inventory Table",
+      "source_type": "inferred"
     }
   ]
 }
@@ -773,24 +822,78 @@ body.edit-mode [contenteditable] {
   </button>
   <button class="export-btn" onclick="exportPNG()">📥 Export PNG</button>
   <button class="cite-btn" onclick="toggleCitations()">
-    📋 Sources <span class="cite-count">0</span>
+    📋 Sources <span class="cite-count">6</span>
   </button>
 </div>
 
 <!-- Citation Panel -->
 <div class="citation-panel" id="citation-panel">
   <div class="citation-header">
-    <h3>📋 Source Citations (0)</h3>
+    <h3>📋 Source Citations (6)</h3>
     <button class="citation-close" onclick="toggleCitations()">✕</button>
   </div>
   <div class="citation-list">
-    <div class="no-citations">No source citations available.</div>
+    
+            <div class="citation-card" data-cite-id="bp_birchlogic_assessment">
+              <div class="citation-num">1</div>
+              <div class="citation-body">
+                <div class="citation-element">Birchlogic Assessment Coordination</div>
+                <div class="citation-section">Systems Landscape</div>
+                <blockquote class="citation-quote">&ldquo;Birchlogic: External privacy assessment service provider&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
+            <div class="citation-card" data-cite-id="bp_customer_care">
+              <div class="citation-num">2</div>
+              <div class="citation-body">
+                <div class="citation-element">Customer Care Operations</div>
+                <div class="citation-section">Department Overview</div>
+                <blockquote class="citation-quote">&ldquo;Customer Care Department, which operates under the leadership of Manish (Head – Customer Care)&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
+            <div class="citation-card" data-cite-id="bp_whatsapp_messaging">
+              <div class="citation-num">3</div>
+              <div class="citation-body">
+                <div class="citation-element">WhatsApp Business Communications</div>
+                <div class="citation-section">Systems Landscape</div>
+                <blockquote class="citation-quote">&ldquo;WhatsApp: Third-party messaging platform utilized for business communications with external parties&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
+            <div class="citation-card" data-cite-id="bp_google_backup">
+              <div class="citation-num">4</div>
+              <div class="citation-body">
+                <div class="citation-element">Google Drive Backup Services</div>
+                <div class="citation-section">Systems Landscape</div>
+                <blockquote class="citation-quote">&ldquo;Google Drive: Cloud storage service employed for automated backup of communication records&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
+            <div class="citation-card" data-cite-id="sink_whatsapp_servers">
+              <div class="citation-num">5</div>
+              <div class="citation-body">
+                <div class="citation-element">WhatsApp Servers</div>
+                <div class="citation-section">Privacy Risk Summary</div>
+                <blockquote class="citation-quote">&ldquo;WhatsApp messages are backed up to Google Drive with no defined retention period&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
+            <div class="citation-card" data-cite-id="sink_google_drive">
+              <div class="citation-num">6</div>
+              <div class="citation-body">
+                <div class="citation-element">Google Drive Storage</div>
+                <div class="citation-section">Privacy Data Mapping and Inventory Table</div>
+                <blockquote class="citation-quote">&ldquo;Complete WhatsApp message history including business discussions&rdquo;</blockquote>
+                <span class="citation-badge badge-inferred">🔍 Inferred</span>
+              </div>
+            </div>
   </div>
 </div>
 
 <script>
 
-const flows = [{"from_id": "bp_whatsapp_communications", "to_id": "central_process", "color": "#ff5722", "label": "Communication Data"}, {"from_id": "bp_data_extraction", "to_id": "central_process", "color": "#e91e63", "label": "Extraction Activities"}, {"from_id": "central_process", "to_id": "sink_google_drive", "color": "#4285f4", "label": "Data Storage"}, {"from_id": "central_process", "to_id": "sink_developer_access", "color": "#9c27b0", "label": "Internal Access"}, {"from_id": "bp_whatsapp_communications", "to_id": "sink_whatsapp_meta", "color": "#25d366", "label": "Platform Processing"}];
+const flows = [{"from_id": "bp_birchlogic_assessment", "to_id": "central_process", "color": "#9c27b0", "label": "Assessment coordination"}, {"from_id": "central_process", "to_id": "bp_whatsapp_messaging", "color": "#4caf50", "label": "Business communications"}, {"from_id": "bp_whatsapp_messaging", "to_id": "sink_whatsapp_servers", "color": "#4caf50", "label": "Message storage"}, {"from_id": "bp_whatsapp_messaging", "to_id": "bp_google_backup", "color": "#2196f3", "label": "Automated backup"}, {"from_id": "bp_google_backup", "to_id": "sink_google_drive", "color": "#2196f3", "label": "Cloud storage"}, {"from_id": "central_process", "to_id": "sink_birchlogic_team", "color": "#9c27b0", "label": "Assessment data sharing"}];
 
 // ─── Edit mode toggle ───────────────────────────────
 let editMode = false;

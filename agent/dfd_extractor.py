@@ -34,19 +34,21 @@ for regulatory compliance (DPDPA 2023, ISO 27001, GDPR).
 Your task is to extract a structured DFD JSON object from compliance assessment transcripts.
 The JSON captures:
 
-1. ACTORS (3 mandatory types):
-   - external: customers and outside parties who PROVIDE data
-   - internal: internal departments and teams who PROCESS data
+1. ACTORS (include ONLY types that are evidenced in the transcript data):
+   Possible actor types (include only if mentioned or implied in the data):
+   - external: outside parties (e.g. customers, regulators) who PROVIDE or RECEIVE data
+   - internal: internal departments, teams, or employees who PROCESS data
    - vendor: third-party technology vendors and partners
+   NOTE: Do NOT invent actors that are not mentioned in the transcript.
+   If only internal and vendor actors are present, do NOT add an external/customer actor.
 
 2. BUSINESS PROCESSES: Within each actor, the distinct operations or sub-units
-   (e.g. "Customer Care", "Compliance Calling", "Data Science Department")
+   that are ACTUALLY described in the transcript
 
 3. DATA COLLECTION: For each business process, WHAT data is collected and FROM WHOM
-   (list specific data elements: Name, Aadhaar, Loan ID, etc.)
+   (list specific data elements mentioned in the transcript)
 
 4. CENTRAL PROCESS: The main processing unit at the department level
-   (e.g. "ISFC Customer Care Department")
 
 5. DISPERSAL SINKS: Where processed data flows OUT to
    (other departments, vendors, automated systems)
@@ -56,6 +58,12 @@ The JSON captures:
 
 7. DATA FLOWS: Connections between sources, central process, and sinks
    (with color codes for visual arrow rendering)
+
+8. CITATIONS: Exact verbatim quotes from the transcript proving the existence of
+   actors, processes, data elements, or flows.
+
+CRITICAL: Only extract information that is ACTUALLY PRESENT in the transcript data.
+Do NOT hallucinate or invent actors, processes, or data elements not supported by the evidence.
 
 OUTPUT: Return ONLY a valid JSON object. No markdown, no explanation.
 """
@@ -75,6 +83,12 @@ Historical Context:
 {context}
 
 ---
+ACTOR TYPES — include ONLY those evidenced in the transcript data:
+  - type "external" (id: "customers") — outside parties like customers, regulators
+  - type "internal" (id: "internal")  — internal departments, teams, employees
+  - type "vendor"   (id: "vendors")   — third-party vendors and partners
+If no customers are mentioned, do NOT include the external actor. Same for the other types.
+
 Return a JSON object with EXACTLY this structure:
 
 {{
@@ -83,36 +97,22 @@ Return a JSON object with EXACTLY this structure:
   "central_process": "<name of the main processing unit of this department>",
   "actors": [
     {{
-      "id": "customers",
-      "name": "Customers",
-      "type": "external",
-      "color": "#fffde7",
+      "id": "<customers|internal|vendors>",
+      "name": "<Actor Category Name>",
+      "type": "<external|internal|vendor>",
+      "color": "<#fffde7 for external, #fce4ec for internal, #f1f8e9 for vendor>",
       "business_processes": [
         {{
           "id": "bp_<unique_id>",
           "name": "<Business Process Name>",
           "collection_sources": [
             {{
-              "name": "<Source Name e.g. Registered Customers>",
+              "name": "<Source Name>",
               "data_elements": ["<element1>", "<element2>", ...]
             }}
           ]
         }}
       ]
-    }},
-    {{
-      "id": "internal",
-      "name": "Internal Departments",
-      "type": "internal",
-      "color": "#fce4ec",
-      "business_processes": [ ... ]
-    }},
-    {{
-      "id": "vendors",
-      "name": "Vendors/Partners",
-      "type": "vendor",
-      "color": "#f1f8e9",
-      "business_processes": []
     }}
   ],
   "dispersal_sinks": [
@@ -136,16 +136,29 @@ Return a JSON object with EXACTLY this structure:
       "color": "<hex color>",
       "label": "<optional short label>"
     }}
+  ],
+  "citations": [
+    {{
+      "element_id": "<associated_id_like_bp_id_or_actor_id>",
+      "element_name": "<name of the thing being cited>",
+      "source_text": "<exact verbatim quote from transcript>",
+      "source_section": "Interview Transcript",
+      "source_type": "inferred"
+    }}
   ]
 }}
 
 RULES:
-- actors array MUST contain all 3 types: external, internal, vendor
+- actors array should ONLY contain actor types that are evidenced in the transcript data
+- Do NOT add external/customer actors if no customers are mentioned in the transcripts
+- Do NOT add vendor actors if no vendors or third-party services are mentioned
+- Do NOT add internal actors if no internal teams or employees are mentioned
 - Every business_process MUST have at least one collection_source with data_elements
 - dispersal_sinks MUST be assigned to the correct actor_id based on who receives the data
 - data_flows: use "central_process" as the to_id for inbound flows and from_id for outbound flows
 - Use distinct colors for different flow types (green, blue, purple, pink, red, teal)
-- Do NOT hallucinate. Only use information present in the transcript data.
+- citations MUST include the exact `source_text` from the transcript to prove the data
+- Do NOT hallucinate. Only use information ACTUALLY PRESENT in the transcript data.
 - Return ONLY the JSON object. No markdown fences, no explanation text.
 
 {feedback_section}
@@ -292,39 +305,15 @@ class DFDExtractor:
             "central_process": f"{department} Department",
             "actors": [
                 {
-                    "id": "customers",
-                    "name": "Customers",
-                    "type": "external",
-                    "color": "#fffde7",
-                    "business_processes": [
-                        {
-                            "id": "bp_customers",
-                            "name": "Customer Interactions",
-                            "collection_sources": [
-                                {
-                                    "name": "Customers",
-                                    "data_elements": ["Name", "Contact Information"],
-                                }
-                            ],
-                        }
-                    ],
-                },
-                {
                     "id": "internal",
                     "name": "Internal Departments",
                     "type": "internal",
                     "color": "#fce4ec",
                     "business_processes": [],
                 },
-                {
-                    "id": "vendors",
-                    "name": "Vendors/Partners",
-                    "type": "vendor",
-                    "color": "#f1f8e9",
-                    "business_processes": [],
-                },
             ],
             "dispersal_sinks": [],
             "storage_systems": [],
             "data_flows": [],
+            "citations": [],
         }

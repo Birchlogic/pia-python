@@ -1,0 +1,12 @@
+anthropic
+python-docx
+pydantic>=2.0
+faiss-cpu
+numpy
+sentence-transformers
+python-dotenv
+fastapi
+uvicorn
+sqlalchemy
+alembic
+psycopg2-binary

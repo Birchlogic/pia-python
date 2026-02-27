@@ -284,3 +284,219 @@ Breakdown:
 2026-02-23 23:03:46,487 - LearningLoop - INFO - Processing learning loop for report report_Birch
 2026-02-23 23:03:46,487 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
 2026-02-23 23:03:46,488 - KBBuilder - INFO - Adding transcript report_Birch to vector DB
+2026-02-24 18:04:01,557 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:07:46,399 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:12:16,333 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:13:03,528 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:13:32,177 - Main - INFO - [Birch] Processing session 1: example_input/session_test.txt
+2026-02-24 18:13:32,177 - IngestionAgent - INFO - Ingesting transcript from example_input/session_test.txt
+2026-02-24 18:13:43,405 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-24 18:13:44,710 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-24 18:13:44,710 - RetrievalAgent - WARNING - Vector DB is empty or not loaded.
+2026-02-24 18:13:44,710 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-24 18:13:44,710 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-24 18:14:07,843 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-24 18:14:07,844 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-24 18:14:21,363 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (87/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 10 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 7 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Actor 'Customers' has no business processes. Add at least one business process with collection sources.
+  - Only 1 dispersal sink found. Identify all destinations where data is sent (e.g. other departments, vendors, automated systems).
+2026-02-24 18:14:21,363 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 87
+2026-02-24 18:14:21,363 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (87/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 10 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 7 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Actor 'Customers' has no business processes. Add at least one business process with collection sources.
+  - Only 1 dispersal sink found. Identify all destinations where data is sent (e.g. other departments, vendors, automated systems).
+2026-02-24 18:14:21,364 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-24 18:14:21,364 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-24 18:23:54,162 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:24:03,986 - Main - INFO - [Birch] Processing session 1: example_input/session_test.txt
+2026-02-24 18:24:03,986 - IngestionAgent - INFO - Ingesting transcript from example_input/session_test.txt
+2026-02-24 18:24:17,487 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-24 18:24:17,590 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-24 18:24:17,721 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-24 18:24:17,722 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-24 18:24:41,378 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-24 18:24:41,378 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-24 18:24:53,786 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (93/75+ to pass)
+Breakdown:
+  actor_types              : 13 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Missing actor types: {'external'}. Add actors for external (Customers)  .
+2026-02-24 18:24:53,787 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 93
+2026-02-24 18:24:53,787 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (93/75+ to pass)
+Breakdown:
+  actor_types              : 13 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Missing actor types: {'external'}. Add actors for external (Customers)  .
+2026-02-24 18:24:53,787 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-24 18:24:53,787 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-24 18:25:29,730 - Main - INFO - [Birch] Report saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Assessment_Report_20260224_182529.md
+2026-02-24 18:25:29,731 - Main - INFO - [Birch] Privacy DFD (MD) saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Privacy_DFD_20260224_182529.md
+2026-02-24 18:25:29,731 - Main - INFO - [Birch] HTML DFD saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_182529.html
+2026-02-24 18:25:29,732 - Main - INFO - [Birch] DFD JSON saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_182529.json
+2026-02-24 18:25:29,732 - LearningLoop - INFO - Processing learning loop for report report_Birch
+2026-02-24 18:25:29,732 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
+2026-02-24 18:25:29,732 - KBBuilder - INFO - Adding transcript report_Birch to vector DB
+2026-02-24 18:33:41,814 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:33:51,649 - Main - INFO - [Birch] Processing session 1: example_input/session_test.txt
+2026-02-24 18:33:51,649 - IngestionAgent - INFO - Ingesting transcript from example_input/session_test.txt
+2026-02-24 18:34:23,404 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-24 18:34:23,560 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-24 18:34:23,582 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-24 18:34:23,582 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-24 18:35:28,036 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-24 18:35:28,037 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-24 18:35:51,192 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (93/75+ to pass)
+Breakdown:
+  actor_types              : 13 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Missing actor types: {'external'}. Add actors for external (Customers)  .
+2026-02-24 18:35:51,193 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 93
+2026-02-24 18:35:51,193 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (93/75+ to pass)
+Breakdown:
+  actor_types              : 13 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Missing actor types: {'external'}. Add actors for external (Customers)  .
+2026-02-24 18:35:51,193 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-24 18:35:51,193 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-24 18:36:19,940 - Main - INFO - [Birch] Report saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Assessment_Report_20260224_183619.md
+2026-02-24 18:36:19,940 - Main - INFO - [Birch] Privacy DFD (MD) saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Privacy_DFD_20260224_183619.md
+2026-02-24 18:36:19,941 - Main - INFO - [Birch] HTML DFD saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_183619.html
+2026-02-24 18:36:19,941 - Main - INFO - [Birch] DFD JSON saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_183619.json
+2026-02-24 18:36:19,942 - LearningLoop - INFO - Processing learning loop for report report_Birch
+2026-02-24 18:36:19,942 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
+2026-02-24 18:36:19,942 - KBBuilder - INFO - Adding transcript report_Birch to vector DB
+2026-02-24 18:42:43,090 - Main - INFO - Starting compliance assessment for: Birch
+2026-02-24 18:42:59,724 - Main - INFO - [Birch] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-24 18:42:59,725 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-24 18:43:22,644 - KBBuilder - INFO - Adding transcript Birch_session_1 to vector DB
+2026-02-24 18:43:22,775 - Main - INFO - [Birch] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-24 18:43:22,776 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-24 18:43:49,375 - KBBuilder - INFO - Adding transcript Birch_session_2 to vector DB
+2026-02-24 18:43:49,464 - Main - INFO - [Birch] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-24 18:43:49,464 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-24 18:44:17,433 - KBBuilder - INFO - Adding transcript Birch_session_3 to vector DB
+2026-02-24 18:44:17,671 - Main - INFO - [Birch] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-24 18:44:17,672 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-24 18:44:46,180 - KBBuilder - INFO - Adding transcript Birch_session_4 to vector DB
+2026-02-24 18:44:46,254 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Birch department...
+2026-02-24 18:44:46,293 - Main - INFO - [Birch] Generating Mermaid Privacy DFD (MD)...
+2026-02-24 18:44:46,293 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Birch
+2026-02-24 18:45:28,268 - Main - WARNING - [Birch] No reference DFD found, falling back to LLM extraction
+2026-02-24 18:45:28,268 - Main - INFO - [Birch] Extracting structured DFD JSON (with validation loop)...
+2026-02-24 18:45:28,269 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-02-24 18:46:02,873 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-24 18:46:02,873 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-02-24 18:46:02,874 - Main - INFO - [Birch] Final DFD validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-02-24 18:46:02,874 - Main - INFO - [Birch] Generating Assessment Report...
+2026-02-24 18:46:02,874 - ReportGenerationAgent - INFO - Generating report for department: Birch
+2026-02-24 18:47:21,624 - Main - INFO - [Birch] Report saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Assessment_Report_20260224_184721.md
+2026-02-24 18:47:21,626 - Main - INFO - [Birch] Privacy DFD (MD) saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_Privacy_DFD_20260224_184721.md
+2026-02-24 18:47:21,626 - Main - INFO - [Birch] HTML DFD saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_184721.html
+2026-02-24 18:47:21,627 - Main - INFO - [Birch] DFD JSON saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Birch_DFD_20260224_184721.json
+2026-02-24 18:47:21,627 - LearningLoop - INFO - Processing learning loop for report report_Birch
+2026-02-24 18:47:21,627 - KBBuilder - INFO - Adding generated report report_Birch to vector DB for learning
+2026-02-24 18:47:21,627 - KBBuilder - INFO - Adding transcript report_Birch to vector DB
+2026-02-24 18:50:46,795 - Main - INFO - Starting compliance assessment for: Customer Care
+2026-02-24 18:51:03,849 - Main - INFO - [Customer Care] Processing session 1: example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-24 18:51:03,850 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-02-24 18:51:31,404 - KBBuilder - INFO - Adding transcript Customer Care_session_1 to vector DB
+2026-02-24 18:51:31,606 - Main - INFO - [Customer Care] Processing session 2: example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-24 18:51:31,606 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-02-24 18:52:00,257 - KBBuilder - INFO - Adding transcript Customer Care_session_2 to vector DB
+2026-02-24 18:52:00,377 - Main - INFO - [Customer Care] Processing session 3: example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-24 18:52:00,377 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-02-24 18:52:27,787 - KBBuilder - INFO - Adding transcript Customer Care_session_3 to vector DB
+2026-02-24 18:52:27,870 - Main - INFO - [Customer Care] Processing session 4: example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-24 18:52:27,870 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-02-24 18:52:59,855 - KBBuilder - INFO - Adding transcript Customer Care_session_4 to vector DB
+2026-02-24 18:53:00,001 - RetrievalAgent - INFO - Retrieving context for query: Privacy compliance assessment for Customer Care de...
+2026-02-24 18:53:00,046 - Main - INFO - [Customer Care] Generating Mermaid Privacy DFD (MD)...
+2026-02-24 18:53:00,046 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-02-24 18:53:41,470 - Main - INFO - Reference DFD loaded (fuzzy): /Users/blackpearl/Desktop/projects/python/pia-python/data/reference_dfds/customer_care_department.json
+2026-02-24 18:53:41,472 - Main - INFO - [Customer Care] Using REFERENCE DFD (zero-variance mode)
+2026-02-24 18:53:41,472 - Main - INFO - [Customer Care] Final DFD validation:
+DFD Validation: PASSED ✓ (95/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 10 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+Feedback for improvement:
+  - Actor 'Vendors/Partners' has no business processes. Add at least one business process with collection sources.
+2026-02-24 18:53:41,473 - Main - INFO - [Customer Care] Generating Assessment Report...
+2026-02-24 18:53:41,473 - ReportGenerationAgent - INFO - Generating report for department: Customer Care
+2026-02-24 18:55:04,721 - Main - INFO - [Customer Care] Report saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Customer_Care_Assessment_Report_20260224_185504.md
+2026-02-24 18:55:04,722 - Main - INFO - [Customer Care] Privacy DFD (MD) saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Customer_Care_Privacy_DFD_20260224_185504.md
+2026-02-24 18:55:04,723 - Main - INFO - [Customer Care] HTML DFD saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Customer_Care_DFD_20260224_185504.html
+2026-02-24 18:55:04,724 - Main - INFO - [Customer Care] DFD JSON saved: /Users/blackpearl/Desktop/projects/python/pia-python/data/reports/Customer_Care_DFD_20260224_185504.json
+2026-02-24 18:55:04,724 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
+2026-02-24 18:55:04,724 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
+2026-02-24 18:55:04,724 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB

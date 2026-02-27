@@ -1,0 +1,42 @@
+{
+    "family": "pia-python-task",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "2048",
+    "executionRoleArn": "arn:aws:iam::506675684271:role/pia-ecs-execution-role",
+    "taskRoleArn": "arn:aws:iam::506675684271:role/pia-ecs-execution-role",
+    "containerDefinitions": [
+        {
+            "name": "pia-python",
+            "image": "506675684271.dkr.ecr.us-east-1.amazonaws.com/pia-python:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8000,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "DATABASE_URL",
+                    "value": "postgresql://neondb_owner:npg_UkCxqn2iwH3c@ep-rough-union-adehzgnj-pooler.c-2.us-east-1.aws.neon.tech/kaizen_scans?sslmode=require"
+                },
+                {
+                    "name": "ANTHROPIC_API_KEY",
+                    "value": "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"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/pia-python",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "essential": true
+        }
+    ]
+}

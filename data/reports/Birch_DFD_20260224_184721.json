@@ -1,0 +1,201 @@
+{
+  "department": "Birch",
+  "version": "1.0",
+  "central_process": "Customer Care Department",
+  "actors": [
+    {
+      "id": "external",
+      "name": "External Parties",
+      "type": "external",
+      "color": "#fffde7",
+      "business_processes": [
+        {
+          "id": "bp_birchlogic_assessment",
+          "name": "Birchlogic Assessment Coordination",
+          "collection_sources": [
+            {
+              "name": "Birchlogic Team",
+              "data_elements": [
+                "Contact details",
+                "Business communications",
+                "Assessment coordination data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "color": "#fce4ec",
+      "business_processes": [
+        {
+          "id": "bp_customer_care",
+          "name": "Customer Care Operations",
+          "collection_sources": [
+            {
+              "name": "Customer Care Head",
+              "data_elements": [
+                "Business communications",
+                "Contact information",
+                "Assessment data"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Third-Party Vendors",
+      "type": "vendor",
+      "color": "#f1f8e9",
+      "business_processes": [
+        {
+          "id": "bp_whatsapp_messaging",
+          "name": "WhatsApp Business Communications",
+          "collection_sources": [
+            {
+              "name": "WhatsApp Platform",
+              "data_elements": [
+                "Message content",
+                "Timestamps",
+                "Delivery status",
+                "Read receipts",
+                "Contact details"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_google_backup",
+          "name": "Google Drive Backup Services",
+          "collection_sources": [
+            {
+              "name": "Google Drive",
+              "data_elements": [
+                "Complete WhatsApp message history",
+                "Business discussions",
+                "Assessment information"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_whatsapp_servers",
+      "name": "WhatsApp Servers",
+      "actor_id": "vendors",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_google_drive",
+      "name": "Google Drive Storage",
+      "actor_id": "vendors",
+      "color": "#2196f3"
+    },
+    {
+      "id": "sink_birchlogic_team",
+      "name": "Birchlogic Assessment Team",
+      "actor_id": "external",
+      "color": "#9c27b0"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "WhatsApp Servers",
+      "type": "cloud"
+    },
+    {
+      "name": "Google Drive",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_birchlogic_assessment",
+      "to_id": "central_process",
+      "color": "#9c27b0",
+      "label": "Assessment coordination"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "bp_whatsapp_messaging",
+      "color": "#4caf50",
+      "label": "Business communications"
+    },
+    {
+      "from_id": "bp_whatsapp_messaging",
+      "to_id": "sink_whatsapp_servers",
+      "color": "#4caf50",
+      "label": "Message storage"
+    },
+    {
+      "from_id": "bp_whatsapp_messaging",
+      "to_id": "bp_google_backup",
+      "color": "#2196f3",
+      "label": "Automated backup"
+    },
+    {
+      "from_id": "bp_google_backup",
+      "to_id": "sink_google_drive",
+      "color": "#2196f3",
+      "label": "Cloud storage"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_birchlogic_team",
+      "color": "#9c27b0",
+      "label": "Assessment data sharing"
+    }
+  ],
+  "citations": [
+    {
+      "element_id": "bp_birchlogic_assessment",
+      "element_name": "Birchlogic Assessment Coordination",
+      "source_text": "Birchlogic: External privacy assessment service provider",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_customer_care",
+      "element_name": "Customer Care Operations",
+      "source_text": "Customer Care Department, which operates under the leadership of Manish (Head \u2013 Customer Care)",
+      "source_section": "Department Overview",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_whatsapp_messaging",
+      "element_name": "WhatsApp Business Communications",
+      "source_text": "WhatsApp: Third-party messaging platform utilized for business communications with external parties",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "bp_google_backup",
+      "element_name": "Google Drive Backup Services",
+      "source_text": "Google Drive: Cloud storage service employed for automated backup of communication records",
+      "source_section": "Systems Landscape",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_whatsapp_servers",
+      "element_name": "WhatsApp Servers",
+      "source_text": "WhatsApp messages are backed up to Google Drive with no defined retention period",
+      "source_section": "Privacy Risk Summary",
+      "source_type": "inferred"
+    },
+    {
+      "element_id": "sink_google_drive",
+      "element_name": "Google Drive Storage",
+      "source_text": "Complete WhatsApp message history including business discussions",
+      "source_section": "Privacy Data Mapping and Inventory Table",
+      "source_type": "inferred"
+    }
+  ]
+}

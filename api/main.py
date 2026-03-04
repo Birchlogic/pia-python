@@ -37,6 +37,7 @@ class InitiateRequest(BaseModel):
     session_id: str
     department: str
     files: List[str]
+    use_rlm: bool = False  # Use RLM-powered ingestion for cross-transcript analysis
 
 class InitiateResponse(BaseModel):
     session_id: str
@@ -83,9 +84,9 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 # ── Unified Background Pipeline ─────────────────────
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session):
+def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session, use_rlm: bool = False):
     try:
-        logger.info(f"[{session_id}] Pipeline starting for department: {department}")
+        logger.info(f"[{session_id}] Pipeline starting for department: {department} (use_rlm={use_rlm})")
 
         from config import Config
         from agent.ingestion import IngestionAgent
@@ -104,16 +105,37 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             combined_transcript = _combine_transcripts(local_files)
             logger.info(f"[{session_id}] Downloaded and combined {len(local_files)} files")
 
-            # ── 2. Ingest into KB (always use references) ──
-            ingestion_agent = IngestionAgent()
+            # ── 2. Ingest transcripts ────────────────
             kb_builder = KBBuilder()
             retrieval_agent = RetrievalAgent()
             learning_loop = LearningLoop(kb_builder)
 
-            extracted_data_list = []
+            if use_rlm:
+                # ── 2a. RLM-powered ingestion (all files at once) ──
+                from agent.rlm_ingestion import RLMIngestionAgent
+                logger.info(f"[{session_id}] Using RLM ingestion for cross-transcript analysis")
+                rlm_agent = RLMIngestionAgent(verbose=False)
+                try:
+                    consolidated_data = rlm_agent.ingest_all(local_files)
+                    extracted_data_list = [consolidated_data]
+                    logger.info(f"[{session_id}] RLM ingestion completed successfully")
+                except Exception as e:
+                    logger.warning(f"[{session_id}] RLM ingestion failed, falling back to standard: {e}")
+                    ingestion_agent = IngestionAgent()
+                    extracted_data_list = []
+                    for idx, file_path in enumerate(local_files):
+                        data = ingestion_agent.ingest_transcript(file_path)
+                        extracted_data_list.append(data)
+            else:
+                # ── 2b. Standard per-file ingestion (original behavior) ──
+                ingestion_agent = IngestionAgent()
+                extracted_data_list = []
+                for idx, file_path in enumerate(local_files):
+                    data = ingestion_agent.ingest_transcript(file_path)
+                    extracted_data_list.append(data)
+
+            # Always add transcripts to KB for context retrieval
             for idx, file_path in enumerate(local_files):
-                data = ingestion_agent.ingest_transcript(file_path)
-                extracted_data_list.append(data)
                 with open(file_path, "r") as f:
                     content = f.read()
                 metadata = {
@@ -133,33 +155,59 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             logger.info(f"[{session_id}] Context retrieved from vector DB")
 
             # ── 4. Schema Generation (Step 1 + 2) ────
-            generator = SchemaGenerator()
-            schema_one_json = generator.generate_schema_one(combined_transcript)
-            logger.info(f"[{session_id}] Schema-1 generated")
+            schema_one_json = None
+            inventory_rows = []
 
-            inventory_rows = generator.generate_data_inventory(schema_one_json)
-            logger.info(f"[{session_id}] Data inventory generated ({len(inventory_rows)} rows)")
+            generator = SchemaGenerator()
+            try:
+                schema_one_json = generator.generate_schema_one(combined_transcript)
+                logger.info(f"[{session_id}] Schema-1 generated")
+            except Exception as e:
+                logger.error(f"[{session_id}] Schema-1 generation failed: {e}", exc_info=True)
+
+            if schema_one_json:
+                try:
+                    inventory_rows = generator.generate_data_inventory(schema_one_json)
+                    if not inventory_rows:
+                        logger.warning(f"[{session_id}] Data inventory returned 0 rows — LLM may have hit token limit or returned empty inventory")
+                    else:
+                        logger.info(f"[{session_id}] Data inventory generated ({len(inventory_rows)} rows)")
+                except Exception as e:
+                    logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
+            else:
+                logger.warning(f"[{session_id}] Skipping data inventory — Schema-1 was not generated")
 
             # ── 5. DFD Extraction (with validation) ──
-            dfd_extractor = DFDExtractor()
-            dfd_json = dfd_extractor.extract(department, extracted_data_list, context)
-
-            final_validation = validate_dfd(dfd_json)
-            logger.info(f"[{session_id}] DFD validation: {final_validation['score']}/100")
+            dfd_json = None
+            try:
+                dfd_extractor = DFDExtractor()
+                dfd_json = dfd_extractor.extract(department, extracted_data_list, context)
+                final_validation = validate_dfd(dfd_json)
+                logger.info(f"[{session_id}] DFD validation: {final_validation['score']}/100")
+            except Exception as e:
+                logger.error(f"[{session_id}] DFD extraction failed: {e}", exc_info=True)
 
             # ── 6. Mermaid Privacy DFD ────────────────
-            privacy_dfd_agent = PrivacyDFDAgent()
-            privacy_dfd_md = privacy_dfd_agent.generate_department_dfd(
-                department, extracted_data_list, context
-            )
-            logger.info(f"[{session_id}] Mermaid Privacy DFD generated")
+            privacy_dfd_md = None
+            try:
+                privacy_dfd_agent = PrivacyDFDAgent()
+                privacy_dfd_md = privacy_dfd_agent.generate_department_dfd(
+                    department, extracted_data_list, context
+                )
+                logger.info(f"[{session_id}] Mermaid Privacy DFD generated")
+            except Exception as e:
+                logger.error(f"[{session_id}] Privacy DFD generation failed: {e}", exc_info=True)
 
             # ── 7. Learning loop ─────────────────────
-            learning_loop.process_feedback(
-                f"report_{department}",
-                json.dumps(dfd_json, indent=2),
-                {"department": department, "date": datetime.now().strftime("%Y-%m-%d")}
-            )
+            if dfd_json:
+                try:
+                    learning_loop.process_feedback(
+                        f"report_{department}",
+                        json.dumps(dfd_json, indent=2),
+                        {"department": department, "date": datetime.now().strftime("%Y-%m-%d")}
+                    )
+                except Exception as e:
+                    logger.warning(f"[{session_id}] Learning loop failed (non-critical): {e}")
 
         # ── 8. Save everything to DB ─────────────────
         db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
@@ -171,25 +219,29 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             db_session.updated_at = datetime.utcnow()
             db.commit()
 
-        # Save data mapping rows
-        s_no = 1
-        for row in inventory_rows:
-            db_row = DataMappingRow(
-                id=str(uuid.uuid4()),
-                session_id=session_id,
-                s_no=s_no,
-                data_category=row.get("data_category", "Unknown"),
-                description=row.get("description", ""),
-                purpose=row.get("purpose", ""),
-                data_owner=row.get("data_owner", ""),
-                storage_location=row.get("storage_location", ""),
-                data_classification=row.get("data_classification", ""),
-                retention_period=row.get("retention_period", ""),
-                legal_basis=row.get("legal_basis", "")
-            )
-            db.add(db_row)
-            s_no += 1
-        db.commit()
+        # Save data mapping rows (with null-safe defaults)
+        if inventory_rows:
+            s_no = 1
+            for row in inventory_rows:
+                db_row = DataMappingRow(
+                    id=str(uuid.uuid4()),
+                    session_id=session_id,
+                    s_no=s_no,
+                    data_category=row.get("data_category") or "Unknown",
+                    description=row.get("description") or "",
+                    purpose=row.get("purpose") or "",
+                    data_owner=row.get("data_owner") or "",
+                    storage_location=row.get("storage_location") or "",
+                    data_classification=row.get("data_classification") or "",
+                    retention_period=row.get("retention_period") or "",
+                    legal_basis=row.get("legal_basis") or ""
+                )
+                db.add(db_row)
+                s_no += 1
+            db.commit()
+            logger.info(f"[{session_id}] Saved {s_no - 1} data mapping rows")
+        else:
+            logger.warning(f"[{session_id}] No data mapping rows to save")
 
         logger.info(f"[{session_id}] Pipeline completed successfully")
 
@@ -221,7 +273,7 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
 
     background_tasks.add_task(
         process_unified_pipeline,
-        request.session_id, request.department, request.files, db
+        request.session_id, request.department, request.files, db, request.use_rlm
     )
 
     return InitiateResponse(

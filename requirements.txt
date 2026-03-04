@@ -10,3 +10,5 @@ uvicorn
 sqlalchemy
 alembic
 psycopg2-binary
+openai
+rich

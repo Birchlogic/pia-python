@@ -500,3 +500,5 @@ Feedback for improvement:
 2026-02-24 18:55:04,724 - LearningLoop - INFO - Processing learning loop for report report_Customer Care
 2026-02-24 18:55:04,724 - KBBuilder - INFO - Adding generated report report_Customer Care to vector DB for learning
 2026-02-24 18:55:04,724 - KBBuilder - INFO - Adding transcript report_Customer Care to vector DB
+2026-03-04 07:29:32,319 - RLMIngestionAgent - WARNING - Could not parse RLM response as ExtractedTranscriptData JSON
+2026-03-04 08:24:32,308 - SchemaGenerator - INFO - Fallback inventory: extracted 2 rows from Schema-1 data_elements

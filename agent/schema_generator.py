@@ -227,19 +227,60 @@ class SchemaGenerator:
         schema_str = json.dumps(schema_one_dict, indent=2)
         user_prompt = f"--- BEGIN SCHEMA-1 ---\n{schema_str}\n--- END SCHEMA-1 ---"
         
-        response = self.client.messages.create(
-            model=self.model,
-            max_tokens=8192,
-            temperature=0,
-            system=DATA_INVENTORY_PROMPT,
-            messages=[{"role": "user", "content": user_prompt}],
-            tools=[{
-                "name": "generate_inventory",
-                "description": "Generates the flattened inventory array.",
-                "input_schema": DataInventoryOutput.model_json_schema()
-            }],
-            tool_choice={"type": "tool", "name": "generate_inventory"}
-        )
-        
-        tool_call = next(c for c in response.content if c.type == "tool_use")
-        return tool_call.input.get("inventory", [])
+        # Try up to 2 times — LLM sometimes returns empty on first attempt
+        for attempt in range(1, 3):
+            try:
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=8192,
+                    temperature=0,
+                    system=DATA_INVENTORY_PROMPT,
+                    messages=[{"role": "user", "content": user_prompt}],
+                    tools=[{
+                        "name": "generate_inventory",
+                        "description": "Generates the flattened inventory array.",
+                        "input_schema": DataInventoryOutput.model_json_schema()
+                    }],
+                    tool_choice={"type": "tool", "name": "generate_inventory"}
+                )
+                
+                tool_call = next((c for c in response.content if c.type == "tool_use"), None)
+                if tool_call is None:
+                    logger.warning(f"Data inventory attempt {attempt}: LLM did not return a tool_use block")
+                    continue
+
+                rows = tool_call.input.get("inventory", [])
+                if rows:
+                    logger.info(f"Data inventory generated with {len(rows)} rows (attempt {attempt})")
+                    return rows
+                else:
+                    logger.warning(f"Data inventory attempt {attempt}: LLM returned empty inventory")
+            except Exception as e:
+                logger.error(f"Data inventory attempt {attempt} failed: {e}")
+
+        # Fallback: extract rows directly from Schema-1 data_elements
+        logger.warning("LLM inventory generation failed — extracting from Schema-1 data_elements as fallback")
+        return self._fallback_inventory(schema_one_dict)
+
+    def _fallback_inventory(self, schema_one_dict: dict) -> List[dict]:
+        """Extract data mapping rows directly from Schema-1 nodes' data_elements."""
+        seen = set()
+        rows = []
+        for node in schema_one_dict.get("nodes", []):
+            for de in node.get("data_elements", []):
+                name = de.get("name", "Unknown")
+                if name in seen:
+                    continue
+                seen.add(name)
+                rows.append({
+                    "data_category": name,
+                    "description": de.get("description", ""),
+                    "purpose": de.get("purpose", ""),
+                    "data_owner": de.get("owner", ""),
+                    "storage_location": de.get("storage_location", ""),
+                    "data_classification": de.get("classification", ""),
+                    "retention_period": de.get("retention_period", ""),
+                    "legal_basis": de.get("legal_basis", ""),
+                })
+        logger.info(f"Fallback inventory: extracted {len(rows)} rows from Schema-1 data_elements")
+        return rows

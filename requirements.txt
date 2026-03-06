@@ -14,3 +14,5 @@ spacy>=3.7,<4.0
 networkx
 rapidfuzz
 playwright
+openai
+rich

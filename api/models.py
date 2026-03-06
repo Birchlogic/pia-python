@@ -77,3 +77,5 @@ class KnowledgeGraphEdge(Base):
     inferred = Column(Integer, default=0) # boolean via integer
     sources = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+    

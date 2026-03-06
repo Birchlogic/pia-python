@@ -13,7 +13,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base
-from api.models import DFDSession, DataMappingRow
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -37,6 +37,8 @@ class InitiateRequest(BaseModel):
     session_id: str
     department: str
     files: List[str]
+    use_rlm: bool = False
+    aggressive_processing: bool = False
 
 class InitiateResponse(BaseModel):
     session_id: str
@@ -82,6 +84,134 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 
 # ── Unified Background Pipeline ─────────────────────
+
+def process_aggressive_pipeline(session_id: str, department: str, files: List[str], db: Session):
+    try:
+        logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
+
+        from test.orchestrator.pipeline_runner import PipelineRunner
+        from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
+        from test.graph.html_generator import HTMLGeneratorAgent
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            # 1. Download and combine
+            local_files = _download_files(files, temp_dir)
+            combined_transcript = _combine_transcripts(local_files)
+            combined_path = os.path.join(temp_dir, "combined_source.txt")
+            with open(combined_path, "w") as f:
+                f.write(combined_transcript)
+            
+            # 2. Run Pipeline (Phases 1-9)
+            runner = PipelineRunner()
+            result = runner.process_file(combined_path)
+
+            # 3. Save to temp for Graph Builder
+            pipeline_dir = os.path.join(temp_dir, "pipeline")
+            os.makedirs(pipeline_dir)
+            with open(os.path.join(pipeline_dir, "combined_intelligence.json"), "w") as f:
+                json.dump(result, f, indent=2)
+
+            # 4. Build Knowledge Graph
+            graph_dir = os.path.join(temp_dir, "graph")
+            os.makedirs(graph_dir)
+            kg_agent = KnowledgeGraphAgent()
+            kg_result = kg_agent.build_graph(pipeline_dir, graph_dir)
+
+            # 5. Generate HTML DFD
+            html_gen = HTMLGeneratorAgent()
+            html_path = os.path.join(temp_dir, "privacy_dfd.html")
+            html_gen.generate(graph_dir, pipeline_dir, html_path)
+            
+            interactive_html = ""
+            if os.path.exists(html_path):
+                with open(html_path, "r") as f:
+                    interactive_html = f.read()
+
+        # Parse graph JSON
+        graph_json_path = os.path.join(graph_dir, "knowledge_graph.json")
+        graph_data = {"nodes": [], "edges": []}
+        if os.path.exists(graph_json_path):
+            with open(graph_json_path, "r") as f:
+                graph_data = json.load(f)
+
+        # 6. Save everything to DB
+        db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+        if db_session:
+            db_session.status = "completed"
+            db_session.actors_json = result.get("actors")
+            db_session.systems_json = result.get("systems")
+            db_session.data_elements_json = result.get("data_elements")
+            db_session.flows_json = result.get("flows")
+            db_session.risks_json = result.get("risks")
+            db_session.compliance_schema_json = result.get("compliance_schema")
+            db_session.verification_report_json = result.get("verification_report")
+            db_session.interactive_html = interactive_html
+            db_session.dfd_json = kg_result
+            db_session.updated_at = datetime.utcnow()
+            db.commit()
+
+        # Save KG Nodes
+        for n in graph_data.get("nodes", []):
+            db_node = KnowledgeGraphNode(
+                id=str(uuid.uuid4()),
+                session_id=session_id,
+                node_id=n.get("id", ""),
+                name=n.get("name", ""),
+                type=n.get("type", ""),
+                aliases=n.get("aliases", []),
+                data_elements=n.get("data_elements", []),
+                risks=n.get("risks", []),
+                sources=n.get("sources", [])
+            )
+            db.add(db_node)
+        
+        # Save KG Edges
+        for e in graph_data.get("edges", []):
+            db_edge = KnowledgeGraphEdge(
+                id=str(uuid.uuid4()),
+                session_id=session_id,
+                source_node=e.get("source", ""),
+                target_node=e.get("target", ""),
+                data_elements=e.get("data_elements", []),
+                flow_type=e.get("flow_type", ""),
+                channel=e.get("channel", ""),
+                inferred=1 if e.get("inferred") else 0,
+                sources=e.get("sources", [])
+            )
+            db.add(db_edge)
+
+        # Save data mapping rows
+        inventory_rows = result.get("data_inventory", [])
+        s_no = 1
+        for row in inventory_rows:
+            db_row = DataMappingRow(
+                id=str(uuid.uuid4()),
+                session_id=session_id,
+                s_no=s_no,
+                data_category=row.get("data_category", "Unknown"),
+                description=row.get("description", ""),
+                purpose=row.get("purpose", ""),
+                data_owner=row.get("data_owner", ""),
+                storage_location=row.get("storage_location", ""),
+                data_classification=row.get("data_classification", ""),
+                retention_period=row.get("retention_period", ""),
+                legal_basis=row.get("legal_basis", "")
+            )
+            db.add(db_row)
+            s_no += 1
+        db.commit()
+
+        logger.info(f"[{session_id}] Aggressive Pipeline completed successfully")
+
+    except Exception as e:
+        logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
+        db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+        if db_session:
+            db_session.status = "failed"
+            db_session.error_message = str(e)
+            db_session.updated_at = datetime.utcnow()
+            db.commit()
+
 
 def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session):
     try:
@@ -211,18 +341,32 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if existing:
         raise HTTPException(status_code=400, detail="Session ID already exists")
 
+    processing_mode = "normal"
+    if request.aggressive_processing:
+        processing_mode = "aggressive_processing"
+    elif request.use_rlm:
+        processing_mode = "rlm"
+
     new_session = DFDSession(
         session_id=request.session_id,
         department=request.department,
-        status="processing"
+        status="processing",
+        processing_mode=processing_mode
     )
     db.add(new_session)
     db.commit()
 
-    background_tasks.add_task(
-        process_unified_pipeline,
-        request.session_id, request.department, request.files, db
-    )
+    if request.aggressive_processing:
+        background_tasks.add_task(
+            process_aggressive_pipeline,
+            request.session_id, request.department, request.files, db
+        )
+    else:
+        # Legacy unified pipeline (handles RLM inside via config or env if needed)
+        background_tasks.add_task(
+            process_unified_pipeline,
+            request.session_id, request.department, request.files, db
+        )
 
     return InitiateResponse(
         session_id=request.session_id,
@@ -257,13 +401,58 @@ def get_results(session_id: str, db: Session = Depends(get_db)):
         .all()
     )
 
+    kg_nodes = (
+        db.query(KnowledgeGraphNode)
+        .filter(KnowledgeGraphNode.session_id == session_id)
+        .all()
+    )
+    
+    kg_edges = (
+        db.query(KnowledgeGraphEdge)
+        .filter(KnowledgeGraphEdge.session_id == session_id)
+        .all()
+    )
+
     return {
         "session_id": s.session_id,
         "status": s.status,
         "department": s.department,
+        "processing_mode": s.processing_mode,
         "schema_one_json": s.schema_one_json,
         "dfd_json": s.dfd_json,
         "privacy_dfd_md": s.privacy_dfd_md,
+        "actors_json": s.actors_json,
+        "systems_json": s.systems_json,
+        "data_elements_json": s.data_elements_json,
+        "flows_json": s.flows_json,
+        "risks_json": s.risks_json,
+        "compliance_schema_json": s.compliance_schema_json,
+        "verification_report_json": s.verification_report_json,
+        "interactive_html": s.interactive_html,
+        "knowledge_graph": {
+            "nodes": [
+                {
+                    "node_id": n.node_id,
+                    "name": n.name,
+                    "type": n.type,
+                    "aliases": n.aliases,
+                    "data_elements": n.data_elements,
+                    "risks": n.risks,
+                    "sources": n.sources
+                } for n in kg_nodes
+            ],
+            "edges": [
+                {
+                    "source_node": e.source_node,
+                    "target_node": e.target_node,
+                    "data_elements": e.data_elements,
+                    "flow_type": e.flow_type,
+                    "channel": e.channel,
+                    "inferred": bool(e.inferred),
+                    "sources": e.sources
+                } for e in kg_edges
+            ]
+        },
         "data_mapping_rows": [
             {
                 "s_no": row.s_no,
@@ -288,6 +477,8 @@ def delete_session(session_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Session not found")
 
     db.query(DataMappingRow).filter(DataMappingRow.session_id == session_id).delete()
+    db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == session_id).delete()
+    db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == session_id).delete()
     db.delete(s)
     db.commit()
 

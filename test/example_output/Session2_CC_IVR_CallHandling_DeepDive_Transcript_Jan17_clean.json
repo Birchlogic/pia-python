@@ -1,0 +1,464 @@
+{
+  "metadata": {
+    "project": "DPDPA Compliance Assessment 2026",
+    "department": "Customer Care \u2014 Call Centre Operations",
+    "session": "2 of 4 \u2014 IVR Workflows, Call Handling & Data Access Deep Dive"
+  },
+  "dialogue": [
+    {
+      "timestamp": "00:00:09",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Hi Farhan, thanks for the time. Nikhil gave us a great overview earlier this week. Today we want to get into the details of how calls are handled, what data agents interact with, how the systems work, and specifically the Ameyo-Salesforce integration. I understand you'll show us a live demo?",
+      "systems": [
+        "Salesforce",
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:00:26",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes, I've set up a demo station. Let me walk you through a typical call flow.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:00:32",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Perfect. Let's start.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:00:35",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "[at demo station] OK, so when a call comes in, this is what the agent's screen looks like. On the left you have the Ameyo softphone panel \u2014 it shows the incoming number, the call queue, hold time. On the right is the Salesforce panel. When the call connects, Ameyo passes the caller's phone number to Salesforce via a CTI connector, and Salesforce does a lookup against the customer database.",
+      "systems": [
+        "Salesforce",
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:01:02",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "What happens if the phone number matches multiple records?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:01:06",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Salesforce shows all matching records. The agent can see multiple customer profiles if the same number is registered to more than one account. That does happen \u2014 a husband and wife might both be our customers and share a phone number. The agent then asks the caller which account they're calling about.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:01:24",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "And if there's no match?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:01:27",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "If no match, the Salesforce panel stays blank. The agent knows it's an unregistered caller. They follow the unregistered flow that Nikhil would have explained.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:01:37",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Right. Let's look at what data is visible when there IS a match. Can you show me?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:01:42",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "[navigating Salesforce] Here's a sample customer record. Top section: Customer name, loan account number, registered mobile, alternate mobile, email address, residential address, PAN number. Loan details section: product type \u2014 this one is a home loan \u2014 sanctioned amount, disbursed amount, current outstanding, EMI amount, tenure, interest rate, next EMI due date. Payment section: last 12 months payment history \u2014 dates, amounts, any bounces. Case section: all historical cases \u2014 you can see this customer called three times in the last six months. One query about EMI date, one service request for a statement, and one about property papers.",
+      "systems": [
+        "Salesforce",
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:02:25",
+      "speaker": "Rohan Desai",
+      "role": "note_taker",
+      "text": "PAN number is visible to every agent?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:28",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes. The customer profile in Salesforce shows PAN because it was captured during loan origination. It's part of the KYC data.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:02:37",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Is there any masking applied? Like showing only the last 4 characters?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:41",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "No masking. Full PAN is visible. Same with the address and alternate mobile.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:48",
+      "speaker": "Rohan Desai",
+      "role": "note_taker",
+      "text": "That's a problem. Customer care agents don't need to see a customer's PAN number to handle an EMI query. This should be masked or hidden behind a role-based permission.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:59",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "I agree. We've never changed the default field visibility in Salesforce since the loan origination team configured it. They need PAN for KYC. We inherited that view.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:03:10",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "How many agents have this level of access to customer records?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:14",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "All active agents. That's around 30 people on the call centre side. Plus the Team Leads, plus Nikhil. And actually the Compliance Calling team and Quality team also have Salesforce access because they need to look up customer records for their processes.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:03:31",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "So roughly 45 people can see any customer's PAN, address, financial details, and full case history?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:37",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "When you put it that way, yes. There's no row-level restriction \u2014 any agent can search for any customer.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:46",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Let's talk about call recordings. Are calls recorded?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:50",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes, all calls are recorded by Ameyo. There's a disclaimer played at the start of every call \u2014 the IVR says something like \"This call may be recorded for quality and training purposes.\"",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:04:02",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "May be or will be? Is there an opt-out?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:06",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "The exact wording is \"this call may be recorded.\" There's no option for the customer to opt out. Every call is recorded regardless.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:15",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "That's a consent issue under DPDPA. The notice says \"may\" but the practice is \"always.\" And there's no opt-out. We'll need to review the IVR language and consider whether recording requires explicit consent.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:28",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Makes sense.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:30",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Where are the recordings stored?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:33",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Ameyo stores them. The recordings are accessible through the Ameyo admin panel. I have access. Smita on the Quality team has access because she needs recordings for call audits. Nikhil has access.",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:04:47",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "How long are recordings retained?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:50",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "I honestly don't know if there's a retention policy. I've been able to pull up recordings from over a year ago. Let me check. [navigating Ameyo] Yeah, I can see recordings going back to March 2024. So at least almost two years.",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:05:07",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "And these recordings potentially contain customers discussing their financial situation, loan difficulties, personal circumstances, complaints about employees?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:15",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes, all of that. Some calls get very personal. Customers going through financial hardship will explain their situation in detail. Medical emergencies, job losses, family issues \u2014 we hear it all.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:28",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "That's sensitive personal data captured in audio form with no defined retention and no explicit consent. Major finding. Let's move to the WhatsApp channel. How does that work?",
+      "systems": [
+        "WhatsApp"
+      ]
+    },
+    {
+      "timestamp": "00:05:40",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "We have a WhatsApp Business account. Customers can message us. Currently it's handled by two dedicated agents. Incoming messages show up in the WhatsApp Business app on their phones \u2014 company-issued phones. They respond directly from the app.",
+      "systems": [
+        "WhatsApp"
+      ]
+    },
+    {
+      "timestamp": "00:05:58",
+      "speaker": "Rohan Desai",
+      "role": "note_taker",
+      "text": "Wait \u2014 the WhatsApp Business app on physical phones? Not a web-based platform?",
+      "systems": [
+        "WhatsApp"
+      ]
+    },
+    {
+      "timestamp": "00:06:03",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Right, on mobile phones.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:06",
+      "speaker": "Rohan Desai",
+      "role": "note_taker",
+      "text": "So customer messages \u2014 which could contain account numbers, personal details, screenshots of payment issues \u2014 are stored on two physical handsets?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:14",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes, in the WhatsApp chat history. The agents also log the interaction in Salesforce as a case, but the actual message content and any attachments stay on WhatsApp.",
+      "systems": [
+        "Salesforce",
+        "WhatsApp"
+      ]
+    },
+    {
+      "timestamp": "00:06:26",
+      "speaker": "Rohan Desai",
+      "role": "note_taker",
+      "text": "Are these phones encrypted? Are they MDM-managed?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:30",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "They have screen locks \u2014 PIN or fingerprint. But I don't think they're under any MDM solution. IT would know better.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:39",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "What happens when those phones are replaced or an agent leaves?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:43",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "The phone gets wiped and given to the next person. Or it goes back to IT. I'm not sure if the WhatsApp data is backed up anywhere before the wipe.",
+      "systems": [
+        "WhatsApp"
+      ]
+    },
+    {
+      "timestamp": "00:06:53",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "So potentially, customer conversation history is permanently lost when a phone is wiped, with no backup and no audit trail beyond what's in Salesforce?",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:07:01",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "I think so, yes.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:07:05",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Let's talk about the email channel briefly.",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:07:08",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "The customer care email address is a shared mailbox. A few of my team members have access to it. When an email comes in, they read it, create a case in Salesforce, and respond from the shared mailbox. The email history stays in the mailbox. We don't delete emails.",
+      "systems": [
+        "Salesforce",
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:07:26",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "So the shared mailbox has the full history of every customer email interaction?",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:07:30",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Yes. Going back years. Since the mailbox was created.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:07:35",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "And who has access to this shared mailbox?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:07:38",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Me, the two email handling agents, and Nikhil. Four people.",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:07:44",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "That's better controlled than some other areas. Let me ask about data flowing out of Customer Care. Who do you share customer data with?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:07:53",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Internally \u2014 when a service request needs another department to act on it, we assign the Salesforce case to that department. So the Loan Operations team sees cases about statement requests or EMI changes. The Legal team gets cases about property papers. The Collections team gets flagged if a customer has overdue issues. And as Nikhil mentioned, Loan Closure calls go to the Retention desk.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:08:18",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "Any external sharing?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:20",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Not from our team directly. We don't send customer data to any external party. The only external interface is the customer themselves calling or messaging us.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:30",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "What about the Compliance Calling team? They're outbound \u2014 they call customers. Do they share data externally?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:37",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "Deepa would have the full picture on that. But from what I know, the compliance call data gets shared with the Field Audit and Anti-Fraud team internally. Whether they share it further, I don't know.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:50",
+      "speaker": "Priya Nair",
+      "role": "interviewer",
+      "text": "We'll follow up with Deepa. Farhan, this has been very valuable, especially the live system walkthrough. Thank you.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:58",
+      "speaker": "Farhan Qureshi",
+      "role": "interviewee",
+      "text": "No problem. Let me know if you need to come back and look at anything again. I'm usually at my desk.",
+      "systems": []
+    }
+  ]
+}

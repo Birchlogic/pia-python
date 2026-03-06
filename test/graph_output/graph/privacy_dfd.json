@@ -1,0 +1,582 @@
+{
+  "nodes": [
+    {
+      "id": "nikhil_joshi",
+      "name": "Nikhil Joshi",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "smita",
+      "name": "Smita",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "farhan_qureshi",
+      "name": "Farhan Qureshi",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "rohan_desai",
+      "name": "Rohan Desai",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "ameyo",
+      "name": "Ameyo",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risk_count": 0
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risk_count": 14
+    },
+    {
+      "id": "whatsapp_business_app",
+      "name": "WhatsApp Business App",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risk_count": 7
+    },
+    {
+      "id": "priya_nair",
+      "name": "Priya Nair",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "cti_connector",
+      "name": "CTI Connector",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "shared_mailbox",
+      "name": "Shared Mailbox",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "risk_count": 3
+    },
+    {
+      "id": "deepa_lakshmi",
+      "name": "Deepa Lakshmi",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "dfd_type": "data_store",
+      "shape": "open_rectangle",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risk_count": 0
+    },
+    {
+      "id": "onedrive",
+      "name": "OneDrive",
+      "dfd_type": "data_store",
+      "shape": "open_rectangle",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risk_count": 2
+    },
+    {
+      "id": "email_system",
+      "name": "Email System",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risk_count": 0
+    },
+    {
+      "id": "team_lead",
+      "name": "Team Lead",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "quality scorecard"
+      ],
+      "risk_count": 2
+    },
+    {
+      "id": "microsoft_365",
+      "name": "Microsoft 365",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [],
+      "risk_count": 0
+    },
+    {
+      "id": "customer",
+      "name": "Customer",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risk_count": 15
+    },
+    {
+      "id": "customer_care_agent",
+      "name": "Customer Care Agent",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "quality scorecard"
+      ],
+      "risk_count": 3
+    },
+    {
+      "id": "retention",
+      "name": "Retention",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "risk_count": 7
+    },
+    {
+      "id": "compliance_calling",
+      "name": "Compliance Calling",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "risk_count": 2
+    },
+    {
+      "id": "quality_assurance_agent",
+      "name": "Quality Assurance Agent",
+      "dfd_type": "process",
+      "shape": "circle",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "risk_count": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "ameyo",
+      "to": "salesforce",
+      "label": "Customer Name, EMI Amount, Email Address",
+      "inferred": false
+    },
+    {
+      "from": "ameyo",
+      "to": "customer_care_agent",
+      "label": "Customer Name, EMI Amount, Email Address",
+      "inferred": false
+    },
+    {
+      "from": "ameyo",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": false
+    },
+    {
+      "from": "ameyo",
+      "to": "retention",
+      "label": "Customer Name, EMI Amount, Email Address",
+      "inferred": true
+    },
+    {
+      "from": "ameyo",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "ameyo",
+      "to": "team_lead",
+      "label": "Customer Name, PAN",
+      "inferred": true
+    },
+    {
+      "from": "salesforce",
+      "to": "ameyo",
+      "label": "Customer Name, EMI Amount, Email Address",
+      "inferred": false
+    },
+    {
+      "from": "salesforce",
+      "to": "retention",
+      "label": "Customer Name, EMI Amount, Email Address",
+      "inferred": false
+    },
+    {
+      "from": "salesforce",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "salesforce",
+      "to": "customer_care_agent",
+      "label": "Aadhaar, EMI Amount, Email Address",
+      "inferred": false
+    },
+    {
+      "from": "salesforce",
+      "to": "team_lead",
+      "label": "Aadhaar, Customer Name, PAN",
+      "inferred": false
+    },
+    {
+      "from": "salesforce",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "salesforce",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "ameyo",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "retention",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "customer_care_agent",
+      "label": "Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "team_lead",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "whatsapp_business_app",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "salesforce",
+      "label": "Customer Name, Email Address, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "ameyo",
+      "label": "Customer Name, Email Address, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "retention",
+      "label": "Customer Name, Email Address, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "customer_care_agent",
+      "label": "Email Address, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "team_lead",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "shared_mailbox",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "excel",
+      "to": "onedrive",
+      "label": "Customer Name, Loan Account Number, Mobile Number",
+      "inferred": false
+    },
+    {
+      "from": "team_lead",
+      "to": "excel",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "team_lead",
+      "to": "onedrive",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "team_lead",
+      "to": "customer_care_agent",
+      "label": "Customer Name, Loan Account Number, quality scorecard",
+      "inferred": false
+    },
+    {
+      "from": "customer",
+      "to": "whatsapp_business_app",
+      "label": "Customer Name, PAN, Property Address",
+      "inferred": false
+    },
+    {
+      "from": "customer",
+      "to": "ameyo",
+      "label": "Mobile Number",
+      "inferred": false
+    },
+    {
+      "from": "customer",
+      "to": "salesforce",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "customer",
+      "to": "customer_care_agent",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "customer",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name, Mobile Number",
+      "inferred": true
+    },
+    {
+      "from": "customer",
+      "to": "retention",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "customer",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "customer",
+      "to": "team_lead",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "salesforce",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "retention",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "excel",
+      "label": "Customer Name, EMI Amount, Loan Account Number",
+      "inferred": false
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "onedrive",
+      "label": "Customer Name, Loan Account Number, Mobile Number",
+      "inferred": false
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "email_system",
+      "label": "Customer Name, Loan Account Number, Mobile Number",
+      "inferred": false
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "ameyo",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": true
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "team_lead",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "customer_care_agent",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "ameyo",
+      "label": "Customer Name, Mobile Number",
+      "inferred": false
+    },
+    {
+      "from": "compliance_calling",
+      "to": "salesforce",
+      "label": "Customer Name, Mobile Number",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "customer_care_agent",
+      "label": "Customer Name, Mobile Number",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "quality_assurance_agent",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "retention",
+      "label": "Customer Name, Mobile Number",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "email_system",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "compliance_calling",
+      "to": "team_lead",
+      "label": "Customer Name",
+      "inferred": true
+    },
+    {
+      "from": "quality_assurance_agent",
+      "to": "excel",
+      "label": "Customer Name, Loan Account Number",
+      "inferred": false
+    }
+  ]
+}

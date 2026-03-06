@@ -19,7 +19,6 @@ logger = setup_logger("Main")
 
 REFERENCE_DFD_DIR = os.path.join(os.path.dirname(__file__), "data", "reference_dfds")
 
-
 def _slugify(name: str) -> str:
     """Match the slug logic used in reverse_engineer_dfds.py."""
     s = name.strip().lower()
@@ -305,45 +304,125 @@ def _merge_dept_jsons(dept_results: list) -> dict:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="AI Compliance Documentation Agent")
-    subparsers = parser.add_subparsers(dest="command")
+    import sys
 
-    # ── Single department assessment ──────────────────
-    dept_parser = subparsers.add_parser(
-        "assess", help="Assess a single department — report + Privacy DFD (MD) + HTML DFD"
-    )
-    dept_parser.add_argument("--files", nargs="+", required=True, help="Transcript file paths")
-    dept_parser.add_argument("--dept", required=True, help="Department name")
-    dept_parser.add_argument(
-        "--use-reference", action="store_true", default=False,
-        help="Use pre-generated reference DFD JSON (zero variance for demo re-runs)"
-    )
+    if len(sys.argv) > 1 and sys.argv[1] == "pipeline":
+        # ── Document Intelligence Pipeline ────────────
+        from test.orchestrator.pipeline_runner import PipelineRunner
+        import glob
 
-    # ── Multi-department + Master DFD ─────────────────
-    master_parser = subparsers.add_parser(
-        "master", help="Assess multiple departments and generate a Master DFD"
-    )
-    master_parser.add_argument("--depts", nargs="+", required=True)
-    master_parser.add_argument(
-        "--file-groups", nargs="+", required=True,
-        help="Transcript files per department separated by commas"
-    )
+        runner = PipelineRunner()
+        input_dir = os.path.join(os.path.dirname(__file__), "example_input")
+        output_dir = os.path.join(os.path.dirname(__file__), "test", "pipeline_output")
 
-    args = parser.parse_args()
+        # Accept --files flag, or default to example_input/*.txt
+        if "--files" in sys.argv:
+            idx = sys.argv.index("--files")
+            files = sys.argv[idx + 1:]
+        else:
+            files = sorted(glob.glob(os.path.join(input_dir, "*.txt")))
 
-    if args.command == "assess":
-        run_department_assessment(args.files, args.dept, use_reference=args.use_reference)
+        if not files:
+            print("No input files found. Use: python main.py pipeline --files <file1> <file2> ...")
+            sys.exit(1)
 
-    elif args.command == "master":
-        if len(args.depts) != len(args.file_groups):
-            print("ERROR: Number of --depts must match --file-groups")
-            exit(1)
-        dept_results = []
-        for dept, file_group in zip(args.depts, args.file_groups):
-            files = [f.strip() for f in file_group.split(",")]
-            result = run_department_assessment(files, dept)
-            dept_results.append(result)
-        run_master_dfd(dept_results)
+        print(f"\n🔬 Document Intelligence Pipeline")
+        print(f"   Processing {len(files)} file(s)...\n")
+
+        results = runner.process_files(files, output_dir=output_dir)
+
+        print(f"\n✅ Pipeline complete. {len(results)} file(s) processed.")
+        print(f"   Output saved to: {output_dir}/")
+
+    elif len(sys.argv) > 1 and sys.argv[1] == "graph":
+        # ── Knowledge Graph Builder ───────────────────
+        from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
+
+        pipeline_output_dir = os.path.join(os.path.dirname(__file__), "test", "pipeline_output")
+        graph_output_dir = os.path.join(os.path.dirname(__file__), "test", "graph_output")
+
+        print(f"\n🕸️  Knowledge Graph Builder")
+        print(f"   Loading documents from: {pipeline_output_dir}\n")
+
+        agent = KnowledgeGraphAgent()
+        result = agent.build_graph(pipeline_output_dir, graph_output_dir)
+
+        if "error" not in result:
+            stats = result["graph_stats"]
+            print(f"\n✅ Knowledge Graph built:")
+            print(f"   Nodes: {stats['total_nodes']} ({stats.get('inferred_edges', 0)} inferred edges)")
+            print(f"   Edges: {stats['total_edges']}")
+            print(f"   Entities merged: {result['entities_merged']}")
+            print(f"   Flows merged: {result['flows_merged']}")
+            print(f"   Inferred flows: {result['inferred_flows']}")
+            print(f"   Validation: {'PASS ✅' if result['validation']['valid'] else 'FAIL ❌'}")
+            print(f"\n   Output: {graph_output_dir}/")
+
+    elif len(sys.argv) > 1 and sys.argv[1] == "visualize":
+        # ── Deterministic HTML Visualization ──────────
+        from test.graph.html_generator import HTMLGeneratorAgent
+
+        graph_dir = os.path.join(os.path.dirname(__file__), "test", "graph_output")
+        pipeline_dir = os.path.join(os.path.dirname(__file__), "test", "pipeline_output")
+        output_html = os.path.join(os.path.dirname(__file__), "test", "graph_output", "privacy_dfd.html")
+
+        print(f"\n🎨 Building Privacy DFD Dashboard (Deterministic)")
+        print(f"   No LLM needed — generating directly from knowledge graph JSON...\n")
+
+        generator = HTMLGeneratorAgent()
+        result = generator.generate(graph_dir, pipeline_dir, output_html)
+
+        if result:
+            print(f"\n✅ DFD Dashboard generated!")
+            print(f"   Open: file://{os.path.abspath(result)}")
+        else:
+            print(f"\n❌ Failed to generate HTML.")
 
     else:
-        parser.print_help()
+        # ── Default: Clean transcripts ────────────────
+        from test.clean_transcripts import CleanTranscripts
+        clean_transcripts = CleanTranscripts()
+        clean_transcripts.clean_transcripts()
+
+    # parser = argparse.ArgumentParser(description="AI Compliance Documentation Agent")
+    # subparsers = parser.add_subparsers(dest="command")
+
+    # # ── Single department assessment ──────────────────
+    # dept_parser = subparsers.add_parser(
+    #     "assess", help="Assess a single department — report + Privacy DFD (MD) + HTML DFD"
+    # )
+    # dept_parser.add_argument("--files", nargs="+", required=True, help="Transcript file paths")
+    # dept_parser.add_argument("--dept", required=True, help="Department name")
+    # dept_parser.add_argument(
+    #     "--use-reference", action="store_true", default=False,
+    #     help="Use pre-generated reference DFD JSON (zero variance for demo re-runs)"
+    # )
+
+    # # ── Multi-department + Master DFD ─────────────────
+    # master_parser = subparsers.add_parser(
+    #     "master", help="Assess multiple departments and generate a Master DFD"
+    # )
+    # master_parser.add_argument("--depts", nargs="+", required=True)
+    # master_parser.add_argument(
+    #     "--file-groups", nargs="+", required=True,
+    #     help="Transcript files per department separated by commas"
+    # )
+
+    # args = parser.parse_args()
+
+    # if args.command == "assess":
+    #     run_department_assessment(args.files, args.dept, use_reference=args.use_reference)
+
+    # elif args.command == "master":
+    #     if len(args.depts) != len(args.file_groups):
+    #         print("ERROR: Number of --depts must match --file-groups")
+    #         exit(1)
+    #     dept_results = []
+    #     for dept, file_group in zip(args.depts, args.file_groups):
+    #         files = [f.strip() for f in file_group.split(",")]
+    #         result = run_department_assessment(files, dept)
+    #         dept_results.append(result)
+    #     run_master_dfd(dept_results)
+
+    # else:
+    #     parser.print_help()

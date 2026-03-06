@@ -1,0 +1,360 @@
+{
+  "metadata": {
+    "project": "DPDPA Compliance Assessment 2026",
+    "department": "Customer Care \u2014 Compliance Calling & Escalation",
+    "session": "3 of 4 \u2014 Compliance Calling Process & Escalation Handling"
+  },
+  "dialogue": [
+    {
+      "timestamp": "00:00:07",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Hi Deepa, thanks for joining. Nikhil and Farhan have given us good context on the inbound call centre operations. Today we want to understand the Compliance Calling function \u2014 what it is, what data is involved, and how it flows downstream.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:00:22",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Hi Rohan, Priya. Happy to help. Compliance Calling is a bit different from the regular call centre. We don't take inbound calls. We make outbound calls to existing customers for verification purposes.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:00:36",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Walk us through what Compliance Calling actually entails.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:00:40",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "So we call it Compliance Calling or sometimes Hygiene Calling. The purpose is to verify that the loan was originated properly and that the customer's information is accurate. Think of it as a quality check on the lending process. There are four types of compliance calls we make:",
+      "systems": []
+    },
+    {
+      "timestamp": "00:01:55",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "That's quite structured. For each of these call types, what data do you collect?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:01",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Each call type has a questionnaire. The questions are different for each type. My team makes the call, asks the questions, and fills in the answers.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:12",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Where are the answers recorded?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:15",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "In Excel. We have a master Excel file per month. Each row is one call. The columns include the customer's name, loan account number, mobile number, date of call, call type, and then the individual question responses. The questionnaire varies by type but for example, the Pre-Disbursement one asks things like: \"Did you visit the branch?\", \"Did you meet the loan officer?\", \"Were you explained the terms of the loan?\", \"Was any unofficial payment requested?\", \"Are you aware of your EMI amount and tenure?\"",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:50",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Is the customer informed at the start of the call that their responses will be recorded and may be shared with other teams?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:02:57",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "We identify ourselves as calling from the company and state the purpose of the call \u2014 that we're calling for verification. But we don't give a formal data privacy notice or say anything about how the data will be used or shared.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:12",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "And these calls, are they recorded in Ameyo like the inbound calls?",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:03:17",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Yes. All our outbound calls are also recorded through Ameyo. Same system, same storage.",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:03:24",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Same consent gap then. The customer doesn't know the call is being recorded. For outbound calls, there may not even be the \"this call may be recorded\" disclaimer that plays on inbound.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:35",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Hmm, you're right. The disclaimer is only on the inbound IVR. When we make outbound calls, there's no automated disclaimer. The agent is supposed to verbally mention it, but honestly I'm not confident that happens consistently.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:50",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "That's a definite gap. Now tell me about what happens to the compliance calling data after it's collected.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:03:57",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "At the end of each month, I compile the data from the daily sheets into a consolidated monthly report. That report is shared with the Field Audit and Anti-Fraud team. They use it to flag cases that need investigation \u2014 for example, if a customer says they were asked for an unofficial payment, or if they say they never visited the branch.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:18",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "How is the report shared with the Field Audit team?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:21",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Email. I email the consolidated Excel to the Field Audit team lead. Sometimes I also share individual call recordings if a specific case needs investigation.",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:04:32",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "The Excel with customer names, account numbers, mobile numbers, and potentially sensitive fraud-related responses \u2014 sent as an email attachment?",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:04:40",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Yes.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:42",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Is the file encrypted or password-protected?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:45",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "No. It's just a regular Excel file.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:49",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "What happens to the daily Excel files? Are they kept after the monthly consolidation?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:04:54",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "They stay on my machine. I have them organized by month in folders on my OneDrive. The daily files, the monthly consolidated file, everything.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:04",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "For how far back?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:06",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Since I started in this role, which was April 2024. So about a year and a half of data.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:14",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "And when you leave this role or the company, what happens to that data?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:18",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "[pause] I haven't really thought about that. I guess it would stay on my OneDrive unless someone actively moved it.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:27",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Let me shift to the escalation process. Nikhil mentioned there's a defined escalation matrix. Can you walk me through how escalations work?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:05:36",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Sure, though escalation is more Farhan's territory since it mainly applies to inbound calls. But I can give you the overview.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:06:10",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Is the escalation automated through Salesforce or manual?",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:06:14",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "The TAT-based escalation is automated in Salesforce. It tracks the case age and sends email alerts. The complaint escalation is manual \u2014 the agent or Team Lead manually routes it.",
+      "systems": [
+        "Salesforce",
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:06:27",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "The escalation emails, do they contain the full case details including customer personal data?",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:06:32",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Yes. The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description. So the recipient can act on it without necessarily logging into Salesforce.",
+      "systems": [
+        "Salesforce",
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:06:46",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "That means customer data is being emailed in plain text as part of the escalation workflow. If someone's email is compromised, every escalation email becomes a data exposure.",
+      "systems": [
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:06:58",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "I see the concern. But that's how Salesforce is configured.",
+      "systems": [
+        "Salesforce"
+      ]
+    },
+    {
+      "timestamp": "00:07:04",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Understood. We'll review the Salesforce email template configuration as part of our recommendations. Deepa, one more area. The Quality team \u2014 Smita's team. They audit calls. What does that process look like from a data perspective?",
+      "systems": [
+        "Salesforce",
+        "Email"
+      ]
+    },
+    {
+      "timestamp": "00:07:19",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Smita's team pulls recordings from Ameyo, listens to them, and scores the agents on a quality scorecard. The scorecard covers things like greeting, tone, accuracy of information given, compliance with scripts, handling of sensitive situations. The scores go into an Excel tracker. Smita also conducts training for new hires based on call audit findings.",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:07:42",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Do the quality scorecards contain customer information? Or just agent performance data?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:07:47",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "The scorecard itself is about agent performance. But it references the call by Ameyo recording ID and date, and it usually notes the customer's name or account number so they can cross-reference if needed.",
+      "systems": [
+        "Ameyo"
+      ]
+    },
+    {
+      "timestamp": "00:07:59",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "So the quality tracking Excel has customer identifiers linked to call recordings?",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:04",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Technically, yes. But the main purpose is agent evaluation, not customer data tracking.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:11",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "The purpose might be agent evaluation, but the data processing still involves customer personal data. Under DPDPA, the purpose doesn't override the fact that personal data is being processed. It still needs to be governed.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:25",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "That makes sense. I hadn't thought of the quality audit data as customer data, but you're right that it includes customer identifiers.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:35",
+      "speaker": "Rohan Desai",
+      "role": "interviewer",
+      "text": "Exactly. Deepa, this has been really thorough. Thank you for your time.",
+      "systems": []
+    },
+    {
+      "timestamp": "00:08:40",
+      "speaker": "Deepa Lakshmi",
+      "role": "interviewee",
+      "text": "Happy to help. Let me know if you need anything else.",
+      "systems": []
+    }
+  ]
+}

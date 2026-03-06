@@ -14,6 +14,12 @@ RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/wh
 # Then install everything else (sentence-transformers will use the CPU torch)
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install headless Chromium for HTML previewing loops
+RUN playwright install --with-deps chromium
+
+# Download spaCy language model
+RUN python -m spacy download en_core_web_sm
+
 COPY . .
 
 COPY entrypoint.sh .

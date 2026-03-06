@@ -1,0 +1,145 @@
+{
+  "layout": "left_to_right",
+  "levels": [
+    [
+      "Nikhil Joshi",
+      "Smita",
+      "Farhan Qureshi",
+      "Rohan Desai",
+      "Priya Nair",
+      "CTI Connector",
+      "Shared Mailbox",
+      "Deepa Lakshmi",
+      "Microsoft 365",
+      "Customer",
+      "Compliance Calling"
+    ],
+    [
+      "Ameyo",
+      "WhatsApp Business App",
+      "Excel"
+    ],
+    [
+      "Salesforce",
+      "OneDrive"
+    ],
+    [
+      "Email System",
+      "Team Lead"
+    ],
+    [
+      "Customer Care Agent"
+    ],
+    [
+      "Retention",
+      "Quality Assurance Agent"
+    ]
+  ],
+  "node_styles": {
+    "nikhil_joshi": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Nikhil Joshi"
+    },
+    "smita": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Smita"
+    },
+    "farhan_qureshi": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Farhan Qureshi"
+    },
+    "rohan_desai": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Rohan Desai"
+    },
+    "ameyo": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Ameyo"
+    },
+    "salesforce": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "Salesforce"
+    },
+    "whatsapp_business_app": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "WhatsApp Business App"
+    },
+    "priya_nair": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Priya Nair"
+    },
+    "cti_connector": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "CTI Connector"
+    },
+    "shared_mailbox": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "Shared Mailbox"
+    },
+    "deepa_lakshmi": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Deepa Lakshmi"
+    },
+    "excel": {
+      "shape": "open_rectangle",
+      "color": "#44cc44",
+      "label": "Excel"
+    },
+    "onedrive": {
+      "shape": "open_rectangle",
+      "color": "#ffaa00",
+      "label": "OneDrive"
+    },
+    "email_system": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Email System"
+    },
+    "team_lead": {
+      "shape": "circle",
+      "color": "#ffaa00",
+      "label": "Team Lead"
+    },
+    "microsoft_365": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Microsoft 365"
+    },
+    "customer": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "Customer"
+    },
+    "customer_care_agent": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "Customer Care Agent"
+    },
+    "retention": {
+      "shape": "circle",
+      "color": "#ff4444",
+      "label": "Retention"
+    },
+    "compliance_calling": {
+      "shape": "circle",
+      "color": "#ffaa00",
+      "label": "Compliance Calling"
+    },
+    "quality_assurance_agent": {
+      "shape": "circle",
+      "color": "#44cc44",
+      "label": "Quality Assurance Agent"
+    }
+  }
+}

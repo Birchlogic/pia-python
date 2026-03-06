@@ -16,6 +16,19 @@ class DFDSession(Base):
     # DFD Generation outputs
     dfd_json = Column(JSON, nullable=True)
     privacy_dfd_md = Column(Text, nullable=True)
+    
+    # New processing meta
+    processing_mode = Column(String, default="normal") # "normal", "rlm", or "aggressive_processing"
+    
+    # Enhanced Pipeline outputs
+    actors_json = Column(JSON, nullable=True)
+    systems_json = Column(JSON, nullable=True)
+    data_elements_json = Column(JSON, nullable=True)
+    flows_json = Column(JSON, nullable=True)
+    risks_json = Column(JSON, nullable=True)
+    compliance_schema_json = Column(JSON, nullable=True)
+    verification_report_json = Column(JSON, nullable=True)
+    interactive_html = Column(Text, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -36,3 +49,31 @@ class DataMappingRow(Base):
     legal_basis = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class KnowledgeGraphNode(Base):
+    __tablename__ = "kg_nodes"
+
+    id = Column(String, primary_key=True)
+    session_id = Column(String, index=True, nullable=False)
+    node_id = Column(String, index=True, nullable=False)
+    name = Column(String, nullable=False)
+    type = Column(String, nullable=False)
+    aliases = Column(JSON, nullable=True)
+    data_elements = Column(JSON, nullable=True)
+    risks = Column(JSON, nullable=True)
+    sources = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class KnowledgeGraphEdge(Base):
+    __tablename__ = "kg_edges"
+
+    id = Column(String, primary_key=True)
+    session_id = Column(String, index=True, nullable=False)
+    source_node = Column(String, index=True, nullable=False)
+    target_node = Column(String, index=True, nullable=False)
+    data_elements = Column(JSON, nullable=True)
+    flow_type = Column(String, nullable=True)
+    channel = Column(String, nullable=True)
+    inferred = Column(Integer, default=0) # boolean via integer
+    sources = Column(JSON, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)

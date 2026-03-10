@@ -148,12 +148,18 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 with open(html_path, "r") as f:
                     interactive_html = f.read()
 
-        # Parse graph JSON
-        graph_json_path = os.path.join(graph_dir, "knowledge_graph.json")
-        graph_data = {"nodes": [], "edges": []}
-        if os.path.exists(graph_json_path):
-            with open(graph_json_path, "r") as f:
-                graph_data = json.load(f)
+            # 5b. Read graph JSONs BEFORE temp_dir is cleaned up
+            graph_json_path = os.path.join(graph_dir, "graph", "knowledge_graph.json")
+            graph_data = {"nodes": [], "edges": []}
+            if os.path.exists(graph_json_path):
+                with open(graph_json_path, "r") as f:
+                    graph_data = json.load(f)
+
+            render_plan_path = os.path.join(graph_dir, "graph", "dfd_render_plan.json")
+            render_plan_data = {"levels": []}
+            if os.path.exists(render_plan_path):
+                with open(render_plan_path, "r") as f:
+                    render_plan_data = json.load(f)
 
         # 6. Save everything to DB
         db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
@@ -168,6 +174,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db_session.verification_report_json = result.get("verification_report")
             db_session.interactive_html = interactive_html
             db_session.dfd_json = kg_result
+            db_session.dfd_render_plan_json = render_plan_data
             db_session.updated_at = datetime.utcnow()
             db.commit()
 
@@ -504,6 +511,7 @@ def get_results(session_id: str, db: Session = Depends(get_db)):
         "compliance_schema_json": s.compliance_schema_json,
         "verification_report_json": s.verification_report_json,
         "interactive_html": s.interactive_html,
+        "dfd_render_plan": s.dfd_render_plan_json,
         "knowledge_graph": {
             "nodes": [
                 {

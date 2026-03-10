@@ -29,6 +29,7 @@ class DFDSession(Base):
     compliance_schema_json = Column(JSON, nullable=True)
     verification_report_json = Column(JSON, nullable=True)
     interactive_html = Column(Text, nullable=True)
+    dfd_render_plan_json = Column(JSON, nullable=True)
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

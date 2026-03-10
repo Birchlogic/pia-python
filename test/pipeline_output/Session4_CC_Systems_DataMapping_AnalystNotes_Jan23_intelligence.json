@@ -7,22 +7,36 @@
     "date": "Thursday, 23 January 2026",
     "source_file": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
     "document_type": "field_notes",
-    "processed_at": "2026-03-06T09:16:44.149592",
+    "processed_at": "2026-03-10T19:50:00.517868",
     "reprocess_attempts": 2
   },
   "actors": [
     {
-      "name": "Nikhil Joshi",
+      "name": "Farhan",
       "type": "PERSON",
       "original_names": [
-        "Nikhil Joshi"
+        "Farhan"
       ]
     },
     {
-      "name": "Team Lead",
+      "name": "Status",
       "type": "PERSON",
       "original_names": [
-        "Team Lead"
+        "Status"
+      ]
+    },
+    {
+      "name": "Full Aadhaar",
+      "type": "PERSON",
+      "original_names": [
+        "Full Aadhaar"
+      ]
+    },
+    {
+      "name": "Customer Name",
+      "type": "EXTERNAL_ENTITY",
+      "original_names": [
+        "Customer Name"
       ]
     },
     {
@@ -33,353 +47,87 @@
       ]
     },
     {
-      "name": "Farhan",
+      "name": "Description",
       "type": "PERSON",
       "original_names": [
-        "Farhan"
+        "Description"
+      ]
+    },
+    {
+      "name": "Nikhil Joshi",
+      "type": "PERSON",
+      "original_names": [
+        "Nikhil Joshi"
+      ]
+    },
+    {
+      "name": "Team Lead",
+      "type": "TEAM",
+      "original_names": [
+        "Team Lead"
       ]
     }
   ],
   "systems": [
     {
-      "name": "Salesforce",
-      "type": "SYSTEM",
-      "original_names": [
-        "Salesforce"
-      ]
-    },
-    {
-      "name": "Ameyo",
+      "name": "Checked Ameyo",
       "type": "SYSTEM",
       "original_names": [
         "Checked Ameyo"
       ]
     },
     {
-      "name": "OneDrive",
-      "type": "DATA_STORE",
-      "original_names": [
-        "OneDrive"
-      ]
-    },
-    {
-      "name": "WhatsApp Business",
+      "name": "Salesforce",
       "type": "SYSTEM",
       "original_names": [
-        "WhatsApp Business"
-      ]
-    },
-    {
-      "name": "Microsoft 365",
-      "type": "SYSTEM",
-      "original_names": [
-        "Microsoft 365"
-      ]
-    },
-    {
-      "name": "Excel",
-      "type": "SYSTEM",
-      "original_names": [
-        "Excel"
+        "Salesforce"
       ]
     }
   ],
   "data_elements": [
-    "Loan Account Number",
-    "Customer Name",
-    "Aadhaar",
-    "Email Address",
-    "Interest Rate",
     "Residential Address",
-    "EMI Amount",
+    "Interest Rate",
     "Property Address",
-    "PAN",
-    "Mobile Number"
+    "Email Address",
+    "Loan Account Number",
+    "EMI Amount",
+    "Aadhaar",
+    "Customer Name",
+    "Mobile Number",
+    "PAN"
   ],
-  "flows": [
-    {
-      "source": "Customer Care Agent",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name"
-      ],
-      "channel": "manual",
-      "evidence": "Farhan logged into Salesforce and walked through the configuration"
-    },
-    {
-      "source": "Salesforce",
-      "destination": "Customer Care Agent",
-      "data_elements": [
-        "Aadhaar",
-        "Customer Name",
-        "EMI Amount",
-        "Email Address",
-        "Interest Rate",
-        "Loan Account Number",
-        "Mobile Number",
-        "PAN",
-        "Property Address",
-        "Residential Address"
-      ],
-      "channel": "system",
-      "evidence": "Fields visible in default Customer Care page layout"
-    },
-    {
-      "source": "Salesforce",
-      "destination": "Team Lead",
-      "data_elements": [
-        "Aadhaar",
-        "Customer Name",
-        "PAN"
-      ],
-      "channel": "system",
-      "evidence": "Team Lead and Manager profiles can export data via Salesforce reports"
-    },
-    {
-      "source": "Ameyo",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "Mobile Number"
-      ],
-      "channel": "API",
-      "evidence": "CTI connector passes caller phone number to Salesforce for auto-lookup"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "Excel",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "Columns: Agent Name, Agent ID, Call Date, Recording ID, Customer Name, Account Number"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "OneDrive",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "Excel files on Smita's OneDrive, organized by month"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "Customer Care Agent",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "email",
-      "evidence": "Shared with Nikhil monthly via email"
-    },
-    {
-      "source": "Customer",
-      "destination": "WhatsApp Business",
-      "data_elements": [
-        "Mobile Number",
-        "PAN"
-      ],
-      "channel": "messaging",
-      "evidence": "photos of property documents, PAN card images (when asked for ID verification over chat)"
-    },
-    {
-      "source": "Excel",
-      "destination": "OneDrive",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "system",
-      "evidence": "Excel files on Smita's OneDrive, organized by month"
-    }
-  ],
-  "risks": [
-    {
-      "risk_name": "Unmasked Aadhaar Display to All Staff",
-      "severity": "critical",
-      "category": "data_exposure",
-      "description": "Full 12-digit Aadhaar numbers of both primary applicants and co-applicants are visible to all 45 Customer Care staff in Salesforce without masking. This violates Aadhaar Act provisions that restrict storage and display of full Aadhaar numbers.",
-      "evidence": "Aadhaar Number [UNMASKED \u2014 full 12 digits visible] ... Co-Applicant Aadhaar [UNMASKED] ... Full Aadhaar numbers of both primary applicant AND co-applicant are visible to ALL 45 Customer Care staff. Under Aadhaar Act provisions, storage and display of full Aadhaar is restricted.",
-      "recommendation": "Implement field-level masking to show only last 4 digits of Aadhaar numbers. Configure role-based access to limit full Aadhaar visibility to authorized personnel only."
-    },
-    {
-      "risk_name": "Unmasked PAN Display to All Staff",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Full PAN numbers of both primary applicants and co-applicants are displayed without masking to all Customer Care staff, increasing risk of identity theft and unauthorized access to sensitive financial identifiers.",
-      "evidence": "PAN Number [UNMASKED \u2014 full PAN visible] ... Co-Applicant PAN [UNMASKED]",
-      "recommendation": "Implement PAN masking to show only last 4 characters. Restrict full PAN visibility to roles that require it for legitimate business purposes."
-    },
-    {
-      "risk_name": "PAN Card Images Transmitted via WhatsApp",
-      "severity": "critical",
-      "category": "security",
-      "description": "Customers are sending PAN card images over WhatsApp Business for ID verification. These images are stored on unmanaged devices with no encryption beyond WhatsApp's E2E encryption, creating significant data breach risk.",
-      "evidence": "PAN card images (when asked for ID verification over chat) ... CRITICAL: Customers are sending PAN card images over WhatsApp. These images are stored on the phone with no encryption beyond WhatsApp's E2E encryption ... Phones are not MDM-managed",
-      "recommendation": "Implement secure document upload portal for ID verification. Prohibit PAN card transmission via WhatsApp. Deploy MDM on all business devices handling customer data."
-    },
-    {
-      "risk_name": "No Field-Level Access Controls",
-      "severity": "high",
-      "category": "access_control",
-      "description": "All Salesforce user profiles have identical read access to sensitive customer data including PAN, Aadhaar, and financial information. No field-level security is configured despite multiple requests to admin team.",
-      "evidence": "All three profiles have IDENTICAL read access to customer records. There is no field-level security configured. The 'CC Agent' profile sees every field including PAN, Aadhaar, financial data.",
-      "recommendation": "Implement role-based field-level security in Salesforce. Restrict sensitive data access based on job function and business need. Regular access reviews should be conducted."
-    },
-    {
-      "risk_name": "Unrestricted Data Export Capabilities",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Team Lead and Manager profiles can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no Data Loss Prevention (DLP) controls in place.",
-      "evidence": "They can run a report on all customers and export to CSV ... No DLP controls. A team lead could export the entire customer database \u2014 including PAN, Aadhaar, financial data \u2014 to a CSV file on their local machine.",
-      "recommendation": "Implement DLP controls on data exports. Restrict export capabilities to specific roles with business justification. Enable audit logging for all data export activities."
-    },
-    {
-      "risk_name": "Indefinite Call Recording Retention",
-      "severity": "medium",
-      "category": "retention",
-      "description": "Call recordings containing customer financial and personal data are stored indefinitely with no retention policy. Recordings dating back nearly 2 years are accessible with no auto-deletion configured.",
-      "evidence": "Oldest recording accessible: March 2024 (nearly 2 years) ... 'I don't think anyone has set one. Ameyo just keeps everything.' Checked Ameyo admin settings \u2014 no auto-deletion configured.",
-      "recommendation": "Establish and implement call recording retention policy aligned with regulatory requirements. Configure automatic deletion of recordings beyond retention period."
-    },
-    {
-      "risk_name": "Potential Cross-Border Data Transfer via Ameyo",
-      "severity": "high",
-      "category": "transfer",
-      "description": "Call recordings containing customer financial and personal data may be stored outside India through Ameyo's cloud infrastructure, but hosting location is unverified despite vendor claims of India hosting.",
-      "evidence": "Farhan was unsure if Ameyo's cloud is in India or outside. 'Their sales team said India, but I've never verified.' ... If Ameyo stores recordings outside India, this is a cross-border transfer of customer call recordings containing financial and personal data.",
-      "recommendation": "Verify Ameyo's actual data hosting location through vendor documentation. If data is stored outside India, ensure proper cross-border transfer agreements and regulatory compliance."
-    },
-    {
-      "risk_name": "Cross-Border Data Transfer via WhatsApp",
-      "severity": "high",
-      "category": "transfer",
-      "description": "WhatsApp Business is used for customer financial inquiries, and Meta processes data globally, constituting cross-border transfer of customer data without proper safeguards.",
-      "evidence": "WhatsApp \u2014 Meta's servers. Data likely processed outside India ... At minimum, WhatsApp is almost certainly a cross-border transfer. The company is using WhatsApp Business to handle customer financial inquiries, and Meta processes data globally.",
-      "recommendation": "Assess regulatory compliance for WhatsApp data transfers. Consider alternative secure communication channels for customer interactions. Implement data localization controls where required."
-    },
-    {
-      "risk_name": "Sensitive Personal Information in Case Descriptions",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Free-text case descriptions contain highly sensitive personal information including health situations, corruption allegations with named employees, and family relationship changes, accessible to all Customer Care staff.",
-      "evidence": "'Customer says he is facing financial difficulty due to wife's hospitalization. Requested EMI moratorium.' ... 'Customer alleges that LO Mr. [Name] asked for Rs 5000 as processing fee which was not in agreement. Customer has WhatsApp messages as proof.' ... These descriptions contain sensitive personal information (health situations, corruption allegations with named employees, family relationship changes). All accessible to the full Customer Care team.",
-      "recommendation": "Implement guidelines for case description content. Restrict access to sensitive case information based on role. Consider structured fields instead of free-text for sensitive information."
-    },
-    {
-      "risk_name": "Call Recording Access Bypass",
-      "severity": "medium",
-      "category": "access_control",
-      "description": "Call recordings are accessible to any Salesforce user with case access through embedded recording links, bypassing Ameyo's access controls and extending access beyond intended users.",
-      "evidence": "The recording link in Salesforce opens the recording in Ameyo's web player ... Any Salesforce user with case access can click the link and listen to the recording ... The recording link embedded in the case record bypasses Ameyo's access controls.",
-      "recommendation": "Review and restrict call recording access to authorized personnel only. Implement proper access controls that don't bypass vendor security measures."
-    },
-    {
-      "risk_name": "Customer PII in Personal Cloud Storage",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Approximately 8,000-10,000 customer records with PII are stored in personal OneDrive accounts through compliance calling data sheets, creating unauthorized data repositories outside corporate control.",
-      "evidence": "Compliance_Calling data structure on Deepa's OneDrive ... Each daily sheet contains 15-30 rows (one per call). Each monthly consolidated sheet: 300-500 rows. Total estimated rows across all files: ~8,000-10,000 customer records with PII.",
-      "recommendation": "Migrate compliance data to corporate-controlled systems. Implement data governance policies prohibiting customer data storage in personal cloud accounts. Conduct data inventory and cleanup of existing personal repositories."
-    },
-    {
-      "risk_name": "Quality Audit Data in Personal Storage",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Quality scorecard data containing customer names and account numbers (200-250 records monthly) is stored in personal OneDrive and shared via email, creating additional data exposure points.",
-      "evidence": "Excel files on Smita's OneDrive, organized by month ... Shared with Nikhil monthly via email ... ~200-250 audited calls per month, each with customer name and account number. Over time, this accumulates into a substantial dataset of customer identifiers linked to call quality assessments.",
-      "recommendation": "Implement secure corporate storage for quality audit data. Establish secure sharing mechanisms instead of email. Minimize customer identifiers in quality tracking where possible."
-    },
-    {
-      "risk_name": "Unrestricted Data Export Capability",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Team leads and managers can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no data loss prevention controls.",
-      "evidence": "They can run a report on all customers and export to CSV ... No DLP controls. A team lead could export the entire customer database \u2014 including PAN, Aadhaar, financial data \u2014 to a CSV file on their local machine.",
-      "recommendation": "Implement data loss prevention controls on Salesforce exports. Restrict bulk export capabilities and add audit logging for all data exports."
-    },
-    {
-      "risk_name": "No Call Recording Retention Policy",
-      "severity": "medium",
-      "category": "retention",
-      "description": "Call recordings containing customer financial and personal data are stored indefinitely with no retention policy. Recordings dating back nearly 2 years are accessible.",
-      "evidence": "Asked about retention policy: Farhan said 'I don't think anyone has set one. Ameyo just keeps everything.' ... Oldest recording accessible: March 2024 (nearly 2 years)",
-      "recommendation": "Establish and implement a call recording retention policy. Configure automatic deletion of recordings after the required retention period."
-    },
-    {
-      "risk_name": "Unmanaged WhatsApp Devices",
-      "severity": "high",
-      "category": "security",
-      "description": "WhatsApp Business phones containing customer PAN images and financial communications are not under mobile device management, creating security and data governance risks.",
-      "evidence": "Phones are not MDM-managed (confirmed with Farhan, who checked with IT over chat during our session)",
-      "recommendation": "Implement mobile device management for all devices handling customer data. Establish secure backup and data protection policies for business communication devices."
-    },
-    {
-      "risk_name": "Customer PII in Quality Audit Files",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Quality audit scorecards stored in OneDrive contain customer names and account numbers, accumulating substantial customer datasets over time without proper data governance.",
-      "evidence": "Columns: Agent Name, Agent ID, Call Date, Recording ID, Customer Name, Account Number ... ~200-250 audited calls per month, each with customer name and account number. Over time, this accumulates into a substantial dataset of customer identifiers linked to call quality assessments.",
-      "recommendation": "Remove customer identifiers from quality audit files or implement proper data governance controls. Use anonymized identifiers for quality tracking purposes."
-    },
-    {
-      "risk_name": "Extensive Customer PII in Personal OneDrive",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Approximately 8,000-10,000 customer records with PII are stored in personal OneDrive accounts for compliance calling activities, creating unauthorized data repositories.",
-      "evidence": "Each daily sheet contains 15-30 rows (one per call). Each monthly consolidated sheet: 300-500 rows. Total estimated rows across all files: ~8,000-10,000 customer records with PII.",
-      "recommendation": "Migrate compliance calling data to approved corporate systems with proper access controls. Implement data governance policies for customer data storage and handling."
-    },
-    {
-      "risk_name": "Potential Cross-Border Transfer via Ameyo",
-      "severity": "medium",
-      "category": "transfer",
-      "description": "Call recordings containing financial and personal data may be stored outside India through Ameyo's cloud infrastructure, with hosting location unverified.",
-      "evidence": "STORAGE LOCATION: Farhan was unsure if Ameyo's cloud is in India or outside. 'Their sales team said India, but I've never verified.' ... NOTE: If Ameyo stores recordings outside India, this is a cross-border transfer of customer call recordings containing financial and personal data.",
-      "recommendation": "Verify Ameyo hosting location with vendor documentation. If outside India, migrate to India-hosted solution or obtain transfer consents."
-    },
-    {
-      "risk_name": "No Data Retention Policy for Call Recordings",
-      "severity": "medium",
-      "category": "retention",
-      "description": "Call recordings are stored indefinitely without any retention policy or auto-deletion, with recordings accessible from March 2024 (nearly 2 years).",
-      "evidence": "Asked about retention policy: Farhan said 'I don't think anyone has set one. Ameyo just keeps everything.' Checked Ameyo admin settings \u2014 no auto-deletion configured. Oldest recording accessible: March 2024 (nearly 2 years)",
-      "recommendation": "Implement data retention policy with automatic deletion after regulatory retention period. Configure auto-deletion in Ameyo system."
-    }
-  ],
+  "flows": [],
+  "risks": [],
   "verification_report": {
     "scores": {
-      "systems_score": 0.71,
+      "systems_score": 0.14,
       "data_elements_score": 0.91,
       "risks_score": 0.0,
-      "flow_score": 0.64,
-      "overall_score": 0.6
+      "flow_score": 0.0,
+      "overall_score": 0.27
     },
     "ground_truth": {
       "systems": [
         "OneDrive",
-        "WhatsApp",
-        "Excel",
-        "Ameyo",
         "Salesforce",
+        "Ameyo",
+        "Excel",
         "SAP",
-        "Microsoft 365"
+        "Microsoft 365",
+        "WhatsApp"
       ],
       "data_elements": [
-        "Loan Account Number",
-        "Customer Name",
-        "Aadhaar",
-        "Email Address",
-        "Interest Rate",
         "Residential Address",
+        "Interest Rate",
         "Date of Birth",
-        "EMI Amount",
         "Property Address",
-        "PAN",
-        "Mobile Number"
+        "Email Address",
+        "Loan Account Number",
+        "EMI Amount",
+        "Aadhaar",
+        "Customer Name",
+        "Mobile Number",
+        "PAN"
       ],
       "risk_indicators": [
         "unmasked",
@@ -391,8 +139,12 @@
     },
     "missing_entities": {
       "systems": [
-        "WhatsApp",
-        "SAP"
+        "OneDrive",
+        "Ameyo",
+        "Excel",
+        "SAP",
+        "Microsoft 365",
+        "WhatsApp"
       ],
       "data_elements": [
         "Date of Birth"
@@ -402,992 +154,12 @@
     "reprocess_required": true
   },
   "dfd_graph": {
-    "nodes": [
-      {
-        "id": "nikhil_joshi",
-        "name": "Nikhil Joshi",
-        "type": "external_entity"
-      },
-      {
-        "id": "team_lead",
-        "name": "Team Lead",
-        "type": "external_entity"
-      },
-      {
-        "id": "smita",
-        "name": "Smita",
-        "type": "external_entity"
-      },
-      {
-        "id": "farhan",
-        "name": "Farhan",
-        "type": "external_entity"
-      },
-      {
-        "id": "customer_care_agent",
-        "name": "Customer Care Agent",
-        "type": "external_entity"
-      },
-      {
-        "id": "customer",
-        "name": "Customer",
-        "type": "external_entity"
-      },
-      {
-        "id": "salesforce",
-        "name": "Salesforce",
-        "type": "process"
-      },
-      {
-        "id": "ameyo",
-        "name": "Ameyo",
-        "type": "process"
-      },
-      {
-        "id": "onedrive",
-        "name": "OneDrive",
-        "type": "data_store"
-      },
-      {
-        "id": "whatsapp_business",
-        "name": "WhatsApp Business",
-        "type": "process"
-      },
-      {
-        "id": "microsoft_365",
-        "name": "Microsoft 365",
-        "type": "process"
-      },
-      {
-        "id": "excel",
-        "name": "Excel",
-        "type": "process"
-      }
-    ],
-    "edges": [
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "salesforce",
-        "label": "Customer lookup",
-        "data_elements": [
-          "Customer Name"
-        ]
-      },
-      {
-        "source_id": "salesforce",
-        "target_id": "customer_care_agent",
-        "label": "Customer data display",
-        "data_elements": [
-          "Aadhaar",
-          "Customer Name",
-          "EMI Amount",
-          "Email Address",
-          "Interest Rate",
-          "Loan Account Number",
-          "Mobile Number",
-          "PAN",
-          "Property Address",
-          "Residential Address"
-        ]
-      },
-      {
-        "source_id": "salesforce",
-        "target_id": "team_lead",
-        "label": "Data export via reports",
-        "data_elements": [
-          "Aadhaar",
-          "Customer Name",
-          "PAN"
-        ]
-      },
-      {
-        "source_id": "ameyo",
-        "target_id": "salesforce",
-        "label": "CTI auto-lookup",
-        "data_elements": [
-          "Customer Name",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "excel",
-        "label": "Quality audit data entry",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "onedrive",
-        "label": "File storage",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "customer_care_agent",
-        "label": "Monthly email sharing",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "customer",
-        "target_id": "whatsapp_business",
-        "label": "Document sharing",
-        "data_elements": [
-          "Mobile Number",
-          "PAN"
-        ]
-      },
-      {
-        "source_id": "excel",
-        "target_id": "onedrive",
-        "label": "File synchronization",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      }
-    ],
-    "risk_annotations": [
-      {
-        "target_id": "salesforce",
-        "risk_name": "Unmasked Aadhaar Display to All Staff",
-        "severity": "critical"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Unmasked PAN Display to All Staff",
-        "severity": "high"
-      },
-      {
-        "target_id": "whatsapp_business",
-        "risk_name": "PAN Card Images Transmitted via WhatsApp",
-        "severity": "critical"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "No Field-Level Access Controls",
-        "severity": "high"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Unrestricted Data Export Capabilities",
-        "severity": "high"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Indefinite Call Recording Retention",
-        "severity": "medium"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Potential Cross-Border Data Transfer via Ameyo",
-        "severity": "high"
-      },
-      {
-        "target_id": "whatsapp_business",
-        "risk_name": "Cross-Border Data Transfer via WhatsApp",
-        "severity": "high"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Sensitive Personal Information in Case Descriptions",
-        "severity": "medium"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Call Recording Access Bypass",
-        "severity": "medium"
-      },
-      {
-        "target_id": "onedrive",
-        "risk_name": "Customer PII in Personal Cloud Storage",
-        "severity": "high"
-      },
-      {
-        "target_id": "onedrive",
-        "risk_name": "Quality Audit Data in Personal Storage",
-        "severity": "medium"
-      },
-      {
-        "target_id": "whatsapp_business",
-        "risk_name": "Unmanaged WhatsApp Devices",
-        "severity": "high"
-      }
-    ]
+    "nodes": [],
+    "edges": [],
+    "risk_annotations": []
   },
-  "compliance_schema": {
-    "meta": {
-      "project_name": "DPDPA Compliance Assessment 2026",
-      "vertical_name": "Customer Care",
-      "generated_at": "2026-01-23T16:00:00+05:30"
-    },
-    "nodes": [
-      {
-        "id": "ext_customer",
-        "type": "EXTERNAL_ENTITY",
-        "name": "Customer",
-        "description": "Loan customers contacting customer care for queries, complaints, and service requests",
-        "data_elements": [
-          {
-            "name": "Customer Name",
-            "description": "Full name of the loan applicant",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer identification and service delivery",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce, OneDrive, Excel files",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "PAN",
-            "description": "Permanent Account Number of customer and co-applicant",
-            "classification": "PII/Sensitive",
-            "purpose": "Identity verification and regulatory compliance",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Legal obligation",
-            "storage_location": "Salesforce, WhatsApp images",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Aadhaar",
-            "description": "12-digit Aadhaar number of customer and co-applicant",
-            "classification": "Special Category",
-            "purpose": "Identity verification as per regulatory requirements",
-            "retention_period": "As per Aadhaar Act provisions",
-            "legal_basis": "Legal obligation",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Mobile Number",
-            "description": "Primary and alternate mobile numbers",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer communication and verification",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce, Ameyo, WhatsApp",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Email Address",
-            "description": "Customer email address",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer communication",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Residential Address",
-            "description": "Complete residential address with PIN code",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer verification and service delivery",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Property Address",
-            "description": "Property address for home loans",
-            "classification": "PII/Sensitive",
-            "purpose": "Loan collateral verification",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ext_nikhil_joshi",
-        "type": "EXTERNAL_ENTITY",
-        "name": "Nikhil Joshi",
-        "description": "Customer Care Manager receiving monthly quality reports",
-        "data_elements": [
-          {
-            "name": "Quality Reports",
-            "description": "Monthly consolidated quality audit reports with customer identifiers",
-            "classification": "Internal",
-            "purpose": "Performance monitoring and management reporting",
-            "retention_period": "2 years",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Email, local storage",
-            "owner": "Quality Team"
-          }
-        ]
-      },
-      {
-        "id": "ext_team_lead",
-        "type": "EXTERNAL_ENTITY",
-        "name": "Team Lead",
-        "description": "Customer Care Team Lead with elevated Salesforce access",
-        "data_elements": [
-          {
-            "name": "Customer Data Export",
-            "description": "Exported customer data including PAN, Aadhaar, financial information",
-            "classification": "Special Category",
-            "purpose": "Team management and reporting",
-            "retention_period": "Not specified",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Local CSV files",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ext_smita",
-        "type": "EXTERNAL_ENTITY",
-        "name": "Smita",
-        "description": "Quality Lead conducting call audits and maintaining quality scorecards",
-        "data_elements": [
-          {
-            "name": "Quality Scorecard Data",
-            "description": "Call quality assessments with customer names and account numbers",
-            "classification": "Internal",
-            "purpose": "Quality monitoring and agent coaching",
-            "retention_period": "2 years",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "OneDrive Excel files",
-            "owner": "Quality Team"
-          }
-        ]
-      },
-      {
-        "id": "ext_farhan",
-        "type": "EXTERNAL_ENTITY",
-        "name": "Farhan",
-        "description": "Customer Care Team Lead with system administration access",
-        "data_elements": [
-          {
-            "name": "System Configuration Data",
-            "description": "Salesforce and Ameyo system configuration and user management",
-            "classification": "Internal",
-            "purpose": "System administration and user management",
-            "retention_period": "Not specified",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Salesforce, Ameyo",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "proc_customer_verification",
-        "type": "PROCESS",
-        "name": "Customer Identity Verification",
-        "description": "Process of verifying customer identity using PAN, Aadhaar, and other identifiers",
-        "data_elements": [
-          {
-            "name": "Verification Data",
-            "description": "Customer identity verification information",
-            "classification": "PII/Sensitive",
-            "purpose": "Identity verification and fraud prevention",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Legal obligation",
-            "storage_location": "Salesforce, call recordings",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "proc_case_management",
-        "type": "PROCESS",
-        "name": "Case Management",
-        "description": "Process of creating, tracking, and resolving customer cases and complaints",
-        "data_elements": [
-          {
-            "name": "Case Information",
-            "description": "Case details including sensitive personal information in free-text descriptions",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer service and complaint resolution",
-            "retention_period": "7 years post case closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "proc_call_recording",
-        "type": "PROCESS",
-        "name": "Call Recording",
-        "description": "Process of recording all inbound and outbound customer calls",
-        "data_elements": [
-          {
-            "name": "Call Recordings",
-            "description": "Audio recordings of customer conversations containing financial and personal data",
-            "classification": "PII/Sensitive",
-            "purpose": "Quality monitoring, compliance, and dispute resolution",
-            "retention_period": "Not specified - stored indefinitely",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Ameyo cloud infrastructure",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "proc_quality_audit",
-        "type": "PROCESS",
-        "name": "Quality Audit",
-        "description": "Process of auditing call quality and agent performance",
-        "data_elements": [
-          {
-            "name": "Audit Results",
-            "description": "Quality assessment scores linked to customer identifiers",
-            "classification": "Internal",
-            "purpose": "Quality monitoring and agent training",
-            "retention_period": "2 years",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Excel files on OneDrive",
-            "owner": "Quality Team"
-          }
-        ]
-      },
-      {
-        "id": "proc_whatsapp_communication",
-        "type": "PROCESS",
-        "name": "WhatsApp Communication",
-        "description": "Process of handling customer queries and document verification via WhatsApp Business",
-        "data_elements": [
-          {
-            "name": "WhatsApp Messages",
-            "description": "Customer messages, PAN card images, and financial communications",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer support and document verification",
-            "retention_period": "Not specified",
-            "legal_basis": "Contract",
-            "storage_location": "WhatsApp Business on unmanaged devices",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ds_salesforce",
-        "type": "DATA_STORE",
-        "name": "Salesforce",
-        "description": "CRM system storing comprehensive customer data and case management",
-        "data_elements": [
-          {
-            "name": "Customer Records",
-            "description": "Complete customer profiles including PAN, Aadhaar, financial data",
-            "classification": "Special Category",
-            "purpose": "Customer relationship management and service delivery",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce cloud (location unverified)",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Loan Account Number",
-            "description": "Unique loan account identifier",
-            "classification": "Internal",
-            "purpose": "Account identification and service delivery",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "EMI Amount",
-            "description": "Monthly EMI payment amount",
-            "classification": "Confidential",
-            "purpose": "Loan servicing and customer support",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          },
-          {
-            "name": "Interest Rate",
-            "description": "Loan interest rate",
-            "classification": "Confidential",
-            "purpose": "Loan servicing and customer support",
-            "retention_period": "7 years post loan closure",
-            "legal_basis": "Contract",
-            "storage_location": "Salesforce",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ds_ameyo",
-        "type": "DATA_STORE",
-        "name": "Ameyo",
-        "description": "Call center platform storing call recordings and metadata",
-        "data_elements": [
-          {
-            "name": "Call Metadata",
-            "description": "Call duration, timestamps, agent ID, recording links",
-            "classification": "Internal",
-            "purpose": "Call center operations and quality monitoring",
-            "retention_period": "Not specified - stored indefinitely",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Ameyo cloud (location unverified)",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ds_onedrive",
-        "type": "DATA_STORE",
-        "name": "OneDrive",
-        "description": "Personal cloud storage containing compliance calling data and quality scorecards",
-        "data_elements": [
-          {
-            "name": "Compliance Calling Data",
-            "description": "Daily and monthly consolidated customer call records with PII",
-            "classification": "PII/Sensitive",
-            "purpose": "Compliance reporting and call tracking",
-            "retention_period": "Not specified",
-            "legal_basis": "Legal obligation",
-            "storage_location": "Personal OneDrive accounts",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ds_whatsapp_business",
-        "type": "DATA_STORE",
-        "name": "WhatsApp Business",
-        "description": "Messaging platform storing customer communications and document images",
-        "data_elements": [
-          {
-            "name": "Customer Communications",
-            "description": "Text messages, PAN card images, payment confirmations, property documents",
-            "classification": "PII/Sensitive",
-            "purpose": "Customer support and document verification",
-            "retention_period": "Not specified",
-            "legal_basis": "Contract",
-            "storage_location": "Meta servers (cross-border)",
-            "owner": "Customer Care Department"
-          }
-        ]
-      },
-      {
-        "id": "ds_excel",
-        "type": "DATA_STORE",
-        "name": "Excel",
-        "description": "Spreadsheet files containing quality scorecards and compliance data",
-        "data_elements": [
-          {
-            "name": "Quality Scorecard Data",
-            "description": "Agent performance scores with customer identifiers",
-            "classification": "Internal",
-            "purpose": "Quality monitoring and performance management",
-            "retention_period": "2 years",
-            "legal_basis": "Legitimate interest",
-            "storage_location": "Local files and OneDrive",
-            "owner": "Quality Team"
-          }
-        ]
-      }
-    ],
-    "flows": [
-      {
-        "source": "ext_customer",
-        "target": "ds_salesforce",
-        "label": "Customer data entry and updates",
-        "data_elements": [
-          "Customer Name",
-          "PAN",
-          "Aadhaar",
-          "Mobile Number",
-          "Email Address",
-          "Residential Address",
-          "Property Address"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "Manual data entry by Customer Care agents",
-        "cross_border": null
-      },
-      {
-        "source": "ds_salesforce",
-        "target": "proc_customer_verification",
-        "label": "Customer data retrieval for verification",
-        "data_elements": [
-          "Customer Name",
-          "PAN",
-          "Aadhaar",
-          "Mobile Number",
-          "Loan Account Number",
-          "EMI Amount",
-          "Interest Rate"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "System interface access",
-        "cross_border": null
-      },
-      {
-        "source": "ds_salesforce",
-        "target": "ext_team_lead",
-        "label": "Data export for reporting",
-        "data_elements": [
-          "Customer Name",
-          "PAN",
-          "Aadhaar",
-          "Mobile Number",
-          "Loan Account Number"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "CSV export via Salesforce reports",
-        "cross_border": null
-      },
-      {
-        "source": "ds_ameyo",
-        "target": "ds_salesforce",
-        "label": "Call metadata integration",
-        "data_elements": [
-          "Mobile Number",
-          "Customer Name"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "CTI connector API",
-        "cross_border": null
-      },
-      {
-        "source": "proc_call_recording",
-        "target": "ds_ameyo",
-        "label": "Call recording storage",
-        "data_elements": [
-          "Call Recordings"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "Automated recording system",
-        "cross_border": true
-      },
-      {
-        "source": "proc_quality_audit",
-        "target": "ds_excel",
-        "label": "Quality scorecard creation",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "Manual data entry",
-        "cross_border": false
-      },
-      {
-        "source": "ds_excel",
-        "target": "ds_onedrive",
-        "label": "Quality data storage",
-        "data_elements": [
-          "Quality Scorecard Data"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "File upload to cloud storage",
-        "cross_border": null
-      },
-      {
-        "source": "ds_onedrive",
-        "target": "ext_nikhil_joshi",
-        "label": "Monthly quality reports",
-        "data_elements": [
-          "Quality Reports"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "Email attachment",
-        "cross_border": false
-      },
-      {
-        "source": "ext_customer",
-        "target": "ds_whatsapp_business",
-        "label": "Customer communications and document sharing",
-        "data_elements": [
-          "Mobile Number",
-          "PAN"
-        ],
-        "bi_directional": true,
-        "transfer_mechanism": "WhatsApp messaging",
-        "cross_border": true
-      },
-      {
-        "source": "proc_case_management",
-        "target": "ds_salesforce",
-        "label": "Case creation and updates",
-        "data_elements": [
-          "Case Information"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "Manual case entry",
-        "cross_border": null
-      },
-      {
-        "source": "ds_salesforce",
-        "target": "ds_ameyo",
-        "label": "Recording link embedding",
-        "data_elements": [
-          "Call Metadata"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "System integration",
-        "cross_border": null
-      },
-      {
-        "source": "proc_whatsapp_communication",
-        "target": "ds_whatsapp_business",
-        "label": "Customer support via messaging",
-        "data_elements": [
-          "WhatsApp Messages"
-        ],
-        "bi_directional": true,
-        "transfer_mechanism": "WhatsApp Business API",
-        "cross_border": true
-      },
-      {
-        "source": "ds_onedrive",
-        "target": "ds_onedrive",
-        "label": "Compliance calling data storage",
-        "data_elements": [
-          "Compliance Calling Data"
-        ],
-        "bi_directional": false,
-        "transfer_mechanism": "File organization and storage",
-        "cross_border": null
-      }
-    ]
-  },
-  "data_inventory": [
-    {
-      "data_category": "Customer Name",
-      "description": "Full name of the loan applicant and customer",
-      "purpose": "Customer identification, service delivery, quality monitoring, and reporting",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, OneDrive, Excel files, Ameyo",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "PAN",
-      "description": "Permanent Account Number of customer and co-applicant",
-      "purpose": "Identity verification, regulatory compliance, and document verification",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, WhatsApp images, WhatsApp Business",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Legal obligation"
-    },
-    {
-      "data_category": "Aadhaar",
-      "description": "12-digit Aadhaar number of customer and co-applicant",
-      "purpose": "Identity verification as per regulatory requirements",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "Special Category",
-      "retention_period": "As per Aadhaar Act provisions",
-      "legal_basis": "Legal obligation"
-    },
-    {
-      "data_category": "Mobile Number",
-      "description": "Primary and alternate mobile numbers",
-      "purpose": "Customer communication, verification, and call center operations",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, Ameyo, WhatsApp, WhatsApp Business",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Email Address",
-      "description": "Customer email address",
-      "purpose": "Customer communication",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Residential Address",
-      "description": "Complete residential address with PIN code",
-      "purpose": "Customer verification and service delivery",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Property Address",
-      "description": "Property address for home loans",
-      "purpose": "Loan collateral verification",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Loan Account Number",
-      "description": "Unique loan account identifier",
-      "purpose": "Account identification, service delivery, and quality monitoring",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, Excel files",
-      "data_classification": "Internal",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "EMI Amount",
-      "description": "Monthly EMI payment amount",
-      "purpose": "Loan servicing and customer support",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "Confidential",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Interest Rate",
-      "description": "Loan interest rate",
-      "purpose": "Loan servicing and customer support",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "Confidential",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Call Recordings",
-      "description": "Audio recordings of customer conversations containing financial and personal data",
-      "purpose": "Quality monitoring, compliance, and dispute resolution",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Ameyo cloud infrastructure",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "Not specified - stored indefinitely",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Call Metadata",
-      "description": "Call duration, timestamps, agent ID, recording links",
-      "purpose": "Call center operations and quality monitoring",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Ameyo cloud, Salesforce",
-      "data_classification": "Internal",
-      "retention_period": "Not specified - stored indefinitely",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Case Information",
-      "description": "Case details including sensitive personal information in free-text descriptions",
-      "purpose": "Customer service and complaint resolution",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post case closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "WhatsApp Messages",
-      "description": "Customer messages, PAN card images, financial communications, text messages, payment confirmations, property documents",
-      "purpose": "Customer support and document verification",
-      "data_owner": "Customer Care Department",
-      "storage_location": "WhatsApp Business on unmanaged devices, Meta servers (cross-border)",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "Not specified",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Quality Scorecard Data",
-      "description": "Call quality assessments and agent performance scores with customer names and account numbers",
-      "purpose": "Quality monitoring, agent coaching, and performance management",
-      "data_owner": "Quality Team",
-      "storage_location": "OneDrive Excel files, Local files and OneDrive",
-      "data_classification": "Internal",
-      "retention_period": "2 years",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Quality Reports",
-      "description": "Monthly consolidated quality audit reports with customer identifiers",
-      "purpose": "Performance monitoring and management reporting",
-      "data_owner": "Quality Team",
-      "storage_location": "Email, local storage",
-      "data_classification": "Internal",
-      "retention_period": "2 years",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Compliance Calling Data",
-      "description": "Daily and monthly consolidated customer call records with PII",
-      "purpose": "Compliance reporting and call tracking",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Personal OneDrive accounts",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "Not specified",
-      "legal_basis": "Legal obligation"
-    },
-    {
-      "data_category": "Customer Data Export",
-      "description": "Exported customer data including PAN, Aadhaar, financial information",
-      "purpose": "Team management and reporting",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Local CSV files",
-      "data_classification": "Special Category",
-      "retention_period": "Not specified",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "System Configuration Data",
-      "description": "Salesforce and Ameyo system configuration and user management",
-      "purpose": "System administration and user management",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, Ameyo",
-      "data_classification": "Internal",
-      "retention_period": "Not specified",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Verification Data",
-      "description": "Customer identity verification information",
-      "purpose": "Identity verification and fraud prevention",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce, call recordings",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Legal obligation"
-    },
-    {
-      "data_category": "Audit Results",
-      "description": "Quality assessment scores linked to customer identifiers",
-      "purpose": "Quality monitoring and agent training",
-      "data_owner": "Quality Team",
-      "storage_location": "Excel files on OneDrive",
-      "data_classification": "Internal",
-      "retention_period": "2 years",
-      "legal_basis": "Legitimate interest"
-    },
-    {
-      "data_category": "Customer Records",
-      "description": "Complete customer profiles including PAN, Aadhaar, financial data",
-      "purpose": "Customer relationship management and service delivery",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Salesforce cloud (location unverified)",
-      "data_classification": "Special Category",
-      "retention_period": "7 years post loan closure",
-      "legal_basis": "Contract"
-    },
-    {
-      "data_category": "Customer Communications",
-      "description": "Text messages, PAN card images, payment confirmations, property documents",
-      "purpose": "Customer support and document verification",
-      "data_owner": "Customer Care Department",
-      "storage_location": "Meta servers (cross-border)",
-      "data_classification": "PII/Sensitive",
-      "retention_period": "Not specified",
-      "legal_basis": "Contract"
-    }
-  ],
+  "compliance_schema": null,
+  "data_inventory": [],
   "normalization_report": {
     "removed_entities": [
       {
@@ -1401,22 +173,6 @@
       {
         "name": "Checked Ameyo",
         "reason": "Reclassified as SYSTEM"
-      },
-      {
-        "name": "Customer Name",
-        "reason": "Data element misclassified as actor"
-      },
-      {
-        "name": "Full Aadhaar",
-        "reason": "Data element misclassified as actor"
-      },
-      {
-        "name": "Description",
-        "reason": "Generic field name, not an actor"
-      },
-      {
-        "name": "Status",
-        "reason": "Generic field name, not an actor"
       }
     ]
   }

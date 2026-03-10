@@ -5,15 +5,29 @@
     "session": "3 of 4 \u2014 Compliance Calling Process & Escalation Handling",
     "source_file": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
     "document_type": "transcript",
-    "processed_at": "2026-03-05T21:44:35.242741",
+    "processed_at": "2026-03-10T19:49:52.280185",
     "reprocess_attempts": 2
   },
   "actors": [
+    {
+      "name": "Farhan",
+      "type": "PERSON",
+      "original_names": [
+        "Farhan"
+      ]
+    },
     {
       "name": "Nikhil",
       "type": "PERSON",
       "original_names": [
         "Nikhil"
+      ]
+    },
+    {
+      "name": "Email",
+      "type": "PERSON",
+      "original_names": [
+        "Email"
       ]
     },
     {
@@ -24,17 +38,10 @@
       ]
     },
     {
-      "name": "Smita",
+      "name": "Compliance Calling",
       "type": "PERSON",
       "original_names": [
-        "Smita"
-      ]
-    },
-    {
-      "name": "Farhan",
-      "type": "PERSON",
-      "original_names": [
-        "Farhan"
+        "Compliance Calling"
       ]
     },
     {
@@ -43,256 +50,60 @@
       "original_names": [
         "Rohan Desai"
       ]
+    },
+    {
+      "name": "Smita",
+      "type": "PERSON",
+      "original_names": [
+        "Smita"
+      ]
+    },
+    {
+      "name": "Hygiene Calling",
+      "type": "PERSON",
+      "original_names": [
+        "Hygiene Calling"
+      ]
     }
   ],
   "systems": [
-    {
-      "name": "Excel",
-      "type": "SYSTEM",
-      "original_names": [
-        "Excel"
-      ]
-    },
-    {
-      "name": "Ameyo",
-      "type": "SYSTEM",
-      "original_names": [
-        "Ameyo"
-      ]
-    },
-    {
-      "name": "OneDrive",
-      "type": "DATA_STORE",
-      "original_names": [
-        "OneDrive"
-      ]
-    },
     {
       "name": "Salesforce",
       "type": "SYSTEM",
       "original_names": [
         "Salesforce"
       ]
-    },
-    {
-      "name": "Email System",
-      "type": "SYSTEM",
-      "original_names": [
-        "email"
-      ]
     }
   ],
   "data_elements": [
     "Loan Account Number",
-    "Customer Name",
     "EMI Amount",
+    "Customer Name",
     "Mobile Number",
     "PAN"
   ],
-  "flows": [
-    {
-      "source": "Customer Care Agent",
-      "destination": "Excel",
-      "data_elements": [
-        "Customer Name",
-        "EMI Amount",
-        "Loan Account Number",
-        "Mobile Number"
-      ],
-      "channel": "manual",
-      "evidence": "The columns include the customer's name, loan account number, mobile number, date of call, call type, and then the individual question responses"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "OneDrive",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Mobile Number"
-      ],
-      "channel": "system",
-      "evidence": "They stay on my machine. I have them organized by month in folders on my OneDrive"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "Email System",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Mobile Number"
-      ],
-      "channel": "email",
-      "evidence": "Email. I email the consolidated Excel to the Field Audit team lead"
-    },
-    {
-      "source": "Compliance Calling",
-      "destination": "Ameyo",
-      "data_elements": [
-        "Customer Name",
-        "Mobile Number"
-      ],
-      "channel": "system",
-      "evidence": "Yes. All our outbound calls are also recorded through Ameyo"
-    },
-    {
-      "source": "Salesforce",
-      "destination": "Email System",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "system",
-      "evidence": "The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description"
-    },
-    {
-      "source": "Quality Assurance Agent",
-      "destination": "Excel",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "it usually notes the customer's name or account number so they can cross-reference if needed"
-    },
-    {
-      "source": "Excel",
-      "destination": "OneDrive",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Mobile Number"
-      ],
-      "channel": "system",
-      "evidence": "They stay on my machine. I have them organized by month in folders on my OneDrive"
-    },
-    {
-      "source": "Ameyo",
-      "destination": "Quality Assurance Agent",
-      "data_elements": [
-        "Customer Name"
-      ],
-      "channel": "system",
-      "evidence": "Smita's team pulls recordings from Ameyo, listens to them, and scores the agents on a quality scorecard"
-    }
-  ],
-  "risks": [
-    {
-      "risk_name": "Unencrypted Email Transmission of Sensitive Customer Data",
-      "severity": "critical",
-      "category": "data_exposure",
-      "description": "Customer personal data including names, loan account numbers, mobile numbers, and potentially sensitive fraud-related responses are being transmitted via unencrypted email attachments. Monthly consolidated Excel reports containing this data are sent to Field Audit teams without encryption or password protection.",
-      "evidence": "Email. I email the consolidated Excel to the Field Audit team lead. Sometimes I also share individual call recordings if a specific case needs investigation. The Excel with customer names, account numbers, mobile numbers, and potentially sensitive fraud-related responses \u2014 sent as an email attachment? Yes. Is the file encrypted or password-protected? No. It's just a regular Excel file.",
-      "recommendation": "Implement encryption for all email attachments containing customer data and establish secure file transfer protocols for sensitive data sharing."
-    },
-    {
-      "risk_name": "Lack of Data Privacy Consent for Outbound Calls",
-      "severity": "high",
-      "category": "consent",
-      "description": "Customers are not informed that their compliance call responses will be recorded and shared with other teams. There is no formal data privacy notice provided during outbound compliance calls, and customers are unaware of how their data will be used or shared.",
-      "evidence": "Is the customer informed at the start of the call that their responses will be recorded and may be shared with other teams? We identify ourselves as calling from the company and state the purpose of the call \u2014 that we're calling for verification. But we don't give a formal data privacy notice or say anything about how the data will be used or shared.",
-      "recommendation": "Implement mandatory data privacy notices for all outbound calls, clearly informing customers about data collection, recording, and sharing practices."
-    },
-    {
-      "risk_name": "Inconsistent Call Recording Disclosure",
-      "severity": "high",
-      "category": "consent",
-      "description": "Outbound compliance calls are recorded without consistent disclosure to customers. While agents are supposed to verbally mention call recording, this practice is not consistently followed, creating consent gaps for call recordings.",
-      "evidence": "The disclaimer is only on the inbound IVR. When we make outbound calls, there's no automated disclaimer. The agent is supposed to verbally mention it, but honestly I'm not confident that happens consistently.",
-      "recommendation": "Implement automated call recording disclaimers for outbound calls or establish mandatory verbal disclosure protocols with monitoring and training."
-    },
-    {
-      "risk_name": "Excessive Data Retention on Personal Devices",
-      "severity": "high",
-      "category": "retention",
-      "description": "Customer data including names, account numbers, mobile numbers, and sensitive compliance responses are stored indefinitely on personal OneDrive accounts. Data dating back to April 2024 (over a year) is retained without defined retention policies or secure deletion procedures.",
-      "evidence": "They stay on my machine. I have them organized by month in folders on my OneDrive. The daily files, the monthly consolidated file, everything. For how far back? Since I started in this role, which was April 2024. So about a year and a half of data.",
-      "recommendation": "Establish clear data retention policies with automated deletion schedules and migrate data storage from personal cloud accounts to secure corporate systems."
-    },
-    {
-      "risk_name": "Uncontrolled Data Access After Employee Departure",
-      "severity": "medium",
-      "category": "access_control",
-      "description": "There are no defined procedures for handling customer data stored on employee personal accounts when they leave their role or the company. Data could remain accessible on personal OneDrive accounts indefinitely.",
-      "evidence": "And when you leave this role or the company, what happens to that data? [pause] I haven't really thought about that. I guess it would stay on my OneDrive unless someone actively moved it.",
-      "recommendation": "Implement mandatory data transfer and deletion procedures for employee departures, including audit trails for data handling during role transitions."
-    },
-    {
-      "risk_name": "Customer Data in Quality Audit Records",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance. This data is stored in Excel trackers for quality management purposes.",
-      "evidence": "The scorecard itself is about agent performance. But it references the call by Ameyo recording ID and date, and it usually notes the customer's name or account number so they can cross-reference if needed. So the quality tracking Excel has customer identifiers linked to call recordings? Technically, yes.",
-      "recommendation": "Implement data minimization practices for quality audits, using anonymized identifiers where possible, and establish clear governance for customer data in quality management processes."
-    },
-    {
-      "risk_name": "Plain Text Customer Data in Escalation Emails",
-      "severity": "critical",
-      "category": "data_exposure",
-      "description": "Escalation emails contain customer personal data including names, account numbers, and issue descriptions in plain text. This creates exposure risk if email accounts are compromised, as confirmed by pre-detected analysis.",
-      "evidence": "The escalation emails, do they contain the full case details including customer personal data? Yes. The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description. That means customer data is being emailed in plain text as part of the escalation workflow",
-      "recommendation": "Configure Salesforce email templates to exclude customer personal data from email bodies, using secure links or reference numbers instead of including sensitive data directly in emails."
-    },
-    {
-      "risk_name": "Lack of Call Recording Consent for Outbound Calls",
-      "severity": "high",
-      "category": "consent",
-      "description": "Outbound compliance calls are being recorded without proper customer consent or notification, as there is no automated disclaimer and verbal notification by agents is inconsistent.",
-      "evidence": "The disclaimer is only on the inbound IVR. When we make outbound calls, there's no automated disclaimer. The agent is supposed to verbally mention it, but honestly I'm not confident that happens consistently.",
-      "recommendation": "Implement automated call recording disclaimers for outbound calls or ensure consistent verbal notification by agents with proper training and monitoring."
-    },
-    {
-      "risk_name": "Absence of Data Privacy Notice for Compliance Calls",
-      "severity": "high",
-      "category": "consent",
-      "description": "Customers are not informed about how their compliance call data will be collected, used, or shared with other teams during outbound verification calls.",
-      "evidence": "Is the customer informed at the start of the call that their responses will be recorded and may be shared with other teams? We identify ourselves as calling from the company and state the purpose of the call \u2014 that we're calling for verification. But we don't give a formal data privacy notice or say anything about how the data will be used or shared.",
-      "recommendation": "Develop and implement a standardized data privacy notice for compliance calls that informs customers about data collection, usage, and sharing practices."
-    },
-    {
-      "risk_name": "Indefinite Data Retention Without Policy",
-      "severity": "high",
-      "category": "retention",
-      "description": "Compliance calling data including customer personal information is being retained indefinitely on OneDrive without a defined retention policy or data disposal process.",
-      "evidence": "They stay on my machine. I have them organized by month in folders on my OneDrive... For how far back? Since I started in this role, which was April 2024. So about a year and a half of data. And when you leave this role or the company, what happens to that data? [pause] I haven't really thought about that. I guess it would stay on my OneDrive unless someone actively moved it.",
-      "recommendation": "Establish a clear data retention policy with defined retention periods and implement automated data disposal processes for compliance calling data."
-    },
-    {
-      "risk_name": "Customer Data in Escalation Emails",
-      "severity": "high",
-      "category": "data_exposure",
-      "description": "Escalation emails contain customer personal data including names and account numbers in plain text, creating exposure risk if email accounts are compromised.",
-      "evidence": "The escalation emails, do they contain the full case details including customer personal data? Yes. The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description... That means customer data is being emailed in plain text as part of the escalation workflow. If someone's email is compromised, every escalation email becomes a data exposure.",
-      "recommendation": "Modify escalation email templates to exclude customer personal data and rely solely on secure system links, or implement email encryption for escalation communications."
-    },
-    {
-      "risk_name": "Customer Identifiers in Quality Audit Data",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance.",
-      "evidence": "Do the quality scorecards contain customer information? Or just agent performance data? The scorecard itself is about agent performance. But it references the call by Ameyo recording ID and date, and it usually notes the customer's name or account number so they can cross-reference if needed. So the quality tracking Excel has customer identifiers linked to call recordings? Technically, yes.",
-      "recommendation": "Review the necessity of including customer identifiers in quality audit data and implement data minimization practices, using anonymized references where possible."
-    }
-  ],
+  "flows": [],
+  "risks": [],
   "verification_report": {
     "scores": {
-      "systems_score": 0.8,
+      "systems_score": 0.2,
       "data_elements_score": 1.0,
       "risks_score": 0.0,
-      "flow_score": 0.8,
-      "overall_score": 0.69
+      "flow_score": 0.0,
+      "overall_score": 0.31
     },
     "ground_truth": {
       "systems": [
-        "Teams",
         "OneDrive",
-        "Ameyo",
         "Salesforce",
-        "Excel"
+        "Ameyo",
+        "Excel",
+        "Teams"
       ],
       "data_elements": [
         "Loan Account Number",
-        "Customer Name",
         "EMI Amount",
+        "Customer Name",
         "Mobile Number",
         "PAN"
       ],
@@ -302,6 +113,9 @@
     },
     "missing_entities": {
       "systems": [
+        "OneDrive",
+        "Ameyo",
+        "Excel",
         "Teams"
       ],
       "data_elements": []
@@ -310,206 +124,17 @@
     "reprocess_required": true
   },
   "dfd_graph": {
-    "nodes": [
-      {
-        "id": "nikhil",
-        "name": "Nikhil",
-        "type": "external_entity"
-      },
-      {
-        "id": "deepa_lakshmi",
-        "name": "Deepa Lakshmi",
-        "type": "external_entity"
-      },
-      {
-        "id": "smita",
-        "name": "Smita",
-        "type": "external_entity"
-      },
-      {
-        "id": "farhan",
-        "name": "Farhan",
-        "type": "external_entity"
-      },
-      {
-        "id": "rohan_desai",
-        "name": "Rohan Desai",
-        "type": "external_entity"
-      },
-      {
-        "id": "customer_care_agent",
-        "name": "Customer Care Agent",
-        "type": "external_entity"
-      },
-      {
-        "id": "compliance_calling",
-        "name": "Compliance Calling",
-        "type": "process"
-      },
-      {
-        "id": "quality_assurance_agent",
-        "name": "Quality Assurance Agent",
-        "type": "external_entity"
-      },
-      {
-        "id": "excel",
-        "name": "Excel",
-        "type": "process"
-      },
-      {
-        "id": "ameyo",
-        "name": "Ameyo",
-        "type": "process"
-      },
-      {
-        "id": "onedrive",
-        "name": "OneDrive",
-        "type": "data_store"
-      },
-      {
-        "id": "salesforce",
-        "name": "Salesforce",
-        "type": "process"
-      },
-      {
-        "id": "email_system",
-        "name": "Email System",
-        "type": "process"
-      }
-    ],
-    "edges": [
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "excel",
-        "label": "Customer call data",
-        "data_elements": [
-          "Customer Name",
-          "EMI Amount",
-          "Loan Account Number",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "onedrive",
-        "label": "Customer data files",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "email_system",
-        "label": "Consolidated reports",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "compliance_calling",
-        "target_id": "ameyo",
-        "label": "Call recordings",
-        "data_elements": [
-          "Customer Name",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "salesforce",
-        "target_id": "email_system",
-        "label": "Case escalations",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "quality_assurance_agent",
-        "target_id": "excel",
-        "label": "Quality audit data",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "excel",
-        "target_id": "onedrive",
-        "label": "Data storage",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "ameyo",
-        "target_id": "quality_assurance_agent",
-        "label": "Call recordings for review",
-        "data_elements": [
-          "Customer Name"
-        ]
-      }
-    ],
-    "risk_annotations": [
-      {
-        "target_id": "email_system",
-        "risk_name": "Unencrypted Email Transmission of Sensitive Customer Data",
-        "severity": "critical"
-      },
-      {
-        "target_id": "compliance_calling",
-        "risk_name": "Lack of Data Privacy Consent for Outbound Calls",
-        "severity": "high"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Inconsistent Call Recording Disclosure",
-        "severity": "high"
-      },
-      {
-        "target_id": "onedrive",
-        "risk_name": "Excessive Data Retention on Personal Devices",
-        "severity": "high"
-      },
-      {
-        "target_id": "onedrive",
-        "risk_name": "Uncontrolled Data Access After Employee Departure",
-        "severity": "medium"
-      },
-      {
-        "target_id": "quality_assurance_agent",
-        "risk_name": "Customer Data in Quality Audit Records",
-        "severity": "medium"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Plain Text Customer Data in Escalation Emails",
-        "severity": "critical"
-      }
-    ]
+    "nodes": [],
+    "edges": [],
+    "risk_annotations": []
   },
+  "compliance_schema": null,
+  "data_inventory": [],
   "normalization_report": {
     "removed_entities": [
       {
         "name": "Salesforce",
         "reason": "Reclassified as SYSTEM"
-      },
-      {
-        "name": "Compliance Calling",
-        "reason": "Process/activity misclassified as actor"
-      },
-      {
-        "name": "Email",
-        "reason": "Communication method misclassified as actor - merged into Email System"
-      },
-      {
-        "name": "Hygiene Calling",
-        "reason": "Process/activity misclassified as actor"
       }
     ]
   }

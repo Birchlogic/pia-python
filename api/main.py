@@ -412,6 +412,12 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             db.commit()
 
 
+class UpdateSessionDFDRequest(BaseModel):
+    session_id: str
+    dfd_json: dict
+    knowledge_graph: dict
+    dfd_plan_json: dict
+
 # ── API Endpoints ────────────────────────────────────
 
 @app.post("/api/initiate", response_model=InitiateResponse)
@@ -454,6 +460,83 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         session_id=request.session_id,
         message="Pipeline started. Use /api/status/{session_id} to track progress."
     )
+
+
+@app.post("/api/dfd/update_session")
+def update_session_dfd(data: UpdateSessionDFDRequest, db: Session = Depends(get_db)):
+    """
+    Manually update DFD data for a session and regenerate its interactive HTML.
+    Updates dfd_json, dfd_render_plan_json, and the Knowledge Graph tables.
+    """
+    # 1. Find session
+    db_session = db.query(DFDSession).filter(DFDSession.session_id == data.session_id).first()
+    if not db_session:
+        raise HTTPException(status_code=404, detail="Session not found")
+    
+    # 2. Update main session record
+    db_session.dfd_json = data.dfd_json
+    db_session.dfd_render_plan_json = data.dfd_plan_json
+    
+    # 3. Update Knowledge Graph Tables
+    # Clear existing nodes and edges for this session
+    db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == data.session_id).delete()
+    db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == data.session_id).delete()
+    
+    nodes = data.knowledge_graph.get("nodes", [])
+    edges = data.knowledge_graph.get("edges", [])
+    
+    for n in nodes:
+        db_node = KnowledgeGraphNode(
+            id=str(uuid.uuid4()),
+            session_id=data.session_id,
+            node_id=n.get("id") or n.get("node_id") or "",
+            name=n.get("name", ""),
+            type=n.get("type", ""),
+            aliases=n.get("aliases", []),
+            data_elements=n.get("data_elements", []),
+            risks=n.get("risks", []),
+            sources=n.get("sources", [])
+        )
+        db.add(db_node)
+        
+    for e in edges:
+        db_edge = KnowledgeGraphEdge(
+            id=str(uuid.uuid4()),
+            session_id=data.session_id,
+            source_node=e.get("source") or e.get("source_node") or "",
+            target_node=e.get("target") or e.get("target_node") or "",
+            data_elements=e.get("data_elements", []),
+            flow_type=e.get("flow_type", ""),
+            channel=e.get("channel", ""),
+            inferred=1 if e.get("inferred") else 0,
+            sources=e.get("sources", [])
+        )
+        db.add(db_edge)
+        
+    # 4. Re-generate Interactive HTML
+    from test.graph.html_generator import HTMLGeneratorAgent
+    html_gen = HTMLGeneratorAgent()
+    
+    kg = data.knowledge_graph
+    levels = data.dfd_plan_json.get("levels", [])
+    
+    # Reconstruct col/row maps and generate HTML
+    col_map = html_gen._build_column_map(nodes, levels, kg)
+    row_map = html_gen._build_row_map(nodes)
+    
+    # Generate HTML string (passing empty dict for pipeline_docs as default)
+    interactive_html = html_gen._build_html(nodes, edges, kg, {}, col_map, row_map)
+    db_session.interactive_html = interactive_html
+    
+    db_session.updated_at = datetime.utcnow()
+    db.commit()
+    
+    return {
+        "status": "success",
+        "message": "Session DFD data and HTML updated successfully",
+        "session_id": data.session_id
+    }
+
 
 
 @app.get("/api/status/{session_id}", response_model=StatusResponse)

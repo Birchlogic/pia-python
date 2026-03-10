@@ -5,15 +5,43 @@
     "session": "1 of 4 \u2014 Kickoff & Departmental Overview",
     "source_file": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
     "document_type": "transcript",
-    "processed_at": "2026-03-05T21:40:08.388235",
+    "processed_at": "2026-03-10T19:49:35.251762",
     "reprocess_attempts": 2
   },
   "actors": [
+    {
+      "name": "Farhan",
+      "type": "PERSON",
+      "original_names": [
+        "Farhan"
+      ]
+    },
     {
       "name": "Nikhil Joshi",
       "type": "PERSON",
       "original_names": [
         "Nikhil Joshi"
+      ]
+    },
+    {
+      "name": "Customer Issues",
+      "type": "EXTERNAL_ENTITY",
+      "original_names": [
+        "Customer Issues"
+      ]
+    },
+    {
+      "name": "Compliance Calling",
+      "type": "PERSON",
+      "original_names": [
+        "Compliance Calling"
+      ]
+    },
+    {
+      "name": "Rohan Desai",
+      "type": "PERSON",
+      "original_names": [
+        "Rohan Desai"
       ]
     },
     {
@@ -24,252 +52,56 @@
       ]
     },
     {
-      "name": "Farhan",
+      "name": "Retention",
       "type": "PERSON",
       "original_names": [
-        "Farhan"
-      ]
-    },
-    {
-      "name": "Rohan Desai",
-      "type": "PERSON",
-      "original_names": [
-        "Rohan Desai"
+        "Retention"
       ]
     }
   ],
   "systems": [
-    {
-      "name": "Ameyo",
-      "type": "SYSTEM",
-      "original_names": [
-        "Ameyo"
-      ]
-    },
     {
       "name": "Salesforce",
       "type": "SYSTEM",
       "original_names": [
         "Salesforce"
       ]
-    },
-    {
-      "name": "WhatsApp",
-      "type": "SYSTEM",
-      "original_names": [
-        "WhatsApp"
-      ]
     }
   ],
   "data_elements": [
-    "Loan Account Number",
-    "Customer Name",
-    "Payment History",
-    "EMI Amount",
     "Email Address",
-    "Mobile Number"
+    "Loan Account Number",
+    "EMI Amount",
+    "Customer Name",
+    "Mobile Number",
+    "Payment History"
   ],
-  "flows": [
-    {
-      "source": "Customer",
-      "destination": "Ameyo",
-      "data_elements": [
-        "Mobile Number"
-      ],
-      "channel": "phone",
-      "evidence": "When a call comes in, the system checks the caller's number"
-    },
-    {
-      "source": "Ameyo",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Mobile Number"
-      ],
-      "channel": "API",
-      "evidence": "Ameyo is integrated with Salesforce. When a call comes in, the system checks the caller's number against our customer database"
-    },
-    {
-      "source": "Salesforce",
-      "destination": "Ameyo",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Mobile Number",
-        "Email Address",
-        "Payment History",
-        "EMI Amount"
-      ],
-      "channel": "API",
-      "evidence": "For registered callers, Ameyo pulls up the customer profile from Salesforce"
-    },
-    {
-      "source": "Customer",
-      "destination": "WhatsApp",
-      "data_elements": [
-        "Customer Name"
-      ],
-      "channel": "WhatsApp",
-      "evidence": "we have a business WhatsApp number that customers can message"
-    },
-    {
-      "source": "Customer",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "Every interaction gets logged in Salesforce as a case"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "we just transfer the call and log a case"
-    },
-    {
-      "source": "Salesforce",
-      "destination": "Retention",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Payment History",
-        "EMI Amount",
-        "Email Address",
-        "Mobile Number"
-      ],
-      "channel": "system",
-      "evidence": "Retention has access to the same customer records we do"
-    },
-    {
-      "source": "Ameyo",
-      "destination": "Customer Care Agent",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number",
-        "Mobile Number",
-        "Email Address",
-        "Payment History",
-        "EMI Amount"
-      ],
-      "channel": "system",
-      "evidence": "The agent gets a Salesforce screen with the customer's profile"
-    },
-    {
-      "source": "Customer",
-      "destination": "Customer Care Agent",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "email",
-      "evidence": "customers can email us at a generic customer care email address"
-    },
-    {
-      "source": "Customer Care Agent",
-      "destination": "Retention",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "phone",
-      "evidence": "If a customer calls to close their loan or requests a foreclosure, the call is transferred"
-    }
-  ],
-  "risks": [
-    {
-      "risk_name": "Inadequate Identity Verification for Financial Data Disclosure",
-      "severity": "high",
-      "category": "access_control",
-      "description": "Customer financial data including loan account numbers, EMI amounts, payment history, and outstanding balances are disclosed to callers based solely on caller ID matching without additional identity verification. This creates risk of unauthorized access if someone else uses the customer's registered phone.",
-      "evidence": "The caller ID match from Ameyo is considered sufficient identification. If the call is from the registered mobile number, we assume it's the customer. We don't do an additional KYC on the call. Which, now that I think about it, could be an issue \u2014 someone else could be using the customer's phone.",
-      "recommendation": "Implement multi-factor authentication for phone-based customer verification before disclosing sensitive financial information, such as requiring customers to provide additional identifying information like loan account number or date of birth."
-    },
-    {
-      "risk_name": "Excessive Access to Sensitive Complaint Data",
-      "severity": "critical",
-      "category": "access_control",
-      "description": "All customer care agents have unrestricted access to highly sensitive bribery complaint cases containing whistleblower information, employee allegations, and supporting evidence. This violates principle of least privilege and creates risk of data misuse or retaliation.",
-      "evidence": "All customer care agents can see all cases in the system. There's no restriction based on case category. So technically, a regular agent could open a bribery complaint case and see the details... I've raised this before but Salesforce configuration hasn't been updated.",
-      "recommendation": "Implement role-based access controls in Salesforce to restrict access to sensitive complaint categories. Only authorized personnel (Ethics team, management) should access bribery and sensitive complaint cases."
-    },
-    {
-      "risk_name": "Broad Cross-Departmental Data Access",
-      "severity": "medium",
-      "category": "access_control",
-      "description": "Customer financial data including account details and personal information is accessible across multiple departments (Customer Care and Retention teams) without clear business justification for all access scenarios.",
-      "evidence": "And the customer's data \u2014 their account details, their stated reason for wanting to close \u2014 that's visible to both Customer Care and Retention? Yes, through Salesforce. Retention has access to the same customer records we do.",
-      "recommendation": "Review and implement data access controls based on business need-to-know principles. Limit cross-departmental access to only the minimum data required for specific business functions."
-    },
-    {
-      "risk_name": "Comprehensive Financial Profile Exposure",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Agents have immediate access to extensive customer financial profiles including loan amounts, payment history, overdue status, and co-applicant details without verification of legitimate business need for each data element during the interaction.",
-      "evidence": "The agent gets a Salesforce screen with the customer's profile. That includes \u2014 customer name, loan account number, registered mobile number, email address, loan product type, sanctioned amount, outstanding principal, EMI amount, next due date, payment history, overdue status if any, co-applicant details if there is one, and the branch that originated the loan.",
-      "recommendation": "Implement progressive data disclosure where agents only see basic customer information initially, with additional sensitive financial details revealed only when required for the specific customer interaction."
-    },
-    {
-      "risk_name": "Broad Financial Data Exposure to Multiple Teams",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Comprehensive customer financial data including loan account numbers, sanctioned amounts, outstanding principal, EMI amounts, and payment history is accessible to both Customer Care and Retention teams through Salesforce, potentially beyond what's necessary for their respective functions.",
-      "evidence": "The agent gets a Salesforce screen with the customer's profile. That includes \u2014 customer name, loan account number, registered mobile number, email address, loan product type, sanctioned amount, outstanding principal, EMI amount, next due date, payment history, overdue status... Retention has access to the same customer records we do.",
-      "recommendation": "Review and implement data minimization principles by restricting each team's access to only the customer data elements necessary for their specific business functions."
-    },
-    {
-      "risk_name": "Uncontrolled Cross-System Data Integration",
-      "severity": "medium",
-      "category": "security",
-      "description": "Customer data flows automatically between Ameyo IVR system and Salesforce without clear visibility into data handling controls, encryption, or access logging across the integration.",
-      "evidence": "Ameyo is integrated with Salesforce. When a call comes in, the system checks the caller's number against our customer database in Salesforce... Ameyo pulls up the customer profile from Salesforce and shows it on the agent's screen before they even pick up.",
-      "recommendation": "Conduct security assessment of the Ameyo-Salesforce integration including data encryption in transit, access logging, and ensure proper data handling controls are in place across both systems."
-    },
-    {
-      "risk_name": "Cross-Department Data Access Without Business Justification",
-      "severity": "medium",
-      "category": "access_control",
-      "description": "Customer financial data including account details and closure reasons are accessible to both Customer Care and Retention teams through shared Salesforce access, potentially beyond what's necessary for each team's functions.",
-      "evidence": "And the customer's data \u2014 their account details, their stated reason for wanting to close \u2014 that's visible to both Customer Care and Retention? Yes, through Salesforce. Retention has access to the same customer records we do.",
-      "recommendation": "Review and implement principle of least privilege for cross-departmental data access, ensuring each team only has access to customer data necessary for their specific business functions."
-    },
-    {
-      "risk_name": "Comprehensive Customer Profile Exposure",
-      "severity": "medium",
-      "category": "data_exposure",
-      "description": "Extensive customer personal and financial information is displayed to agents immediately upon call connection, including co-applicant details and complete payment history, creating risk of unnecessary data exposure.",
-      "evidence": "The agent gets a Salesforce screen with the customer's profile. That includes \u2014 customer name, loan account number, registered mobile number, email address, loan product type, sanctioned amount, outstanding principal, EMI amount, next due date, payment history, overdue status if any, co-applicant details if there is one, and the branch that originated the loan. Plus any previous case history",
-      "recommendation": "Implement progressive data disclosure where agents only see customer data relevant to the specific inquiry, with additional details available on-demand based on the nature of the customer's request."
-    }
-  ],
+  "flows": [],
+  "risks": [],
   "verification_report": {
     "scores": {
-      "systems_score": 0.6,
+      "systems_score": 0.2,
       "data_elements_score": 0.86,
       "risks_score": 0.0,
-      "flow_score": 1.0,
-      "overall_score": 0.64
+      "flow_score": 0.0,
+      "overall_score": 0.27
     },
     "ground_truth": {
       "systems": [
-        "Teams",
-        "Ameyo",
         "Salesforce",
+        "Ameyo",
         "SAP",
-        "WhatsApp"
+        "WhatsApp",
+        "Teams"
       ],
       "data_elements": [
-        "Loan Account Number",
-        "Customer Name",
-        "KYC",
-        "Payment History",
-        "EMI Amount",
         "Email Address",
-        "Mobile Number"
+        "Loan Account Number",
+        "EMI Amount",
+        "Customer Name",
+        "Mobile Number",
+        "Payment History",
+        "KYC"
       ],
       "risk_indicators": [
         "visible to"
@@ -277,8 +109,10 @@
     },
     "missing_entities": {
       "systems": [
-        "Teams",
-        "SAP"
+        "Ameyo",
+        "SAP",
+        "WhatsApp",
+        "Teams"
       ],
       "data_elements": [
         "KYC"
@@ -288,172 +122,12 @@
     "reprocess_required": true
   },
   "dfd_graph": {
-    "nodes": [
-      {
-        "id": "customer",
-        "name": "Customer",
-        "type": "external_entity"
-      },
-      {
-        "id": "customer_care_agent",
-        "name": "Customer Care Agent",
-        "type": "external_entity"
-      },
-      {
-        "id": "retention",
-        "name": "Retention",
-        "type": "external_entity"
-      },
-      {
-        "id": "ameyo",
-        "name": "Ameyo",
-        "type": "process"
-      },
-      {
-        "id": "salesforce",
-        "name": "Salesforce",
-        "type": "data_store"
-      },
-      {
-        "id": "whatsapp",
-        "name": "WhatsApp",
-        "type": "process"
-      }
-    ],
-    "edges": [
-      {
-        "source_id": "customer",
-        "target_id": "ameyo",
-        "label": "Phone call with caller ID",
-        "data_elements": [
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "ameyo",
-        "target_id": "salesforce",
-        "label": "Customer lookup request",
-        "data_elements": [
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "salesforce",
-        "target_id": "ameyo",
-        "label": "Customer profile data",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Mobile Number",
-          "Email Address",
-          "Payment History",
-          "EMI Amount"
-        ]
-      },
-      {
-        "source_id": "customer",
-        "target_id": "whatsapp",
-        "label": "WhatsApp message",
-        "data_elements": [
-          "Customer Name"
-        ]
-      },
-      {
-        "source_id": "customer",
-        "target_id": "salesforce",
-        "label": "Case logging",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "salesforce",
-        "label": "Case logging",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "salesforce",
-        "target_id": "retention",
-        "label": "Customer records access",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Payment History",
-          "EMI Amount",
-          "Email Address",
-          "Mobile Number"
-        ]
-      },
-      {
-        "source_id": "ameyo",
-        "target_id": "customer_care_agent",
-        "label": "Customer profile display",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number",
-          "Mobile Number",
-          "Email Address",
-          "Payment History",
-          "EMI Amount"
-        ]
-      },
-      {
-        "source_id": "customer",
-        "target_id": "customer_care_agent",
-        "label": "Email inquiry",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "customer_care_agent",
-        "target_id": "retention",
-        "label": "Call transfer",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      }
-    ],
-    "risk_annotations": [
-      {
-        "target_id": "ameyo",
-        "risk_name": "Inadequate Identity Verification for Financial Data Disclosure",
-        "severity": "high"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Excessive Access to Sensitive Complaint Data",
-        "severity": "critical"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Broad Cross-Departmental Data Access",
-        "severity": "medium"
-      },
-      {
-        "target_id": "customer_care_agent",
-        "risk_name": "Comprehensive Financial Profile Exposure",
-        "severity": "medium"
-      },
-      {
-        "target_id": "retention",
-        "risk_name": "Broad Financial Data Exposure to Multiple Teams",
-        "severity": "medium"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Uncontrolled Cross-System Data Integration",
-        "severity": "medium"
-      }
-    ]
+    "nodes": [],
+    "edges": [],
+    "risk_annotations": []
   },
+  "compliance_schema": null,
+  "data_inventory": [],
   "normalization_report": {
     "removed_entities": [
       {
@@ -463,18 +137,6 @@
       {
         "name": "Loan Closure",
         "reason": "Is a process/category, not an actor"
-      },
-      {
-        "name": "Retention",
-        "reason": "Process/department misclassified as actor"
-      },
-      {
-        "name": "Customer Issues",
-        "reason": "Process/category misclassified as actor"
-      },
-      {
-        "name": "Compliance Calling",
-        "reason": "Process/activity misclassified as actor"
       }
     ]
   }

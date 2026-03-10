@@ -5,7 +5,7 @@
     "session": "2 of 4 \u2014 IVR Workflows, Call Handling & Data Access Deep Dive",
     "source_file": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt",
     "document_type": "transcript",
-    "processed_at": "2026-03-05T21:42:23.935115",
+    "processed_at": "2026-03-10T19:49:43.781690",
     "reprocess_attempts": 2
   },
   "actors": [
@@ -17,28 +17,21 @@
       ]
     },
     {
-      "name": "Rohan Desai",
-      "type": "PERSON",
-      "original_names": [
-        "Rohan Desai"
-      ]
-    },
-    {
       "name": "Priya Nair",
       "type": "PERSON",
       "original_names": [
         "Priya Nair"
       ]
+    },
+    {
+      "name": "Rohan Desai",
+      "type": "PERSON",
+      "original_names": [
+        "Rohan Desai"
+      ]
     }
   ],
   "systems": [
-    {
-      "name": "Ameyo",
-      "type": "SYSTEM",
-      "original_names": [
-        "Ameyo"
-      ]
-    },
     {
       "name": "Salesforce",
       "type": "SYSTEM",
@@ -47,216 +40,51 @@
       ]
     },
     {
-      "name": "CTI Connector",
+      "name": "Ameyo",
       "type": "SYSTEM",
       "original_names": [
-        "CTI connector"
-      ]
-    },
-    {
-      "name": "WhatsApp Business App",
-      "type": "SYSTEM",
-      "original_names": [
-        "WhatsApp Business app"
-      ]
-    },
-    {
-      "name": "Shared Mailbox",
-      "type": "DATA_STORE",
-      "original_names": [
-        "shared mailbox"
+        "Ameyo"
       ]
     }
   ],
   "data_elements": [
-    "Loan Account Number",
-    "Customer Name",
-    "Payment History",
-    "EMI Amount",
+    "Residential Address",
     "Interest Rate",
     "Email Address",
-    "Residential Address",
-    "PAN"
+    "Loan Account Number",
+    "EMI Amount",
+    "Customer Name",
+    "PAN",
+    "Payment History"
   ],
-  "flows": [
-    {
-      "source": "Ameyo",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "EMI Amount",
-        "Email Address",
-        "Interest Rate",
-        "Loan Account Number",
-        "PAN",
-        "Payment History",
-        "Residential Address"
-      ],
-      "channel": "CTI connector",
-      "evidence": "Ameyo passes the caller's phone number to Salesforce via a CTI connector, and Salesforce does a lookup against the customer database"
-    },
-    {
-      "source": "WhatsApp Business App",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "The agents also log the interaction in Salesforce as a case"
-    },
-    {
-      "source": "Shared Mailbox",
-      "destination": "Salesforce",
-      "data_elements": [
-        "Customer Name",
-        "Email Address",
-        "Loan Account Number"
-      ],
-      "channel": "manual",
-      "evidence": "When an email comes in, they read it, create a case in Salesforce"
-    }
-  ],
-  "risks": [
-    {
-      "risk_name": "Unrestricted PAN Exposure to All Agents",
-      "severity": "critical",
-      "category": "data_exposure",
-      "description": "Full PAN numbers are visible to all 45 customer service personnel without masking or role-based restrictions. Customer care agents do not require PAN access for routine queries, creating unnecessary exposure of sensitive financial identifiers.",
-      "evidence": "PAN number is visible to every agent?\nYes. The customer profile in Salesforce shows PAN because it was captured during loan origination. It's part of the KYC data.\nIs there any masking applied? Like showing only the last 4 characters?\nNo masking. Full PAN is visible.",
-      "recommendation": "Implement role-based access controls to mask PAN numbers for customer service agents. Only show full PAN to authorized personnel who require it for KYC purposes."
-    },
-    {
-      "risk_name": "Excessive Data Access Without Row-Level Security",
-      "severity": "high",
-      "category": "access_control",
-      "description": "All 45 personnel can access any customer's complete financial profile including PAN, addresses, loan details, payment history, and case history without restrictions. This violates data minimization principles.",
-      "evidence": "So roughly 45 people can see any customer's PAN, address, financial details, and full case history?\nWhen you put it that way, yes. There's no row-level restriction \u2014 any agent can search for any customer.",
-      "recommendation": "Implement row-level security controls to restrict agent access to only customers they are actively serving. Implement data minimization by showing only necessary fields for each role."
-    },
-    {
-      "risk_name": "Misleading Call Recording Consent Notice",
-      "severity": "high",
-      "category": "consent",
-      "description": "IVR states calls 'may be recorded' but all calls are actually recorded without exception and without opt-out option. This constitutes misleading consent under DPDPA requirements.",
-      "evidence": "The exact wording is 'this call may be recorded.' There's no option for the customer to opt out. Every call is recorded regardless.\nThat's a consent issue under DPDPA. The notice says 'may' but the practice is 'always.' And there's no opt-out.",
-      "recommendation": "Update IVR to accurately state that calls 'will be recorded' and implement explicit consent mechanism with opt-out option as required under DPDPA."
-    },
-    {
-      "risk_name": "Indefinite Retention of Sensitive Call Recordings",
-      "severity": "high",
-      "category": "retention",
-      "description": "Call recordings containing highly sensitive personal and financial data are retained indefinitely without defined retention policy. Recordings include discussions of financial hardship, medical emergencies, and personal circumstances.",
-      "evidence": "How long are recordings retained?\nI honestly don't know if there's a retention policy. I've been able to pull up recordings from over a year ago... I can see recordings going back to March 2024. So at least almost two years.\nSome calls get very personal. Customers going through financial hardship will explain their situation in detail. Medical emergencies, job losses, family issues \u2014 we hear it all.",
-      "recommendation": "Establish and implement a clear retention policy for call recordings with automatic deletion after the required retention period. Classify recordings by sensitivity and apply appropriate retention schedules."
-    },
-    {
-      "risk_name": "Unmanaged WhatsApp Data on Personal Devices",
-      "severity": "critical",
-      "category": "security",
-      "description": "Customer messages containing account numbers and personal details are stored on unmanaged mobile devices without MDM controls, encryption, or backup procedures. Data is permanently lost when devices are wiped.",
-      "evidence": "So customer messages \u2014 which could contain account numbers, personal details, screenshots of payment issues \u2014 are stored on two physical handsets?\nYes, in the WhatsApp chat history... They have screen locks \u2014 PIN or fingerprint. But I don't think they're under any MDM solution.\nSo potentially, customer conversation history is permanently lost when a phone is wiped, with no backup and no audit trail beyond what's in Salesforce?\nI think so, yes.",
-      "recommendation": "Migrate WhatsApp Business to a centralized platform with proper data governance. Implement MDM controls on devices handling customer data and establish backup procedures for customer communications."
-    },
-    {
-      "risk_name": "Indefinite Email Retention in Shared Mailbox",
-      "severity": "medium",
-      "category": "retention",
-      "description": "Customer emails containing personal and financial information are retained indefinitely in shared mailbox without retention policy or regular purging procedures.",
-      "evidence": "So the shared mailbox has the full history of every customer email interaction?\nYes. Going back years. Since the mailbox was created.\nWe don't delete emails.",
-      "recommendation": "Implement email retention policy with automated archival and deletion procedures. Establish regular review cycles for email data retention compliance."
-    },
-    {
-      "risk_name": "Unrestricted PAN Access",
-      "severity": "critical",
-      "category": "data_exposure",
-      "description": "Full PAN numbers are visible to all agents without masking or role-based restrictions. Approximately 45 people including agents, team leads, compliance, and quality teams can access any customer's complete PAN number.",
-      "evidence": "PAN number is visible to every agent?\nYes. The customer profile in Salesforce shows PAN because it was captured during loan origination. It's part of the KYC data.\nIs there any masking applied? Like showing only the last 4 characters?\nNo masking. Full PAN is visible.",
-      "recommendation": "Implement PAN masking to show only last 4 digits for customer care agents, with full PAN access restricted to roles that require it for KYC purposes."
-    },
-    {
-      "risk_name": "Excessive Data Access Scope",
-      "severity": "high",
-      "category": "access_control",
-      "description": "45 personnel have unrestricted access to all customer records including PAN, addresses, financial details, and case history without row-level restrictions.",
-      "evidence": "All active agents. That's around 30 people on the call centre side. Plus the Team Leads, plus Nikhil. And actually the Compliance Calling team and Quality team also have Salesforce access because they need to look up customer records for their processes.\nSo roughly 45 people can see any customer's PAN, address, financial details, and full case history?\nWhen you put it that way, yes. There's no row-level restriction \u2014 any agent can search for any customer.",
-      "recommendation": "Implement role-based access controls and row-level security to limit data access based on job function and need-to-know basis."
-    },
-    {
-      "risk_name": "Misleading Call Recording Consent",
-      "severity": "high",
-      "category": "consent",
-      "description": "IVR disclaimer states calls 'may be recorded' but all calls are actually recorded without exception, and no opt-out mechanism is provided to customers.",
-      "evidence": "The exact wording is 'this call may be recorded.' There's no option for the customer to opt out. Every call is recorded regardless.",
-      "recommendation": "Update IVR language to accurately reflect recording practice and implement opt-out mechanism or obtain explicit consent as required under DPDPA."
-    },
-    {
-      "risk_name": "Indefinite Call Recording Retention",
-      "severity": "high",
-      "category": "retention",
-      "description": "Call recordings containing sensitive personal and financial data are retained indefinitely without a defined retention policy, with recordings accessible from over two years ago.",
-      "evidence": "I honestly don't know if there's a retention policy. I've been able to pull up recordings from over a year ago. Let me check. [navigating Ameyo] Yeah, I can see recordings going back to March 2024. So at least almost two years.",
-      "recommendation": "Establish and implement a clear retention policy for call recordings with automatic deletion after the required retention period."
-    },
-    {
-      "risk_name": "WhatsApp Data Loss Risk",
-      "severity": "high",
-      "category": "security",
-      "description": "Customer WhatsApp conversations containing account numbers and personal details are stored only on physical phones without backup, creating risk of permanent data loss when phones are wiped.",
-      "evidence": "So potentially, customer conversation history is permanently lost when a phone is wiped, with no backup and no audit trail beyond what's in Salesforce?\nI think so, yes.",
-      "recommendation": "Implement proper backup and archival system for WhatsApp communications or migrate to a centralized business messaging platform."
-    },
-    {
-      "risk_name": "Unmanaged Mobile Device Storage",
-      "severity": "medium",
-      "category": "security",
-      "description": "Customer data including account numbers and personal details are stored on company phones that lack MDM management and proper security controls.",
-      "evidence": "So customer messages \u2014 which could contain account numbers, personal details, screenshots of payment issues \u2014 are stored on two physical handsets?\nYes, in the WhatsApp chat history.\nAre these phones encrypted? Are they MDM-managed?\nThey have screen locks \u2014 PIN or fingerprint. But I don't think they're under any MDM solution.",
-      "recommendation": "Implement MDM solution for company phones handling customer data and ensure proper encryption and security controls."
-    },
-    {
-      "risk_name": "Indefinite Email Retention",
-      "severity": "medium",
-      "category": "retention",
-      "description": "Customer emails in shared mailbox are retained indefinitely without deletion policy, accumulating years of customer correspondence.",
-      "evidence": "So the shared mailbox has the full history of every customer email interaction?\nYes. Going back years. Since the mailbox was created.\nWe don't delete emails.",
-      "recommendation": "Implement email retention policy with regular purging of old customer correspondence after required retention period."
-    },
-    {
-      "risk_name": "Broad Access to Historical Customer Communications",
-      "severity": "medium",
-      "category": "access_control",
-      "description": "Four personnel have unrestricted access to years of customer email history in shared mailbox, creating unnecessary exposure to historical personal and financial communications.",
-      "evidence": "And who has access to this shared mailbox?\nMe, the two email handling agents, and Nikhil. Four people.\nYes. Going back years. Since the mailbox was created.",
-      "recommendation": "Implement access controls to limit historical email access to current cases only. Consider archiving older communications with restricted access for compliance purposes."
-    }
-  ],
+  "flows": [],
+  "risks": [],
   "verification_report": {
     "scores": {
       "systems_score": 0.4,
       "data_elements_score": 0.89,
       "risks_score": 0.0,
-      "flow_score": 0.3,
-      "overall_score": 0.42
+      "flow_score": 0.0,
+      "overall_score": 0.34
     },
     "ground_truth": {
       "systems": [
-        "Ameyo",
         "Salesforce",
+        "Ameyo",
         "SAP",
         "WhatsApp",
         "Outlook"
       ],
       "data_elements": [
-        "Loan Account Number",
-        "Customer Name",
-        "KYC",
-        "Payment History",
-        "EMI Amount",
+        "Residential Address",
         "Interest Rate",
         "Email Address",
-        "Residential Address",
-        "PAN"
+        "Loan Account Number",
+        "EMI Amount",
+        "Customer Name",
+        "PAN",
+        "Payment History",
+        "KYC"
       ],
       "risk_indicators": [
         "visible to",
@@ -278,125 +106,20 @@
     "reprocess_required": true
   },
   "dfd_graph": {
-    "nodes": [
-      {
-        "id": "farhan_qureshi",
-        "name": "Farhan Qureshi",
-        "type": "external_entity"
-      },
-      {
-        "id": "rohan_desai",
-        "name": "Rohan Desai",
-        "type": "external_entity"
-      },
-      {
-        "id": "priya_nair",
-        "name": "Priya Nair",
-        "type": "external_entity"
-      },
-      {
-        "id": "ameyo",
-        "name": "Ameyo",
-        "type": "process"
-      },
-      {
-        "id": "salesforce",
-        "name": "Salesforce",
-        "type": "process"
-      },
-      {
-        "id": "cti_connector",
-        "name": "CTI Connector",
-        "type": "process"
-      },
-      {
-        "id": "whatsapp_business_app",
-        "name": "WhatsApp Business App",
-        "type": "process"
-      },
-      {
-        "id": "shared_mailbox",
-        "name": "Shared Mailbox",
-        "type": "data_store"
-      }
-    ],
-    "edges": [
-      {
-        "source_id": "ameyo",
-        "target_id": "salesforce",
-        "label": "Customer data via CTI connector",
-        "data_elements": [
-          "Customer Name",
-          "EMI Amount",
-          "Email Address",
-          "Interest Rate",
-          "Loan Account Number",
-          "PAN",
-          "Payment History",
-          "Residential Address"
-        ]
-      },
-      {
-        "source_id": "whatsapp_business_app",
-        "target_id": "salesforce",
-        "label": "Customer interaction data (manual entry)",
-        "data_elements": [
-          "Customer Name",
-          "Loan Account Number"
-        ]
-      },
-      {
-        "source_id": "shared_mailbox",
-        "target_id": "salesforce",
-        "label": "Email case data (manual entry)",
-        "data_elements": [
-          "Customer Name",
-          "Email Address",
-          "Loan Account Number"
-        ]
-      }
-    ],
-    "risk_annotations": [
-      {
-        "target_id": "salesforce",
-        "risk_name": "Unrestricted PAN Exposure to All Agents",
-        "severity": "critical"
-      },
-      {
-        "target_id": "salesforce",
-        "risk_name": "Excessive Data Access Without Row-Level Security",
-        "severity": "high"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Misleading Call Recording Consent Notice",
-        "severity": "high"
-      },
-      {
-        "target_id": "ameyo",
-        "risk_name": "Indefinite Retention of Sensitive Call Recordings",
-        "severity": "high"
-      },
-      {
-        "target_id": "whatsapp_business_app",
-        "risk_name": "Unmanaged WhatsApp Data on Personal Devices",
-        "severity": "critical"
-      },
-      {
-        "target_id": "shared_mailbox",
-        "risk_name": "Indefinite Email Retention in Shared Mailbox",
-        "severity": "medium"
-      }
-    ]
+    "nodes": [],
+    "edges": [],
+    "risk_annotations": []
   },
+  "compliance_schema": null,
+  "data_inventory": [],
   "normalization_report": {
     "removed_entities": [
       {
-        "name": "Ameyo",
+        "name": "Salesforce",
         "reason": "Reclassified as SYSTEM"
       },
       {
-        "name": "Salesforce",
+        "name": "Ameyo",
         "reason": "Reclassified as SYSTEM"
       },
       {

@@ -78,4 +78,15 @@ class KnowledgeGraphEdge(Base):
     sources = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+class InteractiveDFD(Base):
+    __tablename__ = "interactive_dfds"
+
+    id = Column(String, primary_key=True)
+    name = Column(String, nullable=False, default="Untitled DFD")
+    nodes = Column(JSON, nullable=False, default=list)
+    edges = Column(JSON, nullable=False, default=list)
+    levels = Column(JSON, nullable=False, default=list)
+    pipeline_docs = Column(JSON, nullable=True, default=dict)
     
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

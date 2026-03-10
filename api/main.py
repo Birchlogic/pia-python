@@ -13,7 +13,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base
-from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, InteractiveDFD
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -36,9 +36,10 @@ app.add_middleware(
 class InitiateRequest(BaseModel):
     session_id: str
     department: str
-    files: List[str]
-    use_rlm: bool = False
-    aggressive_processing: bool = False
+    files: List[str] = []
+    use_rlm: Optional[bool] = False
+    aggressive_processing: Optional[bool] = False
+    processing_mode: Optional[str] = None  # accepted but derived internally
 
 class InitiateResponse(BaseModel):
     session_id: str
@@ -50,6 +51,26 @@ class StatusResponse(BaseModel):
     error_message: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+
+class InteractiveDFDCreate(BaseModel):
+    name: str = "Untitled DFD"
+    nodes: list = []
+    edges: list = []
+    levels: list = []
+    pipeline_docs: dict = {}
+
+class InteractiveDFDUpdate(BaseModel):
+    name: Optional[str] = None
+    nodes: Optional[list] = None
+    edges: Optional[list] = None
+    levels: Optional[list] = None
+    pipeline_docs: Optional[dict] = None
+
+class HTMLPreviewRequest(BaseModel):
+    nodes: list = []
+    edges: list = []
+    levels: list = []
+    pipeline_docs: dict = {}
 
 # ── Helpers ──────────────────────────────────────────
 
@@ -213,7 +234,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db.commit()
 
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session):
+def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool, db: Session):
     try:
         logger.info(f"[{session_id}] Pipeline starting for department: {department}")
 
@@ -392,10 +413,14 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if existing:
         raise HTTPException(status_code=400, detail="Session ID already exists")
 
+    # Normalize None → False so downstream never sees None
+    use_rlm = bool(request.use_rlm)
+    aggressive = bool(request.aggressive_processing)
+
     processing_mode = "normal"
-    if request.aggressive_processing:
+    if aggressive:
         processing_mode = "aggressive_processing"
-    elif request.use_rlm:
+    elif use_rlm:
         processing_mode = "rlm"
 
     new_session = DFDSession(
@@ -407,16 +432,15 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     db.add(new_session)
     db.commit()
 
-    if request.aggressive_processing:
+    if aggressive:
         background_tasks.add_task(
             process_aggressive_pipeline,
-            request.session_id, request.department, request.files, db
+            request.session_id, request.department, request.files or [], db
         )
     else:
-        # Legacy unified pipeline (handles RLM inside via config or env if needed)
         background_tasks.add_task(
             process_unified_pipeline,
-            request.session_id, request.department, request.files, db
+            request.session_id, request.department, request.files or [], use_rlm, db
         )
 
     return InitiateResponse(
@@ -534,3 +558,97 @@ def delete_session(session_id: str, db: Session = Depends(get_db)):
     db.commit()
 
     return {"message": f"Session {session_id} and all related records deleted."}
+
+# ── Interactive DFD CRUD & Preview ────────────────────────────
+
+@app.post("/api/interactive_dfd", response_model=dict)
+def create_interactive_dfd(data: InteractiveDFDCreate, db: Session = Depends(get_db)):
+    db_obj = InteractiveDFD(
+        id=str(uuid.uuid4()),
+        name=data.name,
+        nodes=data.nodes,
+        edges=data.edges,
+        levels=data.levels,
+        pipeline_docs=data.pipeline_docs
+    )
+    db.add(db_obj)
+    db.commit()
+    db.refresh(db_obj)
+    return {"id": db_obj.id, "message": "Interactive DFD created successfully"}
+
+@app.get("/api/interactive_dfd/{dfd_id}", response_model=dict)
+def get_interactive_dfd(dfd_id: str, db: Session = Depends(get_db)):
+    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
+    if not db_obj:
+        raise HTTPException(status_code=404, detail="DFD not found")
+    return {
+        "id": db_obj.id,
+        "name": db_obj.name,
+        "nodes": db_obj.nodes,
+        "edges": db_obj.edges,
+        "levels": db_obj.levels,
+        "pipeline_docs": db_obj.pipeline_docs,
+        "created_at": db_obj.created_at,
+        "updated_at": db_obj.updated_at
+    }
+
+@app.put("/api/interactive_dfd/{dfd_id}", response_model=dict)
+def update_interactive_dfd(dfd_id: str, data: InteractiveDFDUpdate, db: Session = Depends(get_db)):
+    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
+    if not db_obj:
+        raise HTTPException(status_code=404, detail="DFD not found")
+    
+    if data.name is not None: db_obj.name = data.name
+    if data.nodes is not None: db_obj.nodes = data.nodes
+    if data.edges is not None: db_obj.edges = data.edges
+    if data.levels is not None: db_obj.levels = data.levels
+    if data.pipeline_docs is not None: db_obj.pipeline_docs = data.pipeline_docs
+    
+    db_obj.updated_at = datetime.utcnow()
+    db.commit()
+    return {"message": "DFD updated successfully"}
+
+@app.delete("/api/interactive_dfd/{dfd_id}", response_model=dict)
+def delete_interactive_dfd(dfd_id: str, db: Session = Depends(get_db)):
+    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
+    if not db_obj:
+        raise HTTPException(status_code=404, detail="DFD not found")
+    db.delete(db_obj)
+    db.commit()
+    return {"message": "DFD deleted successfully"}
+
+# ── Dynamic HTML Generator API ────────────────────────────────
+
+from fastapi.responses import HTMLResponse
+
+@app.post("/api/dfd/preview")
+def preview_html(data: HTMLPreviewRequest):
+    """Generate HTML DFD view directly from JSON body payload."""
+    from test.graph.html_generator import HTMLGeneratorAgent
+    
+    html_gen = HTMLGeneratorAgent()
+    kg = {"nodes": data.nodes, "edges": data.edges}
+    
+    col_map = html_gen._build_column_map(data.nodes, data.levels, kg)
+    row_map = html_gen._build_row_map(data.nodes)
+    html = html_gen._build_html(data.nodes, data.edges, kg, data.pipeline_docs, col_map, row_map)
+    
+    return {"html": html}
+
+@app.get("/api/interactive_dfd/{dfd_id}/preview", response_class=HTMLResponse)
+def preview_db_html(dfd_id: str, db: Session = Depends(get_db)):
+    """Returns the raw HTML document for a saved DFD."""
+    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
+    if not db_obj:
+        raise HTTPException(status_code=404, detail="DFD not found")
+    
+    from test.graph.html_generator import HTMLGeneratorAgent
+    
+    html_gen = HTMLGeneratorAgent()
+    kg = {"nodes": db_obj.nodes, "edges": db_obj.edges}
+    
+    col_map = html_gen._build_column_map(db_obj.nodes, db_obj.levels, kg)
+    row_map = html_gen._build_row_map(db_obj.nodes)
+    html = html_gen._build_html(db_obj.nodes, db_obj.edges, kg, db_obj.pipeline_docs, col_map, row_map)
+    
+    return html

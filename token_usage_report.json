@@ -1,0 +1,73 @@
+{
+    "summary": {
+        "Method_1_Normal": "$0.27 (6 API calls, 31k tokens in / 12k tokens out)",
+        "Method_2_RLM": "$0.17 (7 API calls, 25k tokens in / 6k tokens out)",
+        "Method_3_FullPipeline": "$1.57 (64 API calls, 175k tokens in / 69k tokens out)"
+    },
+    "unit_economics": {
+        "Method_1_Normal": {
+            "Total_Cost": "$0.2737",
+            "Cost_Per_Transcript": "$0.0684",
+            "Average_Tokens_Per_Transcript": 10769
+        },
+        "Method_2_RLM": {
+            "Total_Cost": "$0.1705",
+            "Cost_Per_Transcript": "$0.0426",
+            "Average_Tokens_Per_Transcript": 7944
+        },
+        "Method_3_FullPipeline": {
+            "Total_Cost": "$1.5746",
+            "Cost_Per_Transcript": "$0.3937",
+            "Average_Tokens_Per_Transcript": 61437
+        }
+    },
+    "methodology_explanation": {
+        "Method_1_Normal": {
+            "Description": "Standard iterative agentic pipeline. Good for simple independent documents.",
+            "How_It_Works": {
+                "Ingestion": "IngestionAgent reads EACH transcript individually. It extracts entities, data elements, and risks one file at a time using LLM calls. No cross-document correlation occurs at this stage.",
+                "Schema_1": "Not explicitly generated as an isolated step in this method's path (DFD is extracted directly from the ingested chunks).",
+                "Data_Inventory": "Not explicitly generated in this path.",
+                "DFD_Generation": "DFDExtractor takes the concatenated output of the individual ingestions and generates the dfd.json. It self-validates via a feedback loop. PrivacyDFDAgent then uses this output to render the Mermaid graph."
+            }
+        },
+        "Method_2_RLM": {
+            "Description": "Recursive Language Model pipeline. Excellent for massive cross-document context reasoning.",
+            "How_It_Works": {
+                "Ingestion": "RLMIngestionAgent loads ALL transcripts into a single execution context. It uses a Python Code REPL to iteratively query parts of the text, deduplicate entities across different files programmatically, and build ONE unified ExtractedTranscriptData object.",
+                "Schema_1": "Not explicitly generated.",
+                "Data_Inventory": "Not explicitly generated.",
+                "DFD_Generation": "DFDExtractor takes the single highly-correlated RLM output and runs its extraction/validation loop to produce dfd.json. PrivacyDFDAgent uses this to render the Mermaid graph."
+            }
+        },
+        "Method_3_FullPipeline": {
+            "Description": "The production robust hybrid pipeline (Deterministic + Agentic + AI Validation loops).",
+            "How_It_Works": {
+                "Ingestion": "PipelineRunner combines deterministic Python NLP (regex, basic parsing) with Agentic Extraction (SystemAgent, DataFlowAgent, RiskAgent) to create an initial data map.",
+                "Schema_1": "SchemaGeneratorAgent (used internally) takes the cleaned transcripts and generates a strict JSON representation of Nodes and Flows (Schema-1) using Anthropic tool calling.",
+                "Data_Inventory": "SchemaGeneratorAgent then strictly flattens Schema-1 into `DataMappingRow` arrays representing the inventory matrix.",
+                "DFD_Generation": "DFDBuilderAgent takes the normalized, canonicalized flows output by the PipelineVerificationAgent feedback loop to generate the final master DFD json and HTML representations."
+            }
+        }
+    },
+    "token_usage_details": {
+        "Method_1_Normal": {
+            "input_tokens": 31032,
+            "output_tokens": 12043,
+            "calls": 6,
+            "cost_estimate_usd": 0.273741
+        },
+        "Method_2_RLM": {
+            "input_tokens": 25508,
+            "output_tokens": 6268,
+            "calls": 7,
+            "cost_estimate_usd": 0.170544
+        },
+        "Method_3_FullPipeline": {
+            "input_tokens": 175964,
+            "output_tokens": 69783,
+            "calls": 64,
+            "cost_estimate_usd": 1.5746369999999996
+        }
+    }
+}

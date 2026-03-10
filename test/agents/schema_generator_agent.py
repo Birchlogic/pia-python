@@ -109,65 +109,92 @@ class DataInventoryOutput(BaseModel):
 # SYSTEM PROMPTS
 # ==========================================
 
-SCHEMA_ONE_PROMPT = """You are a Senior Data Protection and Systems Analyst performing a Privacy Impact Assessment. Your job is to read the provided source text AND the pre-extracted structured pipeline output to generate a comprehensive Compliance Schema (Schema-1) enriched with data privacy metadata.
+SCHEMA_ONE_PROMPT = """You are a Senior Data Protection and Systems Analyst performing a Privacy Impact Assessment. Your job is to read the provided interview transcript(s) and extract a comprehensive Data Flow Diagram (DFD) logic model enriched with data privacy metadata and process details.
 
-## CONTEXT PROVIDED
-1. SOURCE TRANSCRIPT: The raw interview or field notes.
-2. PIPELINE OUTPUT: The already extracted actors, systems, data_elements, and flows.
-
-## INSTRUCTIONS
-Align your Schema-1 nodes and flows exactly with the names provided in the PIPELINE OUTPUT, but ENRICH them with exhaustive compliance metadata (retention, legal basis, classification).
+## EXTRACTION RULES
 
 ### Nodes
 Identify every entity in the system:
-- **EXTERNAL_ENTITY**: People, departments, external systems, third parties (use the "actors" from pipeline output).
-- **PROCESS**: Any action, verb, logic step.
-- **DATA_STORE**: Databases, SaaS platforms (use the "systems" from pipeline output).
+- **EXTERNAL_ENTITY**: People, departments, external systems, third parties, regulators, customers, employees.
+- **PROCESS**: Any action, verb, logic step, workflow, automated task, or manual procedure that touches personal data.
+- **DATA_STORE**: Databases, file systems, archives, cloud storage, SaaS platforms, email inboxes, spreadsheets, paper records.
 
 For each node, extract:
-- **data_elements**: An array of distinct data categories this node handles. 
-  - `name`: Use data element names from the pipeline output where possible.
+- **data_elements**: An array of distinct data categories that this node handles. Each data element should include:
+  - `name`: The data category name (e.g., "Employee PII", "Customer Financial Records", "Call Recordings").
+  - `description`: What exactly this data contains.
   - `classification`: One of "Public", "Internal", "Confidential", "PII/Sensitive", "Special Category".
-  - `purpose`: Why this data is collected/processed.
-  - `retention_period`: How long data is kept.
-  - `legal_basis`: Legal basis for processing.
-  - `storage_location`: Where this data is stored.
-  - `owner`: Responsible department or role.
+  - `purpose`: Why this data is collected/processed by this node.
+  - `retention_period`: How long data is kept (e.g., "7 years", "Until account deletion", "As required by law", "Not specified").
+  - `legal_basis`: Legal basis for processing (e.g., "Consent", "Legal obligation", "Legitimate interest", "Contract", "Not specified").
+  - `storage_location`: Where this data is stored (e.g., "Salesforce CRM", "AWS S3", "On-premise server", "Not specified").
+  - `owner`: The department or role responsible (e.g., "HR Department", "IT Security", "Operations Team", "Not specified").
+
+For **PROCESS** nodes, additionally extract:
+- **sub_processes**: An array of sub-steps, branches, or categories within this process. Each sub-process should include:
+  - `name`: The sub-step or category name (e.g., "IVR - New Loan Inquiry", "Case Category: Query").
+  - `description`: What happens in this sub-step.
+  - `routing`: Where the flow goes after this sub-step (e.g., "Transferred to Sales Team", "Resolved on call", "Not specified").
+- **sla**: Service Level Agreement or turnaround time, if mentioned (e.g., "48 hours", "2 business days", "Real-time", "Not specified").
+
+For **DATA_STORE** nodes, additionally extract:
+- **integrations**: An array of other systems this data store integrates with. Each integration should include:
+  - `system`: The name of the connected system (e.g., "Salesforce", "Ameyo IVR").
+  - `type`: How they connect (e.g., "API", "File sync", "Manual entry", "Real-time sync", "Not specified").
+  - `direction`: "inbound", "outbound", or "bidirectional".
+
+For **all nodes**, optionally extract:
+- **reference_documents**: An array of policy documents, SOPs, or matrices mentioned in relation to this node (e.g., "V2 Customer Care SOP", "Escalation Matrix", "Data Retention Policy").
 
 ### Flows
-Map out the data flow between Nodes:
+Identify every data flow — information moving from one node to another:
 - **source** and **target**: Must reference valid node IDs.
-- Follow the flows from the PIPELINE OUTPUT but add transfer_mechanism and cross_border checks.
+- **label**: A human-readable description of what data is moving.
+- **data_elements**: An array of data category names (strings) being transmitted in this flow.
+- **bi_directional**: Whether data flows both ways.
+- **transfer_mechanism**: How the data moves (e.g., "API", "Manual entry", "Email", "File transfer", "Automated sync", "Not specified").
+- **cross_border**: Whether this flow involves cross-border data transfer (true/false/null if unknown).
+
+## OUTPUT FORMAT
+You must output strictly valid JSON.
 
 ## STRICT CONSTRAINTS
-1. Node IDs must be unique strings prefixed by type: ext_, proc_, ds_.
+1. Node IDs must be unique strings prefixed by type: ext_XX, proc_XX, ds_XX.
 2. `type` must be exactly one of: "EXTERNAL_ENTITY", "PROCESS", "DATA_STORE".
 3. Every flow source and target must reference a valid node ID.
 4. `bi_directional` must be a boolean.
-5. `classification` must be strictly an enum value.
-6. Use "Not specified" if details are missing. DO NOT HALLUCINATE.
+5. `classification` must be one of: "Public", "Internal", "Confidential", "PII/Sensitive", "Special Category".
+6. Be EXHAUSTIVE — extract every data element, process, sub-process, and flow mentioned or implied in the transcript.
+7. Capture ALL branching logic, IVR options, case categories, and routing rules as sub_processes.
+8. If a detail is not explicitly stated in the transcript, use "Not specified" rather than guessing.
+9. Return ONLY valid JSON, no markdown, no explanation, no code fences.
 """
 
 DATA_INVENTORY_PROMPT = """You are a Data Privacy Analyst building a Data Mapping and Inventory table from a Schema-1 JSON.
+
 The Schema-1 already contains enriched data_elements on each node and flow. Your job is to:
-1. Deduplicate and consolidate all data_elements across all nodes into a single flat table.
+1. Deduplicate and consolidate all data_elements across all nodes and flows into a single flat table.
 2. If the same data category appears on multiple nodes, merge them — pick the most specific/complete values.
 3. Ensure every distinct data category gets its own row.
 
-For each row, extract:
-- **data_category**: The consolidated name.
-- **description**: Detailed description. Combine from multiple nodes if needed.
-- **purpose**: The primary purpose(s) for processing.
-- **data_owner**: The department or role primarily responsible.
-- **storage_location**: Where the data is stored.
-- **data_classification**: The highest applicable classification level.
-- **retention_period**: How long the data is retained.
-- **legal_basis**: The legal basis for processing.
+For each row, output:
+- **data_category**: The consolidated name of the data category.
+- **description**: Detailed description of what data this includes. Combine from multiple nodes if needed.
+- **purpose**: The primary purpose(s) for processing this data. Combine if multiple purposes exist.
+- **data_owner**: The department or role primarily responsible. If multiple owners, list the primary one.
+- **storage_location**: Where the data is stored. If stored in multiple places, list all (comma-separated).
+- **data_classification**: The highest applicable classification level (Public < Internal < Confidential < PII/Sensitive < Special Category).
+- **retention_period**: How long the data is retained. Use the most specific value available.
+- **legal_basis**: The legal basis for processing. If multiple bases, list the primary one.
+
+## OUTPUT FORMAT
+Output strictly valid JSON as an array of objects.
 
 ## RULES
 - Generate as many rows as there are distinct data categories.
 - Be thorough — DO NOT skip any data_elements found in the schema.
 - When consolidating, prefer the most specific and complete values.
+- Return ONLY valid JSON, no markdown, no explanation, no code fences.
 """
 
 class SchemaGeneratorAgent:

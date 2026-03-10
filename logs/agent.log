@@ -1131,3 +1131,608 @@ Feedback for improvement:
 2026-03-06 13:03:54,150 - HTMLGenerator - INFO - Building HTML: 10 nodes, 14 edges
 2026-03-06 13:03:54,152 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp4d1r1_uj/privacy_dfd.html (98109 chars)
 2026-03-06 13:03:57,781 - FastAPI - INFO - [demo-vertical-1] Aggressive Pipeline completed successfully
+2026-03-09 09:37:06,119 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:37:06,157 - IngestionAgent - ERROR - Error during transcript ingestion: "Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-03-09 09:37:06,161 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:37:06,161 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:37:06,161 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:37:06,161 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:37:06,162 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:37:06,162 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:37:06,168 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:38:38,464 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:38:38,481 - IngestionAgent - ERROR - Error during transcript ingestion: "Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-03-09 09:38:38,485 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:38:38,485 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:38:38,486 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:38:38,486 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:38:38,486 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:38:38,486 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:38:38,492 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:40:01,721 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:40:01,776 - IngestionAgent - ERROR - Error during transcript ingestion: "Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-03-09 09:40:01,780 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:40:01,780 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:40:01,780 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:40:01,780 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:40:01,781 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:40:01,781 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:40:01,791 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:40:15,826 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:40:15,845 - IngestionAgent - ERROR - Error during transcript ingestion: "Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-03-09 09:40:15,849 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:40:15,849 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:40:15,850 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:40:15,850 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:40:15,850 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:40:15,851 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:40:15,857 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:40:40,323 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:40:40,341 - IngestionAgent - ERROR - Error during transcript ingestion: "Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted"
+2026-03-09 09:40:40,344 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:40:40,344 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:40:40,345 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:40:40,345 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:40:40,345 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:40:40,345 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:40:40,353 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:41:06,828 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:41:27,710 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 09:41:52,547 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 09:42:15,090 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 09:42:45,708 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 09:43:21,124 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 09:43:21,125 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 09:43:21,135 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:43:21,136 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:43:21,136 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:43:21,137 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:43:21,137 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:43:21,137 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:48:40,247 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 09:48:40,248 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 09:49:08,605 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 09:49:08,606 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 09:49:08,623 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-09 09:51:00,984 - SchemaGenerator - INFO - Executing Data Inventory Generation LLM prompt...
+2026-03-09 09:51:38,994 - SchemaGenerator - INFO - Data inventory generated with 28 rows (attempt 1)
+2026-03-09 09:51:38,996 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 09:52:16,269 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 09:52:16,270 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 09:54:01,697 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:54:24,149 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 09:54:48,538 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 09:55:10,760 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 09:55:41,527 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 09:56:18,345 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 09:56:18,346 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 09:56:18,368 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 09:56:18,368 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 09:56:18,368 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 09:56:18,369 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 09:56:18,369 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 09:56:18,369 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 09:59:17,559 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 09:59:38,074 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 10:00:02,604 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 10:00:24,545 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 10:00:55,007 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 10:01:34,152 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 10:01:34,153 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 10:01:34,168 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 10:02:12,924 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 10:02:12,925 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 10:02:12,926 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 10:02:12,926 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 10:02:12,926 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 10:02:12,926 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 10:08:51,199 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 10:08:51,202 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 10:09:29,226 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 10:09:29,227 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 10:09:29,245 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 10:36:25,757 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 10:36:46,741 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 10:37:14,591 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 10:37:36,663 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 10:38:07,102 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 10:38:44,551 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 10:38:44,552 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 10:38:44,567 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 10:39:23,688 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 10:39:23,689 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 10:39:23,689 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 10:39:23,690 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 10:39:23,690 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 10:39:23,690 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 10:43:37,830 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 10:43:37,832 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 10:44:04,683 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 10:44:04,684 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 10:44:04,702 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:02:28,204 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 12:02:48,949 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 12:03:12,854 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 12:03:34,911 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 12:04:05,440 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:04:40,802 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 12:04:40,802 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 12:04:40,818 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:05:18,447 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 12:05:18,448 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 12:05:18,448 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 12:05:18,448 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 12:05:18,448 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 12:05:18,448 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 12:09:39,945 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 12:09:39,946 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:10:11,305 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 12:10:11,306 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 12:10:11,323 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:12:27,695 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 12:12:48,316 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 12:13:12,631 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 12:13:35,386 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 12:14:06,327 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:14:41,641 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 12:14:41,641 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 12:14:41,658 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:15:19,846 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 12:15:19,847 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 12:15:19,847 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 12:15:19,848 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 12:15:19,848 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 12:15:19,848 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 12:19:10,603 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 12:19:10,604 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:19:35,580 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 12:19:35,580 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 12:19:35,595 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:24:19,510 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 12:24:40,109 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 12:25:05,561 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 12:25:29,564 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 12:26:01,017 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:26:37,322 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 12:26:37,323 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 12:26:37,339 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:27:12,149 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 12:27:12,150 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 12:27:12,150 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 12:27:12,151 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 12:27:12,151 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 12:27:12,151 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 12:32:34,982 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 12:32:34,983 - RLMIngestionAgent - WARNING - Could not parse RLM response as ExtractedTranscriptData JSON
+2026-03-09 12:32:34,983 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 12:32:37,291 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 12:32:37,291 - DFDExtractor - INFO - DFD extraction attempt 2/3
+2026-03-09 12:32:39,511 - DFDExtractor - INFO - Attempt 2 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 12:32:39,512 - DFDExtractor - INFO - DFD extraction attempt 3/3
+2026-03-09 12:32:41,429 - DFDExtractor - INFO - Attempt 3 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 12:32:41,429 - DFDExtractor - WARNING - DFD extraction completed with best score 10 after 3 attempts
+2026-03-09 12:32:41,447 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 12:58:49,399 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 12:59:10,206 - IngestionAgent - INFO - Ingesting transcript from example_input/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 12:59:37,605 - IngestionAgent - INFO - Ingesting transcript from example_input/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 13:00:01,801 - IngestionAgent - INFO - Ingesting transcript from example_input/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 13:00:30,567 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 13:01:06,340 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: PASSED ✓ (100/75+ to pass)
+Breakdown:
+  actor_types              : 20 pts
+  business_processes       : 15 pts
+  collection_sources       : 15 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 15 pts
+  storage_systems          : 10 pts
+  data_flows               : 15 pts
+2026-03-09 13:01:06,340 - DFDExtractor - INFO - DFD extraction PASSED on attempt 1 with score 100
+2026-03-09 13:01:06,348 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 13:01:41,355 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-09 13:01:41,355 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-09 13:01:41,356 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-09 13:01:41,356 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-09 13:01:41,356 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-09 13:01:41,356 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks
+2026-03-09 13:03:02,001 - RLMIngestionAgent - INFO - RLM completed in 1 iterations
+2026-03-09 13:03:02,001 - RLMIngestionAgent - WARNING - Could not parse RLM response as ExtractedTranscriptData JSON
+2026-03-09 13:03:02,002 - DFDExtractor - INFO - DFD extraction attempt 1/3
+2026-03-09 13:03:04,498 - DFDExtractor - INFO - Attempt 1 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 13:03:04,499 - DFDExtractor - INFO - DFD extraction attempt 2/3
+2026-03-09 13:03:06,811 - DFDExtractor - INFO - Attempt 2 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 13:03:06,811 - DFDExtractor - INFO - DFD extraction attempt 3/3
+2026-03-09 13:03:08,832 - DFDExtractor - INFO - Attempt 3 validation:
+DFD Validation: FAILED ✗ (10/75+ to pass)
+Breakdown:
+  actor_types              : 0 pts
+  business_processes       : 0 pts
+  collection_sources       : 0 pts
+  central_process          : 10 pts
+  dispersal_sinks          : 0 pts
+  storage_systems          : 0 pts
+  data_flows               : 0 pts
+Feedback for improvement:
+  - Missing actor types: {'vendor', 'external', 'internal'}. Add actors for external (Customers) internal (departments) vendor (third parties).
+  - No dispersal sinks found. Identify where processed data flows to (e.g. grievance departments, sales, external vendors).
+  - No storage systems identified. Add all systems where data is persisted (CRM, cloud drives, databases).
+  - No inbound data flows to the central process. Map flows from each collection source to the central process.
+  - No outbound data flows from the central process. Map flows from the central process to each dispersal sink.
+2026-03-09 13:03:08,832 - DFDExtractor - WARNING - DFD extraction completed with best score 10 after 3 attempts
+2026-03-09 13:03:08,849 - PrivacyDFDAgent - INFO - Generating Privacy DFD for department: Customer Care
+2026-03-09 13:03:38,780 - PipelineRunner - INFO - Processing: Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-09 13:03:38,781 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-09 13:03:39,511 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-09 13:03:39,511 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:03:41,962 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-09 13:03:50,844 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-09 13:04:05,329 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-09 13:04:05,330 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-09 13:04:05,330 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-09 13:04:05,330 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-09 13:04:09,651 - EntityNormAgent - INFO - LLM normalized: 4 actors, 3 systems, 5 removed
+2026-03-09 13:04:09,652 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:04:09,652 - FlowCanonAgent - INFO - Deterministic merge: 10 raw → 9 merged flows
+2026-03-09 13:04:17,470 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-09 13:04:17,470 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:04:17,477 - VerificationAgent - INFO - Verification: overall=0.62 (systems=0.60, data=0.86, risks=0.00, flows=0.90) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:04:17,477 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-09 13:04:17,477 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:04:20,217 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-09 13:04:32,012 - DataFlowAgent - INFO - DataFlowAgent extracted 23 flows
+2026-03-09 13:04:45,303 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-09 13:04:45,304 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=23, Risks=4
+2026-03-09 13:04:45,304 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:04:45,304 - FlowCanonAgent - INFO - Deterministic merge: 33 raw → 12 merged flows
+2026-03-09 13:04:54,403 - FlowCanonAgent - INFO - LLM refined: 12 canonical flows
+2026-03-09 13:04:54,403 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:04:54,409 - VerificationAgent - INFO - Verification: overall=0.68 (systems=0.60, data=1.00, risks=0.00, flows=1.00) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:04:54,409 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-09 13:04:54,409 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:04:56,979 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-09 13:05:04,931 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-09 13:05:19,027 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-09 13:05:19,027 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-09 13:05:19,027 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:05:19,027 - FlowCanonAgent - INFO - Deterministic merge: 20 raw → 14 merged flows
+2026-03-09 13:05:27,695 - FlowCanonAgent - INFO - LLM refined: 10 canonical flows
+2026-03-09 13:05:27,695 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:05:27,701 - VerificationAgent - INFO - Verification: overall=0.64 (systems=0.60, data=0.86, risks=0.00, flows=1.00) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:05:27,701 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-09 13:05:40,310 - DFDBuilderAgent - INFO - DFDBuilder created 6 nodes, 10 edges
+2026-03-09 13:05:40,311 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-09 13:06:34,357 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-09 13:06:53,781 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.64
+2026-03-09 13:06:53,782 - PipelineRunner - INFO - Processing: Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-09 13:06:53,784 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-09 13:06:54,587 - PipelineRunner - INFO -   [2] Deterministic: Actors=7, Systems=3, Elements=8, Risks=3
+2026-03-09 13:06:54,587 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:06:58,283 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:07:06,304 - DataFlowAgent - INFO - DataFlowAgent extracted 13 flows
+2026-03-09 13:07:28,565 - RiskAgent - INFO - RiskAgent identified 8 risks
+2026-03-09 13:07:28,565 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=13, Risks=8
+2026-03-09 13:07:28,565 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-09 13:07:28,565 - EntityNormAgent - INFO - Rule-based: 7 actors → 3, 6 systems → 5, 3 removed
+2026-03-09 13:07:33,259 - EntityNormAgent - INFO - LLM normalized: 3 actors, 5 systems, 3 removed
+2026-03-09 13:07:33,260 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:07:33,260 - FlowCanonAgent - INFO - Deterministic merge: 13 raw → 5 merged flows
+2026-03-09 13:07:37,934 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:07:37,934 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:07:37,940 - VerificationAgent - INFO - Verification: overall=0.47 (systems=0.40, data=0.89, risks=0.00, flows=0.50) | missing_systems=3 | hallucinated=0 | reprocess=YES
+2026-03-09 13:07:37,940 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-09 13:07:37,940 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:07:41,554 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:07:49,258 - DataFlowAgent - INFO - DataFlowAgent extracted 12 flows
+2026-03-09 13:08:09,847 - RiskAgent - INFO - RiskAgent identified 8 risks
+2026-03-09 13:08:09,847 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=12, Risks=8
+2026-03-09 13:08:09,847 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:08:09,848 - FlowCanonAgent - INFO - Deterministic merge: 25 raw → 6 merged flows
+2026-03-09 13:08:14,410 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:08:14,410 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:08:14,416 - VerificationAgent - INFO - Verification: overall=0.49 (systems=0.40, data=1.00, risks=0.00, flows=0.50) | missing_systems=3 | hallucinated=0 | reprocess=YES
+2026-03-09 13:08:14,416 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-09 13:08:14,417 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:08:17,905 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:08:25,996 - DataFlowAgent - INFO - DataFlowAgent extracted 12 flows
+2026-03-09 13:08:45,861 - RiskAgent - INFO - RiskAgent identified 7 risks
+2026-03-09 13:08:45,862 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=12, Risks=7
+2026-03-09 13:08:45,862 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:08:45,862 - FlowCanonAgent - INFO - Deterministic merge: 25 raw → 6 merged flows
+2026-03-09 13:08:50,674 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:08:50,674 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:08:50,680 - VerificationAgent - INFO - Verification: overall=0.47 (systems=0.40, data=0.89, risks=0.00, flows=0.50) | missing_systems=3 | hallucinated=0 | reprocess=YES
+2026-03-09 13:08:50,680 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-09 13:09:01,852 - DFDBuilderAgent - INFO - DFDBuilder created 10 nodes, 5 edges
+2026-03-09 13:09:01,853 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-09 13:10:01,401 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-09 13:10:29,739 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.47
+2026-03-09 13:10:29,740 - PipelineRunner - INFO - Processing: Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-09 13:10:29,741 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-09 13:10:30,391 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=4, Elements=5, Risks=1
+2026-03-09 13:10:30,391 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:10:33,177 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-09 13:10:43,008 - DataFlowAgent - INFO - DataFlowAgent extracted 16 flows
+2026-03-09 13:10:59,171 - RiskAgent - INFO - RiskAgent identified 6 risks
+2026-03-09 13:10:59,171 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=16, Risks=6
+2026-03-09 13:10:59,171 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-09 13:10:59,172 - EntityNormAgent - INFO - Rule-based: 10 actors → 8, 5 systems → 5, 1 removed
+2026-03-09 13:11:04,074 - EntityNormAgent - INFO - LLM normalized: 5 actors, 5 systems, 4 removed
+2026-03-09 13:11:04,075 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:11:04,075 - FlowCanonAgent - INFO - Deterministic merge: 16 raw → 6 merged flows
+2026-03-09 13:11:08,945 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:11:08,945 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:11:08,950 - VerificationAgent - INFO - Verification: overall=0.61 (systems=0.80, data=1.00, risks=0.00, flows=0.50) | missing_systems=1 | hallucinated=0 | reprocess=YES
+2026-03-09 13:11:08,951 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-09 13:11:08,951 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:11:11,999 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-09 13:11:20,998 - DataFlowAgent - INFO - DataFlowAgent extracted 14 flows
+2026-03-09 13:11:37,107 - RiskAgent - INFO - RiskAgent identified 6 risks
+2026-03-09 13:11:37,108 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=14, Risks=6
+2026-03-09 13:11:37,108 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:11:37,108 - FlowCanonAgent - INFO - Deterministic merge: 30 raw → 6 merged flows
+2026-03-09 13:11:42,090 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:11:42,091 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:11:42,097 - VerificationAgent - INFO - Verification: overall=0.61 (systems=0.80, data=1.00, risks=0.00, flows=0.50) | missing_systems=1 | hallucinated=0 | reprocess=YES
+2026-03-09 13:11:42,097 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-09 13:11:42,097 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:11:45,017 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-09 13:11:53,509 - DataFlowAgent - INFO - DataFlowAgent extracted 14 flows
+2026-03-09 13:12:09,328 - RiskAgent - INFO - RiskAgent identified 6 risks
+2026-03-09 13:12:09,328 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=14, Risks=6
+2026-03-09 13:12:09,328 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:12:09,328 - FlowCanonAgent - INFO - Deterministic merge: 30 raw → 6 merged flows
+2026-03-09 13:12:14,111 - FlowCanonAgent - INFO - LLM refined: 5 canonical flows
+2026-03-09 13:12:14,111 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:12:14,116 - VerificationAgent - INFO - Verification: overall=0.61 (systems=0.80, data=1.00, risks=0.00, flows=0.50) | missing_systems=1 | hallucinated=0 | reprocess=YES
+2026-03-09 13:12:14,117 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-09 13:12:22,509 - DFDBuilderAgent - INFO - DFDBuilder created 7 nodes, 5 edges
+2026-03-09 13:12:22,510 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-09 13:13:10,512 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-09 13:13:28,431 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.61
+2026-03-09 13:13:28,432 - PipelineRunner - INFO - Processing: Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-09 13:13:28,433 - PipelineRunner - INFO -   [1] Doc type: field_notes (confidence: 0.85)
+2026-03-09 13:13:28,731 - PipelineRunner - INFO -   [2] Deterministic: Actors=12, Systems=6, Elements=10, Risks=23
+2026-03-09 13:13:28,731 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:13:31,923 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:13:40,570 - DataFlowAgent - INFO - DataFlowAgent extracted 16 flows
+2026-03-09 13:14:14,708 - RiskAgent - INFO - RiskAgent identified 12 risks
+2026-03-09 13:14:14,709 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=16, Risks=12
+2026-03-09 13:14:14,709 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-09 13:14:14,710 - EntityNormAgent - INFO - Rule-based: 12 actors → 8, 6 systems → 6, 3 removed
+2026-03-09 13:14:19,756 - EntityNormAgent - INFO - LLM normalized: 4 actors, 6 systems, 7 removed
+2026-03-09 13:14:19,756 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:14:19,756 - FlowCanonAgent - INFO - Deterministic merge: 16 raw → 7 merged flows
+2026-03-09 13:14:27,025 - FlowCanonAgent - INFO - LLM refined: 7 canonical flows
+2026-03-09 13:14:27,025 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:14:27,030 - VerificationAgent - INFO - Verification: overall=0.57 (systems=0.71, data=0.91, risks=0.00, flows=0.50) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:14:27,031 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-09 13:14:27,031 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:14:30,643 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:14:42,596 - DataFlowAgent - INFO - DataFlowAgent extracted 24 flows
+2026-03-09 13:15:10,803 - RiskAgent - INFO - RiskAgent identified 12 risks
+2026-03-09 13:15:10,803 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=24, Risks=12
+2026-03-09 13:15:10,803 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:15:10,804 - FlowCanonAgent - INFO - Deterministic merge: 40 raw → 10 merged flows
+2026-03-09 13:15:18,466 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-09 13:15:18,466 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:15:18,472 - VerificationAgent - INFO - Verification: overall=0.62 (systems=0.71, data=1.00, risks=0.00, flows=0.64) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:15:18,472 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-09 13:15:18,472 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-09 13:15:21,890 - SystemAgent - INFO - SystemAgent extracted 6 systems
+2026-03-09 13:15:33,800 - DataFlowAgent - INFO - DataFlowAgent extracted 24 flows
+2026-03-09 13:16:03,933 - RiskAgent - INFO - RiskAgent identified 12 risks
+2026-03-09 13:16:03,933 - PipelineRunner - INFO -   [3] Agentic: Systems=6, Flows=24, Risks=12
+2026-03-09 13:16:03,933 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-09 13:16:03,934 - FlowCanonAgent - INFO - Deterministic merge: 40 raw → 9 merged flows
+2026-03-09 13:16:14,396 - FlowCanonAgent - INFO - LLM refined: 8 canonical flows
+2026-03-09 13:16:14,397 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-09 13:16:14,402 - VerificationAgent - INFO - Verification: overall=0.58 (systems=0.71, data=0.91, risks=0.00, flows=0.57) | missing_systems=2 | hallucinated=0 | reprocess=YES
+2026-03-09 13:16:14,403 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-09 13:16:30,597 - DFDBuilderAgent - INFO - DFDBuilder created 13 nodes, 8 edges
+2026-03-09 13:16:30,598 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-09 13:17:25,985 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-09 13:17:51,798 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.58
+2026-03-09 13:17:51,804 - PipelineRunner - INFO - Saved: output_artifacts/method_3/Session1_CC_Kickoff_Overview_Transcript_Jan14_intelligence.json
+2026-03-09 13:17:51,807 - PipelineRunner - INFO - Saved: output_artifacts/method_3/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17_intelligence.json
+2026-03-09 13:17:51,810 - PipelineRunner - INFO - Saved: output_artifacts/method_3/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21_intelligence.json
+2026-03-09 13:17:51,813 - PipelineRunner - INFO - Saved: output_artifacts/method_3/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23_intelligence.json
+2026-03-10 13:07:24,926 - IngestionAgent - INFO - Ingesting transcript from example_input/Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-10 13:07:25,393 - IngestionAgent - ERROR - Error during transcript ingestion: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CYu1wWy6DDWepZoPPN3dd'}
+2026-03-10 13:07:25,403 - RLMIngestionAgent - INFO - RLM ingestion: loading 4 files
+2026-03-10 13:07:25,403 - RLMIngestionAgent - INFO -   Loaded Session1_CC_Kickoff_Overview_Transcript_Jan14.txt (12,060 chars)
+2026-03-10 13:07:25,403 - RLMIngestionAgent - INFO -   Loaded Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt (11,786 chars)
+2026-03-10 13:07:25,404 - RLMIngestionAgent - INFO -   Loaded Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt (11,264 chars)
+2026-03-10 13:07:25,404 - RLMIngestionAgent - INFO -   Loaded Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt (11,700 chars)
+2026-03-10 13:07:25,404 - RLMIngestionAgent - INFO -   Total context: 47,092 chars across 4 chunks

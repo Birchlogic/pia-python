@@ -131,19 +131,19 @@ For each node, extract:
 
 For **PROCESS** nodes, additionally extract:
 - **sub_processes**: An array of sub-steps, branches, or categories within this process. Each sub-process should include:
-  - `name`: The sub-step or category name.
+  - `name`: The sub-step or category name (e.g., "IVR - New Loan Inquiry", "Case Category: Query").
   - `description`: What happens in this sub-step.
   - `routing`: Where the flow goes after this sub-step (e.g., "Transferred to Sales Team", "Resolved on call", "Not specified").
 - **sla**: Service Level Agreement or turnaround time, if mentioned (e.g., "48 hours", "2 business days", "Real-time", "Not specified").
 
 For **DATA_STORE** nodes, additionally extract:
 - **integrations**: An array of other systems this data store integrates with. Each integration should include:
-  - `system`: The name of the connected system.
-  - `type`: How they connect.
+  - `system`: The name of the connected system (e.g., "Salesforce", "Ameyo IVR").
+  - `type`: How they connect (e.g., "API", "File sync", "Manual entry", "Real-time sync", "Not specified").
   - `direction`: "inbound", "outbound", or "bidirectional".
 
 For **all nodes**, optionally extract:
-- **reference_documents**: An array of policy documents, SOPs, or matrices mentioned in relation to this node.
+- **reference_documents**: An array of policy documents, SOPs, or matrices mentioned in relation to this node (e.g., "V2 Customer Care SOP", "Escalation Matrix", "Data Retention Policy").
 
 ### Flows
 Identify every data flow — information moving from one node to another:
@@ -154,24 +154,97 @@ Identify every data flow — information moving from one node to another:
 - **transfer_mechanism**: How the data moves (e.g., "API", "Manual entry", "Email", "File transfer", "Automated sync", "Not specified").
 - **cross_border**: Whether this flow involves cross-border data transfer (true/false/null if unknown).
 
+## OUTPUT FORMAT
+You must output strictly valid JSON conforming to this structure:
+{
+  "meta": {
+    "project_name": "...",
+    "vertical_name": "...",
+    "generated_at": "..."
+  },
+  "nodes": [
+    {
+      "id": "proc_01",
+      "type": "PROCESS",
+      "label": "Customer Care",
+      "description": "Handles inbound customer queries via IVR",
+      "data_elements": [
+        {
+          "name": "Customer Query Records",
+          "description": "Call details, query type, resolution status",
+          "classification": "PII/Sensitive",
+          "purpose": "Customer service and query resolution",
+          "retention_period": "Not specified",
+          "legal_basis": "Contract",
+          "storage_location": "CRM System",
+          "owner": "Customer Service"
+        }
+      ],
+      "sub_processes": [
+        {
+          "name": "Unregistered Caller - New Loan",
+          "description": "Call transferred to Sales team for new loan inquiry",
+          "routing": "Transferred to Sales Team"
+        },
+        {
+          "name": "Registered Caller - EMI Queries",
+          "description": "EMI related queries from registered customers",
+          "routing": "Resolved on call"
+        }
+      ],
+      "sla": "48 hours",
+      "reference_documents": ["V2 Customer Care SOP"]
+    },
+    {
+      "id": "ds_01",
+      "type": "DATA_STORE",
+      "label": "Salesforce CRM",
+      "description": "Central CRM system for customer data",
+      "data_elements": [...],
+      "integrations": [
+        {
+          "system": "Ameyo IVR",
+          "type": "Real-time sync",
+          "direction": "bidirectional"
+        }
+      ],
+      "reference_documents": []
+    }
+  ],
+  "flows": [
+    {
+      "id": "flow_01",
+      "source": "ext_01",
+      "target": "proc_01",
+      "label": "Inbound customer call data",
+      "data_elements": ["Customer Query Records"],
+      "bi_directional": false,
+      "transfer_mechanism": "IVR System",
+      "cross_border": false
+    }
+  ]
+}
+
 ## STRICT CONSTRAINTS
 1. Node IDs must be unique strings prefixed by type: ext_XX, proc_XX, ds_XX.
 2. `type` must be exactly one of: "EXTERNAL_ENTITY", "PROCESS", "DATA_STORE".
 3. Every flow source and target must reference a valid node ID.
 4. `bi_directional` must be a boolean.
 5. `classification` must be one of: "Public", "Internal", "Confidential", "PII/Sensitive", "Special Category".
-6. Be EXHAUSTIVE — extract every data element, process, sub-process, and flow mentioned or implied.
+6. Be EXHAUSTIVE — extract every data element, process, sub-process, and flow mentioned or implied in the transcript.
 7. Capture ALL branching logic, IVR options, case categories, and routing rules as sub_processes.
 8. If a detail is not explicitly stated in the transcript, use "Not specified" rather than guessing.
-9. Return ONLY EXHAUSTIVE JSON matching the structured tool spec."""
+9. Return ONLY valid JSON, no markdown, no explanation, no code fences.
+"""
 
 DATA_INVENTORY_PROMPT = """You are a Data Privacy Analyst building a Data Mapping and Inventory table from a Schema-1 JSON.
+
 The Schema-1 already contains enriched data_elements on each node and flow. Your job is to:
 1. Deduplicate and consolidate all data_elements across all nodes and flows into a single flat table.
 2. If the same data category appears on multiple nodes, merge them — pick the most specific/complete values.
 3. Ensure every distinct data category gets its own row.
 
-For each row, extract:
+For each row, output:
 - **data_category**: The consolidated name of the data category.
 - **description**: Detailed description of what data this includes. Combine from multiple nodes if needed.
 - **purpose**: The primary purpose(s) for processing this data. Combine if multiple purposes exist.
@@ -181,11 +254,27 @@ For each row, extract:
 - **retention_period**: How long the data is retained. Use the most specific value available.
 - **legal_basis**: The legal basis for processing. If multiple bases, list the primary one.
 
+## OUTPUT FORMAT
+Output strictly valid JSON as an array of objects:
+[
+  {
+    "data_category": "...",
+    "description": "...",
+    "purpose": "...",
+    "data_owner": "...",
+    "storage_location": "...",
+    "data_classification": "...",
+    "retention_period": "...",
+    "legal_basis": "..."
+  }
+]
+
 ## RULES
 - Generate as many rows as there are distinct data categories.
 - Be thorough — DO NOT skip any data_elements found in the schema.
 - When consolidating, prefer the most specific and complete values.
-- Return ONLY EXHAUSTIVE JSON matching the structured tool spec."""
+- Return ONLY valid JSON, no markdown, no explanation, no code fences.
+"""
 
 # ==========================================
 # GENERATOR CLASS

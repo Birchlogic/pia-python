@@ -13,7 +13,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base
-from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, InteractiveDFD
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -51,25 +51,35 @@ class StatusResponse(BaseModel):
     error_message: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+# ── DFD Data Schemas (exact shape required by HTMLGeneratorAgent) ──
 
-class InteractiveDFDCreate(BaseModel):
-    name: str = "Untitled DFD"
-    nodes: list = []
-    edges: list = []
-    levels: list = []
-    pipeline_docs: dict = {}
+class DFDRisk(BaseModel):
+    description: str = ""
+    severity: str = "MEDIUM"  # HIGH, MEDIUM, LOW
 
-class InteractiveDFDUpdate(BaseModel):
-    name: Optional[str] = None
-    nodes: Optional[list] = None
-    edges: Optional[list] = None
-    levels: Optional[list] = None
-    pipeline_docs: Optional[dict] = None
+class DFDNode(BaseModel):
+    id: str                                  # unique node identifier, used as HTML element id
+    name: str                                # display label
+    type: str = "unknown"                    # "actor" | "system" | "data_store" | "unknown"
+    aliases: List[str] = []
+    data_elements: List[str] = []            # e.g. ["PII", "Phone Number"]
+    risks: List[DFDRisk] = []
+    sources: List[str] = []                  # originating transcript filenames
+
+class DFDEdge(BaseModel):
+    source: str                              # must match a DFDNode.id
+    target: str                              # must match a DFDNode.id
+    data_elements: List[str] = []
+    flow_type: str = "transfer"              # "collection" | "transfer" | "processing" | "storage" | "dispersal"
+    channel: str = ""
+    inferred: bool = False
+    evidence: List[str] = []
+    sources: List[str] = []
 
 class HTMLPreviewRequest(BaseModel):
-    nodes: list = []
-    edges: list = []
-    levels: list = []
+    nodes: List[DFDNode] = []
+    edges: List[DFDEdge] = []
+    levels: List[List[str]] = []             # [["Customer"], ["IVR", "Ameyo"], ["CRM"]]
     pipeline_docs: dict = {}
 
 # ── Helpers ──────────────────────────────────────────
@@ -414,9 +424,10 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
 
 class UpdateSessionDFDRequest(BaseModel):
     session_id: str
-    dfd_json: dict
-    knowledge_graph: dict
-    dfd_plan_json: dict
+    nodes: List[DFDNode] = []
+    edges: List[DFDEdge] = []
+    levels: List[List[str]] = []             # render plan levels
+    pipeline_docs: dict = {}
 
 # ── API Endpoints ────────────────────────────────────
 
@@ -424,7 +435,13 @@ class UpdateSessionDFDRequest(BaseModel):
 def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     existing = db.query(DFDSession).filter(DFDSession.session_id == request.session_id).first()
     if existing:
-        raise HTTPException(status_code=400, detail="Session ID already exists")
+        # Clean up all related data and restart
+        db.query(DataMappingRow).filter(DataMappingRow.session_id == request.session_id).delete()
+        db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == request.session_id).delete()
+        db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == request.session_id).delete()
+        db.delete(existing)
+        db.commit()
+        logger.info(f"[{request.session_id}] Existing session deleted — restarting pipeline")
 
     # Normalize None → False so downstream never sees None
     use_rlm = bool(request.use_rlm)
@@ -465,76 +482,70 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
 @app.post("/api/dfd/update_session")
 def update_session_dfd(data: UpdateSessionDFDRequest, db: Session = Depends(get_db)):
     """
-    Manually update DFD data for a session and regenerate its interactive HTML.
-    Updates dfd_json, dfd_render_plan_json, and the Knowledge Graph tables.
+    Update DFD data for a session and regenerate its interactive HTML.
+    Accepts typed nodes, edges, levels — the exact shape HTMLGeneratorAgent needs.
     """
     # 1. Find session
     db_session = db.query(DFDSession).filter(DFDSession.session_id == data.session_id).first()
     if not db_session:
         raise HTTPException(status_code=404, detail="Session not found")
     
-    # 2. Update main session record
-    db_session.dfd_json = data.dfd_json
-    db_session.dfd_render_plan_json = data.dfd_plan_json
+    # Convert Pydantic models to plain dicts for DB storage and HTML generator
+    nodes_dicts = [n.model_dump() for n in data.nodes]
+    edges_dicts = [e.model_dump() for e in data.edges]
     
-    # 3. Update Knowledge Graph Tables
-    # Clear existing nodes and edges for this session
+    # 2. Update main session record
+    kg_json = {"nodes": nodes_dicts, "edges": edges_dicts}
+    db_session.dfd_json = kg_json
+    db_session.dfd_render_plan_json = {"levels": data.levels}
+    
+    # 3. Replace Knowledge Graph rows
     db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == data.session_id).delete()
     db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == data.session_id).delete()
     
-    nodes = data.knowledge_graph.get("nodes", [])
-    edges = data.knowledge_graph.get("edges", [])
-    
-    for n in nodes:
-        db_node = KnowledgeGraphNode(
+    for n in nodes_dicts:
+        db.add(KnowledgeGraphNode(
             id=str(uuid.uuid4()),
             session_id=data.session_id,
-            node_id=n.get("id") or n.get("node_id") or "",
-            name=n.get("name", ""),
-            type=n.get("type", ""),
+            node_id=n["id"],
+            name=n["name"],
+            type=n["type"],
             aliases=n.get("aliases", []),
             data_elements=n.get("data_elements", []),
             risks=n.get("risks", []),
             sources=n.get("sources", [])
-        )
-        db.add(db_node)
-        
-    for e in edges:
-        db_edge = KnowledgeGraphEdge(
+        ))
+    
+    for e in edges_dicts:
+        db.add(KnowledgeGraphEdge(
             id=str(uuid.uuid4()),
             session_id=data.session_id,
-            source_node=e.get("source") or e.get("source_node") or "",
-            target_node=e.get("target") or e.get("target_node") or "",
+            source_node=e["source"],
+            target_node=e["target"],
             data_elements=e.get("data_elements", []),
             flow_type=e.get("flow_type", ""),
             channel=e.get("channel", ""),
             inferred=1 if e.get("inferred") else 0,
             sources=e.get("sources", [])
-        )
-        db.add(db_edge)
-        
+        ))
+    
     # 4. Re-generate Interactive HTML
     from test.graph.html_generator import HTMLGeneratorAgent
     html_gen = HTMLGeneratorAgent()
     
-    kg = data.knowledge_graph
-    levels = data.dfd_plan_json.get("levels", [])
+    col_map = html_gen._build_column_map(nodes_dicts, data.levels, kg_json)
+    row_map = html_gen._build_row_map(nodes_dicts)
+    interactive_html = html_gen._build_html(nodes_dicts, edges_dicts, kg_json, data.pipeline_docs, col_map, row_map)
     
-    # Reconstruct col/row maps and generate HTML
-    col_map = html_gen._build_column_map(nodes, levels, kg)
-    row_map = html_gen._build_row_map(nodes)
-    
-    # Generate HTML string (passing empty dict for pipeline_docs as default)
-    interactive_html = html_gen._build_html(nodes, edges, kg, {}, col_map, row_map)
     db_session.interactive_html = interactive_html
-    
     db_session.updated_at = datetime.utcnow()
     db.commit()
     
     return {
         "status": "success",
         "message": "Session DFD data and HTML updated successfully",
-        "session_id": data.session_id
+        "session_id": data.session_id,
+        "html_length": len(interactive_html)
     }
 
 
@@ -650,64 +661,6 @@ def delete_session(session_id: str, db: Session = Depends(get_db)):
 
     return {"message": f"Session {session_id} and all related records deleted."}
 
-# ── Interactive DFD CRUD & Preview ────────────────────────────
-
-@app.post("/api/interactive_dfd", response_model=dict)
-def create_interactive_dfd(data: InteractiveDFDCreate, db: Session = Depends(get_db)):
-    db_obj = InteractiveDFD(
-        id=str(uuid.uuid4()),
-        name=data.name,
-        nodes=data.nodes,
-        edges=data.edges,
-        levels=data.levels,
-        pipeline_docs=data.pipeline_docs
-    )
-    db.add(db_obj)
-    db.commit()
-    db.refresh(db_obj)
-    return {"id": db_obj.id, "message": "Interactive DFD created successfully"}
-
-@app.get("/api/interactive_dfd/{dfd_id}", response_model=dict)
-def get_interactive_dfd(dfd_id: str, db: Session = Depends(get_db)):
-    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
-    if not db_obj:
-        raise HTTPException(status_code=404, detail="DFD not found")
-    return {
-        "id": db_obj.id,
-        "name": db_obj.name,
-        "nodes": db_obj.nodes,
-        "edges": db_obj.edges,
-        "levels": db_obj.levels,
-        "pipeline_docs": db_obj.pipeline_docs,
-        "created_at": db_obj.created_at,
-        "updated_at": db_obj.updated_at
-    }
-
-@app.put("/api/interactive_dfd/{dfd_id}", response_model=dict)
-def update_interactive_dfd(dfd_id: str, data: InteractiveDFDUpdate, db: Session = Depends(get_db)):
-    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
-    if not db_obj:
-        raise HTTPException(status_code=404, detail="DFD not found")
-    
-    if data.name is not None: db_obj.name = data.name
-    if data.nodes is not None: db_obj.nodes = data.nodes
-    if data.edges is not None: db_obj.edges = data.edges
-    if data.levels is not None: db_obj.levels = data.levels
-    if data.pipeline_docs is not None: db_obj.pipeline_docs = data.pipeline_docs
-    
-    db_obj.updated_at = datetime.utcnow()
-    db.commit()
-    return {"message": "DFD updated successfully"}
-
-@app.delete("/api/interactive_dfd/{dfd_id}", response_model=dict)
-def delete_interactive_dfd(dfd_id: str, db: Session = Depends(get_db)):
-    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
-    if not db_obj:
-        raise HTTPException(status_code=404, detail="DFD not found")
-    db.delete(db_obj)
-    db.commit()
-    return {"message": "DFD deleted successfully"}
-
 # ── Dynamic HTML Generator API ────────────────────────────────
 
 from fastapi.responses import HTMLResponse
@@ -717,29 +670,14 @@ def preview_html(data: HTMLPreviewRequest):
     """Generate HTML DFD view directly from JSON body payload."""
     from test.graph.html_generator import HTMLGeneratorAgent
     
-    html_gen = HTMLGeneratorAgent()
-    kg = {"nodes": data.nodes, "edges": data.edges}
+    nodes_dicts = [n.model_dump() for n in data.nodes]
+    edges_dicts = [e.model_dump() for e in data.edges]
     
-    col_map = html_gen._build_column_map(data.nodes, data.levels, kg)
-    row_map = html_gen._build_row_map(data.nodes)
-    html = html_gen._build_html(data.nodes, data.edges, kg, data.pipeline_docs, col_map, row_map)
+    html_gen = HTMLGeneratorAgent()
+    kg = {"nodes": nodes_dicts, "edges": edges_dicts}
+    
+    col_map = html_gen._build_column_map(nodes_dicts, data.levels, kg)
+    row_map = html_gen._build_row_map(nodes_dicts)
+    html = html_gen._build_html(nodes_dicts, edges_dicts, kg, data.pipeline_docs, col_map, row_map)
     
     return {"html": html}
-
-@app.get("/api/interactive_dfd/{dfd_id}/preview", response_class=HTMLResponse)
-def preview_db_html(dfd_id: str, db: Session = Depends(get_db)):
-    """Returns the raw HTML document for a saved DFD."""
-    db_obj = db.query(InteractiveDFD).filter(InteractiveDFD.id == dfd_id).first()
-    if not db_obj:
-        raise HTTPException(status_code=404, detail="DFD not found")
-    
-    from test.graph.html_generator import HTMLGeneratorAgent
-    
-    html_gen = HTMLGeneratorAgent()
-    kg = {"nodes": db_obj.nodes, "edges": db_obj.edges}
-    
-    col_map = html_gen._build_column_map(db_obj.nodes, db_obj.levels, kg)
-    row_map = html_gen._build_row_map(db_obj.nodes)
-    html = html_gen._build_html(db_obj.nodes, db_obj.edges, kg, db_obj.pipeline_docs, col_map, row_map)
-    
-    return html

@@ -12,7 +12,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from sqlalchemy.orm import Session
 
-from api.database import get_db, engine, Base
+from api.database import get_db, engine, Base, SessionLocal
 from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
@@ -116,7 +116,8 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 # ── Unified Background Pipeline ─────────────────────
 
-def process_aggressive_pipeline(session_id: str, department: str, files: List[str], db: Session):
+def process_aggressive_pipeline(session_id: str, department: str, files: List[str]):
+    db = SessionLocal()
     try:
         logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
 
@@ -274,15 +275,21 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
 
     except Exception as e:
         logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
-        db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
-        if db_session:
-            db_session.status = "failed"
-            db_session.error_message = str(e)
-            db_session.updated_at = datetime.utcnow()
-            db.commit()
+        try:
+            db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+            if db_session:
+                db_session.status = "failed"
+                db_session.error_message = str(e)
+                db_session.updated_at = datetime.utcnow()
+                db.commit()
+        except Exception:
+            logger.error(f"[{session_id}] Failed to update error status in DB", exc_info=True)
+    finally:
+        db.close()
 
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool, db: Session):
+def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool):
+    db = SessionLocal()
     try:
         logger.info(f"[{session_id}] Pipeline starting for department: {department}")
 
@@ -445,12 +452,17 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
 
     except Exception as e:
         logger.error(f"[{session_id}] Pipeline failed: {str(e)}", exc_info=True)
-        db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
-        if db_session:
-            db_session.status = "failed"
-            db_session.error_message = str(e)
-            db_session.updated_at = datetime.utcnow()
-            db.commit()
+        try:
+            db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+            if db_session:
+                db_session.status = "failed"
+                db_session.error_message = str(e)
+                db_session.updated_at = datetime.utcnow()
+                db.commit()
+        except Exception:
+            logger.error(f"[{session_id}] Failed to update error status in DB", exc_info=True)
+    finally:
+        db.close()
 
 
 class UpdateSessionDFDRequest(BaseModel):
@@ -496,12 +508,12 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if aggressive:
         background_tasks.add_task(
             process_aggressive_pipeline,
-            request.session_id, request.department, request.files or [], db
+            request.session_id, request.department, request.files or []
         )
     else:
         background_tasks.add_task(
             process_unified_pipeline,
-            request.session_id, request.department, request.files or [], use_rlm, db
+            request.session_id, request.department, request.files or [], use_rlm
         )
 
     return InitiateResponse(

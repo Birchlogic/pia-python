@@ -171,10 +171,34 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 with open(render_plan_path, "r") as f:
                     render_plan_data = json.load(f)
 
+            # 6. Schema Generation (Schema-1 + Data Inventory)
+            schema_one_json = None
+            inventory_rows = []
+
+            generator = SchemaGenerator()
+            try:
+                schema_one_json = generator.generate_schema_one(combined_transcript)
+                logger.info(f"[{session_id}] Schema-1 generated")
+            except Exception as e:
+                logger.error(f"[{session_id}] Schema-1 generation failed: {e}", exc_info=True)
+
+            if schema_one_json:
+                try:
+                    inventory_rows = generator.generate_data_inventory(schema_one_json)
+                    if not inventory_rows:
+                        logger.warning(f"[{session_id}] Data inventory returned 0 rows")
+                    else:
+                        logger.info(f"[{session_id}] Data inventory generated ({len(inventory_rows)} rows)")
+                except Exception as e:
+                    logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
+            else:
+                logger.warning(f"[{session_id}] Skipping data inventory — Schema-1 was not generated")
+
         # 6. Save everything to DB
         db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
         if db_session:
             db_session.status = "completed"
+            db_session.schema_one_json = schema_one_json
             db_session.actors_json = result.get("actors")
             db_session.systems_json = result.get("systems")
             db_session.data_elements_json = result.get("data_elements")
@@ -186,10 +210,13 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db_session.dfd_json = kg_result
             db_session.dfd_render_plan_json = render_plan_data
             db_session.updated_at = datetime.utcnow()
-            db.commit()
 
         # Save KG Nodes
-        for n in graph_data.get("nodes", []):
+        kg_nodes_list = graph_data.get("nodes", [])
+        kg_edges_list = graph_data.get("edges", [])
+        logger.info(f"[{session_id}] graph_data loaded: {len(kg_nodes_list)} nodes, {len(kg_edges_list)} edges")
+
+        for n in kg_nodes_list:
             db_node = KnowledgeGraphNode(
                 id=str(uuid.uuid4()),
                 session_id=session_id,
@@ -204,7 +231,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db.add(db_node)
         
         # Save KG Edges
-        for e in graph_data.get("edges", []):
+        for e in kg_edges_list:
             db_edge = KnowledgeGraphEdge(
                 id=str(uuid.uuid4()),
                 session_id=session_id,
@@ -218,8 +245,9 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             )
             db.add(db_edge)
 
-        # Save data mapping rows
-        inventory_rows = result.get("data_inventory", [])
+        # Save data mapping rows (prefer schema-generated, fallback to pipeline)
+        if not inventory_rows:
+            inventory_rows = result.get("data_inventory", [])
         s_no = 1
         for row in inventory_rows:
             db_row = DataMappingRow(
@@ -237,7 +265,10 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             )
             db.add(db_row)
             s_no += 1
+
+        # Single commit for all DB operations
         db.commit()
+        logger.info(f"[{session_id}] DB committed: {len(kg_nodes_list)} KG nodes, {len(kg_edges_list)} KG edges, {len(inventory_rows)} mapping rows")
 
         logger.info(f"[{session_id}] Aggressive Pipeline completed successfully")
 

@@ -8,5 +8,6 @@ services:
     environment:
       - DATABASE_URL=postgresql://neondb_owner:npg_UkCxqn2iwH3c@ep-rough-union-adehzgnj-pooler.c-2.us-east-1.aws.neon.tech/kaizen_scans?sslmode=require
       - ANTHROPIC_API_KEY=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
+      - PAYLOAD_TOKEN=jshjssjsjsjskjjcjcidijscjjdcjdj
     env_file:
       - .env

@@ -1,22 +1,28 @@
 import os
 import json
 from enum import Enum
+from typing import List, Optional, Union
 import anthropic
 import openai
+
+from pydantic import BaseModel, Field
 
 class LlmProviderType(str, Enum):
     CLAUDE = "CLAUDE"
     OPENAI = "OPENAI"
     OPENROUTER = "OPENROUTER"
 
-MODEL_MAPPING = {
-    "claude-3-5-sonnet-20241022": "claude-3-5-sonnet-20240620",
-    "claude-sonnet-4-20250514": "claude-3-5-sonnet-20240620",
-}
+class AIConfig(BaseModel):
+    type: LlmProviderType = Field(default=LlmProviderType.CLAUDE)
+    model: Optional[str] = None
+    apiKey: Optional[str] = None
+    
+    class Config:
+        use_enum_values = True
 
 def normalize_model_name(model_name: str) -> str:
-    """Maps potentially invalid or preview model names to stable ones."""
-    return MODEL_MAPPING.get(model_name, model_name)
+    """Passes through the model name as is, now that strict adherence is required."""
+    return model_name
 
 class AbstractMessagesAPI:
     """An abstract representation of the Anthropic client.messages interface."""
@@ -40,22 +46,38 @@ class MockResponse:
 
 class ClaudeAdapter(AbstractMessagesAPI):
     def __init__(self, api_key: str):
-        self.client = anthropic.Anthropic(api_key=api_key)
+        self.provider = "CLAUDE"
+        self.client = anthropic.Anthropic(api_key=api_key, timeout=600.0)
     def create(self, model: str, messages: list, system: str = None, max_tokens: int = 4000, temperature: float = 0.0, **kwargs):
         normalized_model = normalize_model_name(model)
-        return self.client.messages.create(
-            model=normalized_model,
-            messages=messages,
-            system=system or "",
-            max_tokens=max_tokens,
-            temperature=temperature,
-            **kwargs
-        )
+        from utils.logger import setup_logger
+        debug_logger = setup_logger("LLMAdapterDebug")
+        debug_logger.info(f"{self.provider} model: {normalized_model}")
+
+        debug_logger.info(f"{self.provider} Request - Model: {normalized_model}, Messages: {len(messages)}, System: {'Yes' if system else 'No'}")
+        
+        try:
+            resp = self.client.messages.create(
+                model=normalized_model,
+                messages=messages,
+                system=system or "",
+                max_tokens=max_tokens,
+                temperature=temperature,
+                **kwargs
+            )
+            # Anthropic responses have 'stop_reason'
+            debug_logger.info(f"{self.provider} Response received. Stop Reason: {getattr(resp, 'stop_reason', 'N/A')}")
+            return resp
+        except Exception as e:
+            logger = setup_logger("LLMAdapter")
+            logger.error(f"{self.provider} API Error: {str(e)}")
+            raise e
 
 
 class OpenAIAdapter(AbstractMessagesAPI):
-    def __init__(self, api_key: str):
-        self.client = openai.OpenAI(api_key=api_key)
+    def __init__(self, api_key: str, provider: str = "OPENAI"):
+        self.provider = provider
+        self.client = openai.OpenAI(api_key=api_key, timeout=600.0)
         
     def _handle_tool_use(self, kwargs):
         """Translates Anthropic-style tools to OpenAI-style tools."""
@@ -101,26 +123,61 @@ class OpenAIAdapter(AbstractMessagesAPI):
         # Remove any unsupported kwargs like metadata or thinking flags
         kwargs.pop("metadata", None)
         
+        from utils.logger import setup_logger
+        debug_logger = setup_logger("LLMAdapterDebug")
+        
         if "tools" in kwargs or "tool_choice" in kwargs:
-            from utils.logger import setup_logger
-            debug_logger = setup_logger("LLMAdapterDebug")
-            debug_logger.info(f"OpenRouter/OpenAI Tools: {json.dumps(kwargs.get('tools'), indent=2)}")
-            debug_logger.info(f"OpenRouter/OpenAI Tool Choice: {json.dumps(kwargs.get('tool_choice'), indent=2)}")
+            debug_logger.info(f"{self.provider} Tools: {json.dumps(kwargs.get('tools'), indent=2)}")
+            debug_logger.info(f"{self.provider} Tool Choice: {json.dumps(kwargs.get('tool_choice'), indent=2)}")
 
-        resp = self.client.chat.completions.create(
-            model=normalized_model,
-            messages=full_messages,
-            max_tokens=max_tokens,
-            temperature=temperature,
-            **kwargs
-        )
+        debug_logger.info(f"{self.provider} Request - Model: {normalized_model}, Messages: {len(full_messages)}")
+        
+        try:
+            resp = self.client.chat.completions.create(
+                model=normalized_model,
+                messages=full_messages,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                **kwargs
+            )
+            
+            finish_reason = resp.choices[0].finish_reason
+            debug_logger.info(f"{self.provider} Finish Reason: {finish_reason}")
+        except Exception as e:
+            logger = setup_logger("LLMAdapter")
+            # Log full error body for 500 errors if available
+            error_body = "N/A"
+            if hasattr(e, 'response') and hasattr(e.response, 'text'):
+                error_body = e.response.text
+            elif hasattr(e, 'body'):
+                error_body = str(e.body)
+            elif hasattr(e, 'message'):
+                error_body = str(e.message)
+                
+            logger.error(f"{self.provider} API Error: {str(e)} - Body: {error_body}")
+            raise e
         
         message = resp.choices[0].message
         if message.tool_calls:
             tc = message.tool_calls[0].function
+            debug_logger.info(f"Arguments length: {len(tc.arguments)}")
+            try:
+                tool_input = json.loads(tc.arguments)
+            except json.JSONDecodeError as e:
+                logger = setup_logger("LLMAdapter")
+                logger.error(f"Failed to parse tool arguments (finish_reason: {finish_reason}): {tc.arguments}")
+                # Try to clean up the JSON string if it has common LLM artifacts
+                cleaned = tc.arguments.strip()
+                if cleaned.startswith("```json"):
+                    cleaned = cleaned.replace("```json", "").replace("```", "").strip()
+                try:
+                    tool_input = json.loads(cleaned)
+                except:
+                    raise e
+
             return MockResponse(tool_use={
                 "name": tc.name,
-                "input": json.loads(tc.arguments),
+                "input": tool_input,
                 "id": message.tool_calls[0].id
             })
             
@@ -128,9 +185,11 @@ class OpenAIAdapter(AbstractMessagesAPI):
 
 class OpenRouterAdapter(OpenAIAdapter):
     def __init__(self, api_key: str):
+        super().__init__(api_key, provider="OPENROUTER")
         self.client = openai.OpenAI(
             base_url="https://openrouter.ai/api/v1",
             api_key=api_key,
+            timeout=600.0
         )
 
 class UnifiedClient:
@@ -144,17 +203,24 @@ class UnifiedClient:
         else:
             raise ValueError(f"Unsupported provider: {provider}")
 
-def get_llm_client(ai_config: dict) -> UnifiedClient:
-    provider_str = ai_config.get("type", "CLAUDE").upper()
-    api_key = ai_config.get("apiKey")
-    try:
-        provider = LlmProviderType(provider_str)
-    except ValueError:
-        provider = LlmProviderType.CLAUDE
+def get_llm_client(ai_config: Union[dict, AIConfig]) -> UnifiedClient:
+    if isinstance(ai_config, dict):
+        # Allow missing fields to use defaults
+        config_obj = AIConfig(**ai_config)
+    else:
+        config_obj = ai_config
+        
+    provider = config_obj.type
+    api_key = config_obj.apiKey
+        
+    from utils.logger import setup_logger
+    debug_logger = setup_logger("LLMAdapterDebug")
+    debug_logger.info(f"Initializing UnifiedClient for provider: {provider}, model: {config_obj.model}")
         
     if not api_key:
         from config import Config
         # Optional fallback for testing
         api_key = Config.ANTHROPIC_API_KEY
+        debug_logger.warning("No API key provided in ai_config, falling back to ANTHROPIC_API_KEY from env")
         
     return UnifiedClient(provider, api_key)

@@ -292,6 +292,7 @@ class SchemaGenerator:
         logger.info("Executing Schema-1 Generation LLM prompt...")
         
         user_prompt = f"--- BEGIN TRANSCRIPTS ---\n{combined_transcript}\n--- END TRANSCRIPTS ---"
+        logger.info(f"Generating schema one. Transcript length: {len(combined_transcript)} characters.")
         
         response = self.client.messages.create(
             model=self.model,

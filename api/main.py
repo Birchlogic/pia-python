@@ -127,7 +127,9 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 # ── Unified Background Pipeline ─────────────────────
 
-def process_aggressive_pipeline(session_id: str, department: str, files: List[str], db: Session, ai_config: dict = None):
+def process_aggressive_pipeline(session_id: str, department: str, files: List[str], ai_config: dict = None):
+    from api.database import SessionLocal
+    db = SessionLocal()
     try:
         logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
 
@@ -289,6 +291,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
     except Exception as e:
         logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
         try:
+            db.rollback()
             db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
             if db_session:
                 db_session.status = "failed"
@@ -301,7 +304,9 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         db.close()
 
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session, use_rlm: bool, ai_config: dict = None):
+def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool, ai_config: dict = None):
+    from api.database import SessionLocal
+    db = SessionLocal()
     try:
         logger.info(f"[{session_id}] Pipeline starting for department: {department}")
 
@@ -466,6 +471,7 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
     except Exception as e:
         logger.error(f"[{session_id}] Pipeline failed: {str(e)}", exc_info=True)
         try:
+            db.rollback()
             db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
             if db_session:
                 db_session.status = "failed"
@@ -551,12 +557,12 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if aggressive:
         background_tasks.add_task(
             process_aggressive_pipeline,
-            req_session_id, req_department, req_files or [], db, ai_config
+            req_session_id, req_department, req_files or [], ai_config
         )
     else:
         background_tasks.add_task(
             process_unified_pipeline,
-            req_session_id, req_department, req_files or [], db, use_rlm, ai_config
+            req_session_id, req_department, req_files or [], use_rlm, ai_config
         )
 
     return InitiateResponse(

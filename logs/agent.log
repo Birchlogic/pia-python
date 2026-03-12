@@ -3687,3 +3687,1979 @@ sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction i
 2026-03-12 15:02:18,076 - PipelineRunner - INFO -   [3] Running agentic extraction...
 2026-03-12 15:02:23,519 - SystemAgent - INFO - SystemAgent extracted 4 systems
 2026-03-12 15:02:44,268 - DataFlowAgent - INFO - DataFlowAgent extracted 15 flows
+2026-03-12 15:14:21,420 - RiskAgent - INFO - RiskAgent identified 13 risks
+2026-03-12 15:14:21,421 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=15, Risks=13
+2026-03-12 15:14:21,421 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:14:21,422 - FlowCanonAgent - INFO - Deterministic merge: 31 raw → 22 merged flows
+2026-03-12 15:14:47,327 - FlowCanonAgent - INFO - LLM refined: 17 canonical flows
+2026-03-12 15:14:47,328 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:14:47,337 - VerificationAgent - INFO - Verification: overall=0.55 (systems=0.22, data=1.00, risks=0.00, flows=0.94) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:14:47,337 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 15:14:47,337 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:14:53,432 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 15:15:15,202 - DataFlowAgent - INFO - DataFlowAgent extracted 17 flows
+2026-03-12 15:16:20,487 - RiskAgent - INFO - RiskAgent identified 12 risks
+2026-03-12 15:16:20,488 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=17, Risks=12
+2026-03-12 15:16:20,488 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:16:20,496 - FlowCanonAgent - INFO - Deterministic merge: 33 raw → 19 merged flows
+2026-03-12 15:24:45,239 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 15:24:45,239 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 15:24:47,705 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Existing session deleted — restarting pipeline
+2026-03-12 15:24:48,903 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 15:24:50,377 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 15:24:51,091 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9v4anlzw/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 15:24:51,091 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 15:24:51,713 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9v4anlzw/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 15:24:51,713 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 15:24:52,420 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9v4anlzw/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 15:24:52,421 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 15:24:53,134 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9v4anlzw/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 15:24:53,318 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 15:24:53,319 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 15:24:54,007 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 15:24:54,007 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:25:00,105 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 15:25:19,743 - DataFlowAgent - INFO - DataFlowAgent extracted 17 flows
+2026-03-12 15:26:20,316 - RiskAgent - INFO - RiskAgent identified 11 risks
+2026-03-12 15:26:20,317 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=17, Risks=11
+2026-03-12 15:26:20,317 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 15:26:20,319 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 15:26:25,309 - EntityNormAgent - INFO - LLM normalized: 6 actors, 3 systems, 3 removed
+2026-03-12 15:26:25,310 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:26:25,310 - FlowCanonAgent - INFO - Deterministic merge: 17 raw → 16 merged flows
+2026-03-12 15:26:38,705 - FlowCanonAgent - INFO - LLM refined: 11 canonical flows
+2026-03-12 15:26:38,705 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:26:38,717 - VerificationAgent - INFO - Verification: overall=0.33 (systems=0.22, data=0.46, risks=0.00, flows=0.61) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:26:38,717 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 15:26:38,717 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:26:45,058 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-12 15:27:07,240 - DataFlowAgent - INFO - DataFlowAgent extracted 21 flows
+2026-03-12 15:28:28,178 - RiskAgent - ERROR - RiskAgent failed: Unterminated string starting at: line 119 column 17 (char 18719)
+2026-03-12 15:28:28,179 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=21, Risks=0
+2026-03-12 15:28:28,179 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:28:28,180 - FlowCanonAgent - INFO - Deterministic merge: 38 raw → 26 merged flows
+2026-03-12 15:28:45,482 - FlowCanonAgent - INFO - LLM refined: 14 canonical flows
+2026-03-12 15:28:45,483 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:28:45,498 - VerificationAgent - INFO - Verification: overall=0.51 (systems=0.22, data=1.00, risks=0.00, flows=0.78) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:28:45,498 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 15:28:45,498 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:28:49,884 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 15:29:09,160 - DataFlowAgent - INFO - DataFlowAgent extracted 16 flows
+2026-03-12 15:30:26,892 - RiskAgent - INFO - RiskAgent identified 12 risks
+2026-03-12 15:30:26,893 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=16, Risks=12
+2026-03-12 15:30:26,893 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:30:26,894 - FlowCanonAgent - INFO - Deterministic merge: 33 raw → 21 merged flows
+2026-03-12 15:30:50,009 - FlowCanonAgent - INFO - LLM refined: 13 canonical flows
+2026-03-12 15:30:50,010 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:30:50,025 - VerificationAgent - INFO - Verification: overall=0.36 (systems=0.22, data=0.46, risks=0.00, flows=0.72) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:30:50,025 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 15:31:20,996 - DFDBuilderAgent - INFO - DFDBuilder created 12 nodes, 13 edges
+2026-03-12 15:31:20,997 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 15:31:21,011 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "description": "The name of the data element.",
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the data element.",
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum",
+                "description": "Data classification level."
+              },
+              "purpose": {
+                "description": "Purpose of processing.",
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "description": "Retention period.",
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum",
+                "description": "Legal basis for processing."
+              },
+              "storage_location": {
+                "description": "Storage location.",
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "description": "Data owner role or department.",
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 15:31:21,012 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 15:33:33,849 - LLMAdapter - ERROR - Failed to parse tool arguments: {"meta": {"project_name":"DPDPA Compliance Assessment 2026","vertical_name":"Customer Care","generated_at":"2026-01-23"}
+2026-03-12 15:33:33,850 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Expecting ',' delimiter: line 1 column 121 (char 120)
+2026-03-12 15:33:33,850 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 15:33:33,850 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.36
+2026-03-12 15:33:33,855 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 15:33:33,855 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 15:33:33,855 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 15:33:33,856 - EntityMerger - INFO - Merged 9 raw entities → 9 unique
+2026-03-12 15:33:33,856 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 15:33:33,857 - FlowMerger - INFO - Merged flows → 13 canonical flows
+2026-03-12 15:33:33,857 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 15:33:33,857 - GraphBuilder - INFO - Added 9 nodes
+2026-03-12 15:33:33,857 - GraphBuilder - INFO - Added 13 edges
+2026-03-12 15:33:33,857 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 15:33:33,858 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 15:33:33,859 - GraphReasoning - INFO - Inferred 17 implicit flows
+2026-03-12 15:33:33,859 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 15:33:33,861 - GraphValidator - INFO - Validation: PASS — 13 nodes, 30 edges, 2 issues
+2026-03-12 15:33:33,861 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 15:33:33,864 - GraphExporter - INFO - Exported knowledge_graph.json (13 nodes, 30 edges)
+2026-03-12 15:33:33,865 - GraphExporter - INFO - Exported privacy_dfd.json (13 nodes, 30 flows)
+2026-03-12 15:33:33,866 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 15:33:33,866 - GraphExporter - INFO - Exported privacy_dfd.json (13 nodes, 30 flows)
+2026-03-12 15:33:33,867 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 15:33:33,867 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 13 nodes, 30 edges (17 inferred)
+2026-03-12 15:33:33,869 - HTMLGenerator - INFO - Building HTML: 13 nodes, 30 edges
+2026-03-12 15:33:33,871 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9v4anlzw/privacy_dfd.html (143000 chars)
+2026-03-12 15:33:33,880 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 15:33:33,883 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum"
+              },
+              "storage_location": {
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 15:33:33,883 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 15:35:43,189 - LLMAdapter - ERROR - Failed to parse tool arguments: {"meta": {"project_name":"DPDPA Compliance Assessment 2026","vertical_name":"Customer Care","generated_at":"2026-01-23T16:00:00+05:30"}
+2026-03-12 15:35:43,191 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Expecting ',' delimiter: line 1 column 136 (char 135)
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 143, in create
+    tool_input = json.loads(cleaned)
+                 ^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 136 (char 135)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 196, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 145, in create
+    raise e
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 133, in create
+    tool_input = json.loads(tc.arguments)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 136 (char 135)
+2026-03-12 15:35:43,196 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-12 15:35:46,353 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 13 nodes, 30 edges
+2026-03-12 15:35:48,707 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 13 KG nodes, 30 KG edges, 0 mapping rows
+2026-03-12 15:35:48,707 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 15:40:22,585 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 15:40:22,585 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 15:40:24,036 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 15:40:25,520 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 15:40:26,076 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpxgbtxx5g/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 15:40:26,077 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 15:40:26,672 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpxgbtxx5g/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 15:40:26,672 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 15:40:27,254 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpxgbtxx5g/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 15:40:27,255 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 15:40:27,894 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpxgbtxx5g/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 15:40:28,119 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 15:40:28,120 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 15:40:28,825 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 15:40:28,826 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:40:36,182 - SystemAgent - ERROR - SystemAgent failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:40:55,226 - DataFlowAgent - ERROR - DataFlowAgent failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:41:54,935 - RiskAgent - ERROR - RiskAgent failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:41:54,937 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 15:41:54,937 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 15:41:54,939 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-12 15:42:01,591 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:42:01,592 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:42:01,593 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 15:42:06,146 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: cannot access local variable 'debug_logger' where it is not associated with a value, using deterministic merge
+2026-03-12 15:42:06,146 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:42:06,159 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 15:42:06,159 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 15:42:06,160 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:42:13,533 - SystemAgent - ERROR - SystemAgent failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:42:38,822 - DataFlowAgent - ERROR - DataFlowAgent failed: cannot access local variable 'debug_logger' where it is not associated with a value
+2026-03-12 15:43:53,430 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 15:43:53,430 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 15:43:54,977 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 15:43:56,363 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 15:43:56,955 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpvo3weloh/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 15:43:56,955 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 15:43:57,646 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpvo3weloh/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 15:43:57,646 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 15:43:58,487 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpvo3weloh/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 15:43:58,488 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 15:43:59,315 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpvo3weloh/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 15:43:59,500 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 15:43:59,501 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 15:44:00,202 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 15:44:00,202 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:44:05,260 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:44:05,261 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 15:44:26,827 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:44:26,828 - DataFlowAgent - INFO - DataFlowAgent extracted 21 flows
+2026-03-12 15:45:20,071 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:45:20,073 - RiskAgent - INFO - RiskAgent identified 10 risks
+2026-03-12 15:45:20,073 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=21, Risks=10
+2026-03-12 15:45:20,073 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 15:45:20,075 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 4 systems → 4, 2 removed
+2026-03-12 15:45:26,932 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:45:26,932 - EntityNormAgent - INFO - LLM normalized: 5 actors, 4 systems, 4 removed
+2026-03-12 15:45:26,932 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:45:26,932 - FlowCanonAgent - INFO - Deterministic merge: 21 raw → 19 merged flows
+2026-03-12 15:45:44,134 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:45:44,136 - FlowCanonAgent - INFO - LLM refined: 14 canonical flows
+2026-03-12 15:45:44,136 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:45:44,150 - VerificationAgent - INFO - Verification: overall=0.38 (systems=0.22, data=0.46, risks=0.00, flows=0.78) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:45:44,150 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 15:45:44,150 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:45:48,754 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:45:48,755 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 15:46:08,262 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:46:08,263 - DataFlowAgent - INFO - DataFlowAgent extracted 17 flows
+2026-03-12 15:47:20,379 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:47:20,380 - RiskAgent - INFO - RiskAgent identified 13 risks
+2026-03-12 15:47:20,381 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=17, Risks=13
+2026-03-12 15:47:20,381 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:47:20,381 - FlowCanonAgent - INFO - Deterministic merge: 38 raw → 27 merged flows
+2026-03-12 15:47:41,598 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:47:41,600 - FlowCanonAgent - INFO - LLM refined: 17 canonical flows
+2026-03-12 15:47:41,600 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:47:41,615 - VerificationAgent - INFO - Verification: overall=0.55 (systems=0.22, data=1.00, risks=0.00, flows=0.94) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:47:41,615 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 15:47:41,616 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:47:58,521 - SystemAgent - ERROR - SystemAgent failed: Error code: 500 - {'error': {'message': 'Internal Server Error', 'code': 500}}
+2026-03-12 15:48:15,780 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:48:15,780 - DataFlowAgent - INFO - DataFlowAgent extracted 13 flows
+2026-03-12 15:49:19,832 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:49:19,833 - RiskAgent - INFO - RiskAgent identified 13 risks
+2026-03-12 15:49:19,834 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=13, Risks=13
+2026-03-12 15:49:19,834 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:49:19,835 - FlowCanonAgent - INFO - Deterministic merge: 34 raw → 25 merged flows
+2026-03-12 15:49:40,154 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:49:40,154 - FlowCanonAgent - INFO - LLM refined: 16 canonical flows
+2026-03-12 15:49:40,154 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:49:40,162 - VerificationAgent - INFO - Verification: overall=0.40 (systems=0.22, data=0.46, risks=0.00, flows=0.89) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:49:40,162 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 15:50:16,347 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: stop
+2026-03-12 15:50:16,348 - DFDBuilderAgent - INFO - DFDBuilder created 9 nodes, 16 edges
+2026-03-12 15:50:16,348 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 15:50:16,353 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "description": "The name of the data element.",
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the data element.",
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum",
+                "description": "Data classification level."
+              },
+              "purpose": {
+                "description": "Purpose of processing.",
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "description": "Retention period.",
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum",
+                "description": "Legal basis for processing."
+              },
+              "storage_location": {
+                "description": "Storage location.",
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "description": "Data owner role or department.",
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 15:50:16,353 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 15:52:29,097 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Finish Reason: length
+2026-03-12 15:52:29,097 - LLMAdapterDebug - INFO - Arguments length: 120
+2026-03-12 15:52:29,098 - LLMAdapter - ERROR - Failed to parse tool arguments (finish_reason: length): {"meta": {"project_name":"DPDPA Compliance Assessment 2026","vertical_name":"Customer Care","generated_at":"2026-01-23"}
+2026-03-12 15:52:29,098 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Expecting ',' delimiter: line 1 column 121 (char 120)
+2026-03-12 15:52:29,098 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 15:52:29,098 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.40
+2026-03-12 15:52:29,102 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 15:52:29,102 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 15:52:29,102 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 15:52:29,102 - EntityMerger - INFO - Merged 9 raw entities → 9 unique
+2026-03-12 15:52:29,103 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 15:52:29,103 - FlowMerger - INFO - Merged flows → 16 canonical flows
+2026-03-12 15:52:29,103 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 15:52:29,103 - GraphBuilder - INFO - Added 9 nodes
+2026-03-12 15:52:29,104 - GraphBuilder - INFO - Added 16 edges
+2026-03-12 15:52:29,104 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 15:52:29,105 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 15:52:29,105 - GraphReasoning - INFO - Inferred 18 implicit flows
+2026-03-12 15:52:29,106 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 15:52:29,108 - GraphValidator - INFO - Validation: PASS — 14 nodes, 34 edges, 2 issues
+2026-03-12 15:52:29,109 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 15:52:29,113 - GraphExporter - INFO - Exported knowledge_graph.json (14 nodes, 34 edges)
+2026-03-12 15:52:29,114 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 34 flows)
+2026-03-12 15:52:29,115 - GraphExporter - INFO - Exported dfd_render_plan.json (6 levels)
+2026-03-12 15:52:29,116 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 34 flows)
+2026-03-12 15:52:29,116 - GraphExporter - INFO - Exported dfd_render_plan.json (6 levels)
+2026-03-12 15:52:29,116 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 14 nodes, 34 edges (18 inferred)
+2026-03-12 15:52:29,116 - HTMLGenerator - INFO - Building HTML: 14 nodes, 34 edges
+2026-03-12 15:52:29,117 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpvo3weloh/privacy_dfd.html (168944 chars)
+2026-03-12 15:52:29,124 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 15:52:29,124 - SchemaGenerator - INFO - Generating schema one. Transcript length: 47156 characters.
+2026-03-12 15:52:29,126 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum"
+              },
+              "storage_location": {
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 15:52:29,126 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 15:53:00,891 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 500 - {'error': {'message': 'Internal Server Error', 'code': 500}}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 196, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 297, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 122, in create
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1211, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - {'error': {'message': 'Internal Server Error', 'code': 500}}
+2026-03-12 15:53:00,901 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-12 15:53:01,921 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 14 nodes, 34 edges
+2026-03-12 15:53:05,298 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 14 KG nodes, 34 KG edges, 0 mapping rows
+2026-03-12 15:53:05,298 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 16:00:55,243 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 16:00:55,244 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 16:00:56,744 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 16:00:58,233 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 16:00:58,835 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp1qqkrk_9/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 16:00:58,835 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 16:00:59,326 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp1qqkrk_9/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 16:00:59,326 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 16:01:00,500 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp1qqkrk_9/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 16:01:00,500 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 16:01:01,117 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp1qqkrk_9/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 16:01:01,281 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,297 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,300 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,303 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,306 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,309 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,313 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,316 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:01,319 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 16:01:01,320 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 16:01:02,044 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 16:01:02,044 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:01:02,044 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:02,044 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:02,860 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oEiwWbiu1LXFeNEsX'}
+2026-03-12 16:01:02,860 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oEiwWbiu1LXFeNEsX'}
+2026-03-12 16:01:02,860 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:02,860 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:03,201 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oHzeMMRgZtc9FDizm'}
+2026-03-12 16:01:03,201 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oHzeMMRgZtc9FDizm'}
+2026-03-12 16:01:03,202 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:03,202 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:03,542 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oKRxxLyoR7B1H5g1W'}
+2026-03-12 16:01:03,542 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oKRxxLyoR7B1H5g1W'}
+2026-03-12 16:01:03,542 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 16:01:03,542 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 16:01:03,543 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-12 16:01:03,543 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:03,543 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:03,866 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oLr3BahtiD6WHq2fr'}
+2026-03-12 16:01:03,866 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oLr3BahtiD6WHq2fr'}
+2026-03-12 16:01:03,866 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:01:03,866 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 16:01:03,866 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:03,866 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:04,195 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oNEst5LMkqnuvvnwk'}
+2026-03-12 16:01:04,196 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oNEst5LMkqnuvvnwk'}, using deterministic merge
+2026-03-12 16:01:04,196 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:01:04,212 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 16:01:04,212 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 16:01:04,212 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:01:04,212 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:04,212 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:04,495 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oPXGftu1nRFQu5GUy'}
+2026-03-12 16:01:04,496 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oPXGftu1nRFQu5GUy'}
+2026-03-12 16:01:04,496 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:04,496 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:04,784 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oQkSgoAtc2HpVdCQo'}
+2026-03-12 16:01:04,784 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oQkSgoAtc2HpVdCQo'}
+2026-03-12 16:01:04,784 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:04,784 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:05,163 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oRzrUQxoGiB8TULC5'}
+2026-03-12 16:01:05,163 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oRzrUQxoGiB8TULC5'}
+2026-03-12 16:01:05,163 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 16:01:05,163 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:01:05,163 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 16:01:05,163 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:05,163 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:05,571 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oTdppjSWTz2DPCQEA'}
+2026-03-12 16:01:05,571 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oTdppjSWTz2DPCQEA'}, using deterministic merge
+2026-03-12 16:01:05,571 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:01:05,578 - VerificationAgent - INFO - Verification: overall=0.28 (systems=0.11, data=1.00, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 16:01:05,579 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 16:01:05,579 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:01:05,579 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:05,579 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:05,879 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oVPFX47J5MnjHW2Yw'}
+2026-03-12 16:01:05,879 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oVPFX47J5MnjHW2Yw'}
+2026-03-12 16:01:05,880 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:05,880 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:06,288 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oWfdybzScGM4HC3wf'}
+2026-03-12 16:01:06,288 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oWfdybzScGM4HC3wf'}
+2026-03-12 16:01:06,288 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:06,288 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:06,595 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oYSoEMRHcRDS7qMc7'}
+2026-03-12 16:01:06,596 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oYSoEMRHcRDS7qMc7'}
+2026-03-12 16:01:06,596 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 16:01:06,596 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:01:06,596 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 16:01:06,597 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:06,597 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:06,882 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oZjC2rGsSwCbgyveh'}
+2026-03-12 16:01:06,882 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oZjC2rGsSwCbgyveh'}, using deterministic merge
+2026-03-12 16:01:06,882 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:01:06,897 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 16:01:06,897 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 16:01:06,898 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:06,898 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:07,312 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2obDVJUG9s4TnH2nPM'}
+2026-03-12 16:01:07,312 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2obDVJUG9s4TnH2nPM'}
+2026-03-12 16:01:07,313 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 16:01:07,323 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:07,324 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:08,029 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oe3tvBv7KBYpdHiSz'}
+2026-03-12 16:01:08,029 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2oe3tvBv7KBYpdHiSz'}
+2026-03-12 16:01:08,029 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 16:01:08,030 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.15
+2026-03-12 16:01:08,033 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 16:01:08,033 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 16:01:08,033 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 16:01:08,033 - EntityMerger - INFO - Merged 8 raw entities → 8 unique
+2026-03-12 16:01:08,034 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 16:01:08,034 - FlowMerger - INFO - Merged flows → 0 canonical flows
+2026-03-12 16:01:08,034 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 16:01:08,034 - GraphBuilder - INFO - Added 8 nodes
+2026-03-12 16:01:08,034 - GraphBuilder - INFO - Added 0 edges
+2026-03-12 16:01:08,034 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 16:01:08,034 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 16:01:08,034 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-12 16:01:08,034 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 16:01:08,036 - GraphValidator - INFO - Validation: PASS — 8 nodes, 0 edges, 1 issues
+2026-03-12 16:01:08,037 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 16:01:08,038 - GraphExporter - INFO - Exported knowledge_graph.json (8 nodes, 0 edges)
+2026-03-12 16:01:08,038 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-12 16:01:08,040 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-12 16:01:08,041 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-12 16:01:08,041 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-12 16:01:08,042 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 8 nodes, 0 edges (0 inferred)
+2026-03-12 16:01:08,042 - HTMLGenerator - INFO - Building HTML: 8 nodes, 0 edges
+2026-03-12 16:01:08,043 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp1qqkrk_9/privacy_dfd.html (33518 chars)
+2026-03-12 16:01:08,044 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:01:08,054 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 16:01:08,054 - SchemaGenerator - INFO - Generating schema one. Transcript length: 47156 characters.
+2026-03-12 16:01:08,057 - LLMAdapterDebug - INFO - CLAUDE model: claude-3-5-sonnet-20240620
+2026-03-12 16:01:08,057 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-3-5-sonnet-20240620, Messages: 1, System: Yes
+2026-03-12 16:01:08,497 - LLMAdapter - ERROR - CLAUDE API Error: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2ogNYdDRfmTiJFtkqr'}
+2026-03-12 16:01:08,497 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2ogNYdDRfmTiJFtkqr'}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 196, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 297, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 79, in create
+    raise e
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 65, in create
+    resp = self.client.messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 282, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 996, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1364, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1137, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20240620'}, 'request_id': 'req_011CYy2ogNYdDRfmTiJFtkqr'}
+2026-03-12 16:01:08,503 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-12 16:01:10,847 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 8 nodes, 0 edges
+2026-03-12 16:01:12,090 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 8 KG nodes, 0 KG edges, 0 mapping rows
+2026-03-12 16:01:12,091 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 16:03:20,488 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 16:03:20,488 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 16:03:21,879 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 16:03:23,430 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 16:03:24,041 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpfjor661s/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 16:03:24,041 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 16:03:24,651 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpfjor661s/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 16:03:24,651 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 16:03:25,254 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpfjor661s/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 16:03:25,254 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 16:03:25,963 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpfjor661s/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 16:03:26,092 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,105 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,108 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,111 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,114 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,117 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,121 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,124 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,127 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 16:03:26,128 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 16:03:26,873 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 16:03:26,873 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:03:26,873 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:03:26,873 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:03:29,306 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:03:29,307 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 16:03:29,307 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:03:29,307 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:03:37,637 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:03:37,638 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-12 16:03:37,638 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:03:37,638 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:03:52,975 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:03:52,975 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 16:03:52,975 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-12 16:03:52,976 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 16:03:52,977 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 16:03:52,978 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:03:52,978 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:03:57,201 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:03:57,202 - EntityNormAgent - INFO - LLM normalized: 4 actors, 3 systems, 5 removed
+2026-03-12 16:03:57,202 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:03:57,203 - FlowCanonAgent - INFO - Deterministic merge: 10 raw → 8 merged flows
+2026-03-12 16:03:57,203 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:03:57,203 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:03,852 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:03,853 - FlowCanonAgent - INFO - LLM refined: 8 canonical flows
+2026-03-12 16:04:03,853 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:04:03,867 - VerificationAgent - INFO - Verification: overall=0.33 (systems=0.33, data=0.46, risks=0.00, flows=0.44) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 16:04:03,868 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 16:04:03,868 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:04:03,868 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:03,868 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:06,421 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:06,422 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 16:04:06,422 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:06,422 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:15,226 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:15,227 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-12 16:04:15,227 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:15,227 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:28,534 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:28,535 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 16:04:28,535 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-12 16:04:28,535 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:04:28,535 - FlowCanonAgent - INFO - Deterministic merge: 20 raw → 9 merged flows
+2026-03-12 16:04:28,536 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:28,536 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:35,383 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:35,383 - FlowCanonAgent - INFO - LLM refined: 8 canonical flows
+2026-03-12 16:04:35,383 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:04:35,398 - VerificationAgent - INFO - Verification: overall=0.46 (systems=0.33, data=1.00, risks=0.00, flows=0.44) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 16:04:35,399 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 16:04:35,399 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 16:04:35,399 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:35,399 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:38,205 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:38,205 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 16:04:38,206 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:38,206 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:04:46,912 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:04:46,912 - DataFlowAgent - INFO - DataFlowAgent extracted 11 flows
+2026-03-12 16:04:46,912 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:04:46,912 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:05:02,121 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:05:02,122 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 16:05:02,122 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=11, Risks=4
+2026-03-12 16:05:02,122 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 16:05:02,123 - FlowCanonAgent - INFO - Deterministic merge: 21 raw → 10 merged flows
+2026-03-12 16:05:02,123 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:05:02,123 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:05:09,592 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:05:09,593 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 16:05:09,593 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 16:05:09,608 - VerificationAgent - INFO - Verification: overall=0.34 (systems=0.33, data=0.46, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 16:05:09,608 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 16:05:09,609 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:05:09,609 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:05:20,244 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 16:05:20,244 - DFDBuilderAgent - INFO - DFDBuilder created 6 nodes, 9 edges
+2026-03-12 16:05:20,245 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 16:05:20,256 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:05:20,256 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:07:12,279 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: max_tokens
+2026-03-12 16:07:12,280 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 16:07:12,282 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:07:12,283 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:07:46,735 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 16:07:46,735 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.34
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 16:07:46,737 - EntityMerger - INFO - Merged 7 raw entities → 7 unique
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 16:07:46,737 - FlowMerger - INFO - Merged flows → 9 canonical flows
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 16:07:46,737 - GraphBuilder - INFO - Added 7 nodes
+2026-03-12 16:07:46,737 - GraphBuilder - INFO - Added 9 edges
+2026-03-12 16:07:46,737 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 16:07:46,738 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 16:07:46,738 - GraphReasoning - INFO - Inferred 5 implicit flows
+2026-03-12 16:07:46,738 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 16:07:46,738 - GraphValidator - INFO - Validation: PASS — 10 nodes, 14 edges, 2 issues
+2026-03-12 16:07:46,738 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 16:07:46,739 - GraphExporter - INFO - Exported knowledge_graph.json (10 nodes, 14 edges)
+2026-03-12 16:07:46,739 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 16:07:46,739 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 16:07:46,740 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 16:07:46,740 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 16:07:46,740 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 10 nodes, 14 edges (5 inferred)
+2026-03-12 16:07:46,740 - HTMLGenerator - INFO - Building HTML: 10 nodes, 14 edges
+2026-03-12 16:07:46,741 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpfjor661s/privacy_dfd.html (101541 chars)
+2026-03-12 16:07:46,741 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 16:07:46,746 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 16:07:46,746 - SchemaGenerator - INFO - Generating schema one. Transcript length: 47156 characters.
+2026-03-12 16:07:46,748 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:07:46,748 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:09:24,983 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 16:09:24,985 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generated
+2026-03-12 16:09:24,985 - SchemaGenerator - INFO - Executing Data Inventory Generation LLM prompt...
+2026-03-12 16:09:24,990 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 16:09:24,990 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 16:09:57,805 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 16:09:57,806 - SchemaGenerator - INFO - Data inventory generated with 25 rows (attempt 1)
+2026-03-12 16:09:57,806 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Data inventory generated (25 rows)
+2026-03-12 16:09:58,749 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 10 nodes, 14 edges
+2026-03-12 16:10:02,748 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 10 KG nodes, 14 KG edges, 25 mapping rows
+2026-03-12 16:10:02,749 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully

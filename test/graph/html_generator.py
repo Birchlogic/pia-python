@@ -40,9 +40,9 @@ COL_COLORS = ["#dbeafe", "#dcfce7", "#ffedd5", "#f3e8ff"]
 COL_ICONS  = ["📥", "⚙️", "📤", "💾"]
 
 ROWS = [
-    ("External Entities", "#fce7f3", "#be185d"),
-    ("Internal Processes", "#ccfbf1", "#0f766e"),
-    ("Data Stores",        "#fef9c3", "#a16207"),
+    ("Customers", "#fce7f3", "#be185d"),
+    ("Internal Departments", "#ccfbf1", "#0f766e"),
+    ("Vendors",        "#fef9c3", "#a16207"),
 ]
 
 

@@ -2533,3 +2533,1157 @@ openai.BadRequestError: Error code: 400 - {'error': {'message': 'Provider return
 2026-03-11 19:15:54,778 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 14 nodes, 25 edges
 2026-03-11 19:15:56,494 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 14 KG nodes, 25 KG edges, 0 mapping rows
 2026-03-11 19:15:56,494 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 14:30:49,339 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 14:30:49,340 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 14:30:49,340 - FastAPI - ERROR - JWT decode error: Signature has expired
+2026-03-12 14:32:37,976 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 14:32:37,976 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 14:32:39,561 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 14:32:41,113 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-12 14:32:42,051 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-12 14:32:42,518 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-12 14:32:43,452 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-12 14:32:44,139 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 14:32:44,140 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 14:32:44,841 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 14:32:44,841 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:32:45,294 - SystemAgent - ERROR - SystemAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4kuzXQsrfcDfvXjBo'}
+2026-03-12 14:32:45,702 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4nguPXh4cSixY4FRK'}
+2026-03-12 14:32:46,111 - RiskAgent - ERROR - RiskAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4pN7FgoYTjy5cTjiV'}
+2026-03-12 14:32:46,112 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 14:32:46,112 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 14:32:46,114 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-12 14:32:46,521 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4r7XjsCWBPAokdVJ5'}
+2026-03-12 14:32:46,522 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:32:46,522 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 14:32:46,932 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4ssT9qhf7qQBGiirs'}, using deterministic merge
+2026-03-12 14:32:46,933 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:32:46,944 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 14:32:46,944 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 14:32:46,944 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:32:47,691 - SystemAgent - ERROR - SystemAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4uThRo5xdkPBrb91x'}
+2026-03-12 14:32:48,020 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4xj9bp5SsKuooKb9Y'}
+2026-03-12 14:32:48,364 - RiskAgent - ERROR - RiskAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv4z2nJHyK6YEVNyYCp'}
+2026-03-12 14:32:48,365 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 14:32:48,365 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:32:48,365 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 14:32:48,671 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv51YowZTamm9Toui65'}, using deterministic merge
+2026-03-12 14:32:48,671 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:32:48,685 - VerificationAgent - INFO - Verification: overall=0.28 (systems=0.11, data=1.00, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 14:32:48,686 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 14:32:48,686 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:32:49,082 - SystemAgent - ERROR - SystemAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv52uRP4T7x7nrTDxhj'}
+2026-03-12 14:32:49,389 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv54dMKNfTiqbtVgZjw'}
+2026-03-12 14:32:49,798 - RiskAgent - ERROR - RiskAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv55yDmBXFFZMs99PQ1'}
+2026-03-12 14:32:49,798 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-12 14:32:49,798 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:32:49,798 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-12 14:32:50,209 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv57ffKRJD6w46u3HWi'}, using deterministic merge
+2026-03-12 14:32:50,210 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:32:50,224 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-12 14:32:50,225 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 14:32:50,618 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv59iSdEAYAgxjGg66i'}
+2026-03-12 14:32:50,619 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 14:32:51,048 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv5BjywJBudCzyEirxC'}
+2026-03-12 14:32:51,048 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 14:32:51,049 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.15
+2026-03-12 14:32:51,052 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 14:32:51,053 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 14:32:51,053 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 14:32:51,053 - EntityMerger - INFO - Merged 8 raw entities → 8 unique
+2026-03-12 14:32:51,053 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 14:32:51,053 - FlowMerger - INFO - Merged flows → 0 canonical flows
+2026-03-12 14:32:51,053 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 14:32:51,053 - GraphBuilder - INFO - Added 8 nodes
+2026-03-12 14:32:51,053 - GraphBuilder - INFO - Added 0 edges
+2026-03-12 14:32:51,054 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 14:32:51,054 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 14:32:51,054 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-12 14:32:51,054 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 14:32:51,055 - GraphValidator - INFO - Validation: PASS — 8 nodes, 0 edges, 1 issues
+2026-03-12 14:32:51,055 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 14:32:51,057 - GraphExporter - INFO - Exported knowledge_graph.json (8 nodes, 0 edges)
+2026-03-12 14:32:51,057 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-12 14:32:51,058 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-12 14:32:51,058 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-12 14:32:51,059 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-12 14:32:51,059 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 8 nodes, 0 edges (0 inferred)
+2026-03-12 14:32:51,059 - HTMLGenerator - INFO - Building HTML: 8 nodes, 0 edges
+2026-03-12 14:32:51,060 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpo0o8avz2/privacy_dfd.html (33518 chars)
+2026-03-12 14:32:51,069 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 14:32:51,643 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv5DVeoLJXcFJQ6EEHX'}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 178, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 46, in create
+    return self.client.messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 282, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 996, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1364, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1137, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.AuthenticationError: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011CYxv5DVeoLJXcFJQ6EEHX'}
+2026-03-12 14:32:51,651 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-12 14:32:52,334 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 8 nodes, 0 edges
+2026-03-12 14:32:53,585 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 8 KG nodes, 0 KG edges, 0 mapping rows
+2026-03-12 14:32:53,586 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 14:41:24,271 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 14:41:24,271 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 14:41:28,252 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Existing session deleted — restarting pipeline
+2026-03-12 14:41:29,138 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 14:41:30,598 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-12 14:41:31,533 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: HTTP Error 400: Bad Request
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 127, in process_aggressive_pipeline
+    local_files = _download_files(files, temp_dir)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 92, in _download_files
+    with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 525, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+2026-03-12 14:42:37,107 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 14:42:37,108 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 14:42:39,801 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Existing session deleted — restarting pipeline
+2026-03-12 14:42:40,754 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 14:42:42,162 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 14:42:42,700 - FastAPI - ERROR - HTTP Error 400 downloading https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-: {"statusCode":"400","error":"InvalidJWT","message":"\"exp\" claim timestamp check failed"}
+2026-03-12 14:42:42,701 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: 400: Failed to download file 1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt: Bad Request
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 94, in _download_files
+    with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 525, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 634, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 563, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/urllib/request.py", line 643, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 400: Bad Request
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 137, in process_aggressive_pipeline
+    local_files = _download_files(files, temp_dir)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 101, in _download_files
+    raise HTTPException(status_code=400, detail=f"Failed to download file {filename}: {e.reason}")
+fastapi.exceptions.HTTPException: 400: Failed to download file 1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt: Bad Request
+2026-03-12 14:45:47,870 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 14:45:47,870 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 14:45:49,175 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 14:45:50,629 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 14:45:51,245 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp6hv4uiri/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 14:45:51,246 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 14:45:51,854 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp6hv4uiri/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 14:45:51,854 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 14:45:52,417 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp6hv4uiri/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 14:45:52,417 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 14:45:53,124 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp6hv4uiri/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 14:45:53,304 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 14:45:53,305 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 14:45:54,000 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 14:45:54,001 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:46:02,190 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 14:46:21,239 - DataFlowAgent - INFO - DataFlowAgent extracted 18 flows
+2026-03-12 14:47:25,374 - RiskAgent - INFO - RiskAgent identified 11 risks
+2026-03-12 14:47:25,375 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=18, Risks=11
+2026-03-12 14:47:25,375 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 14:47:25,377 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 4 systems → 4, 2 removed
+2026-03-12 14:47:31,771 - EntityNormAgent - INFO - LLM normalized: 6 actors, 4 systems, 3 removed
+2026-03-12 14:47:31,772 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:47:31,772 - FlowCanonAgent - INFO - Deterministic merge: 18 raw → 17 merged flows
+2026-03-12 14:47:48,422 - FlowCanonAgent - INFO - LLM refined: 15 canonical flows
+2026-03-12 14:47:48,423 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:47:48,437 - VerificationAgent - INFO - Verification: overall=0.39 (systems=0.22, data=0.46, risks=0.00, flows=0.83) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 14:47:48,437 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 14:47:48,438 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:47:54,771 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 14:48:19,191 - DataFlowAgent - INFO - DataFlowAgent extracted 16 flows
+2026-03-12 14:49:28,416 - RiskAgent - INFO - RiskAgent identified 13 risks
+2026-03-12 14:49:28,416 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=16, Risks=13
+2026-03-12 14:49:28,417 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:49:28,417 - FlowCanonAgent - INFO - Deterministic merge: 34 raw → 22 merged flows
+2026-03-12 14:49:49,408 - FlowCanonAgent - INFO - LLM refined: 15 canonical flows
+2026-03-12 14:49:49,409 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:49:49,424 - VerificationAgent - INFO - Verification: overall=0.53 (systems=0.22, data=1.00, risks=0.00, flows=0.83) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 14:49:49,424 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 14:49:49,424 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 14:49:53,376 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 14:50:11,728 - DataFlowAgent - INFO - DataFlowAgent extracted 18 flows
+2026-03-12 14:51:12,453 - RiskAgent - INFO - RiskAgent identified 11 risks
+2026-03-12 14:51:12,455 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=18, Risks=11
+2026-03-12 14:51:12,456 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 14:51:12,456 - FlowCanonAgent - INFO - Deterministic merge: 36 raw → 25 merged flows
+2026-03-12 14:51:34,703 - FlowCanonAgent - INFO - LLM refined: 19 canonical flows
+2026-03-12 14:51:34,704 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 14:51:34,718 - VerificationAgent - INFO - Verification: overall=0.43 (systems=0.22, data=0.46, risks=0.00, flows=1.00) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 14:51:34,718 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 14:52:17,657 - DFDBuilderAgent - INFO - DFDBuilder created 13 nodes, 19 edges
+2026-03-12 14:52:17,658 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 14:52:17,669 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "description": "The name of the data element.",
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the data element.",
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum",
+                "description": "Data classification level."
+              },
+              "purpose": {
+                "description": "Purpose of processing.",
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "description": "Retention period.",
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum",
+                "description": "Legal basis for processing."
+              },
+              "storage_location": {
+                "description": "Storage location.",
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "description": "Data owner role or department.",
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 14:52:17,669 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 14:54:30,192 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Expecting ',' delimiter: line 1 column 136 (char 135)
+2026-03-12 14:54:30,194 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 14:54:30,194 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.43
+2026-03-12 14:54:30,199 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 14:54:30,199 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 14:54:30,199 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 14:54:30,200 - EntityMerger - INFO - Merged 10 raw entities → 10 unique
+2026-03-12 14:54:30,200 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 14:54:30,200 - FlowMerger - INFO - Merged flows → 18 canonical flows
+2026-03-12 14:54:30,200 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 14:54:30,200 - GraphBuilder - INFO - Added 10 nodes
+2026-03-12 14:54:30,201 - GraphBuilder - INFO - Added 18 edges
+2026-03-12 14:54:30,201 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 14:54:30,202 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 14:54:30,202 - GraphReasoning - INFO - Inferred 30 implicit flows
+2026-03-12 14:54:30,203 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 14:54:30,206 - GraphValidator - INFO - Validation: PASS — 14 nodes, 48 edges, 2 issues
+2026-03-12 14:54:30,206 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 14:54:30,209 - GraphExporter - INFO - Exported knowledge_graph.json (14 nodes, 48 edges)
+2026-03-12 14:54:30,210 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 48 flows)
+2026-03-12 14:54:30,211 - GraphExporter - INFO - Exported dfd_render_plan.json (7 levels)
+2026-03-12 14:54:30,213 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 48 flows)
+2026-03-12 14:54:30,214 - GraphExporter - INFO - Exported dfd_render_plan.json (7 levels)
+2026-03-12 14:54:30,214 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 14 nodes, 48 edges (30 inferred)
+2026-03-12 14:54:30,215 - HTMLGenerator - INFO - Building HTML: 14 nodes, 48 edges
+2026-03-12 14:54:30,217 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp6hv4uiri/privacy_dfd.html (181058 chars)
+2026-03-12 14:54:30,225 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 14:54:30,228 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum"
+              },
+              "storage_location": {
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-12 14:54:30,228 - LLMAdapterDebug - INFO - OpenRouter/OpenAI Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-12 14:56:39,014 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Expecting ',' delimiter: line 1 column 121 (char 120)
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 194, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 123, in create
+    "input": json.loads(tc.arguments),
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.local/share/uv/python/cpython-3.11.15-macos-aarch64-none/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting ',' delimiter: line 1 column 121 (char 120)
+2026-03-12 14:56:39,021 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-12 14:56:39,034 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT dfd_sessions.session_id AS dfd_sessions_session_id, dfd_sessions.department AS dfd_sessions_department, dfd_sessions.status AS dfd_sessions_status, dfd_sessions.error_message AS dfd_sessions_error_message, dfd_sessions.schema_one_json AS dfd_sessions_schema_one_json, dfd_sessions.dfd_json AS dfd_sessions_dfd_json, dfd_sessions.privacy_dfd_md AS dfd_sessions_privacy_dfd_md, dfd_sessions.processing_mode AS dfd_sessions_processing_mode, dfd_sessions.actors_json AS dfd_sessions_actors_json, dfd_sessions.systems_json AS dfd_sessions_systems_json, dfd_sessions.data_elements_json AS dfd_sessions_data_elements_json, dfd_sessions.flows_json AS dfd_sessions_flows_json, dfd_sessions.risks_json AS dfd_sessions_risks_json, dfd_sessions.compliance_schema_json AS dfd_sessions_compliance_schema_json, dfd_sessions.verification_report_json AS dfd_sessions_verification_report_json, dfd_sessions.interactive_html AS dfd_sessions_interactive_html, dfd_sessions.dfd_render_plan_json AS dfd_sessions_dfd_render_plan_json, dfd_sessions.created_at AS dfd_sessions_created_at, dfd_sessions.updated_at AS dfd_sessions_updated_at 
+FROM dfd_sessions 
+WHERE dfd_sessions.session_id = %(session_id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'session_id_1': '1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 212, in process_aggressive_pipeline
+    db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT dfd_sessions.session_id AS dfd_sessions_session_id, dfd_sessions.department AS dfd_sessions_department, dfd_sessions.status AS dfd_sessions_status, dfd_sessions.error_message AS dfd_sessions_error_message, dfd_sessions.schema_one_json AS dfd_sessions_schema_one_json, dfd_sessions.dfd_json AS dfd_sessions_dfd_json, dfd_sessions.privacy_dfd_md AS dfd_sessions_privacy_dfd_md, dfd_sessions.processing_mode AS dfd_sessions_processing_mode, dfd_sessions.actors_json AS dfd_sessions_actors_json, dfd_sessions.systems_json AS dfd_sessions_systems_json, dfd_sessions.data_elements_json AS dfd_sessions_data_elements_json, dfd_sessions.flows_json AS dfd_sessions_flows_json, dfd_sessions.risks_json AS dfd_sessions_risks_json, dfd_sessions.compliance_schema_json AS dfd_sessions_compliance_schema_json, dfd_sessions.verification_report_json AS dfd_sessions_verification_report_json, dfd_sessions.interactive_html AS dfd_sessions_interactive_html, dfd_sessions.dfd_render_plan_json AS dfd_sessions_dfd_render_plan_json, dfd_sessions.created_at AS dfd_sessions_created_at, dfd_sessions.updated_at AS dfd_sessions_updated_at 
+FROM dfd_sessions 
+WHERE dfd_sessions.session_id = %(session_id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'session_id_1': '1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-03-12 14:56:39,045 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Failed to update error status in DB
+Traceback (most recent call last):
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.OperationalError: SSL connection has been closed unexpectedly
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 212, in process_aggressive_pipeline
+    db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT dfd_sessions.session_id AS dfd_sessions_session_id, dfd_sessions.department AS dfd_sessions_department, dfd_sessions.status AS dfd_sessions_status, dfd_sessions.error_message AS dfd_sessions_error_message, dfd_sessions.schema_one_json AS dfd_sessions_schema_one_json, dfd_sessions.dfd_json AS dfd_sessions_dfd_json, dfd_sessions.privacy_dfd_md AS dfd_sessions_privacy_dfd_md, dfd_sessions.processing_mode AS dfd_sessions_processing_mode, dfd_sessions.actors_json AS dfd_sessions_actors_json, dfd_sessions.systems_json AS dfd_sessions_systems_json, dfd_sessions.data_elements_json AS dfd_sessions_data_elements_json, dfd_sessions.flows_json AS dfd_sessions_flows_json, dfd_sessions.risks_json AS dfd_sessions_risks_json, dfd_sessions.compliance_schema_json AS dfd_sessions_compliance_schema_json, dfd_sessions.verification_report_json AS dfd_sessions_verification_report_json, dfd_sessions.interactive_html AS dfd_sessions_interactive_html, dfd_sessions.dfd_render_plan_json AS dfd_sessions_dfd_render_plan_json, dfd_sessions.created_at AS dfd_sessions_created_at, dfd_sessions.updated_at AS dfd_sessions_updated_at 
+FROM dfd_sessions 
+WHERE dfd_sessions.session_id = %(session_id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'session_id_1': '1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 292, in process_aggressive_pipeline
+    db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2759, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1813, in _execute_context
+    conn = self._revalidate_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 673, in _revalidate_connection
+    self._invalid_transaction()
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 663, in _invalid_transaction
+    raise exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: Can't reconnect until invalid transaction is rolled back.  Please rollback() fully before proceeding (Background on this error at: https://sqlalche.me/e/20/8s2b)
+2026-03-12 15:00:15,630 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 15:00:15,632 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 15:00:19,886 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Existing session deleted — restarting pipeline
+2026-03-12 15:00:20,892 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 15:00:20,894 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 15:00:21,548 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpwrjfwqyb/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 15:00:21,548 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 15:00:21,936 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpwrjfwqyb/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 15:00:21,937 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 15:00:22,348 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpwrjfwqyb/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 15:00:22,349 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 15:00:22,748 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpwrjfwqyb/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 15:00:22,941 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 15:00:22,941 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 15:00:23,598 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 15:00:23,598 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:00:31,298 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 15:00:52,755 - DataFlowAgent - INFO - DataFlowAgent extracted 16 flows
+2026-03-12 15:01:54,308 - RiskAgent - INFO - RiskAgent identified 10 risks
+2026-03-12 15:01:54,308 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=16, Risks=10
+2026-03-12 15:01:54,308 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 15:01:54,308 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 15:01:59,574 - EntityNormAgent - INFO - LLM normalized: 6 actors, 3 systems, 3 removed
+2026-03-12 15:01:59,574 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 15:01:59,575 - FlowCanonAgent - INFO - Deterministic merge: 16 raw → 14 merged flows
+2026-03-12 15:02:18,061 - FlowCanonAgent - INFO - LLM refined: 14 canonical flows
+2026-03-12 15:02:18,062 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 15:02:18,076 - VerificationAgent - INFO - Verification: overall=0.38 (systems=0.22, data=0.46, risks=0.00, flows=0.78) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-12 15:02:18,076 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 15:02:18,076 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 15:02:23,519 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-12 15:02:44,268 - DataFlowAgent - INFO - DataFlowAgent extracted 15 flows

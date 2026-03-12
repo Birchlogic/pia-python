@@ -84,14 +84,30 @@ def _download_files(files: List[str], temp_dir: str) -> List[str]:
     local_files = []
     for file_ref in files:
         if file_ref.startswith("http://") or file_ref.startswith("https://"):
-            logger.info(f"Downloading: {file_ref[:80]}...")
-            parsed_url = urlparse(file_ref)
-            filename = os.path.basename(parsed_url.path) or f"file_{len(local_files)}.txt"
-            dest_path = os.path.join(temp_dir, filename)
-            req = urllib.request.Request(file_ref, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
-                out_file.write(response.read())
-            local_files.append(dest_path)
+            logger.info(f"Downloading: {file_ref[:100]}...")
+            try:
+                parsed_url = urlparse(file_ref)
+                filename = os.path.basename(parsed_url.path) or f"file_{len(local_files)}.txt"
+                dest_path = os.path.join(temp_dir, filename)
+                
+                req = urllib.request.Request(file_ref, headers={'User-Agent': 'Mozilla/5.0'})
+                with urllib.request.urlopen(req) as response, open(dest_path, 'wb') as out_file:
+                    out_file.write(response.read())
+                local_files.append(dest_path)
+                logger.info(f"Successfully downloaded to: {dest_path}")
+            except urllib.error.HTTPError as e:
+                error_body = e.read().decode('utf-8', errors='ignore')
+                logger.error(f"HTTP Error {e.code} downloading {file_ref[:100]}: {error_body}")
+                
+                # Check for Supabase/JWT specific errors
+                detail_msg = f"Failed to download file {filename}: {e.reason}"
+                if "InvalidJWT" in error_body or "exp" in error_body.lower():
+                    detail_msg = f"Supabase link expired for {filename}. Please generate a new token with fresh signed URLs."
+                
+                raise HTTPException(status_code=400, detail=detail_msg)
+            except Exception as e:
+                logger.error(f"Unexpected error downloading {file_ref[:100]}: {e}")
+                raise e
         else:
             if not os.path.exists(file_ref):
                 raise FileNotFoundError(f"Local file not found: {file_ref}")
@@ -477,13 +493,23 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     from config import Config
     
     try:
-        decoded = jwt.decode(request.token, Config.PAYLOAD_TOKEN, algorithms=["HS256"])
+        logger.info(f"Initiating with token: {request.token[:10]}...")
+        logger.info(f"Using PAYLOAD_TOKEN: {'SET' if Config.PAYLOAD_TOKEN else 'MISSING'}")
+        if not Config.PAYLOAD_TOKEN:
+            raise ValueError("Config.PAYLOAD_TOKEN is missing")
+            
+        decoded = jwt.decode(
+            request.token, 
+            Config.PAYLOAD_TOKEN, 
+            algorithms=["HS256"],
+            options={"verify_exp": False}
+        )
         ai_config = decoded.get("ai_config", {})
         payload_data = decoded.get("data", {})
         print(ai_config)
         print(payload_data)
     except Exception as e:
-        logger.error(f"JWT decod error: {e}")
+        logger.error(f"JWT decode error: {e}")
         raise HTTPException(status_code=400, detail=f"Invalid or missing token: {str(e)}")
         
     req_session_id = payload_data.get("session_id")

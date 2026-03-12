@@ -101,6 +101,12 @@ class OpenAIAdapter(AbstractMessagesAPI):
         # Remove any unsupported kwargs like metadata or thinking flags
         kwargs.pop("metadata", None)
         
+        if "tools" in kwargs or "tool_choice" in kwargs:
+            from utils.logger import setup_logger
+            debug_logger = setup_logger("LLMAdapterDebug")
+            debug_logger.info(f"OpenRouter/OpenAI Tools: {json.dumps(kwargs.get('tools'), indent=2)}")
+            debug_logger.info(f"OpenRouter/OpenAI Tool Choice: {json.dumps(kwargs.get('tool_choice'), indent=2)}")
+
         resp = self.client.chat.completions.create(
             model=normalized_model,
             messages=full_messages,

@@ -49,6 +49,9 @@ ROWS = [
 class HTMLGeneratorAgent:
     """Generates a self-contained HTML DFD dashboard from JSON data."""
 
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+
     def generate(self, graph_dir, pipeline_dir, output_path, **kwargs):
         graph_dir = Path(graph_dir)
         pipeline_dir = Path(pipeline_dir)

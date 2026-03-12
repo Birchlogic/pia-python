@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 import json
 from typing import List, Optional
 from enum import Enum
@@ -198,10 +199,11 @@ Output strictly valid JSON as an array of objects.
 """
 
 class SchemaGeneratorAgent:
-    def __init__(self):
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
         Config.validate()
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
 
     def run(self, raw_text: str, pipeline_output: dict):
         """Runs both Schema-1 and Data Inventory generation dynamically."""

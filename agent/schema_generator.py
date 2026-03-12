@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 import anthropic
 import json
 from enum import Enum
@@ -281,9 +282,10 @@ Output strictly valid JSON as an array of objects:
 # ==========================================
 
 class SchemaGenerator:
-    def __init__(self):
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
 
     def generate_schema_one(self, combined_transcript: str) -> dict:
         """Executes Step 1: Generates the extensive JSON node/flow schema."""

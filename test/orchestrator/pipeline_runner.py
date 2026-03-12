@@ -50,22 +50,24 @@ MAX_REPROCESS_ATTEMPTS = 2
 
 class PipelineRunner:
 
-    def __init__(self):
+    def __init__(self, ai_config: dict = None):
         Config.validate()
+        self.ai_config = ai_config or {}
+        
         self.transcript_cleaner = CleanTranscripts()
         self.notes_cleaner = CleanFieldNotes()
 
         # Extraction agents
-        self.system_agent = SystemExtractionAgent()
-        self.dataflow_agent = DataFlowAgent()
-        self.risk_agent = RiskAnalysisAgent()
-        self.dfd_agent = DFDBuilderAgent()
+        self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+        self.dataflow_agent = DataFlowAgent(ai_config=self.ai_config)
+        self.risk_agent = RiskAnalysisAgent(ai_config=self.ai_config)
+        self.dfd_agent = DFDBuilderAgent(ai_config=self.ai_config)
 
         # Enhancement agents
-        self.entity_norm_agent = EntityNormalizationAgent()
-        self.flow_canon_agent = FlowCanonicalizerAgent()
-        self.verification_agent = PipelineVerificationAgent()
-        self.schema_agent = SchemaGeneratorAgent()
+        self.entity_norm_agent = EntityNormalizationAgent(ai_config=self.ai_config)
+        self.flow_canon_agent = FlowCanonicalizerAgent(ai_config=self.ai_config)
+        self.verification_agent = PipelineVerificationAgent(ai_config=self.ai_config)
+        self.schema_agent = SchemaGeneratorAgent(ai_config=self.ai_config)
 
     # ─────────────────────────────────────────────────
     # Phase 1: Ingest + Clean

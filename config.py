@@ -6,6 +6,7 @@ load_dotenv()
 class Config:
     ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
     DATABASE_URL = os.getenv("DATABASE_URL")
+    PAYLOAD_TOKEN = os.getenv("PAYLOAD_TOKEN")
     
     # Path settings
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -16,7 +17,7 @@ class Config:
     
     # Model settings
     EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-    CLAUDE_MODEL = "claude-sonnet-4-20250514"
+    CLAUDE_MODEL = "claude-3-5-sonnet-20240620"
     
     # RAG settings
     CHUNK_SIZE = 1000

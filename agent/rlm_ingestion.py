@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 """
 RLM-Powered Ingestion Agent
 
@@ -40,9 +41,10 @@ class RLMIngestionAgent:
     - Deduplicates naturally (one consolidated output)
     """
 
-    def __init__(self, verbose: bool = False, max_iterations: int = 15):
+    def __init__(self, verbose: bool = False, max_iterations: int = 15, ai_config: dict = None):
         self.verbose = verbose
         self.max_iterations = max_iterations
+        self.ai_config = ai_config or {}
 
     def ingest_all(self, file_paths: List[str]) -> ExtractedTranscriptData:
         """
@@ -70,11 +72,21 @@ class RLMIngestionAgent:
         total_chars = sum(len(c) for c in chunks)
         logger.info(f"  Total context: {total_chars:,} chars across {len(chunks)} chunks")
 
+        # Determine backend/api_key/model from ai_config
+        backend = "anthropic"
+        if self.ai_config.get("type") == "OPENAI":
+            backend = "openai"
+        elif self.ai_config.get("type") == "OPENROUTER":
+            backend = "openrouter"
+            
+        api_key = self.ai_config.get("apiKey") or Config.ANTHROPIC_API_KEY
+        model = self.ai_config.get("model") or Config.CLAUDE_MODEL
+
         # Initialize RLM engine
         rlm = RLM(
-            backend="anthropic",
-            api_key=Config.ANTHROPIC_API_KEY,
-            model=Config.CLAUDE_MODEL,
+            backend=backend,
+            api_key=api_key,
+            model=model,
             max_iterations=self.max_iterations,
             verbose=self.verbose,
         )

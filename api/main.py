@@ -34,12 +34,7 @@ app.add_middleware(
 # ── Request / Response Models ────────────────────────
 
 class InitiateRequest(BaseModel):
-    session_id: str
-    department: str
-    files: List[str] = []
-    use_rlm: Optional[bool] = False
-    aggressive_processing: Optional[bool] = False
-    processing_mode: Optional[str] = None  # accepted but derived internally
+    token: str
 
 class InitiateResponse(BaseModel):
     session_id: str
@@ -116,14 +111,16 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 # ── Unified Background Pipeline ─────────────────────
 
-def process_aggressive_pipeline(session_id: str, department: str, files: List[str]):
-    db = SessionLocal()
+def process_aggressive_pipeline(session_id: str, department: str, files: List[str], db: Session, ai_config: dict = None):
     try:
         logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
 
         from test.orchestrator.pipeline_runner import PipelineRunner
         from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
         from test.graph.html_generator import HTMLGeneratorAgent
+
+        ai_config = ai_config or {}
+
 
         with tempfile.TemporaryDirectory() as temp_dir:
             # 1. Download and combine
@@ -134,7 +131,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 f.write(combined_transcript)
             
             # 2. Run Pipeline (Phases 1-9)
-            runner = PipelineRunner()
+            runner = PipelineRunner(ai_config=ai_config)
             result = runner.process_file(combined_path)
 
             # 3. Save to temp for Graph Builder
@@ -146,11 +143,11 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             # 4. Build Knowledge Graph
             graph_dir = os.path.join(temp_dir, "graph")
             os.makedirs(graph_dir)
-            kg_agent = KnowledgeGraphAgent()
+            kg_agent = KnowledgeGraphAgent(ai_config=ai_config)
             kg_result = kg_agent.build_graph(pipeline_dir, graph_dir)
 
             # 5. Generate HTML DFD
-            html_gen = HTMLGeneratorAgent()
+            html_gen = HTMLGeneratorAgent(ai_config=ai_config)
             html_path = os.path.join(temp_dir, "privacy_dfd.html")
             html_gen.generate(graph_dir, pipeline_dir, html_path)
             
@@ -176,7 +173,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             schema_one_json = None
             inventory_rows = []
 
-            generator = SchemaGenerator()
+            generator = SchemaGenerator(ai_config=ai_config)
             try:
                 schema_one_json = generator.generate_schema_one(combined_transcript)
                 logger.info(f"[{session_id}] Schema-1 generated")
@@ -288,8 +285,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         db.close()
 
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool):
-    db = SessionLocal()
+def process_unified_pipeline(session_id: str, department: str, files: List[str], db: Session, use_rlm: bool, ai_config: dict = None):
     try:
         logger.info(f"[{session_id}] Pipeline starting for department: {department}")
 
@@ -303,6 +299,7 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
         from agent.learning import LearningLoop
 
         Config.validate()
+        ai_config = ai_config or {}
 
         with tempfile.TemporaryDirectory() as temp_dir:
             # ── 1. Download files ────────────────────
@@ -312,28 +309,28 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
 
             # ── 2. Ingest transcripts ────────────────
             kb_builder = KBBuilder()
-            retrieval_agent = RetrievalAgent()
+            retrieval_agent = RetrievalAgent(ai_config=ai_config)
             learning_loop = LearningLoop(kb_builder)
 
             if use_rlm:
                 # ── 2a. RLM-powered ingestion (all files at once) ──
                 from agent.rlm_ingestion import RLMIngestionAgent
                 logger.info(f"[{session_id}] Using RLM ingestion for cross-transcript analysis")
-                rlm_agent = RLMIngestionAgent(verbose=False)
+                rlm_agent = RLMIngestionAgent(verbose=False, ai_config=ai_config)
                 try:
                     consolidated_data = rlm_agent.ingest_all(local_files)
                     extracted_data_list = [consolidated_data]
                     logger.info(f"[{session_id}] RLM ingestion completed successfully")
                 except Exception as e:
                     logger.warning(f"[{session_id}] RLM ingestion failed, falling back to standard: {e}")
-                    ingestion_agent = IngestionAgent()
+                    ingestion_agent = IngestionAgent(ai_config=ai_config)
                     extracted_data_list = []
                     for idx, file_path in enumerate(local_files):
                         data = ingestion_agent.ingest_transcript(file_path)
                         extracted_data_list.append(data)
             else:
                 # ── 2b. Standard per-file ingestion (original behavior) ──
-                ingestion_agent = IngestionAgent()
+                ingestion_agent = IngestionAgent(ai_config=ai_config)
                 extracted_data_list = []
                 for idx, file_path in enumerate(local_files):
                     data = ingestion_agent.ingest_transcript(file_path)
@@ -363,7 +360,7 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             schema_one_json = None
             inventory_rows = []
 
-            generator = SchemaGenerator()
+            generator = SchemaGenerator(ai_config=ai_config)
             try:
                 schema_one_json = generator.generate_schema_one(combined_transcript)
                 logger.info(f"[{session_id}] Schema-1 generated")
@@ -385,7 +382,7 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             # ── 5. DFD Extraction (with validation) ──
             dfd_json = None
             try:
-                dfd_extractor = DFDExtractor()
+                dfd_extractor = DFDExtractor(ai_config=ai_config)
                 dfd_json = dfd_extractor.extract(department, extracted_data_list, context)
                 final_validation = validate_dfd(dfd_json)
                 logger.info(f"[{session_id}] DFD validation: {final_validation['score']}/100")
@@ -395,7 +392,7 @@ def process_unified_pipeline(session_id: str, department: str, files: List[str],
             # ── 6. Mermaid Privacy DFD ────────────────
             privacy_dfd_md = None
             try:
-                privacy_dfd_agent = PrivacyDFDAgent()
+                privacy_dfd_agent = PrivacyDFDAgent(ai_config=ai_config)
                 privacy_dfd_md = privacy_dfd_agent.generate_department_dfd(
                     department, extracted_data_list, context
                 )
@@ -476,19 +473,39 @@ class UpdateSessionDFDRequest(BaseModel):
 
 @app.post("/api/initiate", response_model=InitiateResponse)
 def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    existing = db.query(DFDSession).filter(DFDSession.session_id == request.session_id).first()
+    import jwt
+    from config import Config
+    
+    try:
+        decoded = jwt.decode(request.token, Config.PAYLOAD_TOKEN, algorithms=["HS256"])
+        ai_config = decoded.get("ai_config", {})
+        payload_data = decoded.get("data", {})
+        print(ai_config)
+        print(payload_data)
+    except Exception as e:
+        logger.error(f"JWT decod error: {e}")
+        raise HTTPException(status_code=400, detail=f"Invalid or missing token: {str(e)}")
+        
+    req_session_id = payload_data.get("session_id")
+    req_department = payload_data.get("department")
+    req_files = payload_data.get("files", [])
+    
+    if not req_session_id or not req_department:
+        raise HTTPException(status_code=400, detail="Missing required session_id or department in token data")
+
+    existing = db.query(DFDSession).filter(DFDSession.session_id == req_session_id).first()
     if existing:
         # Clean up all related data and restart
-        db.query(DataMappingRow).filter(DataMappingRow.session_id == request.session_id).delete()
-        db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == request.session_id).delete()
-        db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == request.session_id).delete()
+        db.query(DataMappingRow).filter(DataMappingRow.session_id == req_session_id).delete()
+        db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == req_session_id).delete()
+        db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == req_session_id).delete()
         db.delete(existing)
         db.commit()
-        logger.info(f"[{request.session_id}] Existing session deleted — restarting pipeline")
+        logger.info(f"[{req_session_id}] Existing session deleted — restarting pipeline")
 
     # Normalize None → False so downstream never sees None
-    use_rlm = bool(request.use_rlm)
-    aggressive = bool(request.aggressive_processing)
+    use_rlm = bool(payload_data.get("use_rlm", False))
+    aggressive = bool(payload_data.get("aggressive_processing", False))
 
     processing_mode = "normal"
     if aggressive:
@@ -497,8 +514,8 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         processing_mode = "rlm"
 
     new_session = DFDSession(
-        session_id=request.session_id,
-        department=request.department,
+        session_id=req_session_id,
+        department=req_department,
         status="processing",
         processing_mode=processing_mode
     )
@@ -508,16 +525,16 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if aggressive:
         background_tasks.add_task(
             process_aggressive_pipeline,
-            request.session_id, request.department, request.files or []
+            req_session_id, req_department, req_files or [], db, ai_config
         )
     else:
         background_tasks.add_task(
             process_unified_pipeline,
-            request.session_id, request.department, request.files or [], use_rlm
+            req_session_id, req_department, req_files or [], db, use_rlm, ai_config
         )
 
     return InitiateResponse(
-        session_id=request.session_id,
+        session_id=req_session_id,
         message="Pipeline started. Use /api/status/{session_id} to track progress."
     )
 

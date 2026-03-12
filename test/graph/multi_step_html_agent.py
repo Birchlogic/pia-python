@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 """
 Multi-Step HTML Agent — A robust generator that builds the
 dashboard incrementally in chunks to avoid LLM token limits.
@@ -58,9 +59,10 @@ YOUR JOB is to generate an HTML skeleton and a `<script>` block that DYNAMICALLY
 Return ONLY raw HTML. No markdown code formatting."""
 
 class SingleShotTemplateAgent:
-    def __init__(self):
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
         self.previewer = VisualPreviewer()
 
     def generate(self, graph_dir, pipeline_dir, output_path, max_visual_iterations=2):

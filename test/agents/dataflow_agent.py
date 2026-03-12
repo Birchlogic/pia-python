@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 """
 DataFlowAgent — Uses Anthropic Claude to infer data flows between
 actors, systems, and data stores from structured NLP chunks.
@@ -36,9 +37,10 @@ Example:
 
 class DataFlowAgent:
 
-    def __init__(self):
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
 
     def extract(self, text_chunks, actors=None, systems=None, data_elements=None):
         """

@@ -1916,3 +1916,620 @@ Feedback for improvement:
 2026-03-10 19:50:00,521 - PipelineRunner - INFO - Saved: /Users/manishtellisim/Desktop/Birchlogic/pia-python/test/pipeline_output/Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17_intelligence.json
 2026-03-10 19:50:00,521 - PipelineRunner - INFO - Saved: /Users/manishtellisim/Desktop/Birchlogic/pia-python/test/pipeline_output/Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21_intelligence.json
 2026-03-10 19:50:00,522 - PipelineRunner - INFO - Saved: /Users/manishtellisim/Desktop/Birchlogic/pia-python/test/pipeline_output/Session4_CC_Systems_DataMapping_AnalystNotes_Jan23_intelligence.json
+2026-03-11 15:30:26,427 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Aggressive Pipeline starting for department: Sales
+2026-03-11 15:30:29,404 - FastAPI - ERROR - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Aggressive Pipeline failed: unable to infer type for attribute "REGEX"
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 124, in process_aggressive_pipeline
+    from test.orchestrator.pipeline_runner import PipelineRunner
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 27, in <module>
+    from test.clean_transcripts import CleanTranscripts
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/clean_transcripts.py", line 5, in <module>
+    import spacy
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/__init__.py", line 13, in <module>
+    from . import pipeline  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/__init__.py", line 1, in <module>
+    from .attributeruler import AttributeRuler
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/attributeruler.py", line 10, in <module>
+    from ..language import Language
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/language.py", line 46, in <module>
+    from .pipe_analysis import analyze_pipes, print_pipe_analysis, validate_attrs
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipe_analysis.py", line 6, in <module>
+    from .tokens import Doc, Span, Token
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/__init__.py", line 1, in <module>
+    from ._serialize import DocBin
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/_serialize.py", line 14, in <module>
+    from ..vocab import Vocab
+  File "spacy/vocab.pyx", line 1, in init spacy.vocab
+  File "spacy/tokens/doc.pyx", line 49, in init spacy.tokens.doc
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/schemas.py", line 195, in <module>
+    class TokenPatternString(BaseModel):
+    ...<43 lines>...
+            return v
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/main.py", line 221, in __new__
+    inferred = ModelField.infer(
+        name=var_name,
+    ...<3 lines>...
+        config=config,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 504, in infer
+    return cls(
+        name=name,
+    ...<7 lines>...
+        field_info=field_info,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 434, in __init__
+    self.prepare()
+    ~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 544, in prepare
+    self._set_default_and_type()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 576, in _set_default_and_type
+    raise errors_.ConfigError(f'unable to infer type for attribute "{self.name}"')
+pydantic.v1.errors.ConfigError: unable to infer type for attribute "REGEX"
+2026-03-11 15:34:17,186 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Aggressive Pipeline starting for department: Sales
+2026-03-11 15:34:21,188 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 15:34:21,977 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-11 15:34:21,978 - PipelineRunner - INFO -   [1] Doc type: unknown (confidence: 0.00)
+2026-03-11 15:34:22,006 - PipelineRunner - INFO -   [2] Deterministic: Actors=3, Systems=0, Elements=1, Risks=1
+2026-03-11 15:34:22,006 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 15:34:25,206 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-11 15:34:30,354 - DataFlowAgent - INFO - DataFlowAgent extracted 7 flows
+2026-03-11 15:34:42,380 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-11 15:34:42,381 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=7, Risks=4
+2026-03-11 15:34:42,381 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-11 15:34:42,382 - EntityNormAgent - INFO - Rule-based: 3 actors → 3, 5 systems → 5, 0 removed
+2026-03-11 15:34:46,580 - EntityNormAgent - INFO - LLM normalized: 3 actors, 4 systems, 1 removed
+2026-03-11 15:34:46,580 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 15:34:46,580 - FlowCanonAgent - INFO - Deterministic merge: 7 raw → 7 merged flows
+2026-03-11 15:34:53,122 - FlowCanonAgent - INFO - LLM refined: 7 canonical flows
+2026-03-11 15:34:53,123 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 15:34:53,124 - VerificationAgent - INFO - Verification: overall=0.83 (systems=1.00, data=0.33, risks=1.00, flows=1.00) | missing_systems=0 | hallucinated=0 | reprocess=YES
+2026-03-11 15:34:53,124 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-11 15:34:53,124 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 15:34:56,918 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-11 15:35:02,054 - DataFlowAgent - INFO - DataFlowAgent extracted 7 flows
+2026-03-11 15:35:14,327 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-11 15:35:14,328 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=7, Risks=4
+2026-03-11 15:35:14,328 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 15:35:14,329 - FlowCanonAgent - INFO - Deterministic merge: 14 raw → 7 merged flows
+2026-03-11 15:35:19,752 - FlowCanonAgent - INFO - LLM refined: 7 canonical flows
+2026-03-11 15:35:19,753 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 15:35:19,753 - VerificationAgent - INFO - Verification: overall=1.00 (systems=1.00, data=1.00, risks=1.00, flows=1.00) | missing_systems=0 | hallucinated=0 | reprocess=NO
+2026-03-11 15:35:19,753 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-11 15:35:28,553 - DFDBuilderAgent - INFO - DFDBuilder created 7 nodes, 7 edges
+2026-03-11 15:35:28,554 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-11 15:36:17,411 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-11 15:36:26,079 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 1.00
+2026-03-11 15:36:26,085 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-11 15:36:26,085 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-11 15:36:26,086 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-11 15:36:26,086 - EntityMerger - INFO - Merged 7 raw entities → 7 unique
+2026-03-11 15:36:26,086 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-11 15:36:26,087 - FlowMerger - INFO - Merged flows → 7 canonical flows
+2026-03-11 15:36:26,087 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-11 15:36:26,087 - GraphBuilder - INFO - Added 7 nodes
+2026-03-11 15:36:26,087 - GraphBuilder - INFO - Added 7 edges
+2026-03-11 15:36:26,087 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-11 15:36:26,088 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-11 15:36:26,088 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-11 15:36:26,088 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-11 15:36:26,090 - GraphValidator - INFO - Validation: PASS — 9 nodes, 7 edges, 2 issues
+2026-03-11 15:36:26,090 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-11 15:36:26,092 - GraphExporter - INFO - Exported knowledge_graph.json (9 nodes, 7 edges)
+2026-03-11 15:36:26,092 - GraphExporter - INFO - Exported privacy_dfd.json (9 nodes, 7 flows)
+2026-03-11 15:36:26,094 - GraphExporter - INFO - Exported dfd_render_plan.json (4 levels)
+2026-03-11 15:36:26,095 - GraphExporter - INFO - Exported privacy_dfd.json (9 nodes, 7 flows)
+2026-03-11 15:36:26,095 - GraphExporter - INFO - Exported dfd_render_plan.json (4 levels)
+2026-03-11 15:36:26,095 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 9 nodes, 7 edges (0 inferred)
+2026-03-11 15:36:26,096 - HTMLGenerator - INFO - Building HTML: 9 nodes, 7 edges
+2026-03-11 15:36:26,098 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmprgl684hj/privacy_dfd.html (70681 chars)
+2026-03-11 15:36:26,108 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-11 15:36:55,400 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Schema-1 generated
+2026-03-11 15:36:55,401 - SchemaGenerator - INFO - Executing Data Inventory Generation LLM prompt...
+2026-03-11 15:37:05,503 - SchemaGenerator - INFO - Data inventory generated with 9 rows (attempt 1)
+2026-03-11 15:37:05,503 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Data inventory generated (9 rows)
+2026-03-11 15:37:07,968 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] graph_data loaded: 9 nodes, 7 edges
+2026-03-11 15:37:10,134 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] DB committed: 9 KG nodes, 7 KG edges, 9 mapping rows
+2026-03-11 15:37:10,134 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Aggressive Pipeline completed successfully
+2026-03-11 18:39:45,677 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:39:48,003 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: unable to infer type for attribute "REGEX"
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 118, in process_aggressive_pipeline
+    from test.orchestrator.pipeline_runner import PipelineRunner
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 27, in <module>
+    from test.clean_transcripts import CleanTranscripts
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/clean_transcripts.py", line 5, in <module>
+    import spacy
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/__init__.py", line 13, in <module>
+    from . import pipeline  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/__init__.py", line 1, in <module>
+    from .attributeruler import AttributeRuler
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/attributeruler.py", line 10, in <module>
+    from ..language import Language
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/language.py", line 46, in <module>
+    from .pipe_analysis import analyze_pipes, print_pipe_analysis, validate_attrs
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipe_analysis.py", line 6, in <module>
+    from .tokens import Doc, Span, Token
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/__init__.py", line 1, in <module>
+    from ._serialize import DocBin
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/_serialize.py", line 14, in <module>
+    from ..vocab import Vocab
+  File "spacy/vocab.pyx", line 1, in init spacy.vocab
+  File "spacy/tokens/doc.pyx", line 49, in init spacy.tokens.doc
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/schemas.py", line 195, in <module>
+    class TokenPatternString(BaseModel):
+    ...<43 lines>...
+            return v
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/main.py", line 221, in __new__
+    inferred = ModelField.infer(
+        name=var_name,
+    ...<3 lines>...
+        config=config,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 504, in infer
+    return cls(
+        name=name,
+    ...<7 lines>...
+        field_info=field_info,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 434, in __init__
+    self.prepare()
+    ~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 544, in prepare
+    self._set_default_and_type()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 576, in _set_default_and_type
+    raise errors_.ConfigError(f'unable to infer type for attribute "{self.name}"')
+pydantic.v1.errors.ConfigError: unable to infer type for attribute "REGEX"
+2026-03-11 18:42:02,523 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:42:03,862 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:42:04,739 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:42:05,692 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:42:06,410 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:42:07,305 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.client = get_llm_client(self.ai_config)
+                                 ^^^^^^^^^^^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:43:49,830 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:43:49,833 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:43:50,384 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:43:51,062 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:43:51,777 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:43:52,421 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.ai_config = ai_config or {}
+                                 ^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:46:02,407 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:46:02,408 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:46:03,160 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:46:03,828 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:46:04,451 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:46:05,271 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.ai_config = ai_config or {}
+                                 ^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:49:29,258 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:49:29,261 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:49:30,011 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:49:31,751 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:49:32,375 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:49:33,170 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.ai_config = ai_config or {}
+                                 ^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:50:21,884 - FastAPI - INFO - [test-session-jwt-1] Aggressive Pipeline starting for department: HR
+2026-03-11 18:50:22,088 - FastAPI - ERROR - [test-session-jwt-1] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.ai_config = ai_config or {}
+                                 ^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:51:17,535 - FastAPI - INFO - [test-session-jwt-1] Existing session deleted — restarting pipeline
+2026-03-11 18:51:18,448 - FastAPI - INFO - [test-session-jwt-1] Aggressive Pipeline starting for department: HR
+2026-03-11 18:51:18,615 - FastAPI - ERROR - [test-session-jwt-1] Aggressive Pipeline failed: 'SystemExtractionAgent' object has no attribute 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 134, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 61, in __init__
+    self.system_agent = SystemExtractionAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/system_agent.py", line 32, in __init__
+    self.ai_config = ai_config or {}
+                                 ^^^^
+AttributeError: 'SystemExtractionAgent' object has no attribute 'ai_config'
+2026-03-11 18:59:10,709 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 18:59:12,160 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:59:12,829 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:59:13,439 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:59:14,004 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 18:59:14,895 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-11 18:59:14,896 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-11 18:59:15,582 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-11 18:59:15,582 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 18:59:16,150 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNabBTkYG7D6ndoQ5s4'}
+2026-03-11 18:59:16,972 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNadHxgZ8xTEAHBttsJ'}
+2026-03-11 18:59:17,483 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNagnoTHxfF6Ciihzu1'}
+2026-03-11 18:59:17,483 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 18:59:17,484 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-11 18:59:17,486 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-11 18:59:17,993 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaiz1dGUUoX6pg3oEi'}
+2026-03-11 18:59:17,993 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 18:59:17,993 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 18:59:18,357 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNam812CHVbEuJibhbK'}, using deterministic merge
+2026-03-11 18:59:18,358 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 18:59:18,363 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 18:59:18,363 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-11 18:59:18,363 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 18:59:18,687 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNanY5ZGAmA6MJCn7Qi'}
+2026-03-11 18:59:19,025 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaoz9Z68JUJL8zuK6s'}
+2026-03-11 18:59:19,531 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaqRU4bMAFCXCw6Lca'}
+2026-03-11 18:59:19,532 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 18:59:19,532 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 18:59:19,532 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 18:59:19,938 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNasYi9x2g2SxLn1Bqo'}, using deterministic merge
+2026-03-11 18:59:19,939 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 18:59:19,954 - VerificationAgent - INFO - Verification: overall=0.28 (systems=0.11, data=1.00, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 18:59:19,954 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-11 18:59:19,954 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 18:59:20,349 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNauM7D2g5xcDripfGP'}
+2026-03-11 18:59:20,714 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaw34MhopCUtqq2Zd1'}
+2026-03-11 18:59:21,065 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaxbKXxQRfTWKzceKM'}
+2026-03-11 18:59:21,065 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 18:59:21,065 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 18:59:21,065 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 18:59:21,476 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNaz5s4fL3h1VAxJ8RU'}, using deterministic merge
+2026-03-11 18:59:21,476 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 18:59:21,490 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 18:59:21,490 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-11 18:59:21,885 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNb25umcxUsYjNJrjsU'}
+2026-03-11 18:59:21,886 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-11 18:59:22,397 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwNb411CX23HiwSNi4tM'}
+2026-03-11 18:59:22,397 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-11 18:59:22,398 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.15
+2026-03-11 18:59:22,401 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: KnowledgeGraphAgent.__init__() got an unexpected keyword argument 'ai_config'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 146, in process_aggressive_pipeline
+    kg_agent = KnowledgeGraphAgent(ai_config=ai_config)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: KnowledgeGraphAgent.__init__() got an unexpected keyword argument 'ai_config'
+2026-03-11 19:04:58,126 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 19:04:59,680 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:05:00,194 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:05:00,828 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:05:01,963 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:05:02,729 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-11 19:05:02,730 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-11 19:05:03,420 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-11 19:05:03,420 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:05:04,142 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2FVGDK1jVVBBMVWGs'}
+2026-03-11 19:05:04,523 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2H9EPSn7jL1orK4aY'}
+2026-03-11 19:05:05,091 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2KXrA2Y2yYaPLfRnX'}
+2026-03-11 19:05:05,091 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:05:05,091 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-11 19:05:05,092 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-11 19:05:05,644 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2MXu1Jpn18iZVRdzg'}
+2026-03-11 19:05:05,644 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:05:05,644 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:05:06,054 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2PWxqW4FEpAdLGAwm'}, using deterministic merge
+2026-03-11 19:05:06,054 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:05:06,065 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:05:06,066 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-11 19:05:06,066 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:05:06,583 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2RCAfXdHcGFAbqNNh'}
+2026-03-11 19:05:07,078 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2TMPpqA1W2fBCDiis'}
+2026-03-11 19:05:07,414 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2VUe5uZuPALpFvCx5'}
+2026-03-11 19:05:07,415 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:05:07,415 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:05:07,415 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:05:07,793 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2WtUHSHgsp6XhpiVo'}, using deterministic merge
+2026-03-11 19:05:07,794 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:05:07,810 - VerificationAgent - INFO - Verification: overall=0.28 (systems=0.11, data=1.00, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:05:07,810 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-11 19:05:07,810 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:05:08,148 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2YdtXVFRqXfVYTyLc'}
+2026-03-11 19:05:08,539 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2a4xfoLiUu3cet4ht'}
+2026-03-11 19:05:08,917 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2bpdmf7r4LTNxWW2H'}
+2026-03-11 19:05:08,917 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:05:08,917 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:05:08,918 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:05:09,240 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2dJg7zoJ1J5T8VVZL'}, using deterministic merge
+2026-03-11 19:05:09,240 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:05:09,246 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:05:09,246 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-11 19:05:09,616 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2euv7EEuvNLDmq9TG'}
+2026-03-11 19:05:09,616 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-11 19:05:10,043 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2gj4C11446CzX1KBf'}
+2026-03-11 19:05:10,044 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-11 19:05:10,044 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.15
+2026-03-11 19:05:10,047 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-11 19:05:10,047 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-11 19:05:10,047 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-11 19:05:10,047 - EntityMerger - INFO - Merged 8 raw entities → 8 unique
+2026-03-11 19:05:10,048 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-11 19:05:10,048 - FlowMerger - INFO - Merged flows → 0 canonical flows
+2026-03-11 19:05:10,048 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-11 19:05:10,048 - GraphBuilder - INFO - Added 8 nodes
+2026-03-11 19:05:10,048 - GraphBuilder - INFO - Added 0 edges
+2026-03-11 19:05:10,048 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-11 19:05:10,048 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-11 19:05:10,048 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-11 19:05:10,048 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-11 19:05:10,049 - GraphValidator - INFO - Validation: PASS — 8 nodes, 0 edges, 1 issues
+2026-03-11 19:05:10,049 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-11 19:05:10,050 - GraphExporter - INFO - Exported knowledge_graph.json (8 nodes, 0 edges)
+2026-03-11 19:05:10,050 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-11 19:05:10,051 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-11 19:05:10,051 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-11 19:05:10,051 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-11 19:05:10,052 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 8 nodes, 0 edges (0 inferred)
+2026-03-11 19:05:10,052 - HTMLGenerator - INFO - Building HTML: 8 nodes, 0 edges
+2026-03-11 19:05:10,052 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp5jd0a12h/privacy_dfd.html (33518 chars)
+2026-03-11 19:05:10,060 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-11 19:05:10,498 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2iYSvQBTkN5wyP4ks'}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 178, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 29, in create
+    return self.client.messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 282, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 996, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1364, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1137, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwP2iYSvQBTkN5wyP4ks'}
+2026-03-11 19:05:10,507 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-11 19:05:11,171 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 8 nodes, 0 edges
+2026-03-11 19:05:12,427 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 8 KG nodes, 0 KG edges, 0 mapping rows
+2026-03-11 19:05:12,427 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-11 19:07:26,856 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 19:07:28,334 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:07:28,923 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:07:29,721 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:07:30,291 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:07:31,189 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-11 19:07:31,190 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-11 19:07:31,991 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-11 19:07:31,991 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:07:32,388 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDBK3Zvmgf8FxHjS2A'}
+2026-03-11 19:07:32,756 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDCu3TT9ugugMVVuoA'}
+2026-03-11 19:07:33,112 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDETZGMPGHF9nFFRNX'}
+2026-03-11 19:07:33,112 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:07:33,113 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-11 19:07:33,115 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 0 systems → 1, 2 removed
+2026-03-11 19:07:33,511 - EntityNormAgent - ERROR - EntityNormAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDFzpo1yA9gDJ7wxKU'}
+2026-03-11 19:07:33,511 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:07:33,511 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:07:34,198 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDK3t5gax5mTPyBPyb'}, using deterministic merge
+2026-03-11 19:07:34,198 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:07:34,205 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:07:34,205 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-11 19:07:34,205 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:07:34,527 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDLUx8P3qZ6okVpJCp'}
+2026-03-11 19:07:34,957 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDN7gUsjsdG7REQRH9'}
+2026-03-11 19:07:35,355 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDPhvWLJon2CEE931P'}
+2026-03-11 19:07:35,355 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:07:35,355 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:07:35,355 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:07:35,866 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDRQ8EDcEWYQAiUgjT'}, using deterministic merge
+2026-03-11 19:07:35,867 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:07:35,882 - VerificationAgent - INFO - Verification: overall=0.28 (systems=0.11, data=1.00, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:07:35,882 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-11 19:07:35,883 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:07:36,276 - SystemAgent - ERROR - SystemAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDTfJX1qSfa6DksZbp'}
+2026-03-11 19:07:36,687 - DataFlowAgent - ERROR - DataFlowAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDVLWaHP426prg8jCo'}
+2026-03-11 19:07:37,095 - RiskAgent - ERROR - RiskAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDX6RpfyWCH1xG9m6i'}
+2026-03-11 19:07:37,096 - PipelineRunner - INFO -   [3] Agentic: Systems=0, Flows=0, Risks=0
+2026-03-11 19:07:37,096 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:07:37,096 - FlowCanonAgent - INFO - Deterministic merge: 0 raw → 0 merged flows
+2026-03-11 19:07:37,522 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDYvK9m9Rh8SfFUANc'}, using deterministic merge
+2026-03-11 19:07:37,523 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:07:37,535 - VerificationAgent - INFO - Verification: overall=0.15 (systems=0.11, data=0.46, risks=0.00, flows=0.00) | missing_systems=8 | hallucinated=0 | reprocess=YES
+2026-03-11 19:07:37,535 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-11 19:07:37,912 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDav7gNSErrzvQcms9'}
+2026-03-11 19:07:37,912 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-11 19:07:38,339 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDcgHJEVuDKqBUNSZ1'}
+2026-03-11 19:07:38,339 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-11 19:07:38,339 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.15
+2026-03-11 19:07:38,342 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-11 19:07:38,342 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-11 19:07:38,342 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-11 19:07:38,343 - EntityMerger - INFO - Merged 8 raw entities → 8 unique
+2026-03-11 19:07:38,343 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-11 19:07:38,343 - FlowMerger - INFO - Merged flows → 0 canonical flows
+2026-03-11 19:07:38,343 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-11 19:07:38,343 - GraphBuilder - INFO - Added 8 nodes
+2026-03-11 19:07:38,343 - GraphBuilder - INFO - Added 0 edges
+2026-03-11 19:07:38,343 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-11 19:07:38,343 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-11 19:07:38,344 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-11 19:07:38,344 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-11 19:07:38,345 - GraphValidator - INFO - Validation: PASS — 8 nodes, 0 edges, 1 issues
+2026-03-11 19:07:38,346 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-11 19:07:38,347 - GraphExporter - INFO - Exported knowledge_graph.json (8 nodes, 0 edges)
+2026-03-11 19:07:38,348 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-11 19:07:38,349 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-11 19:07:38,349 - GraphExporter - INFO - Exported privacy_dfd.json (8 nodes, 0 flows)
+2026-03-11 19:07:38,350 - GraphExporter - INFO - Exported dfd_render_plan.json (1 levels)
+2026-03-11 19:07:38,350 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 8 nodes, 0 edges (0 inferred)
+2026-03-11 19:07:38,351 - HTMLGenerator - INFO - Building HTML: 8 nodes, 0 edges
+2026-03-11 19:07:38,351 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp_t8wtuue/privacy_dfd.html (33518 chars)
+2026-03-11 19:07:38,360 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-11 19:07:38,837 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDeiZdhXH1pE19K8w4'}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 178, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 29, in create
+    return self.client.messages.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_utils/_utils.py", line 282, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/resources/messages/messages.py", line 996, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1364, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/anthropic/_base_client.py", line 1137, in request
+    raise self._make_status_error_from_response(err.response) from None
+anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-20241022'}, 'request_id': 'req_011CYwPDeiZdhXH1pE19K8w4'}
+2026-03-11 19:07:38,844 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-11 19:07:39,429 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 8 nodes, 0 edges
+2026-03-11 19:07:40,598 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 8 KG nodes, 0 KG edges, 0 mapping rows
+2026-03-11 19:07:40,598 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-11 19:09:48,473 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-11 19:09:49,998 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:09:50,622 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:09:51,344 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:09:52,472 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/up...
+2026-03-11 19:09:53,359 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-11 19:09:53,360 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-11 19:09:54,077 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-11 19:09:54,077 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:09:58,315 - SystemAgent - INFO - SystemAgent extracted 4 systems
+2026-03-11 19:10:14,691 - DataFlowAgent - INFO - DataFlowAgent extracted 17 flows
+2026-03-11 19:11:06,118 - RiskAgent - INFO - RiskAgent identified 10 risks
+2026-03-11 19:11:06,119 - PipelineRunner - INFO -   [3] Agentic: Systems=4, Flows=17, Risks=10
+2026-03-11 19:11:06,119 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-11 19:11:06,120 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 4 systems → 4, 2 removed
+2026-03-11 19:11:12,249 - EntityNormAgent - INFO - LLM normalized: 6 actors, 4 systems, 3 removed
+2026-03-11 19:11:12,249 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:11:12,249 - FlowCanonAgent - INFO - Deterministic merge: 17 raw → 15 merged flows
+2026-03-11 19:11:25,833 - FlowCanonAgent - INFO - LLM refined: 14 canonical flows
+2026-03-11 19:11:25,833 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:11:25,839 - VerificationAgent - INFO - Verification: overall=0.38 (systems=0.22, data=0.46, risks=0.00, flows=0.78) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-11 19:11:25,839 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-11 19:11:25,839 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:11:30,301 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-11 19:11:48,178 - DataFlowAgent - INFO - DataFlowAgent extracted 21 flows
+2026-03-11 19:12:58,656 - RiskAgent - INFO - RiskAgent identified 14 risks
+2026-03-11 19:12:58,660 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=21, Risks=14
+2026-03-11 19:12:58,660 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:12:58,661 - FlowCanonAgent - INFO - Deterministic merge: 38 raw → 27 merged flows
+2026-03-11 19:13:16,531 - FlowCanonAgent - INFO - LLM refined: 19 canonical flows
+2026-03-11 19:13:16,532 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:13:16,547 - VerificationAgent - INFO - Verification: overall=0.57 (systems=0.22, data=1.00, risks=0.00, flows=1.00) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-11 19:13:16,547 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-11 19:13:16,548 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-11 19:13:23,190 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-11 19:13:41,137 - DataFlowAgent - INFO - DataFlowAgent extracted 17 flows
+2026-03-11 19:14:59,400 - RiskAgent - ERROR - RiskAgent failed: Unterminated string starting at: line 119 column 17 (char 19148)
+2026-03-11 19:14:59,403 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=17, Risks=0
+2026-03-11 19:14:59,403 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-11 19:14:59,403 - FlowCanonAgent - INFO - Deterministic merge: 34 raw → 22 merged flows
+2026-03-11 19:15:13,931 - FlowCanonAgent - INFO - LLM refined: 14 canonical flows
+2026-03-11 19:15:13,932 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-11 19:15:13,947 - VerificationAgent - INFO - Verification: overall=0.38 (systems=0.22, data=0.46, risks=0.00, flows=0.78) | missing_systems=7 | hallucinated=0 | reprocess=YES
+2026-03-11 19:15:13,948 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-11 19:15:48,373 - DFDBuilderAgent - INFO - DFDBuilder created 12 nodes, 13 edges
+2026-03-11 19:15:48,373 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-11 19:15:50,772 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 400 - {'error': {'message': 'Provider returned error', 'code': 400, 'metadata': {'raw': '{"type":"error","error":{"type":"invalid_request_error","message":"Tool \'\' not found in provided tools"},"request_id":"req_011CYwPqv91eitmRFL5YzUpn"}', 'provider_name': 'Anthropic', 'is_byok': False}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+2026-03-11 19:15:50,773 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-11 19:15:50,773 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.38
+2026-03-11 19:15:50,782 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-11 19:15:50,782 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-11 19:15:50,782 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-11 19:15:50,783 - EntityMerger - INFO - Merged 10 raw entities → 10 unique
+2026-03-11 19:15:50,783 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-11 19:15:50,784 - FlowMerger - INFO - Merged flows → 14 canonical flows
+2026-03-11 19:15:50,784 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-11 19:15:50,784 - GraphBuilder - INFO - Added 10 nodes
+2026-03-11 19:15:50,784 - GraphBuilder - INFO - Added 14 edges
+2026-03-11 19:15:50,784 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-11 19:15:50,785 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-11 19:15:50,786 - GraphReasoning - INFO - Inferred 11 implicit flows
+2026-03-11 19:15:50,786 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-11 19:15:50,791 - GraphValidator - INFO - Validation: PASS — 14 nodes, 25 edges, 2 issues
+2026-03-11 19:15:50,791 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-11 19:15:50,793 - GraphExporter - INFO - Exported knowledge_graph.json (14 nodes, 25 edges)
+2026-03-11 19:15:50,794 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 25 flows)
+2026-03-11 19:15:50,796 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-11 19:15:50,797 - GraphExporter - INFO - Exported privacy_dfd.json (14 nodes, 25 flows)
+2026-03-11 19:15:50,798 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-11 19:15:50,798 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 14 nodes, 25 edges (11 inferred)
+2026-03-11 19:15:50,799 - HTMLGenerator - INFO - Building HTML: 14 nodes, 25 edges
+2026-03-11 19:15:50,801 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpxyha9brk/privacy_dfd.html (133396 chars)
+2026-03-11 19:15:50,809 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-11 19:15:53,960 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generation failed: Error code: 400 - {'error': {'message': 'Provider returned error', 'code': 400, 'metadata': {'raw': '{"type":"error","error":{"type":"invalid_request_error","message":"Tool \'\' not found in provided tools"},"request_id":"req_011CYwPr9LGSiYVJAtM53856"}', 'provider_name': 'Anthropic', 'is_byok': False}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 178, in process_aggressive_pipeline
+    schema_one_json = generator.generate_schema_one(combined_transcript)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/agent/schema_generator.py", line 296, in generate_schema_one
+    response = self.client.messages.create(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py", line 85, in create
+    resp = self.client.chat.completions.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_utils/_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/resources/chat/completions/completions.py", line 1211, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1297, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/.venv/lib/python3.11/site-packages/openai/_base_client.py", line 1070, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'Provider returned error', 'code': 400, 'metadata': {'raw': '{"type":"error","error":{"type":"invalid_request_error","message":"Tool \'\' not found in provided tools"},"request_id":"req_011CYwPr9LGSiYVJAtM53856"}', 'provider_name': 'Anthropic', 'is_byok': False}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+2026-03-11 19:15:53,970 - FastAPI - WARNING - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Skipping data inventory — Schema-1 was not generated
+2026-03-11 19:15:54,778 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 14 nodes, 25 edges
+2026-03-11 19:15:56,494 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 14 KG nodes, 25 KG edges, 0 mapping rows
+2026-03-11 19:15:56,494 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully

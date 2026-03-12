@@ -27,7 +27,8 @@ logger = setup_logger("KnowledgeGraphAgent")
 
 class KnowledgeGraphAgent:
 
-    def __init__(self):
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
         self.entity_merger = EntityMerger()
         self.flow_merger = None  # Initialized after entity merge
         self.reasoning_agent = GraphReasoningAgent()

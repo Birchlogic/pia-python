@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 """
 Visual DFD Agent — An iterative HTML generation loop that renders
 the output in a headless browser (Playwright), detects node/arrow
@@ -50,9 +51,10 @@ Return ONLY the raw HTML source code. No markdown fences."""
 
 class VisualDfdAgent:
 
-    def __init__(self):
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
         self.previewer = VisualPreviewer()
 
     def generate(self, graph_dir, pipeline_dir, output_path, max_visual_iterations=3):

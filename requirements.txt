@@ -16,3 +16,4 @@ rapidfuzz
 playwright
 openai
 rich
+PyJWT

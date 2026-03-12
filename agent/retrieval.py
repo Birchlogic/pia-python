@@ -10,7 +10,8 @@ from typing import List, Dict, Any
 logger = setup_logger("RetrievalAgent")
 
 class RetrievalAgent:
-    def __init__(self):
+    def __init__(self, ai_config: dict = None):
+        self.ai_config = ai_config or {}
         self.index_path = os.path.join(Config.VECTOR_DB_DIR, "index.faiss")
         self.meta_path = os.path.join(Config.VECTOR_DB_DIR, "metadata.json")
         

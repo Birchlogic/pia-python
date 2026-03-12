@@ -44,7 +44,7 @@ class RLM:
         print(result.response)
     """
 
-    BACKENDS = {"anthropic", "openai"}
+    BACKENDS = {"anthropic", "openai", "openrouter"}
 
     def __init__(
         self,
@@ -103,6 +103,12 @@ class RLM:
             if model:
                 kwargs["model"] = model
             return OpenAIClient(**kwargs)
+        elif backend == "openrouter":
+            from rlm.clients.openrouter_client import OpenRouterClient
+            kwargs = {"api_key": api_key}
+            if model:
+                kwargs["model"] = model
+            return OpenRouterClient(**kwargs)
         else:
             raise ValueError(f"Unknown backend: {backend}")
 

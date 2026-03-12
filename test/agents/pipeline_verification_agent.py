@@ -1,3 +1,4 @@
+from utils.llm_adapter import get_llm_client
 """
 Pipeline Verification Agent — Verifies pipeline output against source text,
 computes accuracy scores, detects hallucinations, and triggers reprocessing.
@@ -37,9 +38,10 @@ RISK_KEYWORDS = [
 
 class PipelineVerificationAgent:
 
-    def __init__(self, reprocess_threshold=0.85):
-        self.client = anthropic.Anthropic(api_key=Config.ANTHROPIC_API_KEY)
-        self.model = Config.CLAUDE_MODEL
+    def __init__(self, reprocess_threshold=0.85, ai_config: dict = None):
+        self.ai_config = ai_config or {}
+        self.client = get_llm_client(self.ai_config)
+        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
         self.reprocess_threshold = reprocess_threshold
 
     def _extract_ground_truth_systems(self, text):

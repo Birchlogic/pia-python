@@ -5663,3 +5663,527 @@ anthropic.NotFoundError: Error code: 404 - {'type': 'error', 'error': {'type': '
 2026-03-12 16:09:58,749 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 10 nodes, 14 edges
 2026-03-12 16:10:02,748 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 10 KG nodes, 14 KG edges, 25 mapping rows
 2026-03-12 16:10:02,749 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 17:10:27,602 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 17:10:27,602 - FastAPI - INFO - Using PAYLOAD_TOKEN: SET
+2026-03-12 17:10:29,135 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 17:10:31,910 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: unable to infer type for attribute "REGEX"
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 138, in process_aggressive_pipeline
+    from test.orchestrator.pipeline_runner import PipelineRunner
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 27, in <module>
+    from test.clean_transcripts import CleanTranscripts
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/clean_transcripts.py", line 5, in <module>
+    import spacy
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/__init__.py", line 13, in <module>
+    from . import pipeline  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/__init__.py", line 1, in <module>
+    from .attributeruler import AttributeRuler
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipeline/attributeruler.py", line 10, in <module>
+    from ..language import Language
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/language.py", line 46, in <module>
+    from .pipe_analysis import analyze_pipes, print_pipe_analysis, validate_attrs
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/pipe_analysis.py", line 6, in <module>
+    from .tokens import Doc, Span, Token
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/__init__.py", line 1, in <module>
+    from ._serialize import DocBin
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/tokens/_serialize.py", line 14, in <module>
+    from ..vocab import Vocab
+  File "spacy/vocab.pyx", line 1, in init spacy.vocab
+  File "spacy/tokens/doc.pyx", line 49, in init spacy.tokens.doc
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/spacy/schemas.py", line 195, in <module>
+    class TokenPatternString(BaseModel):
+    ...<43 lines>...
+            return v
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/main.py", line 221, in __new__
+    inferred = ModelField.infer(
+        name=var_name,
+    ...<3 lines>...
+        config=config,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 504, in infer
+    return cls(
+        name=name,
+    ...<7 lines>...
+        field_info=field_info,
+    )
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 434, in __init__
+    self.prepare()
+    ~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 544, in prepare
+    self._set_default_and_type()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/pydantic/v1/fields.py", line 576, in _set_default_and_type
+    raise errors_.ConfigError(f'unable to infer type for attribute "{self.name}"')
+pydantic.v1.errors.ConfigError: unable to infer type for attribute "REGEX"
+2026-03-12 17:31:06,556 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 17:31:08,235 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 17:31:09,798 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 17:31:10,603 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpv51dv3gn/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 17:31:10,603 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 17:31:11,300 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpv51dv3gn/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 17:31:11,300 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 17:31:12,119 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpv51dv3gn/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 17:31:12,119 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 17:31:13,042 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpv51dv3gn/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 17:31:13,044 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: type object 'Config' has no attribute 'validate'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 163, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 54, in __init__
+    Config.validate()
+    ^^^^^^^^^^^^^^^
+AttributeError: type object 'Config' has no attribute 'validate'
+2026-03-12 17:35:29,488 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 17:35:31,090 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 17:35:32,539 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 17:35:33,211 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmprp7xhaik/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 17:35:33,211 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 17:35:33,845 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmprp7xhaik/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 17:35:33,846 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 17:35:34,683 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmprp7xhaik/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 17:35:34,683 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 17:35:35,381 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmprp7xhaik/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 17:35:35,525 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,542 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,545 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,548 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,551 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,554 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,556 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:35:35,560 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: type object 'Config' has no attribute 'validate'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 163, in process_aggressive_pipeline
+    runner = PipelineRunner(ai_config=ai_config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 69, in __init__
+    self.schema_agent = SchemaGeneratorAgent(ai_config=self.ai_config)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/schema_generator_agent.py", line 204, in __init__
+    Config.validate()
+    ^^^^^^^^^^^^^^^
+AttributeError: type object 'Config' has no attribute 'validate'
+2026-03-12 17:39:25,538 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 17:39:27,176 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 17:39:28,604 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 17:39:29,134 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpl53bedgx/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 17:39:29,134 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 17:39:29,837 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpl53bedgx/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 17:39:29,838 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 17:39:30,512 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpl53bedgx/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 17:39:30,512 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 17:39:31,117 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpl53bedgx/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 17:39:31,260 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,273 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,277 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,280 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,283 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,287 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,290 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,293 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,296 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 17:39:31,297 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 17:39:31,987 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 17:39:31,987 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 17:39:31,987 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:39:31,987 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:39:34,806 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:39:34,806 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 17:39:34,807 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:39:34,807 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:39:42,276 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:39:42,277 - DataFlowAgent - INFO - DataFlowAgent extracted 9 flows
+2026-03-12 17:39:42,278 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:39:42,278 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:39:57,079 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:39:57,080 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 17:39:57,080 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=9, Risks=4
+2026-03-12 17:39:57,080 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 17:39:57,081 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 17:39:57,082 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:39:57,082 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:01,425 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:01,425 - EntityNormAgent - INFO - LLM normalized: 4 actors, 3 systems, 5 removed
+2026-03-12 17:40:01,425 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 17:40:01,426 - FlowCanonAgent - INFO - Deterministic merge: 9 raw → 9 merged flows
+2026-03-12 17:40:01,426 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:01,426 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:10,164 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:10,164 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 17:40:10,164 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 17:40:10,169 - VerificationAgent - INFO - Verification: overall=0.34 (systems=0.33, data=0.46, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 17:40:10,169 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 17:40:10,169 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 17:40:10,169 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:10,169 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:12,949 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:12,949 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 17:40:12,950 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:12,950 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:23,279 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:23,279 - DataFlowAgent - INFO - DataFlowAgent extracted 12 flows
+2026-03-12 17:40:23,280 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:23,280 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:36,144 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:36,144 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 17:40:36,144 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=12, Risks=4
+2026-03-12 17:40:36,144 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 17:40:36,145 - FlowCanonAgent - INFO - Deterministic merge: 21 raw → 14 merged flows
+2026-03-12 17:40:36,145 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:36,146 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:43,722 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:43,723 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 17:40:43,723 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 17:40:43,734 - VerificationAgent - INFO - Verification: overall=0.47 (systems=0.33, data=1.00, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 17:40:43,734 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 17:40:43,734 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 17:40:43,734 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:43,735 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:46,239 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:46,239 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 17:40:46,240 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:46,240 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:40:53,728 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:40:53,728 - DataFlowAgent - INFO - DataFlowAgent extracted 8 flows
+2026-03-12 17:40:53,728 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:40:53,728 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:41:08,294 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:41:08,295 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 17:41:08,295 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=8, Risks=4
+2026-03-12 17:41:08,295 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 17:41:08,295 - FlowCanonAgent - INFO - Deterministic merge: 17 raw → 12 merged flows
+2026-03-12 17:41:08,295 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:41:08,295 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:41:16,974 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:41:16,975 - FlowCanonAgent - INFO - LLM refined: 11 canonical flows
+2026-03-12 17:41:16,975 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 17:41:16,989 - VerificationAgent - INFO - Verification: overall=0.37 (systems=0.33, data=0.46, risks=0.00, flows=0.61) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 17:41:16,989 - PipelineRunner - INFO -   [8] Running DFDBuilderAgent (final)...
+2026-03-12 17:41:16,990 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:41:16,990 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:41:28,786 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 17:41:28,787 - DFDBuilderAgent - INFO - DFDBuilder created 6 nodes, 11 edges
+2026-03-12 17:41:28,787 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 17:41:28,790 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:41:28,790 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:43:19,989 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: max_tokens
+2026-03-12 17:43:19,991 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 17:43:19,993 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:43:19,993 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:43:55,830 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 17:43:55,831 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.37
+2026-03-12 17:43:55,837 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 17:43:55,838 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 17:43:55,838 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 17:43:55,838 - EntityMerger - INFO - Merged 7 raw entities → 7 unique
+2026-03-12 17:43:55,838 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 17:43:55,839 - FlowMerger - INFO - Merged flows → 11 canonical flows
+2026-03-12 17:43:55,839 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 17:43:55,839 - GraphBuilder - INFO - Added 7 nodes
+2026-03-12 17:43:55,839 - GraphBuilder - INFO - Added 11 edges
+2026-03-12 17:43:55,839 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 17:43:55,840 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 17:43:55,840 - GraphReasoning - INFO - Inferred 3 implicit flows
+2026-03-12 17:43:55,840 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 17:43:55,843 - GraphValidator - INFO - Validation: PASS — 10 nodes, 14 edges, 2 issues
+2026-03-12 17:43:55,843 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 17:43:55,846 - GraphExporter - INFO - Exported knowledge_graph.json (10 nodes, 14 edges)
+2026-03-12 17:43:55,847 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 17:43:55,848 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 17:43:55,849 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 17:43:55,850 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 17:43:55,850 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 10 nodes, 14 edges (3 inferred)
+2026-03-12 17:43:55,851 - HTMLGenerator - INFO - Building HTML: 10 nodes, 14 edges
+2026-03-12 17:43:55,851 - HTMLGenerator - INFO - Partitioned: 6 grid, 4 actors, 0 orphans
+2026-03-12 17:43:55,853 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpl53bedgx/privacy_dfd.html (99154 chars)
+2026-03-12 17:43:55,853 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 17:43:55,862 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 17:43:55,862 - SchemaGenerator - INFO - Generating schema one. Transcript length: 47156 characters.
+2026-03-12 17:43:55,864 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:43:55,864 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:45:39,563 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 17:45:39,565 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generated
+2026-03-12 17:45:39,565 - SchemaGenerator - INFO - Executing Data Inventory Generation LLM prompt...
+2026-03-12 17:45:39,568 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 17:45:39,568 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 17:46:10,940 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 17:46:10,942 - SchemaGenerator - INFO - Data inventory generated with 20 rows (attempt 1)
+2026-03-12 17:46:10,942 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Data inventory generated (20 rows)
+2026-03-12 17:46:13,350 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 10 nodes, 14 edges
+2026-03-12 17:46:15,870 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 10 KG nodes, 14 KG edges, 20 mapping rows
+2026-03-12 17:46:15,870 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 17:47:43,045 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors, 0 orphans
+2026-03-12 17:48:45,015 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors, 0 orphans
+2026-03-12 18:07:28,277 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 18:07:29,755 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 18:07:31,308 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 18:07:31,931 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpk8yp9f86/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 18:07:31,931 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 18:07:32,555 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpk8yp9f86/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 18:07:32,555 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 18:07:33,264 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpk8yp9f86/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 18:07:33,264 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 18:07:33,862 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmpk8yp9f86/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 18:07:33,999 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,013 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,016 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,019 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,023 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,026 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,029 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,031 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,034 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 18:07:34,035 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 18:07:34,736 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 18:07:34,736 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:07:34,736 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:07:34,736 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:07:37,495 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:07:37,495 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:07:37,495 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:07:37,495 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:07:44,940 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:07:44,940 - DataFlowAgent - INFO - DataFlowAgent extracted 9 flows
+2026-03-12 18:07:44,941 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:07:44,941 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:07:59,191 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:07:59,192 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:07:59,192 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=9, Risks=4
+2026-03-12 18:07:59,193 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 18:07:59,194 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 18:07:59,194 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:07:59,194 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:03,591 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:03,592 - EntityNormAgent - INFO - LLM normalized: 6 actors, 3 systems, 3 removed
+2026-03-12 18:08:03,592 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:08:03,592 - FlowCanonAgent - INFO - Deterministic merge: 9 raw → 9 merged flows
+2026-03-12 18:08:03,592 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:03,592 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:11,154 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:11,154 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 18:08:11,155 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:08:11,170 - VerificationAgent - INFO - Verification: overall=0.34 (systems=0.33, data=0.46, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:08:11,170 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 18:08:11,170 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:08:11,170 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:11,171 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:13,916 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:13,917 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:08:13,918 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:13,918 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:24,266 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:24,267 - DataFlowAgent - INFO - DataFlowAgent extracted 13 flows
+2026-03-12 18:08:24,268 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:24,268 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:36,901 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:36,901 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:08:36,902 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=13, Risks=4
+2026-03-12 18:08:36,902 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:08:36,902 - FlowCanonAgent - INFO - Deterministic merge: 22 raw → 13 merged flows
+2026-03-12 18:08:36,902 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:36,902 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:44,342 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:44,342 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 18:08:44,343 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:08:44,357 - VerificationAgent - INFO - Verification: overall=0.47 (systems=0.33, data=1.00, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:08:44,358 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 18:08:44,358 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:08:44,358 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:44,358 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:46,827 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:46,828 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:08:46,828 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:46,828 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:08:55,082 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:08:55,083 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-12 18:08:55,084 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:08:55,084 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:09:09,567 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:09:09,568 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:09:09,568 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-12 18:09:09,568 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:09:09,568 - FlowCanonAgent - INFO - Deterministic merge: 19 raw → 14 merged flows
+2026-03-12 18:09:09,569 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:09:09,569 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:09:17,052 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:09:17,053 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 18:09:17,053 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:09:17,068 - VerificationAgent - INFO - Verification: overall=0.34 (systems=0.33, data=0.46, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:09:17,068 - PipelineRunner - INFO -   [8] Generating Compliance Schema and Data Inventory...
+2026-03-12 18:09:17,068 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 18:09:17,076 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:09:17,076 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:11:04,572 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: max_tokens
+2026-03-12 18:11:04,574 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 18:11:04,575 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:11:04,575 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:11:38,908 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 18:11:38,912 - FastAPI - ERROR - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline failed: unhashable type: 'dict'
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 164, in process_aggressive_pipeline
+    result = runner.process_file(combined_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/orchestrator/pipeline_runner.py", line 285, in process_file
+    enriched_systems = list(set(normalized.get("systems", []) + schema_systems))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'dict'
+2026-03-12 18:13:24,316 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-12 18:13:26,280 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline starting for department: HR
+2026-03-12 18:13:27,801 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098458275-...
+2026-03-12 18:13:28,323 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp3asfacqu/1772098458275-Session1_CC_Kickoff_Overview_Transcript_Jan14.txt
+2026-03-12 18:13:28,323 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098460981-...
+2026-03-12 18:13:29,312 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp3asfacqu/1772098460981-Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt
+2026-03-12 18:13:29,313 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098463439-...
+2026-03-12 18:13:31,946 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp3asfacqu/1772098463439-Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt
+2026-03-12 18:13:31,947 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772098466784-...
+2026-03-12 18:13:32,610 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp3asfacqu/1772098466784-Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt
+2026-03-12 18:13:32,754 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,767 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,770 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,774 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,776 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,779 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,782 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,785 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:13:32,788 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-12 18:13:32,789 - PipelineRunner - INFO -   [1] Doc type: transcript (confidence: 0.90)
+2026-03-12 18:13:33,473 - PipelineRunner - INFO -   [2] Deterministic: Actors=10, Systems=3, Elements=6, Risks=0
+2026-03-12 18:13:33,473 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:13:33,473 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:13:33,473 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:13:36,280 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:13:36,281 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:13:36,281 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:13:36,282 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:13:44,323 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:13:44,326 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-12 18:13:44,326 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:13:44,326 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:13:59,014 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:13:59,015 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:13:59,015 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-12 18:13:59,015 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-12 18:13:59,017 - EntityNormAgent - INFO - Rule-based: 10 actors → 7, 3 systems → 3, 2 removed
+2026-03-12 18:13:59,017 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:13:59,017 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:03,402 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:03,403 - EntityNormAgent - INFO - LLM normalized: 4 actors, 3 systems, 5 removed
+2026-03-12 18:14:03,403 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:14:03,403 - FlowCanonAgent - INFO - Deterministic merge: 10 raw → 9 merged flows
+2026-03-12 18:14:03,404 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:03,404 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:10,794 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:10,795 - FlowCanonAgent - INFO - LLM refined: 9 canonical flows
+2026-03-12 18:14:10,795 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:14:10,809 - VerificationAgent - INFO - Verification: overall=0.34 (systems=0.33, data=0.46, risks=0.00, flows=0.50) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:14:10,809 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-12 18:14:10,809 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:14:10,810 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:10,810 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:13,552 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:13,553 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:14:13,553 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:13,554 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:23,269 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:23,269 - DataFlowAgent - INFO - DataFlowAgent extracted 12 flows
+2026-03-12 18:14:23,269 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:23,269 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:36,209 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:36,210 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:14:36,210 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=12, Risks=4
+2026-03-12 18:14:36,210 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:14:36,210 - FlowCanonAgent - INFO - Deterministic merge: 22 raw → 11 merged flows
+2026-03-12 18:14:36,211 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:36,211 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:44,477 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:44,478 - FlowCanonAgent - INFO - LLM refined: 10 canonical flows
+2026-03-12 18:14:44,478 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:14:44,493 - VerificationAgent - INFO - Verification: overall=0.49 (systems=0.33, data=1.00, risks=0.00, flows=0.56) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:14:44,493 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 2/2)...
+2026-03-12 18:14:44,493 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-12 18:14:44,494 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:44,494 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:47,140 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:47,141 - SystemAgent - INFO - SystemAgent extracted 3 systems
+2026-03-12 18:14:47,141 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:47,141 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:14:55,332 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:14:55,332 - DataFlowAgent - INFO - DataFlowAgent extracted 10 flows
+2026-03-12 18:14:55,333 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:14:55,333 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:15:09,566 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:15:09,567 - RiskAgent - INFO - RiskAgent identified 4 risks
+2026-03-12 18:15:09,567 - PipelineRunner - INFO -   [3] Agentic: Systems=3, Flows=10, Risks=4
+2026-03-12 18:15:09,567 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-12 18:15:09,567 - FlowCanonAgent - INFO - Deterministic merge: 20 raw → 11 merged flows
+2026-03-12 18:15:09,568 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:15:09,568 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:15:17,654 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:15:17,655 - FlowCanonAgent - INFO - LLM refined: 10 canonical flows
+2026-03-12 18:15:17,656 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-12 18:15:17,670 - VerificationAgent - INFO - Verification: overall=0.35 (systems=0.33, data=0.46, risks=0.00, flows=0.56) | missing_systems=6 | hallucinated=0 | reprocess=YES
+2026-03-12 18:15:17,670 - PipelineRunner - INFO -   [8] Generating Compliance Schema and Data Inventory...
+2026-03-12 18:15:17,670 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-12 18:15:17,679 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:15:17,680 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:17:05,853 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: max_tokens
+2026-03-12 18:17:05,854 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-12 18:17:05,857 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:17:05,857 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:17:44,498 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 18:17:44,500 - PipelineRunner - INFO -   [9] Running DFDBuilderAgent (final) with enriched Schema context...
+2026-03-12 18:17:44,500 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:17:44,501 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:17:57,769 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: end_turn
+2026-03-12 18:17:57,769 - DFDBuilderAgent - INFO - DFDBuilder created 6 nodes, 10 edges
+2026-03-12 18:17:57,770 - PipelineRunner - INFO -   ✅ Pipeline complete — score: 0.35
+2026-03-12 18:17:57,776 - KnowledgeGraphAgent - INFO -   Loaded: combined_intelligence.json
+2026-03-12 18:17:57,776 - KnowledgeGraphAgent - INFO - [1] Loaded 1 document(s)
+2026-03-12 18:17:57,776 - KnowledgeGraphAgent - INFO - [2] Merging entities across documents...
+2026-03-12 18:17:57,776 - EntityMerger - INFO - Merged 7 raw entities → 7 unique
+2026-03-12 18:17:57,777 - KnowledgeGraphAgent - INFO - [3] Merging flows across documents...
+2026-03-12 18:17:57,777 - FlowMerger - INFO - Merged flows → 10 canonical flows
+2026-03-12 18:17:57,777 - KnowledgeGraphAgent - INFO - [4] Building NetworkX DiGraph...
+2026-03-12 18:17:57,777 - GraphBuilder - INFO - Added 7 nodes
+2026-03-12 18:17:57,777 - GraphBuilder - INFO - Added 10 edges
+2026-03-12 18:17:57,777 - KnowledgeGraphAgent - INFO - [5] Attaching risks and data elements...
+2026-03-12 18:17:57,778 - KnowledgeGraphAgent - INFO - [6] Running graph reasoning...
+2026-03-12 18:17:57,778 - GraphReasoning - INFO - Inferred 4 implicit flows
+2026-03-12 18:17:57,778 - KnowledgeGraphAgent - INFO - [7] Validating graph integrity...
+2026-03-12 18:17:57,781 - GraphValidator - INFO - Validation: PASS — 10 nodes, 14 edges, 2 issues
+2026-03-12 18:17:57,781 - KnowledgeGraphAgent - INFO - [8] Exporting graph files...
+2026-03-12 18:17:57,784 - GraphExporter - INFO - Exported knowledge_graph.json (10 nodes, 14 edges)
+2026-03-12 18:17:57,784 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 18:17:57,786 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 18:17:57,787 - GraphExporter - INFO - Exported privacy_dfd.json (10 nodes, 14 flows)
+2026-03-12 18:17:57,788 - GraphExporter - INFO - Exported dfd_render_plan.json (5 levels)
+2026-03-12 18:17:57,788 - KnowledgeGraphAgent - INFO - ✅ Knowledge Graph complete — 10 nodes, 14 edges (4 inferred)
+2026-03-12 18:17:57,789 - HTMLGenerator - INFO - Building HTML: 10 nodes, 14 edges
+2026-03-12 18:17:57,790 - HTMLGenerator - INFO - Partitioned: 6 grid, 4 actors
+2026-03-12 18:17:57,791 - HTMLGenerator - INFO - ✅ HTML written to /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp3asfacqu/privacy_dfd.html (96309 chars)
+2026-03-12 18:17:57,792 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: CLAUDE, model: claude-sonnet-4-20250514
+2026-03-12 18:17:57,799 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-12 18:17:57,800 - SchemaGenerator - INFO - Generating schema one. Transcript length: 47156 characters.
+2026-03-12 18:17:57,801 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:17:57,801 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:19:35,412 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 18:19:35,415 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Schema-1 generated
+2026-03-12 18:19:35,415 - SchemaGenerator - INFO - Executing Data Inventory Generation LLM prompt...
+2026-03-12 18:19:35,420 - LLMAdapterDebug - INFO - CLAUDE model: claude-sonnet-4-20250514
+2026-03-12 18:19:35,420 - LLMAdapterDebug - INFO - CLAUDE Request - Model: claude-sonnet-4-20250514, Messages: 1, System: Yes
+2026-03-12 18:20:11,033 - LLMAdapterDebug - INFO - CLAUDE Response received. Stop Reason: tool_use
+2026-03-12 18:20:11,034 - SchemaGenerator - INFO - Data inventory generated with 25 rows (attempt 1)
+2026-03-12 18:20:11,034 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Data inventory generated (25 rows)
+2026-03-12 18:20:14,323 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] graph_data loaded: 10 nodes, 14 edges
+2026-03-12 18:20:16,865 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] DB committed: 10 KG nodes, 14 KG edges, 25 mapping rows
+2026-03-12 18:20:16,866 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Aggressive Pipeline completed successfully
+2026-03-12 18:21:24,574 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:21:45,716 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:23:02,011 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:23:25,622 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:23:29,513 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:24:18,252 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:24:28,625 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:26:37,288 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors
+2026-03-12 18:32:12,977 - HTMLGenerator - INFO - Partitioned: 0 grid, 0 actors

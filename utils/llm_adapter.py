@@ -218,9 +218,6 @@ def get_llm_client(ai_config: Union[dict, AIConfig]) -> UnifiedClient:
     debug_logger.info(f"Initializing UnifiedClient for provider: {provider}, model: {config_obj.model}")
         
     if not api_key:
-        from config import Config
-        # Optional fallback for testing
-        api_key = Config.ANTHROPIC_API_KEY
-        debug_logger.warning("No API key provided in ai_config, falling back to ANTHROPIC_API_KEY from env")
+        debug_logger.warning("No API key provided in ai_config")
         
     return UnifiedClient(provider, api_key)

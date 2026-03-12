@@ -51,7 +51,6 @@ MAX_REPROCESS_ATTEMPTS = 2
 class PipelineRunner:
 
     def __init__(self, ai_config: dict = None):
-        Config.validate()
         self.ai_config = ai_config or {}
         
         self.transcript_cleaner = CleanTranscripts()
@@ -262,22 +261,46 @@ class PipelineRunner:
 
             verification_report = self._verify(raw_text, pipeline_output)
 
-        # Phase 8: Final DFD generation
-        logger.info("  [8] Running DFDBuilderAgent (final)...")
+        # Phase 8: Schema and Data Inventory Generation
+        logger.info("  [8] Generating Compliance Schema and Data Inventory...")
+        schema_output = self.schema_agent.run(raw_text, pipeline_output)
+
+        # Extract newly found entities from schema to enrich DFD
+        schema_systems = []
+        schema_elements = []
+        try:
+            inventory = schema_output.get("inventory", [])
+            for item in inventory:
+                if isinstance(item, dict):
+                    sys_name = item.get("storage_location", "")
+                    if sys_name and sys_name.lower() not in ["n/a", "unknown"]:
+                        schema_systems.append(sys_name)
+                    
+                    data_cat = item.get("data_category", "")
+                    if data_cat:
+                        schema_elements.append(data_cat)
+        except Exception as e:
+            logger.warning(f"Failed to extract schema entities for DFD: {e}")
+
+        # Safely extract names if systems/elements are dictionaries
+        sys_list = [s["name"] if isinstance(s, dict) else s for s in normalized.get("systems", [])]
+        elem_list = [e["name"] if isinstance(e, dict) else e for e in pipeline_output.get("data_elements", [])]
+
+        enriched_systems = list(set(sys_list + schema_systems))
+        enriched_elements = list(set(elem_list + schema_elements))
+
+        # Phase 9: Final DFD generation
+        logger.info("  [9] Running DFDBuilderAgent (final) with enriched Schema context...")
         actor_names = [a["name"] if isinstance(a, dict) else a for a in normalized.get("actors", [])]
-        system_list = normalized.get("systems", [])
 
         dfd_graph = self.dfd_agent.build(
             actors=actor_names,
-            systems=system_list,
-            data_elements=pipeline_output["data_elements"],
+            systems=enriched_systems,
+            data_elements=enriched_elements,
             data_flows=canonical_flows,
             risks=agent_risks
         )
         
-        # Phase 9: Schema and Data Inventory Generation
-        schema_output = self.schema_agent.run(raw_text, pipeline_output)
-
         # Assemble final output
         result = {
             "metadata": {

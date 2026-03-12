@@ -35,7 +35,7 @@ class RiskAnalysisAgent:
     def __init__(self, ai_config: dict = None):
         self.ai_config = ai_config or {}
         self.client = get_llm_client(self.ai_config)
-        self.model = self.ai_config.get("model") or Config.CLAUDE_MODEL
+        self.model = self.ai_config.get("model") or "claude-3-5-sonnet-20241022"
 
     def analyze(self, text_chunks, data_elements=None, systems=None, deterministic_risks=None):
         """

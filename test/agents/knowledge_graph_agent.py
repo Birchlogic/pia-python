@@ -100,7 +100,7 @@ class KnowledgeGraphAgent:
         kg_paths = self.exporter.export_all(G, graph_dir)
         # Also export DFD separately
         self.exporter.export_privacy_dfd(G, dfd_dir / "privacy_dfd.json")
-        self.exporter.export_render_plan(G, dfd_dir / "dfd_render_plan.json")
+        self.exporter.export_render_plan(G, graph_dir / "dfd_render_plan.json")
 
         # Summary
         stats = validation["stats"]

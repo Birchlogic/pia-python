@@ -18,7 +18,7 @@ class KBBuilder:
         os.makedirs(Config.VECTOR_DB_DIR, exist_ok=True)
         
         # Load embedding model
-        self.embedding_model = SentenceTransformer(Config.EMBEDDING_MODEL)
+        self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
         self.dimension = self.embedding_model.get_sentence_embedding_dimension()
         
         # Load or create FAISS index

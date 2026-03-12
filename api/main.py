@@ -1,3 +1,12 @@
+# ── Monkey-patch pydantic v1 for Python 3.12+ / spacy compat ──
+import re
+try:
+    import pydantic.v1.validators as _pv1
+    if not hasattr(_pv1, "REGEX"):
+        _pv1.REGEX = type(re.compile(""))
+except ImportError:
+    pass
+
 import os
 import uuid
 import json
@@ -51,9 +60,11 @@ class StatusResponse(BaseModel):
 class DFDRisk(BaseModel):
     description: str = ""
     severity: str = "MEDIUM"  # HIGH, MEDIUM, LOW
+    risk_name: str = ""       # optional risk identifier
+    source: str = ""          # originating source file
 
 class DFDNode(BaseModel):
-    id: str                                  # unique node identifier, used as HTML element id
+    id: str                                  # unique node identifier
     name: str                                # display label
     type: str = "unknown"                    # "actor" | "system" | "data_store" | "unknown"
     aliases: List[str] = []
@@ -165,7 +176,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             kg_result = kg_agent.build_graph(pipeline_dir, graph_dir)
 
             # 5. Generate HTML DFD
-            html_gen = HTMLGeneratorAgent(ai_config=ai_config)
+            html_gen = HTMLGeneratorAgent()
             html_path = os.path.join(temp_dir, "privacy_dfd.html")
             html_gen.generate(graph_dir, pipeline_dir, html_path)
             
@@ -304,185 +315,6 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         db.close()
 
 
-def process_unified_pipeline(session_id: str, department: str, files: List[str], use_rlm: bool, ai_config: dict = None):
-    from api.database import SessionLocal
-    db = SessionLocal()
-    try:
-        logger.info(f"[{session_id}] Pipeline starting for department: {department}")
-
-        from config import Config
-        from agent.ingestion import IngestionAgent
-        from agent.kb_builder import KBBuilder
-        from agent.retrieval import RetrievalAgent
-        from agent.dfd_extractor import DFDExtractor
-        from agent.dfd_validator import validate_dfd, format_validation_report
-        from agent.privacy_dfd import PrivacyDFDAgent
-        from agent.learning import LearningLoop
-
-        Config.validate()
-        ai_config = ai_config or {}
-
-        with tempfile.TemporaryDirectory() as temp_dir:
-            # ── 1. Download files ────────────────────
-            local_files = _download_files(files, temp_dir)
-            combined_transcript = _combine_transcripts(local_files)
-            logger.info(f"[{session_id}] Downloaded and combined {len(local_files)} files")
-
-            # ── 2. Ingest transcripts ────────────────
-            kb_builder = KBBuilder()
-            retrieval_agent = RetrievalAgent(ai_config=ai_config)
-            learning_loop = LearningLoop(kb_builder)
-
-            if use_rlm:
-                # ── 2a. RLM-powered ingestion (all files at once) ──
-                from agent.rlm_ingestion import RLMIngestionAgent
-                logger.info(f"[{session_id}] Using RLM ingestion for cross-transcript analysis")
-                rlm_agent = RLMIngestionAgent(verbose=False, ai_config=ai_config)
-                try:
-                    consolidated_data = rlm_agent.ingest_all(local_files)
-                    extracted_data_list = [consolidated_data]
-                    logger.info(f"[{session_id}] RLM ingestion completed successfully")
-                except Exception as e:
-                    logger.warning(f"[{session_id}] RLM ingestion failed, falling back to standard: {e}")
-                    ingestion_agent = IngestionAgent(ai_config=ai_config)
-                    extracted_data_list = []
-                    for idx, file_path in enumerate(local_files):
-                        data = ingestion_agent.ingest_transcript(file_path)
-                        extracted_data_list.append(data)
-            else:
-                # ── 2b. Standard per-file ingestion (original behavior) ──
-                ingestion_agent = IngestionAgent(ai_config=ai_config)
-                extracted_data_list = []
-                for idx, file_path in enumerate(local_files):
-                    data = ingestion_agent.ingest_transcript(file_path)
-                    extracted_data_list.append(data)
-
-            # Always add transcripts to KB for context retrieval
-            for idx, file_path in enumerate(local_files):
-                with open(file_path, "r") as f:
-                    content = f.read()
-                metadata = {
-                    "session": idx + 1,
-                    "department": department,
-                    "date": datetime.now().strftime("%Y-%m-%d"),
-                    "source": os.path.basename(file_path),
-                }
-                kb_builder.add_transcript(f"{department}_session_{idx+1}", content, metadata)
-
-            # ── 3. Retrieve context from vector DB ───
-            query = (
-                f"Privacy compliance assessment for {department} department. "
-                f"Personal data types, legal basis, consent management, data sharing."
-            )
-            context = retrieval_agent.retrieve_context(query)
-            logger.info(f"[{session_id}] Context retrieved from vector DB")
-
-            # ── 4. Schema Generation (Step 1 + 2) ────
-            schema_one_json = None
-            inventory_rows = []
-
-            generator = SchemaGenerator(ai_config=ai_config)
-            try:
-                schema_one_json = generator.generate_schema_one(combined_transcript)
-                logger.info(f"[{session_id}] Schema-1 generated")
-            except Exception as e:
-                logger.error(f"[{session_id}] Schema-1 generation failed: {e}", exc_info=True)
-
-            if schema_one_json:
-                try:
-                    inventory_rows = generator.generate_data_inventory(schema_one_json)
-                    if not inventory_rows:
-                        logger.warning(f"[{session_id}] Data inventory returned 0 rows — LLM may have hit token limit or returned empty inventory")
-                    else:
-                        logger.info(f"[{session_id}] Data inventory generated ({len(inventory_rows)} rows)")
-                except Exception as e:
-                    logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
-            else:
-                logger.warning(f"[{session_id}] Skipping data inventory — Schema-1 was not generated")
-
-            # ── 5. DFD Extraction (with validation) ──
-            dfd_json = None
-            try:
-                dfd_extractor = DFDExtractor(ai_config=ai_config)
-                dfd_json = dfd_extractor.extract(department, extracted_data_list, context)
-                final_validation = validate_dfd(dfd_json)
-                logger.info(f"[{session_id}] DFD validation: {final_validation['score']}/100")
-            except Exception as e:
-                logger.error(f"[{session_id}] DFD extraction failed: {e}", exc_info=True)
-
-            # ── 6. Mermaid Privacy DFD ────────────────
-            privacy_dfd_md = None
-            try:
-                privacy_dfd_agent = PrivacyDFDAgent(ai_config=ai_config)
-                privacy_dfd_md = privacy_dfd_agent.generate_department_dfd(
-                    department, extracted_data_list, context
-                )
-                logger.info(f"[{session_id}] Mermaid Privacy DFD generated")
-            except Exception as e:
-                logger.error(f"[{session_id}] Privacy DFD generation failed: {e}", exc_info=True)
-
-            # ── 7. Learning loop ─────────────────────
-            if dfd_json:
-                try:
-                    learning_loop.process_feedback(
-                        f"report_{department}",
-                        json.dumps(dfd_json, indent=2),
-                        {"department": department, "date": datetime.now().strftime("%Y-%m-%d")}
-                    )
-                except Exception as e:
-                    logger.warning(f"[{session_id}] Learning loop failed (non-critical): {e}")
-
-        # ── 8. Save everything to DB ─────────────────
-        db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
-        if db_session:
-            db_session.schema_one_json = schema_one_json
-            db_session.dfd_json = dfd_json
-            db_session.privacy_dfd_md = privacy_dfd_md
-            db_session.status = "completed"
-            db_session.updated_at = datetime.utcnow()
-            db.commit()
-
-        # Save data mapping rows (with null-safe defaults)
-        if inventory_rows:
-            s_no = 1
-            for row in inventory_rows:
-                db_row = DataMappingRow(
-                    id=str(uuid.uuid4()),
-                    session_id=session_id,
-                    s_no=s_no,
-                    data_category=row.get("data_category") or "Unknown",
-                    description=row.get("description") or "",
-                    purpose=row.get("purpose") or "",
-                    data_owner=row.get("data_owner") or "",
-                    storage_location=row.get("storage_location") or "",
-                    data_classification=row.get("data_classification") or "",
-                    retention_period=row.get("retention_period") or "",
-                    legal_basis=row.get("legal_basis") or ""
-                )
-                db.add(db_row)
-                s_no += 1
-            db.commit()
-            logger.info(f"[{session_id}] Saved {s_no - 1} data mapping rows")
-        else:
-            logger.warning(f"[{session_id}] No data mapping rows to save")
-
-        logger.info(f"[{session_id}] Pipeline completed successfully")
-
-    except Exception as e:
-        logger.error(f"[{session_id}] Pipeline failed: {str(e)}", exc_info=True)
-        try:
-            db.rollback()
-            db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
-            if db_session:
-                db_session.status = "failed"
-                db_session.error_message = str(e)
-                db_session.updated_at = datetime.utcnow()
-                db.commit()
-        except Exception:
-            logger.error(f"[{session_id}] Failed to update error status in DB", exc_info=True)
-    finally:
-        db.close()
-
 
 class UpdateSessionDFDRequest(BaseModel):
     session_id: str
@@ -500,7 +332,6 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     
     try:
         logger.info(f"Initiating with token: {request.token[:10]}...")
-        logger.info(f"Using PAYLOAD_TOKEN: {'SET' if Config.PAYLOAD_TOKEN else 'MISSING'}")
         if not Config.PAYLOAD_TOKEN:
             raise ValueError("Config.PAYLOAD_TOKEN is missing")
             
@@ -512,8 +343,6 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         )
         ai_config = decoded.get("ai_config", {})
         payload_data = decoded.get("data", {})
-        print(ai_config)
-        print(payload_data)
     except Exception as e:
         logger.error(f"JWT decode error: {e}")
         raise HTTPException(status_code=400, detail=f"Invalid or missing token: {str(e)}")
@@ -525,9 +354,9 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     if not req_session_id or not req_department:
         raise HTTPException(status_code=400, detail="Missing required session_id or department in token data")
 
+    # Clean up existing session if re-running
     existing = db.query(DFDSession).filter(DFDSession.session_id == req_session_id).first()
     if existing:
-        # Clean up all related data and restart
         db.query(DataMappingRow).filter(DataMappingRow.session_id == req_session_id).delete()
         db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == req_session_id).delete()
         db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == req_session_id).delete()
@@ -535,35 +364,19 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         db.commit()
         logger.info(f"[{req_session_id}] Existing session deleted — restarting pipeline")
 
-    # Normalize None → False so downstream never sees None
-    use_rlm = bool(payload_data.get("use_rlm", False))
-    aggressive = bool(payload_data.get("aggressive_processing", False))
-
-    processing_mode = "normal"
-    if aggressive:
-        processing_mode = "aggressive_processing"
-    elif use_rlm:
-        processing_mode = "rlm"
-
     new_session = DFDSession(
         session_id=req_session_id,
         department=req_department,
         status="processing",
-        processing_mode=processing_mode
+        processing_mode="aggressive"
     )
     db.add(new_session)
     db.commit()
 
-    if aggressive:
-        background_tasks.add_task(
-            process_aggressive_pipeline,
-            req_session_id, req_department, req_files or [], ai_config
-        )
-    else:
-        background_tasks.add_task(
-            process_unified_pipeline,
-            req_session_id, req_department, req_files or [], use_rlm, ai_config
-        )
+    background_tasks.add_task(
+        process_aggressive_pipeline,
+        req_session_id, req_department, req_files or [], ai_config
+    )
 
     return InitiateResponse(
         session_id=req_session_id,
@@ -599,9 +412,9 @@ def update_session_dfd(data: UpdateSessionDFDRequest, db: Session = Depends(get_
         db.add(KnowledgeGraphNode(
             id=str(uuid.uuid4()),
             session_id=data.session_id,
-            node_id=n["id"],
-            name=n["name"],
-            type=n["type"],
+            node_id=n.get("id", n.get("node_id", "")),
+            name=n.get("name", ""),
+            type=n.get("type", "unknown"),
             aliases=n.get("aliases", []),
             data_elements=n.get("data_elements", []),
             risks=n.get("risks", []),
@@ -612,8 +425,8 @@ def update_session_dfd(data: UpdateSessionDFDRequest, db: Session = Depends(get_
         db.add(KnowledgeGraphEdge(
             id=str(uuid.uuid4()),
             session_id=data.session_id,
-            source_node=e["source"],
-            target_node=e["target"],
+            source_node=e.get("source", e.get("source_node", "")),
+            target_node=e.get("target", e.get("target_node", "")),
             data_elements=e.get("data_elements", []),
             flow_type=e.get("flow_type", ""),
             channel=e.get("channel", ""),
@@ -701,24 +514,24 @@ def get_results(session_id: str, db: Session = Depends(get_db)):
         "knowledge_graph": {
             "nodes": [
                 {
-                    "node_id": n.node_id,
+                    "id": n.node_id,
                     "name": n.name,
                     "type": n.type,
-                    "aliases": n.aliases,
-                    "data_elements": n.data_elements,
-                    "risks": n.risks,
-                    "sources": n.sources
+                    "aliases": n.aliases or [],
+                    "data_elements": n.data_elements or [],
+                    "risks": n.risks or [],
+                    "sources": n.sources or []
                 } for n in kg_nodes
             ],
             "edges": [
                 {
-                    "source_node": e.source_node,
-                    "target_node": e.target_node,
-                    "data_elements": e.data_elements,
-                    "flow_type": e.flow_type,
-                    "channel": e.channel,
+                    "source": e.source_node,
+                    "target": e.target_node,
+                    "data_elements": e.data_elements or [],
+                    "flow_type": e.flow_type or "transfer",
+                    "channel": e.channel or "",
                     "inferred": bool(e.inferred),
-                    "sources": e.sources
+                    "sources": e.sources or []
                 } for e in kg_edges
             ]
         },
@@ -767,9 +580,11 @@ def preview_html(data: HTMLPreviewRequest):
     
     html_gen = HTMLGeneratorAgent()
     kg = {"nodes": nodes_dicts, "edges": edges_dicts}
+
     
     col_map = html_gen._build_column_map(nodes_dicts, data.levels, kg)
     row_map = html_gen._build_row_map(nodes_dicts)
+
     html = html_gen._build_html(nodes_dicts, edges_dicts, kg, data.pipeline_docs, col_map, row_map)
     
     return {"html": html}

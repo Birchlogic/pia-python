@@ -16,7 +16,7 @@ class RetrievalAgent:
         self.meta_path = os.path.join(Config.VECTOR_DB_DIR, "metadata.json")
         
         # Load embedding model
-        self.embedding_model = SentenceTransformer(Config.EMBEDDING_MODEL)
+        self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
         
         # Load FAISS index and metadata if they exist
         self.index = None

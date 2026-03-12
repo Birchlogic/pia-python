@@ -79,8 +79,8 @@ class RLMIngestionAgent:
         elif self.ai_config.get("type") == "OPENROUTER":
             backend = "openrouter"
             
-        api_key = self.ai_config.get("apiKey") or Config.ANTHROPIC_API_KEY
-        model = self.ai_config.get("model") or Config.CLAUDE_MODEL
+        api_key = self.ai_config.get("apiKey")
+        model = self.ai_config.get("model") or "claude-3-5-sonnet-20241022"
 
         # Initialize RLM engine
         rlm = RLM(

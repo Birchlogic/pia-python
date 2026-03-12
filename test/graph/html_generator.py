@@ -167,27 +167,44 @@ class HTMLGeneratorAgent:
 
         return row_map
 
+    # ─── Partition actors from grid nodes ─────────────────────
+    def _partition_nodes(self, nodes):
+        """Separate actors from systems/stores for better grid focus."""
+        actors = []
+        others = []
+        for n in nodes:
+            ntype = str(n.get("type", "unknown")).lower()
+            if ntype == "actor":
+                actors.append(n)
+            else:
+                others.append(n)
+        return actors, others
+
     # ─── Build the full HTML ───────────────────────────────────
     def _build_html(self, nodes, edges, kg, pipeline_docs, col_map, row_map):
-        # Group nodes into grid cells: (row, col) → [nodes]
+        actors, grid_nodes = self._partition_nodes(nodes)
+
+        # Group non-actor nodes into grid cells: (row, col) → [nodes]
         grid = {}
-        for node in nodes:
+        for node in grid_nodes:
             r = row_map.get(node["id"], 1)
             c = col_map.get(node["id"], 1)
             grid.setdefault((r, c), []).append(node)
 
         grid_html = self._render_grid(grid)
         modal_html = self._render_modal()
+        actor_modal_html = self._render_actor_modal(actors)
         arrow_js = self._render_arrows_js(edges, col_map, row_map)
         modal_js = self._render_modal_js()
         data_script = f"""<script>
 window.knowledgeGraph = {json.dumps(kg)};
 window.pipelineDocs = {json.dumps(pipeline_docs)};
+window.allActors = {json.dumps(actors)};
 </script>"""
 
-        stats_actors = sum(1 for n in nodes if n.get("type") == "actor")
-        stats_systems = sum(1 for n in nodes if n.get("type") == "system")
-        stats_stores = sum(1 for n in nodes if n.get("type") == "data_store")
+        stats_actors = len(actors)
+        stats_systems = sum(1 for n in grid_nodes if str(n.get("type", "")).lower() == "system")
+        stats_stores = sum(1 for n in grid_nodes if str(n.get("type", "")).lower() == "data_store")
         stats_risks = sum(len(n.get("risks", [])) for n in nodes)
 
         return f"""<!DOCTYPE html>
@@ -231,6 +248,34 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
         .node-card {{ position: relative; z-index: 10; }}
         #modal-overlay {{ transition: opacity 0.25s ease; }}
         #modal-panel {{ transition: transform 0.3s cubic-bezier(.4,0,.2,1); }}
+        /* ── Sticky column headers ── */
+        .col-header-row {{
+            position: sticky;
+            top: 56px;  /* height of main header */
+            z-index: 30;
+            background: white;
+        }}
+        /* ── Arrow toggle switch ── */
+        .toggle-switch {{
+            position: relative;
+            width: 36px; height: 20px;
+            background: #cbd5e1;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }}
+        .toggle-switch.active {{ background: #3b82f6; }}
+        .toggle-switch::after {{
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: transform 0.25s;
+        }}
+        .toggle-switch.active::after {{ transform: translateX(16px); }}
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 via-blue-50/20 to-slate-100 min-h-screen">
@@ -247,10 +292,17 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
                 </div>
             </div>
             <div class="flex gap-2 items-center">
-                <div class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 rounded-lg border border-blue-100">
+                <!-- Arrow Toggle Switch -->
+                <div class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-200">
+                    <span class="material-icons text-slate-400" style="font-size:14px">timeline</span>
+                    <span class="text-xs font-medium text-slate-500">Arrows</span>
+                    <div id="arrow-toggle" class="toggle-switch" onclick="toggleAllArrows()"></div>
+                </div>
+                <!-- Actor Button -->
+                <button onclick="openActorModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-100 transition cursor-pointer">
                     <span class="material-icons text-blue-500" style="font-size:14px">person</span>
                     <span class="text-xs font-medium text-blue-700">{stats_actors} Actors</span>
-                </div>
+                </button>
                 <div class="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 rounded-lg border border-green-100">
                     <span class="material-icons text-green-500" style="font-size:14px">dns</span>
                     <span class="text-xs font-medium text-green-700">{stats_systems} Systems</span>
@@ -280,9 +332,9 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
             </div>
             <div class="p-5 overflow-visible">
                 <div class="grid grid-cols-[120px_1fr_1fr_1fr_1fr] gap-3" id="dfd-grid">
-                    <!-- Column Headers -->
-                    <div></div>
-                    {self._col_headers()}
+                    <!-- Column Headers (sticky) -->
+                    <div class="col-header-row"></div>
+                    {self._col_headers_sticky()}
                     <!-- Grid Rows -->
                     {grid_html}
                 </div>
@@ -291,15 +343,16 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
     </main>
 
     {modal_html}
+    {actor_modal_html}
     <script>{arrow_js}\n{modal_js}</script>
 </body>
 </html>"""
 
-    def _col_headers(self):
+    def _col_headers_sticky(self):
         parts = []
         for i, (name, color, icon) in enumerate(zip(COLUMNS, COL_COLORS, COL_ICONS)):
             parts.append(
-                f'<div class="rounded-xl p-2.5 text-center font-semibold text-xs border"'
+                f'<div class="col-header-row rounded-xl p-2.5 text-center font-semibold text-xs border"'
                 f' style="background:{color};border-color:{color}">'
                 f'{icon} {name}</div>'
             )
@@ -406,6 +459,47 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
         </div>
     </div>"""
 
+    # ─── Actor Modal HTML ──────────────────────────────────────
+    def _render_actor_modal(self, actors):
+        rows = ""
+        for a in actors:
+            nid = a.get("id", "")
+            name = a.get("name", nid)
+            aliases = a.get("aliases", [])
+            alias_span = f'<span class="text-[10px] text-slate-400 italic ml-2">({"&comma; ".join(aliases)})</span>' if aliases else ""
+            sources = a.get("sources", [])
+            src_info = f'<span class="text-[10px] text-slate-400">{len(sources)} source{"s" if len(sources) != 1 else ""}</span>' if sources else ""
+            rows += f"""
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <span class="material-icons text-blue-500" style="font-size:16px">person</span>
+                    </div>
+                    <div>
+                        <div class="text-sm font-semibold text-slate-700">{name}{alias_span}</div>
+                        <div class="text-[10px] text-slate-400">Actor · {src_info}</div>
+                    </div>
+                </div>
+            </div>"""
+
+        return f"""
+    <div id="actor-overlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 hidden opacity-0" onclick="closeActorModal()">
+        <div id="actor-panel" class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl overflow-y-auto translate-x-full" onclick="event.stopPropagation()" style="transition:transform .3s cubic-bezier(.4,0,.2,1)">
+            <div class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-slate-100 px-5 py-4 flex items-center justify-between z-10">
+                <div>
+                    <h3 class="text-base font-bold text-slate-800">Identified Actors</h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">{len(actors)} actors detected in transcripts</p>
+                </div>
+                <button onclick="closeActorModal()" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition">
+                    <span class="material-icons text-slate-400" style="font-size:18px">close</span>
+                </button>
+            </div>
+            <div class="p-5 space-y-3">
+                {rows if rows else '<p class="text-center text-slate-400 py-10">No actors found</p>'}
+            </div>
+        </div>
+    </div>"""
+
     # ─── Arrow JavaScript ──────────────────────────────────────
     def _render_arrows_js(self, edges, col_map, row_map):
         lines = [
@@ -478,12 +572,36 @@ window.pipelineDocs = {json.dumps(pipeline_docs)};
         return """
 // ═══ LOGIC & INTERACTIVE ARROWS ═══
 let currentNodeFocus = null;
+let arrowsGloballyOn = false;
+
+function toggleAllArrows() {
+    const toggle = document.getElementById('arrow-toggle');
+    arrowsGloballyOn = !arrowsGloballyOn;
+    toggle.classList.toggle('active', arrowsGloballyOn);
+    currentNodeFocus = null;  // reset node focus
+    // Reset card styles
+    document.querySelectorAll('.node-card').forEach(card => {
+        card.style.opacity = '1';
+        card.style.transform = '';
+        card.style.boxShadow = '';
+    });
+    if (arrowsGloballyOn) {
+        allLines.forEach(item => item.line.show('draw', {duration: 500, timing: 'ease-out'}));
+    } else {
+        allLines.forEach(item => item.line.hide('fade', {duration: 300}));
+    }
+}
 
 function focusNode(nodeId) {
+    // If arrows are globally on, clicking a node still focuses it
     if (currentNodeFocus === nodeId) {
         // Toggle off if clicking the same node
         currentNodeFocus = null;
-        allLines.forEach(item => item.line.hide('fade', {duration: 200}));
+        if (arrowsGloballyOn) {
+            allLines.forEach(item => item.line.show('draw', {duration: 300}));
+        } else {
+            allLines.forEach(item => item.line.hide('fade', {duration: 200}));
+        }
         document.querySelectorAll('.node-card').forEach(card => {
             card.style.opacity = '1';
             card.style.transform = '';
@@ -499,7 +617,13 @@ function focusNode(nodeId) {
         if (item.source === nodeId || item.target === nodeId) {
             item.line.show('draw', {duration: 400, timing: 'ease-out'});
         } else {
-            item.line.hide('fade', {duration: 200});
+            if (arrowsGloballyOn) {
+                // Dim but keep visible
+                item.line.setOptions({color: '#e2e8f0', size: 1});
+                item.line.show('none');
+            } else {
+                item.line.hide('fade', {duration: 200});
+            }
         }
     });
 
@@ -510,7 +634,6 @@ function focusNode(nodeId) {
             card.style.transform = 'scale(1.02)';
             card.style.boxShadow = '0 12px 28px rgba(0,0,0,0.12)';
         } else {
-            // Check if connected
             const isConnected = allLines.some(l => 
                 (l.source === nodeId && l.target === card.dataset.nodeId) || 
                 (l.target === nodeId && l.source === card.dataset.nodeId)
@@ -525,12 +648,12 @@ function focusNode(nodeId) {
 function openModal(nodeId, event) {
     if (event) event.stopPropagation();
     
-    // Ensure the node is focused when opening its modal
     if (currentNodeFocus !== nodeId) {
         focusNode(nodeId);
     }
 
     const kg = window.knowledgeGraph || {};
+    const allActors = window.allActors || [];
     const node = (kg.nodes || []).find(n => n.id === nodeId);
     if (!node) return;
     
@@ -538,6 +661,29 @@ function openModal(nodeId, event) {
     document.getElementById('modal-subtitle').textContent = (node.type || '').replace('_',' ').toUpperCase();
 
     let b = '';
+
+    // ── Connected Actors ──
+    const connEdges = (kg.edges||[]).filter(e => e.source === nodeId || e.target === nodeId);
+    const connActorIds = new Set();
+    connEdges.forEach(e => {
+        const otherId = e.source === nodeId ? e.target : e.source;
+        const otherNode = allActors.find(a => a.id === otherId);
+        if (otherNode) connActorIds.add(otherId);
+    });
+    if (connActorIds.size > 0) {
+        b += '<div><h4 class="text-xs font-bold text-blue-600 mb-2 flex items-center gap-1"><span class="material-icons text-blue-400" style="font-size:14px">people</span>Connected Actors ('+connActorIds.size+')</h4><div class="space-y-1.5">';
+        connActorIds.forEach(aid => {
+            const actor = allActors.find(a => a.id === aid);
+            if (actor) {
+                b += '<div class="flex items-center gap-2 p-2 bg-blue-50 rounded-lg border border-blue-100">';
+                b += '<div class="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center"><span class="material-icons text-blue-500" style="font-size:13px">person</span></div>';
+                b += '<span class="text-[12px] font-semibold text-blue-800">' + (actor.name || aid) + '</span>';
+                b += '</div>';
+            }
+        });
+        b += '</div></div>';
+    }
+
     // Data Elements
     const dels = node.data_elements || [];
     if (dels.length) {
@@ -590,6 +736,19 @@ function openModal(nodeId, event) {
 }
 function closeModal() {
     const ov = document.getElementById('modal-overlay'), pn = document.getElementById('modal-panel');
+    if(!ov || !pn) return;
+    ov.classList.add('opacity-0'); pn.classList.add('translate-x-full');
+    setTimeout(() => ov.classList.add('hidden'), 300);
+}
+function openActorModal() {
+    const ov = document.getElementById('actor-overlay'), pn = document.getElementById('actor-panel');
+    if(!ov || !pn) return;
+    ov.classList.remove('hidden');
+    requestAnimationFrame(() => { ov.classList.remove('opacity-0'); pn.classList.remove('translate-x-full'); });
+}
+function closeActorModal() {
+    const ov = document.getElementById('actor-overlay'), pn = document.getElementById('actor-panel');
+    if(!ov || !pn) return;
     ov.classList.add('opacity-0'); pn.classList.add('translate-x-full');
     setTimeout(() => ov.classList.add('hidden'), 300);
 }

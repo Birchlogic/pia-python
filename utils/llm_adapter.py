@@ -24,9 +24,42 @@ def normalize_model_name(model_name: str) -> str:
     """Passes through the model name as is, now that strict adherence is required."""
     return model_name
 
+def _repair_truncated_json(s: str) -> str:
+    """Attempt to close unclosed braces/brackets in truncated JSON."""
+    s = s.rstrip()
+    # Remove trailing comma if present
+    if s.endswith(','):
+        s = s[:-1]
+    # Count open/close braces and brackets
+    open_braces = s.count('{') - s.count('}')
+    open_brackets = s.count('[') - s.count(']')
+    # Check if we're inside an unclosed string
+    in_string = False
+    escape = False
+    for ch in s:
+        if escape:
+            escape = False
+            continue
+        if ch == '\\':
+            escape = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+    if in_string:
+        s += '"'
+    # Remove trailing comma after closing string
+    s = s.rstrip()
+    if s.endswith(','):
+        s = s[:-1]
+    # Close brackets then braces (reverse nesting order)
+    s += ']' * max(0, open_brackets)
+    s += '}' * max(0, open_braces)
+    return s
+
+
 class AbstractMessagesAPI:
     """An abstract representation of the Anthropic client.messages interface."""
-    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 4000, temperature: float = 0.0, **kwargs):
+    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 8192, temperature: float = 0.0, **kwargs):
         raise NotImplementedError()
 
 class MockContent:
@@ -40,15 +73,21 @@ class MockContent:
             self.type = "text"
             self.text = text
 
+class MockUsage:
+    def __init__(self, input_tokens=0, output_tokens=0):
+        self.input_tokens = input_tokens
+        self.output_tokens = output_tokens
+
 class MockResponse:
-    def __init__(self, text=None, tool_use=None):
+    def __init__(self, text=None, tool_use=None, usage=None):
         self.content = [MockContent(text=text, tool_use=tool_use)]
+        self.usage = usage or MockUsage()
 
 class ClaudeAdapter(AbstractMessagesAPI):
     def __init__(self, api_key: str):
         self.provider = "CLAUDE"
         self.client = anthropic.Anthropic(api_key=api_key, timeout=600.0)
-    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 4000, temperature: float = 0.0, **kwargs):
+    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 8192, temperature: float = 0.0, **kwargs):
         normalized_model = normalize_model_name(model)
         from utils.logger import setup_logger
         debug_logger = setup_logger("LLMAdapterDebug")
@@ -111,7 +150,7 @@ class OpenAIAdapter(AbstractMessagesAPI):
             else:
                 kwargs["tool_choice"] = anth_tool_choice
 
-    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 4000, temperature: float = 0.0, **kwargs):
+    def create(self, model: str, messages: list, system: str = None, max_tokens: int = 8192, temperature: float = 0.0, **kwargs):
         normalized_model = normalize_model_name(model)
         self._handle_tool_use(kwargs)
         
@@ -165,23 +204,41 @@ class OpenAIAdapter(AbstractMessagesAPI):
                 tool_input = json.loads(tc.arguments)
             except json.JSONDecodeError as e:
                 logger = setup_logger("LLMAdapter")
-                logger.error(f"Failed to parse tool arguments (finish_reason: {finish_reason}): {tc.arguments}")
+                logger.error(f"Failed to parse tool arguments (finish_reason: {finish_reason}): {tc.arguments[:500]}...")
                 # Try to clean up the JSON string if it has common LLM artifacts
                 cleaned = tc.arguments.strip()
                 if cleaned.startswith("```json"):
                     cleaned = cleaned.replace("```json", "").replace("```", "").strip()
                 try:
                     tool_input = json.loads(cleaned)
-                except:
-                    raise e
+                except json.JSONDecodeError:
+                    # If finish_reason indicates truncation, attempt JSON repair
+                    if finish_reason in (None, 'length'):
+                        logger.warning(f"Attempting JSON repair for truncated response (finish_reason={finish_reason})")
+                        repaired = _repair_truncated_json(cleaned)
+                        try:
+                            tool_input = json.loads(repaired)
+                            logger.info("JSON repair succeeded")
+                        except json.JSONDecodeError:
+                            raise e
+                    else:
+                        raise e
 
+            oai_usage = MockUsage(
+                input_tokens=getattr(resp.usage, 'prompt_tokens', 0),
+                output_tokens=getattr(resp.usage, 'completion_tokens', 0)
+            )
             return MockResponse(tool_use={
                 "name": tc.name,
                 "input": tool_input,
                 "id": message.tool_calls[0].id
-            })
-            
-        return MockResponse(text=message.content)
+            }, usage=oai_usage)
+
+        oai_usage = MockUsage(
+            input_tokens=getattr(resp.usage, 'prompt_tokens', 0),
+            output_tokens=getattr(resp.usage, 'completion_tokens', 0)
+        )
+        return MockResponse(text=message.content, usage=oai_usage)
 
 class OpenRouterAdapter(OpenAIAdapter):
     def __init__(self, api_key: str):

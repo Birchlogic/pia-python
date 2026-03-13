@@ -50,6 +50,14 @@ class GraphBuilder:
                 existing = self.G[src][tgt].get("data_elements", [])
                 data_elems = sorted(set(existing + data_elems))
 
+            # Merge evidence_trail if edge already exists
+            existing_trail = []
+            if self.G.has_edge(src, tgt):
+                existing_trail = self.G[src][tgt].get("evidence_trail", [])
+
+            new_trail = flow.get("evidence_trail", [])
+            merged_trail = existing_trail + [t for t in new_trail if t not in existing_trail]
+
             self.G.add_edge(
                 src, tgt,
                 data_elements=data_elems,
@@ -57,7 +65,8 @@ class GraphBuilder:
                 flow_type=self._infer_flow_type(flow),
                 inferred=flow.get("inferred", False),
                 sources=flow.get("sources", []),
-                evidence=flow.get("evidence", [])
+                evidence=flow.get("evidence", []),
+                evidence_trail=merged_trail[:10]
             )
             added += 1
 

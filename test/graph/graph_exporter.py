@@ -31,7 +31,7 @@ DFD_SHAPE_MAP = {
 
 class GraphExporter:
 
-    def export_all(self, G, output_dir):
+    def export_all(self, G, output_dir, dialogue_records=None):
         """Export graph in all formats."""
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -40,7 +40,7 @@ class GraphExporter:
         dfd_path = output_dir / "privacy_dfd.json"
         plan_path = output_dir / "dfd_render_plan.json"
 
-        self.export_knowledge_graph(G, kg_path)
+        self.export_knowledge_graph(G, kg_path, dialogue_records=dialogue_records)
         self.export_privacy_dfd(G, dfd_path)
         self.export_render_plan(G, plan_path)
 
@@ -50,8 +50,8 @@ class GraphExporter:
             "dfd_render_plan": str(plan_path)
         }
 
-    def export_knowledge_graph(self, G, path):
-        """Export full knowledge graph JSON."""
+    def build_knowledge_graph_dict(self, G, dialogue_records=None):
+        """Build knowledge graph dict in memory (no file write)."""
         nodes = []
         for node_id, data in G.nodes(data=True):
             nodes.append({
@@ -74,12 +74,14 @@ class GraphExporter:
                 "channel": data.get("channel", ""),
                 "inferred": data.get("inferred", False),
                 "sources": data.get("sources", []),
-                "evidence": data.get("evidence", [])
+                "evidence": data.get("evidence", []),
+                "evidence_trail": data.get("evidence_trail", [])
             })
 
-        kg = {
+        return {
             "nodes": nodes,
             "edges": edges,
+            "dialogue_records": dialogue_records or [],
             "metadata": {
                 "total_nodes": len(nodes),
                 "total_edges": len(edges),
@@ -87,9 +89,31 @@ class GraphExporter:
             }
         }
 
+    def build_render_plan_dict(self, G):
+        """Build render plan dict in memory (no file write)."""
+        levels = self._compute_levels(G)
+        plan = {
+            "layout": "left_to_right",
+            "levels": levels,
+            "node_styles": {}
+        }
+        for node_id, data in G.nodes(data=True):
+            orig_type = data.get("type", "unknown")
+            dfd_type = DFD_TYPE_MAP.get(orig_type, "process")
+            risk_count = len(data.get("risks", []))
+            plan["node_styles"][node_id] = {
+                "shape": DFD_SHAPE_MAP.get(dfd_type, "circle"),
+                "color": self._risk_color(risk_count),
+                "label": data.get("name", node_id)
+            }
+        return plan
+
+    def export_knowledge_graph(self, G, path, dialogue_records=None):
+        """Export full knowledge graph JSON to file."""
+        kg = self.build_knowledge_graph_dict(G, dialogue_records)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(kg, f, indent=2)
-        logger.info(f"Exported knowledge_graph.json ({len(nodes)} nodes, {len(edges)} edges)")
+        logger.info(f"Exported knowledge_graph.json ({len(kg['nodes'])} nodes, {len(kg['edges'])} edges)")
 
     def export_privacy_dfd(self, G, path):
         """Export DFD-ready JSON."""

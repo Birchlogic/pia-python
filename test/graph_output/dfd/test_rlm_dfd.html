@@ -1,0 +1,3981 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DFD - Department</title><style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #ecf0f1; padding: 20px; }
+.dfd-wrapper { position: relative; background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); overflow: visible; min-width: 900px; }
+.dfd-title-bar { background: #fff; padding: 14px 24px 6px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid #eee; }
+.dfd-main-title { font-size: 20px; font-weight: 700; color: #2c3e50; }
+.dfd-version { font-size: 11px; color: #7f8c8d; border: 1px solid #bdc3c7; border-radius: 4px; padding: 2px 7px; }
+.dept-header { background: #34495e; color: #fff; text-align: center; font-weight: 700; font-size: 15px; padding: 8px; letter-spacing: 0.5px; }
+.col-headers { display: grid; grid-template-columns: 110px 1fr 180px 1fr 160px; background: #2c3e50; }
+.col-actor-label { background: #1a252f; }
+.col-header { color: #fff; font-weight: 600; font-size: 13px; text-align: center; padding: 9px 6px; border-left: 1px solid rgba(255,255,255,0.15); }
+.col-storage { background: #1a252f; }
+.swimlane-body { display: flex; flex-direction: column; }
+.swimlane-row { display: grid; grid-template-columns: 110px 1fr 180px 1fr 160px; border-bottom: 1px solid #dee2e6; min-height: 140px; }
+.actor-label { display: flex; align-items: center; justify-content: center; padding: 12px 6px; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); }
+.actor-label-text { font-weight: 700; font-size: 13px; letter-spacing: 1px; }
+.cell { padding: 12px 10px; border-left: 1px solid #dee2e6; background: var(--row-bg); }
+.cell-processing { background: #eaf4fb; display: flex; align-items: center; justify-content: center; }
+.cell-storage { background: #f8f9fa; display: flex; flex-direction: column; gap: 12px; align-items: center; justify-content: center; padding: 16px 8px; }
+.biz-process-group { margin-bottom: 12px; background: rgba(255,255,255,0.5); border-radius: 8px; padding: 8px; border: 1px solid rgba(0,0,0,0.07); }
+.biz-process-label { font-weight: 700; font-size: 12px; color: #2c3e50; margin-bottom: 7px; padding-bottom: 4px; border-bottom: 1px dashed #bdc3c7; }
+.data-source-box { margin: 5px 0; background: #fff; border: 1px solid #bdc3c7; border-radius: 6px; padding: 6px 9px; font-size: 11.5px; cursor: pointer; transition: box-shadow 0.2s; }
+.data-source-box:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-color: #2980b9; }
+.data-source-name { font-weight: 600; color: #34495e; margin-bottom: 4px; }
+.data-source-box ul { list-style: disc; padding-left: 16px; color: #555; }
+.data-source-box ul li { font-size: 11px; margin: 1px 0; }
+.central-process-box { background: #2980b9; color: #fff; border-radius: 8px; padding: 14px 16px; text-align: center; font-weight: 700; font-size: 13px; box-shadow: 0 3px 12px rgba(41,128,185,0.4); min-width: 130px; }
+.central-label { color: #fff; }
+.sink-box { display: flex; align-items: stretch; background: #fff; border-radius: 7px; margin: 6px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.10); overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.15s; border: 1px solid rgba(0,0,0,0.08); }
+.sink-box:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.18); transform: translateX(2px); }
+.sink-color-bar { width: 6px; min-height: 100%; flex-shrink: 0; }
+.sink-content { display: flex; align-items: center; gap: 8px; padding: 8px 10px; flex: 1; }
+.sink-icon { font-size: 16px; flex-shrink: 0; }
+.sink-name { font-size: 11.5px; font-weight: 600; color: #2c3e50; line-height: 1.3; }
+.storage-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.storage-icon { font-size: 32px; }
+.storage-name { font-size: 10px; text-align: center; color: #555; font-weight: 600; }
+.edit-panel { position: fixed; bottom: 24px; right: 24px; display: flex; gap: 8px; z-index: 1000; }
+.edit-toggle, .export-btn, .detail-btn { background: #2c3e50; color: #fff; border: none; border-radius: 24px; padding: 10px 20px; cursor: pointer; font-size: 13px; font-weight: 600; box-shadow: 0 3px 12px rgba(0,0,0,0.2); transition: background 0.2s; }
+.edit-toggle:hover { background: #1a252f; }
+.export-btn { background: #27ae60; }
+.export-btn:hover { background: #1e8449; }
+.detail-btn { background: #1565c0; }
+.detail-btn:hover { background: #0d47a1; }
+body.edit-mode [contenteditable] { outline: 2px dashed #e74c3c; border-radius: 3px; cursor: text; background: rgba(255,235,59,0.15); }
+[contenteditable]:focus { outline: 2px solid #e74c3c !important; }
+.detail-panel { position: fixed; top: 0; right: -450px; width: 430px; height: 100vh; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transition: right 0.35s ease; display: flex; flex-direction: column; }
+.detail-panel.open { right: 0; }
+.detail-header { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid #e0e0e0; background: #f5f5f5; }
+.detail-header h3 { font-size: 16px; margin: 0; color: #1a237e; }
+.detail-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #757575; padding: 4px 8px; }
+.detail-close:hover { color: #c62828; }
+.detail-body { flex: 1; overflow-y: auto; padding: 16px; }
+.detail-section { margin-bottom: 16px; }
+.detail-section h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 2px solid #e0e0e0; }
+.detail-section h4.risks { color: #c62828; border-color: #ef9a9a; }
+.detail-section h4.flows { color: #1565c0; border-color: #90caf9; }
+.detail-section h4.data { color: #2e7d32; border-color: #a5d6a7; }
+.detail-section h4.evidence { color: #e65100; border-color: #ffcc02; }
+.risk-card { background: #fff5f5; border: 1px solid #ffcdd2; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.risk-severity { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-right: 6px; }
+.risk-severity.critical { background: #c62828; color: #fff; }
+.risk-severity.high { background: #e65100; color: #fff; }
+.risk-severity.medium { background: #f9a825; color: #fff; }
+.risk-severity.low { background: #66bb6a; color: #fff; }
+.risk-desc { font-size: 11px; color: #424242; line-height: 1.5; }
+.flow-item { font-size: 11px; padding: 6px 10px; border-radius: 6px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.flow-out { background: #e8f5e9; border: 1px solid #c8e6c9; }
+.flow-in { background: #e3f2fd; border: 1px solid #bbdefb; }
+.flow-dir { font-weight: 700; font-size: 13px; }
+.data-pill { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 12px; margin: 2px; background: #e8f5e9; color: #2e7d32; font-weight: 500; }
+.evidence-quote { font-size: 11px; color: #555; font-style: italic; border-left: 3px solid #ffcc02; padding: 6px 10px; margin: 6px 0; background: #fffde7; border-radius: 0 6px 6px 0; line-height: 1.5; }
+#arrows-svg { position: absolute; top: 0; left: 0; pointer-events: none; overflow: visible; z-index: 10; }
+@page { size: A3 landscape; margin: 10mm; }
+@media print {
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  body { background: #fff !important; padding: 0 !important; margin: 0 !important; }
+  .dfd-wrapper { border-radius: 0 !important; box-shadow: none !important; overflow: visible !important; min-width: 100% !important; width: 100% !important; }
+  .edit-panel, .detail-panel { display: none !important; }
+  #arrows-svg { display: block !important; overflow: visible !important; position: absolute !important; }
+  .central-process-box { background: #2980b9 !important; color: #fff !important; }
+  .dept-header, .col-header, .col-actor-label, .col-headers { background-color: #2c3e50 !important; color: #fff !important; }
+  .swimlane-row, .biz-process-group, .sink-box, .data-source-box { page-break-inside: avoid; break-inside: avoid; }
+}
+        </style></head><body>
+<div class="dfd-wrapper" id="dfd-wrapper">
+  <div class="dfd-title-bar"><span class="dfd-main-title">Data Flow Diagram (DFD)</span><span class="dfd-version">v 1.0</span></div>
+  <div class="dept-header">Department</div>
+  <div class="col-headers"><div class="col-actor-label"></div><div class="col-header">Data Collection</div><div class="col-header">Data Processing</div><div class="col-header">Data Dispersal</div><div class="col-header col-storage">Storage</div></div>
+  <div class="swimlane-body" id="swimlane-body"><div class="swimlane-row" style="--row-bg:#fffde7;--row-border:#f9a825;" data-actor-id="external">
+      <div class="actor-label" style="background:#fffde7;border-right:3px solid #f9a825;"><div class="actor-label-text" style="color:#f57f17;">External Parties</div></div>
+      <div class="cell cell-collection" data-col="collection" data-actor="external"><div class="biz-process-group" data-id="bp_nikhil_joshi" data-bp-name="Nikhil Joshi"><div class="biz-process-label" contenteditable="false">Nikhil Joshi</div><div class="data-source-box" data-id="src_Nikhil_Joshi"><div class="data-source-name" contenteditable="false">Nikhil Joshi</div></div></div><div class="biz-process-group" data-id="bp_smita" data-bp-name="Smita"><div class="biz-process-label" contenteditable="false">Smita</div><div class="data-source-box" data-id="src_Smita"><div class="data-source-name" contenteditable="false">Smita</div></div></div><div class="biz-process-group" data-id="bp_farhan_qureshi" data-bp-name="Farhan Qureshi"><div class="biz-process-label" contenteditable="false">Farhan Qureshi</div><div class="data-source-box" data-id="src_Farhan_Qureshi"><div class="data-source-name" contenteditable="false">Farhan Qureshi</div></div></div><div class="biz-process-group" data-id="bp_rohan_desai" data-bp-name="Rohan Desai"><div class="biz-process-label" contenteditable="false">Rohan Desai</div><div class="data-source-box" data-id="src_Rohan_Desai"><div class="data-source-name" contenteditable="false">Rohan Desai</div></div></div><div class="biz-process-group" data-id="bp_microsoft_365" data-bp-name="Microsoft 365"><div class="biz-process-label" contenteditable="false">Microsoft 365</div><div class="data-source-box" data-id="src_Microsoft_365"><div class="data-source-name" contenteditable="false">Microsoft 365</div></div></div><div class="biz-process-group" data-id="bp_customer" data-bp-name="Customer"><div class="biz-process-label" contenteditable="false">Customer</div><div class="data-source-box" data-id="src_Customer"><div class="data-source-name" contenteditable="false">Customer</div><ul><li>Customer Name</li><li>Loan Account Number</li><li>Mobile Number</li><li>PAN</li><li>Property Address</li></ul></div></div><div class="biz-process-group" data-id="bp_customer_care_agent" data-bp-name="Customer Care Agent"><div class="biz-process-label" contenteditable="false">Customer Care Agent</div><div class="data-source-box" data-id="src_Customer_Care_Agent"><div class="data-source-name" contenteditable="false">Customer Care Agent</div><ul><li>Aadhaar</li><li>Customer Name</li><li>EMI Amount</li><li>Email Address</li><li>Interest Rate</li><li>Loan Account Number</li><li>Mobile Number</li><li>PAN</li></ul></div></div></div>
+      <div class="cell cell-processing" data-col="processing" data-actor="external"></div>
+      <div class="cell cell-dispersal" data-col="dispersal" data-actor="external"><div class="sink-box" data-id="sink_customer" style="--sink-color:#c62828;"><div class="sink-color-bar" style="background:#c62828;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Customer</span></div></div><div class="sink-box" data-id="sink_customer_care_agent" style="--sink-color:#6a1b9a;"><div class="sink-color-bar" style="background:#6a1b9a;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Customer Care Agent</span></div></div></div>
+      <div class="cell cell-storage" data-col="storage" data-actor="external"></div>
+    </div><div class="swimlane-row" style="--row-bg:#fce4ec;--row-border:#e91e63;" data-actor-id="internal">
+      <div class="actor-label" style="background:#fce4ec;border-right:3px solid #e91e63;"><div class="actor-label-text" style="color:#880e4f;">Internal Departments</div></div>
+      <div class="cell cell-collection" data-col="collection" data-actor="internal"><div class="biz-process-group" data-id="bp_ameyo" data-bp-name="Ameyo"><div class="biz-process-label" contenteditable="false">Ameyo</div><div class="data-source-box" data-id="src_Ameyo"><div class="data-source-name" contenteditable="false">Ameyo</div><ul><li>Customer Name</li><li>EMI Amount</li><li>Email Address</li><li>Interest Rate</li><li>Loan Account Number</li><li>Mobile Number</li><li>PAN</li><li>Payment History</li></ul></div></div><div class="biz-process-group" data-id="bp_salesforce" data-bp-name="Salesforce"><div class="biz-process-label" contenteditable="false">Salesforce</div><div class="data-source-box" data-id="src_Salesforce"><div class="data-source-name" contenteditable="false">Salesforce</div><ul><li>Aadhaar</li><li>Customer Name</li><li>EMI Amount</li><li>Email Address</li><li>Interest Rate</li><li>Loan Account Number</li><li>Mobile Number</li><li>PAN</li></ul></div></div><div class="biz-process-group" data-id="bp_whatsapp_business_app" data-bp-name="WhatsApp Business App"><div class="biz-process-label" contenteditable="false">WhatsApp Business App</div><div class="data-source-box" data-id="src_WhatsApp_Business_App"><div class="data-source-name" contenteditable="false">WhatsApp Business App</div><ul><li>Customer Name</li><li>Loan Account Number</li><li>PAN</li><li>Property Address</li></ul></div></div><div class="biz-process-group" data-id="bp_priya_nair" data-bp-name="Priya Nair"><div class="biz-process-label" contenteditable="false">Priya Nair</div><div class="data-source-box" data-id="src_Priya_Nair"><div class="data-source-name" contenteditable="false">Priya Nair</div></div></div><div class="biz-process-group" data-id="bp_cti_connector" data-bp-name="CTI Connector"><div class="biz-process-label" contenteditable="false">CTI Connector</div><div class="data-source-box" data-id="src_CTI_Connector"><div class="data-source-name" contenteditable="false">CTI Connector</div></div></div><div class="biz-process-group" data-id="bp_shared_mailbox" data-bp-name="Shared Mailbox"><div class="biz-process-label" contenteditable="false">Shared Mailbox</div><div class="data-source-box" data-id="src_Shared_Mailbox"><div class="data-source-name" contenteditable="false">Shared Mailbox</div><ul><li>Customer Name</li><li>Email Address</li><li>Loan Account Number</li></ul></div></div><div class="biz-process-group" data-id="bp_deepa_lakshmi" data-bp-name="Deepa Lakshmi"><div class="biz-process-label" contenteditable="false">Deepa Lakshmi</div><div class="data-source-box" data-id="src_Deepa_Lakshmi"><div class="data-source-name" contenteditable="false">Deepa Lakshmi</div></div></div><div class="biz-process-group" data-id="bp_email_system" data-bp-name="Email System"><div class="biz-process-label" contenteditable="false">Email System</div><div class="data-source-box" data-id="src_Email_System"><div class="data-source-name" contenteditable="false">Email System</div><ul><li>Customer Name</li><li>Loan Account Number</li><li>Mobile Number</li></ul></div></div><div class="biz-process-group" data-id="bp_team_lead" data-bp-name="Team Lead"><div class="biz-process-label" contenteditable="false">Team Lead</div><div class="data-source-box" data-id="src_Team_Lead"><div class="data-source-name" contenteditable="false">Team Lead</div><ul><li>Aadhaar</li><li>Customer Name</li><li>Loan Account Number</li><li>PAN</li><li>quality scorecard</li></ul></div></div><div class="biz-process-group" data-id="bp_retention" data-bp-name="Retention"><div class="biz-process-label" contenteditable="false">Retention</div><div class="data-source-box" data-id="src_Retention"><div class="data-source-name" contenteditable="false">Retention</div><ul><li>Customer Name</li><li>EMI Amount</li><li>Email Address</li><li>Loan Account Number</li><li>Mobile Number</li><li>Payment History</li></ul></div></div><div class="biz-process-group" data-id="bp_compliance_calling" data-bp-name="Compliance Calling"><div class="biz-process-label" contenteditable="false">Compliance Calling</div><div class="data-source-box" data-id="src_Compliance_Calling"><div class="data-source-name" contenteditable="false">Compliance Calling</div><ul><li>Customer Name</li><li>Mobile Number</li></ul></div></div><div class="biz-process-group" data-id="bp_quality_assurance_agent" data-bp-name="Quality Assurance Agent"><div class="biz-process-label" contenteditable="false">Quality Assurance Agent</div><div class="data-source-box" data-id="src_Quality_Assurance_Agent"><div class="data-source-name" contenteditable="false">Quality Assurance Agent</div><ul><li>Customer Name</li><li>Loan Account Number</li></ul></div></div></div>
+      <div class="cell cell-processing" data-col="processing" data-actor="internal"><div class="central-process-box" id="central-process" data-id="central_process"><div class="central-label" contenteditable="false">Department Processing Hub</div></div></div>
+      <div class="cell cell-dispersal" data-col="dispersal" data-actor="internal"><div class="sink-box" data-id="sink_ameyo" style="--sink-color:#1565c0;"><div class="sink-color-bar" style="background:#1565c0;"></div><div class="sink-content"><span class="sink-icon">📊</span><span class="sink-name" contenteditable="false">Ameyo</span></div></div><div class="sink-box" data-id="sink_salesforce" style="--sink-color:#e91e63;"><div class="sink-color-bar" style="background:#e91e63;"></div><div class="sink-content"><span class="sink-icon">📊</span><span class="sink-name" contenteditable="false">Salesforce</span></div></div><div class="sink-box" data-id="sink_whatsapp_business_app" style="--sink-color:#4caf50;"><div class="sink-color-bar" style="background:#4caf50;"></div><div class="sink-content"><span class="sink-icon">🖥️</span><span class="sink-name" contenteditable="false">WhatsApp Business App</span></div></div><div class="sink-box" data-id="sink_shared_mailbox" style="--sink-color:#7b1fa2;"><div class="sink-color-bar" style="background:#7b1fa2;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Shared Mailbox</span></div></div><div class="sink-box" data-id="sink_email_system" style="--sink-color:#ff6f00;"><div class="sink-color-bar" style="background:#ff6f00;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Email System</span></div></div><div class="sink-box" data-id="sink_team_lead" style="--sink-color:#00838f;"><div class="sink-color-bar" style="background:#00838f;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Team Lead</span></div></div><div class="sink-box" data-id="sink_retention" style="--sink-color:#2196f3;"><div class="sink-color-bar" style="background:#2196f3;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Retention</span></div></div><div class="sink-box" data-id="sink_compliance_calling" style="--sink-color:#9c27b0;"><div class="sink-color-bar" style="background:#9c27b0;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Compliance Calling</span></div></div><div class="sink-box" data-id="sink_quality_assurance_agent" style="--sink-color:#f44336;"><div class="sink-color-bar" style="background:#f44336;"></div><div class="sink-content"><span class="sink-icon">➡️</span><span class="sink-name" contenteditable="false">Quality Assurance Agent</span></div></div></div>
+      <div class="cell cell-storage" data-col="storage" data-actor="internal"><div class="storage-item" data-id="st_Excel"><div class="storage-icon">☁️</div><div class="storage-name" contenteditable="false">Excel</div></div><div class="storage-item" data-id="st_OneDrive"><div class="storage-icon">☁️</div><div class="storage-name" contenteditable="false">OneDrive</div></div><div class="storage-item" data-id="st_Ameyo"><div class="storage-icon">☁️</div><div class="storage-name" contenteditable="false">Ameyo</div></div><div class="storage-item" data-id="st_Salesforce"><div class="storage-icon">☁️</div><div class="storage-name" contenteditable="false">Salesforce</div></div><div class="storage-item" data-id="st_WhatsApp_Business_App"><div class="storage-icon">☁️</div><div class="storage-name" contenteditable="false">WhatsApp Business App</div></div></div>
+    </div><div class="swimlane-row" style="--row-bg:#f1f8e9;--row-border:#7cb342;" data-actor-id="vendors">
+      <div class="actor-label" style="background:#f1f8e9;border-right:3px solid #7cb342;"><div class="actor-label-text" style="color:#33691e;">Vendors/Partners</div></div>
+      <div class="cell cell-collection" data-col="collection" data-actor="vendors"></div>
+      <div class="cell cell-processing" data-col="processing" data-actor="vendors"></div>
+      <div class="cell cell-dispersal" data-col="dispersal" data-actor="vendors"></div>
+      <div class="cell cell-storage" data-col="storage" data-actor="vendors"></div>
+    </div></div>
+  <svg id="arrows-svg" style="position:absolute;top:0;left:0;pointer-events:none;overflow:visible"></svg>
+  <script id="dfd-data" type="application/json">{
+  "department": "Department",
+  "version": "1.0",
+  "central_process": "Department Processing Hub",
+  "actors": [
+    {
+      "id": "external",
+      "name": "External Parties",
+      "type": "external",
+      "business_processes": [
+        {
+          "id": "bp_nikhil_joshi",
+          "name": "Nikhil Joshi",
+          "collection_sources": [
+            {
+              "name": "Nikhil Joshi",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_smita",
+          "name": "Smita",
+          "collection_sources": [
+            {
+              "name": "Smita",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_farhan_qureshi",
+          "name": "Farhan Qureshi",
+          "collection_sources": [
+            {
+              "name": "Farhan Qureshi",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_rohan_desai",
+          "name": "Rohan Desai",
+          "collection_sources": [
+            {
+              "name": "Rohan Desai",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_microsoft_365",
+          "name": "Microsoft 365",
+          "collection_sources": [
+            {
+              "name": "Microsoft 365",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_customer",
+          "name": "Customer",
+          "collection_sources": [
+            {
+              "name": "Customer",
+              "data_elements": [
+                "Customer Name",
+                "Loan Account Number",
+                "Mobile Number",
+                "PAN",
+                "Property Address"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_customer_care_agent",
+          "name": "Customer Care Agent",
+          "collection_sources": [
+            {
+              "name": "Customer Care Agent",
+              "data_elements": [
+                "Aadhaar",
+                "Customer Name",
+                "EMI Amount",
+                "Email Address",
+                "Interest Rate",
+                "Loan Account Number",
+                "Mobile Number",
+                "PAN"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal",
+      "name": "Internal Departments",
+      "type": "internal",
+      "business_processes": [
+        {
+          "id": "bp_ameyo",
+          "name": "Ameyo",
+          "collection_sources": [
+            {
+              "name": "Ameyo",
+              "data_elements": [
+                "Customer Name",
+                "EMI Amount",
+                "Email Address",
+                "Interest Rate",
+                "Loan Account Number",
+                "Mobile Number",
+                "PAN",
+                "Payment History"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_salesforce",
+          "name": "Salesforce",
+          "collection_sources": [
+            {
+              "name": "Salesforce",
+              "data_elements": [
+                "Aadhaar",
+                "Customer Name",
+                "EMI Amount",
+                "Email Address",
+                "Interest Rate",
+                "Loan Account Number",
+                "Mobile Number",
+                "PAN"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_whatsapp_business_app",
+          "name": "WhatsApp Business App",
+          "collection_sources": [
+            {
+              "name": "WhatsApp Business App",
+              "data_elements": [
+                "Customer Name",
+                "Loan Account Number",
+                "PAN",
+                "Property Address"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_priya_nair",
+          "name": "Priya Nair",
+          "collection_sources": [
+            {
+              "name": "Priya Nair",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_cti_connector",
+          "name": "CTI Connector",
+          "collection_sources": [
+            {
+              "name": "CTI Connector",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_shared_mailbox",
+          "name": "Shared Mailbox",
+          "collection_sources": [
+            {
+              "name": "Shared Mailbox",
+              "data_elements": [
+                "Customer Name",
+                "Email Address",
+                "Loan Account Number"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_deepa_lakshmi",
+          "name": "Deepa Lakshmi",
+          "collection_sources": [
+            {
+              "name": "Deepa Lakshmi",
+              "data_elements": []
+            }
+          ]
+        },
+        {
+          "id": "bp_email_system",
+          "name": "Email System",
+          "collection_sources": [
+            {
+              "name": "Email System",
+              "data_elements": [
+                "Customer Name",
+                "Loan Account Number",
+                "Mobile Number"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_team_lead",
+          "name": "Team Lead",
+          "collection_sources": [
+            {
+              "name": "Team Lead",
+              "data_elements": [
+                "Aadhaar",
+                "Customer Name",
+                "Loan Account Number",
+                "PAN",
+                "quality scorecard"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_retention",
+          "name": "Retention",
+          "collection_sources": [
+            {
+              "name": "Retention",
+              "data_elements": [
+                "Customer Name",
+                "EMI Amount",
+                "Email Address",
+                "Loan Account Number",
+                "Mobile Number",
+                "Payment History"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_compliance_calling",
+          "name": "Compliance Calling",
+          "collection_sources": [
+            {
+              "name": "Compliance Calling",
+              "data_elements": [
+                "Customer Name",
+                "Mobile Number"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bp_quality_assurance_agent",
+          "name": "Quality Assurance Agent",
+          "collection_sources": [
+            {
+              "name": "Quality Assurance Agent",
+              "data_elements": [
+                "Customer Name",
+                "Loan Account Number"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vendors",
+      "name": "Vendors/Partners",
+      "type": "vendor",
+      "business_processes": []
+    }
+  ],
+  "dispersal_sinks": [
+    {
+      "id": "sink_ameyo",
+      "name": "Ameyo",
+      "actor_id": "internal",
+      "node_id": "ameyo",
+      "color": "#1565c0"
+    },
+    {
+      "id": "sink_salesforce",
+      "name": "Salesforce",
+      "actor_id": "internal",
+      "node_id": "salesforce",
+      "color": "#e91e63"
+    },
+    {
+      "id": "sink_whatsapp_business_app",
+      "name": "WhatsApp Business App",
+      "actor_id": "internal",
+      "node_id": "whatsapp_business_app",
+      "color": "#4caf50"
+    },
+    {
+      "id": "sink_shared_mailbox",
+      "name": "Shared Mailbox",
+      "actor_id": "internal",
+      "node_id": "shared_mailbox",
+      "color": "#7b1fa2"
+    },
+    {
+      "id": "sink_email_system",
+      "name": "Email System",
+      "actor_id": "internal",
+      "node_id": "email_system",
+      "color": "#ff6f00"
+    },
+    {
+      "id": "sink_team_lead",
+      "name": "Team Lead",
+      "actor_id": "internal",
+      "node_id": "team_lead",
+      "color": "#00838f"
+    },
+    {
+      "id": "sink_customer",
+      "name": "Customer",
+      "actor_id": "external",
+      "node_id": "customer",
+      "color": "#c62828"
+    },
+    {
+      "id": "sink_customer_care_agent",
+      "name": "Customer Care Agent",
+      "actor_id": "external",
+      "node_id": "customer_care_agent",
+      "color": "#6a1b9a"
+    },
+    {
+      "id": "sink_retention",
+      "name": "Retention",
+      "actor_id": "internal",
+      "node_id": "retention",
+      "color": "#2196f3"
+    },
+    {
+      "id": "sink_compliance_calling",
+      "name": "Compliance Calling",
+      "actor_id": "internal",
+      "node_id": "compliance_calling",
+      "color": "#9c27b0"
+    },
+    {
+      "id": "sink_quality_assurance_agent",
+      "name": "Quality Assurance Agent",
+      "actor_id": "internal",
+      "node_id": "quality_assurance_agent",
+      "color": "#f44336"
+    }
+  ],
+  "storage_systems": [
+    {
+      "name": "Excel",
+      "type": "cloud"
+    },
+    {
+      "name": "OneDrive",
+      "type": "cloud"
+    },
+    {
+      "name": "Ameyo",
+      "type": "cloud"
+    },
+    {
+      "name": "Salesforce",
+      "type": "cloud"
+    },
+    {
+      "name": "WhatsApp Business App",
+      "type": "cloud"
+    }
+  ],
+  "data_flows": [
+    {
+      "from_id": "bp_nikhil_joshi",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "bp_smita",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "bp_farhan_qureshi",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "bp_rohan_desai",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "bp_microsoft_365",
+      "to_id": "central_process",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "bp_customer",
+      "to_id": "central_process",
+      "color": "#00838f",
+      "label": "Customer Name, Loan Account Number"
+    },
+    {
+      "from_id": "bp_customer_care_agent",
+      "to_id": "central_process",
+      "color": "#c62828",
+      "label": "Aadhaar, Customer Name"
+    },
+    {
+      "from_id": "bp_ameyo",
+      "to_id": "central_process",
+      "color": "#6a1b9a",
+      "label": "Customer Name, EMI Amount"
+    },
+    {
+      "from_id": "bp_salesforce",
+      "to_id": "central_process",
+      "color": "#2196f3",
+      "label": "Aadhaar, Customer Name"
+    },
+    {
+      "from_id": "bp_whatsapp_business_app",
+      "to_id": "central_process",
+      "color": "#9c27b0",
+      "label": "Customer Name, Loan Account Number"
+    },
+    {
+      "from_id": "bp_priya_nair",
+      "to_id": "central_process",
+      "color": "#f44336",
+      "label": ""
+    },
+    {
+      "from_id": "bp_cti_connector",
+      "to_id": "central_process",
+      "color": "#009688",
+      "label": ""
+    },
+    {
+      "from_id": "bp_shared_mailbox",
+      "to_id": "central_process",
+      "color": "#ff9800",
+      "label": "Customer Name, Email Address"
+    },
+    {
+      "from_id": "bp_deepa_lakshmi",
+      "to_id": "central_process",
+      "color": "#3f51b5",
+      "label": ""
+    },
+    {
+      "from_id": "bp_email_system",
+      "to_id": "central_process",
+      "color": "#795548",
+      "label": "Customer Name, Loan Account Number"
+    },
+    {
+      "from_id": "bp_team_lead",
+      "to_id": "central_process",
+      "color": "#1565c0",
+      "label": "Aadhaar, Customer Name"
+    },
+    {
+      "from_id": "bp_retention",
+      "to_id": "central_process",
+      "color": "#e91e63",
+      "label": "Customer Name, EMI Amount"
+    },
+    {
+      "from_id": "bp_compliance_calling",
+      "to_id": "central_process",
+      "color": "#4caf50",
+      "label": "Customer Name, Mobile Number"
+    },
+    {
+      "from_id": "bp_quality_assurance_agent",
+      "to_id": "central_process",
+      "color": "#7b1fa2",
+      "label": "Customer Name, Loan Account Number"
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_ameyo",
+      "color": "#1565c0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_salesforce",
+      "color": "#e91e63",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_whatsapp_business_app",
+      "color": "#4caf50",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_shared_mailbox",
+      "color": "#7b1fa2",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_email_system",
+      "color": "#ff6f00",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_team_lead",
+      "color": "#00838f",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_customer",
+      "color": "#c62828",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_customer_care_agent",
+      "color": "#6a1b9a",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_retention",
+      "color": "#2196f3",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_compliance_calling",
+      "color": "#9c27b0",
+      "label": ""
+    },
+    {
+      "from_id": "central_process",
+      "to_id": "sink_quality_assurance_agent",
+      "color": "#f44336",
+      "label": ""
+    }
+  ]
+}</script>
+  <script id="kg-data" type="application/json">{
+  "nodes": [
+    {
+      "id": "nikhil_joshi",
+      "name": "Nikhil Joshi",
+      "type": "actor",
+      "aliases": [
+        "Nikhil"
+      ],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ]
+    },
+    {
+      "id": "smita",
+      "name": "Smita",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ]
+    },
+    {
+      "id": "farhan_qureshi",
+      "name": "Farhan Qureshi",
+      "type": "actor",
+      "aliases": [
+        "Farhan"
+      ],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "rohan_desai",
+      "name": "Rohan Desai",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "ameyo",
+      "name": "Ameyo",
+      "type": "system",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "type": "system",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risks": [
+        {
+          "risk_name": "Broad Cross-Departmental Data Access",
+          "severity": "medium",
+          "description": "Customer financial data including account details and personal information is accessible across multiple departments (Customer Care and Retention teams) without clear business justification for all access scenarios.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Comprehensive Financial Profile Exposure",
+          "severity": "medium",
+          "description": "Agents have immediate access to extensive customer financial profiles including loan amounts, payment history, overdue status, and co-applicant details without verification of legitimate business need for each data element during the interaction.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Broad Financial Data Exposure to Multiple Teams",
+          "severity": "medium",
+          "description": "Comprehensive customer financial data including loan account numbers, sanctioned amounts, outstanding principal, EMI amounts, and payment history is accessible to both Customer Care and Retention teams through Salesforce, potentially beyond what's necessary for their respective functions.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Uncontrolled Cross-System Data Integration",
+          "severity": "medium",
+          "description": "Customer data flows automatically between Ameyo IVR system and Salesforce without clear visibility into data handling controls, encryption, or access logging across the integration.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Cross-Department Data Access Without Business Justification",
+          "severity": "medium",
+          "description": "Customer financial data including account details and closure reasons are accessible to both Customer Care and Retention teams through shared Salesforce access, potentially beyond what's necessary for each team's functions.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Comprehensive Customer Profile Exposure",
+          "severity": "medium",
+          "description": "Extensive customer personal and financial information is displayed to agents immediately upon call connection, including co-applicant details and complete payment history, creating risk of unnecessary data exposure.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Unmanaged WhatsApp Data on Personal Devices",
+          "severity": "critical",
+          "description": "Customer messages containing account numbers and personal details are stored on unmanaged mobile devices without MDM controls, encryption, or backup procedures. Data is permanently lost when devices are wiped.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "WhatsApp Data Loss Risk",
+          "severity": "high",
+          "description": "Customer WhatsApp conversations containing account numbers and personal details are stored only on physical phones without backup, creating risk of permanent data loss when phones are wiped.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Plain Text Customer Data in Escalation Emails",
+          "severity": "critical",
+          "description": "Escalation emails contain customer personal data including names, account numbers, and issue descriptions in plain text. This creates exposure risk if email accounts are compromised, as confirmed by pre-detected analysis.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Data in Escalation Emails",
+          "severity": "high",
+          "description": "Escalation emails contain customer personal data including names and account numbers in plain text, creating exposure risk if email accounts are compromised.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unmasked Aadhaar Display to All Staff",
+          "severity": "critical",
+          "description": "Full 12-digit Aadhaar numbers of both primary applicants and co-applicants are visible to all 45 Customer Care staff in Salesforce without any masking or field-level security controls. This violates Aadhaar Act provisions that restrict storage and display of full Aadhaar numbers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Absence of Field-Level Security Controls",
+          "severity": "high",
+          "description": "Salesforce has no field-level security configured, meaning all Customer Care profiles have identical read access to sensitive customer data regardless of job role requirements.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unrestricted Data Export Capabilities",
+          "severity": "high",
+          "description": "Team Lead and Manager profiles can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no Data Loss Prevention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Call Recording Access Bypass",
+          "severity": "medium",
+          "description": "Call recordings are accessible to any Salesforce user with case access through embedded recording links, bypassing Ameyo's native access controls and extending access beyond intended users.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "whatsapp_business_app",
+      "name": "WhatsApp Business App",
+      "type": "system",
+      "aliases": [
+        "WhatsApp"
+      ],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risks": [
+        {
+          "risk_name": "Unmanaged Mobile Device Storage",
+          "severity": "medium",
+          "description": "Customer data including account numbers and personal details are stored on company phones that lack MDM management and proper security controls.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "PAN Card Images Transmitted via WhatsApp",
+          "severity": "critical",
+          "description": "Customers are sending PAN card images through WhatsApp Business for ID verification. These images are stored on unmanaged company phones with no encryption beyond WhatsApp's default protection.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Cross-Border Data Transfer via WhatsApp",
+          "severity": "high",
+          "description": "Customer financial inquiries and PAN card images are processed through WhatsApp Business, which involves Meta's global servers and constitutes cross-border data transfer without proper safeguards.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Sensitive Personal Information in Case Descriptions",
+          "severity": "medium",
+          "description": "Free-text case descriptions contain highly sensitive personal information including health situations, corruption allegations with named employees, and family relationship changes, accessible to all Customer Care staff.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmanaged Mobile Devices Handling Customer Data",
+          "severity": "medium",
+          "description": "Company-issued phones used for WhatsApp Business are not under Mobile Device Management, creating security risks for customer data stored on these devices.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "PAN Card Images via WhatsApp",
+          "severity": "critical",
+          "description": "Customers are sending PAN card images through WhatsApp Business, which are stored on unmanaged devices with no encryption beyond WhatsApp's E2E encryption.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmanaged WhatsApp Business Devices",
+          "severity": "medium",
+          "description": "WhatsApp Business phones handling customer financial data are not under mobile device management, creating security and data governance risks.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "priya_nair",
+      "name": "Priya Nair",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "cti_connector",
+      "name": "CTI Connector",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "shared_mailbox",
+      "name": "Shared Mailbox",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Indefinite Email Retention in Shared Mailbox",
+          "severity": "medium",
+          "description": "Customer emails containing personal and financial information are retained indefinitely in shared mailbox without retention policy or regular purging procedures.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Email Retention",
+          "severity": "medium",
+          "description": "Customer emails in shared mailbox are retained indefinitely without deletion policy, accumulating years of customer correspondence.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Broad Access to Historical Customer Communications",
+          "severity": "medium",
+          "description": "Four personnel have unrestricted access to years of customer email history in shared mailbox, creating unnecessary exposure to historical personal and financial communications.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        }
+      ],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "deepa_lakshmi",
+      "name": "Deepa Lakshmi",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ]
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "type": "data_store",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "onedrive",
+      "name": "OneDrive",
+      "type": "data_store",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Uncontrolled Data Access After Employee Departure",
+          "severity": "medium",
+          "description": "There are no defined procedures for handling customer data stored on employee personal accounts when they leave their role or the company. Data could remain accessible on personal OneDrive accounts indefinitely.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer PII in Personal Cloud Storage",
+          "severity": "high",
+          "description": "Quality audit scorecards containing customer names and account numbers are stored in personal OneDrive accounts, with an estimated 8,000-10,000 customer records accumulated over time outside corporate data governance.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "email_system",
+      "name": "Email System",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ]
+    },
+    {
+      "id": "team_lead",
+      "name": "Team Lead",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "quality scorecard"
+      ],
+      "risks": [
+        {
+          "risk_name": "Unencrypted Email Transmission of Sensitive Customer Data",
+          "severity": "critical",
+          "description": "Customer personal data including names, loan account numbers, mobile numbers, and potentially sensitive fraud-related responses are being transmitted via unencrypted email attachments. Monthly consolidated Excel reports containing this data are sent to Field Audit teams without encryption or password protection.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unrestricted Data Export Capability",
+          "severity": "high",
+          "description": "Team leads and managers can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no data loss prevention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "microsoft_365",
+      "name": "Microsoft 365",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "customer",
+      "name": "Customer",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risks": [
+        {
+          "risk_name": "Inadequate Identity Verification for Financial Data Disclosure",
+          "severity": "high",
+          "description": "Customer financial data including loan account numbers, EMI amounts, payment history, and outstanding balances are disclosed to callers based solely on caller ID matching without additional identity verification. This creates risk of unauthorized access if someone else uses the customer's registered phone.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Excessive Data Access Without Row-Level Security",
+          "severity": "high",
+          "description": "All 45 personnel can access any customer's complete financial profile including PAN, addresses, loan details, payment history, and case history without restrictions. This violates data minimization principles.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Misleading Call Recording Consent Notice",
+          "severity": "high",
+          "description": "IVR states calls 'may be recorded' but all calls are actually recorded without exception and without opt-out option. This constitutes misleading consent under DPDPA requirements.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Misleading Call Recording Consent",
+          "severity": "high",
+          "description": "IVR disclaimer states calls 'may be recorded' but all calls are actually recorded without exception, and no opt-out mechanism is provided to customers.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Lack of Data Privacy Consent for Outbound Calls",
+          "severity": "high",
+          "description": "Customers are not informed that their compliance call responses will be recorded and shared with other teams. There is no formal data privacy notice provided during outbound compliance calls, and customers are unaware of how their data will be used or shared.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Inconsistent Call Recording Disclosure",
+          "severity": "high",
+          "description": "Outbound compliance calls are recorded without consistent disclosure to customers. While agents are supposed to verbally mention call recording, this practice is not consistently followed, creating consent gaps for call recordings.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Data in Quality Audit Records",
+          "severity": "medium",
+          "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance. This data is stored in Excel trackers for quality management purposes.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Lack of Call Recording Consent for Outbound Calls",
+          "severity": "high",
+          "description": "Outbound compliance calls are being recorded without proper customer consent or notification, as there is no automated disclaimer and verbal notification by agents is inconsistent.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Absence of Data Privacy Notice for Compliance Calls",
+          "severity": "high",
+          "description": "Customers are not informed about how their compliance call data will be collected, used, or shared with other teams during outbound verification calls.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Identifiers in Quality Audit Data",
+          "severity": "medium",
+          "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unmasked PAN Display to All Staff",
+          "severity": "high",
+          "description": "Full PAN numbers of both primary applicants and co-applicants are displayed without masking to all Customer Care staff, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Potential Cross-Border Data Transfer via Ameyo",
+          "severity": "high",
+          "description": "Call recordings containing customer financial and personal data may be stored outside India through Ameyo's cloud infrastructure, with hosting location unverified despite vendor claims of India hosting.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmasked PAN Display",
+          "severity": "high",
+          "description": "Full PAN numbers are displayed unmasked to all Customer Care staff, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Field-Level Access Controls",
+          "severity": "high",
+          "description": "All Customer Care profiles have identical read access to sensitive customer data including PAN, Aadhaar, and financial information, violating principle of least privilege.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Potential Cross-Border Transfer via Ameyo",
+          "severity": "medium",
+          "description": "Call recordings containing financial and personal data may be stored outside India through Ameyo's cloud infrastructure, with hosting location unverified.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "customer_care_agent",
+      "name": "Customer Care Agent",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "quality scorecard"
+      ],
+      "risks": [
+        {
+          "risk_name": "Excessive Access to Sensitive Complaint Data",
+          "severity": "critical",
+          "description": "All customer care agents have unrestricted access to highly sensitive bribery complaint cases containing whistleblower information, employee allegations, and supporting evidence. This violates principle of least privilege and creates risk of data misuse or retaliation.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Unrestricted PAN Exposure to All Agents",
+          "severity": "critical",
+          "description": "Full PAN numbers are visible to all 45 customer service personnel without masking or role-based restrictions. Customer care agents do not require PAN access for routine queries, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Unrestricted PAN Access",
+          "severity": "critical",
+          "description": "Full PAN numbers are visible to all agents without masking or role-based restrictions. Approximately 45 people including agents, team leads, compliance, and quality teams can access any customer's complete PAN number.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "retention",
+      "name": "Retention",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "risks": [
+        {
+          "risk_name": "Indefinite Retention of Sensitive Call Recordings",
+          "severity": "high",
+          "description": "Call recordings containing highly sensitive personal and financial data are retained indefinitely without defined retention policy. Recordings include discussions of financial hardship, medical emergencies, and personal circumstances.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Call Recording Retention",
+          "severity": "high",
+          "description": "Call recordings containing sensitive personal and financial data are retained indefinitely without a defined retention policy, with recordings accessible from over two years ago.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Excessive Data Retention on Personal Devices",
+          "severity": "high",
+          "description": "Customer data including names, account numbers, mobile numbers, and sensitive compliance responses are stored indefinitely on personal OneDrive accounts. Data dating back to April 2024 (over a year) is retained without defined retention policies or secure deletion procedures.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Indefinite Call Recording Retention",
+          "severity": "medium",
+          "description": "Call recordings containing customer financial and personal data are stored indefinitely with no retention policy or auto-deletion configured, with recordings accessible from March 2024 (nearly 2 years).",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Call Recording Retention Policy",
+          "severity": "medium",
+          "description": "Call recordings containing customer financial and personal data are stored indefinitely without any retention policy or auto-deletion mechanism.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Customer PII in Quality Audit Files",
+          "severity": "medium",
+          "description": "Quality audit scorecards stored in OneDrive contain customer names and account numbers, creating an additional repository of customer identifiers without clear retention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Data Retention Policy for Call Recordings",
+          "severity": "medium",
+          "description": "Call recordings are stored indefinitely without any retention policy or auto-deletion, with recordings accessible from March 2024 (nearly 2 years) containing sensitive customer conversations.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "compliance_calling",
+      "name": "Compliance Calling",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Excessive Data Access Scope",
+          "severity": "high",
+          "description": "45 personnel have unrestricted access to all customer records including PAN, addresses, financial details, and case history without row-level restrictions.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Data Retention Without Policy",
+          "severity": "high",
+          "description": "Compliance calling data including customer personal information is being retained indefinitely on OneDrive without a defined retention policy or data disposal process.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "quality_assurance_agent",
+      "name": "Quality Assurance Agent",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "risks": [],
+      "sources": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "ameyo",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Residential Address",
+        "call metadata"
+      ],
+      "flow_type": "transfer",
+      "channel": "API, CTI connector",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Ameyo is integrated with Salesforce. When a call comes in, the system checks the caller's number against our customer database",
+        "Ameyo passes the caller's phone number to Salesforce via a CTI connector, and Salesforce does a lookup against the customer database",
+        "CTI connector passes caller phone number to Salesforce for auto-lookup"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "The agent gets a Salesforce screen with the customer's profile"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Smita's team pulls recordings from Ameyo, listens to them, and scores the agents on a quality scorecard"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name",
+        "PAN"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "transfer",
+      "channel": "API",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "For registered callers, Ameyo pulls up the customer profile from Salesforce"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "Retention has access to the same customer records we do"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Aadhaar",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Property Address",
+        "Residential Address"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Fields visible in default Customer Care page layout"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "team_lead",
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "PAN"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Team Lead and Manager profiles can export data via Salesforce reports"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: salesforce\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ],
+      "evidence": [
+        "The agents also log the interaction in Salesforce as a case"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ],
+      "evidence": [
+        "When an email comes in, they read it, create a case in Salesforce"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "excel",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "They stay on my machine. I have them organized by month in folders on my OneDrive"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Columns: Agent Name, Agent ID, Call Date, Recording ID, Customer Name, Account Number"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Excel files on Smita's OneDrive, organized by month"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "quality scorecard"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Shared with Nikhil monthly via email"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "whatsapp_business_app",
+      "data_elements": [
+        "Customer Name",
+        "PAN",
+        "Property Address"
+      ],
+      "flow_type": "processing",
+      "channel": "WhatsApp, messaging",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "we have a business WhatsApp number that customers can message",
+        "photos of property documents, PAN card images"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "ameyo",
+      "data_elements": [
+        "Mobile Number"
+      ],
+      "flow_type": "collection",
+      "channel": "phone",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "When a call comes in, the system checks the caller's number"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "Every interaction gets logged in Salesforce as a case"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "customers can email us at a generic customer care email address"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "we just transfer the call and log a case",
+        "Farhan logged into Salesforce and walked through the configuration"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "collection",
+      "channel": "phone",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "If a customer calls to close their loan or requests a foreclosure, the call is transferred"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "The columns include the customer's name, loan account number, mobile number, date of call, call type, and then the individual question responses"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "They stay on my machine. I have them organized by month in folders on my OneDrive"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Email. I email the consolidated Excel to the Field Audit team lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Yes. All our outbound calls are also recorded through Ameyo"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192salesforce"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "quality_assurance_agent",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "it usually notes the customer's name or account number so they can cross-reference if needed"
+      ]
+    }
+  ],
+  "metadata": {
+    "total_nodes": 21,
+    "total_edges": 54,
+    "inferred_edges": 29
+  }
+}</script>
+</div>
+<div class="edit-panel"><button class="edit-toggle" onclick="toggleEdit()"><span id="edit-icon">✏️</span> Edit Mode</button><button class="export-btn" onclick="exportPNG()">📥 Export PNG</button><button class="detail-btn" onclick="toggleDetailPanel()">🔍 Details</button></div>
+<div class="detail-panel" id="detail-panel"><div class="detail-header"><h3>🔍 Node Details</h3><button class="detail-close" onclick="toggleDetailPanel()">✕</button></div><div class="detail-body" id="detail-body"><p style="color:#999;text-align:center;padding:40px">Click a node in the DFD to see details</p></div></div>
+<script>var flows=[{"from_id": "bp_nikhil_joshi", "to_id": "central_process", "color": "#1565c0", "label": ""}, {"from_id": "bp_smita", "to_id": "central_process", "color": "#e91e63", "label": ""}, {"from_id": "bp_farhan_qureshi", "to_id": "central_process", "color": "#4caf50", "label": ""}, {"from_id": "bp_rohan_desai", "to_id": "central_process", "color": "#7b1fa2", "label": ""}, {"from_id": "bp_microsoft_365", "to_id": "central_process", "color": "#ff6f00", "label": ""}, {"from_id": "bp_customer", "to_id": "central_process", "color": "#00838f", "label": "Customer Name, Loan Account Number"}, {"from_id": "bp_customer_care_agent", "to_id": "central_process", "color": "#c62828", "label": "Aadhaar, Customer Name"}, {"from_id": "bp_ameyo", "to_id": "central_process", "color": "#6a1b9a", "label": "Customer Name, EMI Amount"}, {"from_id": "bp_salesforce", "to_id": "central_process", "color": "#2196f3", "label": "Aadhaar, Customer Name"}, {"from_id": "bp_whatsapp_business_app", "to_id": "central_process", "color": "#9c27b0", "label": "Customer Name, Loan Account Number"}, {"from_id": "bp_priya_nair", "to_id": "central_process", "color": "#f44336", "label": ""}, {"from_id": "bp_cti_connector", "to_id": "central_process", "color": "#009688", "label": ""}, {"from_id": "bp_shared_mailbox", "to_id": "central_process", "color": "#ff9800", "label": "Customer Name, Email Address"}, {"from_id": "bp_deepa_lakshmi", "to_id": "central_process", "color": "#3f51b5", "label": ""}, {"from_id": "bp_email_system", "to_id": "central_process", "color": "#795548", "label": "Customer Name, Loan Account Number"}, {"from_id": "bp_team_lead", "to_id": "central_process", "color": "#1565c0", "label": "Aadhaar, Customer Name"}, {"from_id": "bp_retention", "to_id": "central_process", "color": "#e91e63", "label": "Customer Name, EMI Amount"}, {"from_id": "bp_compliance_calling", "to_id": "central_process", "color": "#4caf50", "label": "Customer Name, Mobile Number"}, {"from_id": "bp_quality_assurance_agent", "to_id": "central_process", "color": "#7b1fa2", "label": "Customer Name, Loan Account Number"}, {"from_id": "central_process", "to_id": "sink_ameyo", "color": "#1565c0", "label": ""}, {"from_id": "central_process", "to_id": "sink_salesforce", "color": "#e91e63", "label": ""}, {"from_id": "central_process", "to_id": "sink_whatsapp_business_app", "color": "#4caf50", "label": ""}, {"from_id": "central_process", "to_id": "sink_shared_mailbox", "color": "#7b1fa2", "label": ""}, {"from_id": "central_process", "to_id": "sink_email_system", "color": "#ff6f00", "label": ""}, {"from_id": "central_process", "to_id": "sink_team_lead", "color": "#00838f", "label": ""}, {"from_id": "central_process", "to_id": "sink_customer", "color": "#c62828", "label": ""}, {"from_id": "central_process", "to_id": "sink_customer_care_agent", "color": "#6a1b9a", "label": ""}, {"from_id": "central_process", "to_id": "sink_retention", "color": "#2196f3", "label": ""}, {"from_id": "central_process", "to_id": "sink_compliance_calling", "color": "#9c27b0", "label": ""}, {"from_id": "central_process", "to_id": "sink_quality_assurance_agent", "color": "#f44336", "label": ""}];var kgData={
+  "nodes": [
+    {
+      "id": "nikhil_joshi",
+      "name": "Nikhil Joshi",
+      "type": "actor",
+      "aliases": [
+        "Nikhil"
+      ],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ]
+    },
+    {
+      "id": "smita",
+      "name": "Smita",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ]
+    },
+    {
+      "id": "farhan_qureshi",
+      "name": "Farhan Qureshi",
+      "type": "actor",
+      "aliases": [
+        "Farhan"
+      ],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "rohan_desai",
+      "name": "Rohan Desai",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "ameyo",
+      "name": "Ameyo",
+      "type": "system",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce",
+      "type": "system",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "call metadata"
+      ],
+      "risks": [
+        {
+          "risk_name": "Broad Cross-Departmental Data Access",
+          "severity": "medium",
+          "description": "Customer financial data including account details and personal information is accessible across multiple departments (Customer Care and Retention teams) without clear business justification for all access scenarios.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Comprehensive Financial Profile Exposure",
+          "severity": "medium",
+          "description": "Agents have immediate access to extensive customer financial profiles including loan amounts, payment history, overdue status, and co-applicant details without verification of legitimate business need for each data element during the interaction.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Broad Financial Data Exposure to Multiple Teams",
+          "severity": "medium",
+          "description": "Comprehensive customer financial data including loan account numbers, sanctioned amounts, outstanding principal, EMI amounts, and payment history is accessible to both Customer Care and Retention teams through Salesforce, potentially beyond what's necessary for their respective functions.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Uncontrolled Cross-System Data Integration",
+          "severity": "medium",
+          "description": "Customer data flows automatically between Ameyo IVR system and Salesforce without clear visibility into data handling controls, encryption, or access logging across the integration.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Cross-Department Data Access Without Business Justification",
+          "severity": "medium",
+          "description": "Customer financial data including account details and closure reasons are accessible to both Customer Care and Retention teams through shared Salesforce access, potentially beyond what's necessary for each team's functions.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Comprehensive Customer Profile Exposure",
+          "severity": "medium",
+          "description": "Extensive customer personal and financial information is displayed to agents immediately upon call connection, including co-applicant details and complete payment history, creating risk of unnecessary data exposure.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Unmanaged WhatsApp Data on Personal Devices",
+          "severity": "critical",
+          "description": "Customer messages containing account numbers and personal details are stored on unmanaged mobile devices without MDM controls, encryption, or backup procedures. Data is permanently lost when devices are wiped.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "WhatsApp Data Loss Risk",
+          "severity": "high",
+          "description": "Customer WhatsApp conversations containing account numbers and personal details are stored only on physical phones without backup, creating risk of permanent data loss when phones are wiped.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Plain Text Customer Data in Escalation Emails",
+          "severity": "critical",
+          "description": "Escalation emails contain customer personal data including names, account numbers, and issue descriptions in plain text. This creates exposure risk if email accounts are compromised, as confirmed by pre-detected analysis.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Data in Escalation Emails",
+          "severity": "high",
+          "description": "Escalation emails contain customer personal data including names and account numbers in plain text, creating exposure risk if email accounts are compromised.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unmasked Aadhaar Display to All Staff",
+          "severity": "critical",
+          "description": "Full 12-digit Aadhaar numbers of both primary applicants and co-applicants are visible to all 45 Customer Care staff in Salesforce without any masking or field-level security controls. This violates Aadhaar Act provisions that restrict storage and display of full Aadhaar numbers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Absence of Field-Level Security Controls",
+          "severity": "high",
+          "description": "Salesforce has no field-level security configured, meaning all Customer Care profiles have identical read access to sensitive customer data regardless of job role requirements.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unrestricted Data Export Capabilities",
+          "severity": "high",
+          "description": "Team Lead and Manager profiles can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no Data Loss Prevention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Call Recording Access Bypass",
+          "severity": "medium",
+          "description": "Call recordings are accessible to any Salesforce user with case access through embedded recording links, bypassing Ameyo's native access controls and extending access beyond intended users.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "whatsapp_business_app",
+      "name": "WhatsApp Business App",
+      "type": "system",
+      "aliases": [
+        "WhatsApp"
+      ],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risks": [
+        {
+          "risk_name": "Unmanaged Mobile Device Storage",
+          "severity": "medium",
+          "description": "Customer data including account numbers and personal details are stored on company phones that lack MDM management and proper security controls.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "PAN Card Images Transmitted via WhatsApp",
+          "severity": "critical",
+          "description": "Customers are sending PAN card images through WhatsApp Business for ID verification. These images are stored on unmanaged company phones with no encryption beyond WhatsApp's default protection.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Cross-Border Data Transfer via WhatsApp",
+          "severity": "high",
+          "description": "Customer financial inquiries and PAN card images are processed through WhatsApp Business, which involves Meta's global servers and constitutes cross-border data transfer without proper safeguards.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Sensitive Personal Information in Case Descriptions",
+          "severity": "medium",
+          "description": "Free-text case descriptions contain highly sensitive personal information including health situations, corruption allegations with named employees, and family relationship changes, accessible to all Customer Care staff.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmanaged Mobile Devices Handling Customer Data",
+          "severity": "medium",
+          "description": "Company-issued phones used for WhatsApp Business are not under Mobile Device Management, creating security risks for customer data stored on these devices.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "PAN Card Images via WhatsApp",
+          "severity": "critical",
+          "description": "Customers are sending PAN card images through WhatsApp Business, which are stored on unmanaged devices with no encryption beyond WhatsApp's E2E encryption.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmanaged WhatsApp Business Devices",
+          "severity": "medium",
+          "description": "WhatsApp Business phones handling customer financial data are not under mobile device management, creating security and data governance risks.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt",
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "priya_nair",
+      "name": "Priya Nair",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "cti_connector",
+      "name": "CTI Connector",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "shared_mailbox",
+      "name": "Shared Mailbox",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Indefinite Email Retention in Shared Mailbox",
+          "severity": "medium",
+          "description": "Customer emails containing personal and financial information are retained indefinitely in shared mailbox without retention policy or regular purging procedures.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Email Retention",
+          "severity": "medium",
+          "description": "Customer emails in shared mailbox are retained indefinitely without deletion policy, accumulating years of customer correspondence.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Broad Access to Historical Customer Communications",
+          "severity": "medium",
+          "description": "Four personnel have unrestricted access to years of customer email history in shared mailbox, creating unnecessary exposure to historical personal and financial communications.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        }
+      ],
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ]
+    },
+    {
+      "id": "deepa_lakshmi",
+      "name": "Deepa Lakshmi",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ]
+    },
+    {
+      "id": "excel",
+      "name": "Excel",
+      "type": "data_store",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "onedrive",
+      "name": "OneDrive",
+      "type": "data_store",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Uncontrolled Data Access After Employee Departure",
+          "severity": "medium",
+          "description": "There are no defined procedures for handling customer data stored on employee personal accounts when they leave their role or the company. Data could remain accessible on personal OneDrive accounts indefinitely.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer PII in Personal Cloud Storage",
+          "severity": "high",
+          "description": "Quality audit scorecards containing customer names and account numbers are stored in personal OneDrive accounts, with an estimated 8,000-10,000 customer records accumulated over time outside corporate data governance.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "email_system",
+      "name": "Email System",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "risks": [],
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ]
+    },
+    {
+      "id": "team_lead",
+      "name": "Team Lead",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "Loan Account Number",
+        "PAN",
+        "quality scorecard"
+      ],
+      "risks": [
+        {
+          "risk_name": "Unencrypted Email Transmission of Sensitive Customer Data",
+          "severity": "critical",
+          "description": "Customer personal data including names, loan account numbers, mobile numbers, and potentially sensitive fraud-related responses are being transmitted via unencrypted email attachments. Monthly consolidated Excel reports containing this data are sent to Field Audit teams without encryption or password protection.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unrestricted Data Export Capability",
+          "severity": "high",
+          "description": "Team leads and managers can export entire customer database including PAN, Aadhaar, and financial data to CSV files with no data loss prevention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "microsoft_365",
+      "name": "Microsoft 365",
+      "type": "actor",
+      "aliases": [],
+      "data_elements": [],
+      "risks": [],
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ]
+    },
+    {
+      "id": "customer",
+      "name": "Customer",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Property Address"
+      ],
+      "risks": [
+        {
+          "risk_name": "Inadequate Identity Verification for Financial Data Disclosure",
+          "severity": "high",
+          "description": "Customer financial data including loan account numbers, EMI amounts, payment history, and outstanding balances are disclosed to callers based solely on caller ID matching without additional identity verification. This creates risk of unauthorized access if someone else uses the customer's registered phone.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Excessive Data Access Without Row-Level Security",
+          "severity": "high",
+          "description": "All 45 personnel can access any customer's complete financial profile including PAN, addresses, loan details, payment history, and case history without restrictions. This violates data minimization principles.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Misleading Call Recording Consent Notice",
+          "severity": "high",
+          "description": "IVR states calls 'may be recorded' but all calls are actually recorded without exception and without opt-out option. This constitutes misleading consent under DPDPA requirements.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Misleading Call Recording Consent",
+          "severity": "high",
+          "description": "IVR disclaimer states calls 'may be recorded' but all calls are actually recorded without exception, and no opt-out mechanism is provided to customers.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Lack of Data Privacy Consent for Outbound Calls",
+          "severity": "high",
+          "description": "Customers are not informed that their compliance call responses will be recorded and shared with other teams. There is no formal data privacy notice provided during outbound compliance calls, and customers are unaware of how their data will be used or shared.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Inconsistent Call Recording Disclosure",
+          "severity": "high",
+          "description": "Outbound compliance calls are recorded without consistent disclosure to customers. While agents are supposed to verbally mention call recording, this practice is not consistently followed, creating consent gaps for call recordings.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Data in Quality Audit Records",
+          "severity": "medium",
+          "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance. This data is stored in Excel trackers for quality management purposes.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Lack of Call Recording Consent for Outbound Calls",
+          "severity": "high",
+          "description": "Outbound compliance calls are being recorded without proper customer consent or notification, as there is no automated disclaimer and verbal notification by agents is inconsistent.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Absence of Data Privacy Notice for Compliance Calls",
+          "severity": "high",
+          "description": "Customers are not informed about how their compliance call data will be collected, used, or shared with other teams during outbound verification calls.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Customer Identifiers in Quality Audit Data",
+          "severity": "medium",
+          "description": "Quality audit scorecards contain customer identifiers (names, account numbers) linked to call recordings, creating additional processing of customer personal data without clear governance.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Unmasked PAN Display to All Staff",
+          "severity": "high",
+          "description": "Full PAN numbers of both primary applicants and co-applicants are displayed without masking to all Customer Care staff, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Potential Cross-Border Data Transfer via Ameyo",
+          "severity": "high",
+          "description": "Call recordings containing customer financial and personal data may be stored outside India through Ameyo's cloud infrastructure, with hosting location unverified despite vendor claims of India hosting.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Unmasked PAN Display",
+          "severity": "high",
+          "description": "Full PAN numbers are displayed unmasked to all Customer Care staff, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Field-Level Access Controls",
+          "severity": "high",
+          "description": "All Customer Care profiles have identical read access to sensitive customer data including PAN, Aadhaar, and financial information, violating principle of least privilege.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Potential Cross-Border Transfer via Ameyo",
+          "severity": "medium",
+          "description": "Call recordings containing financial and personal data may be stored outside India through Ameyo's cloud infrastructure, with hosting location unverified.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "customer_care_agent",
+      "name": "Customer Care Agent",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Property Address",
+        "Residential Address",
+        "quality scorecard"
+      ],
+      "risks": [
+        {
+          "risk_name": "Excessive Access to Sensitive Complaint Data",
+          "severity": "critical",
+          "description": "All customer care agents have unrestricted access to highly sensitive bribery complaint cases containing whistleblower information, employee allegations, and supporting evidence. This violates principle of least privilege and creates risk of data misuse or retaliation.",
+          "source": "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+        },
+        {
+          "risk_name": "Unrestricted PAN Exposure to All Agents",
+          "severity": "critical",
+          "description": "Full PAN numbers are visible to all 45 customer service personnel without masking or role-based restrictions. Customer care agents do not require PAN access for routine queries, creating unnecessary exposure of sensitive financial identifiers.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Unrestricted PAN Access",
+          "severity": "critical",
+          "description": "Full PAN numbers are visible to all agents without masking or role-based restrictions. Approximately 45 people including agents, team leads, compliance, and quality teams can access any customer's complete PAN number.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "retention",
+      "name": "Retention",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "risks": [
+        {
+          "risk_name": "Indefinite Retention of Sensitive Call Recordings",
+          "severity": "high",
+          "description": "Call recordings containing highly sensitive personal and financial data are retained indefinitely without defined retention policy. Recordings include discussions of financial hardship, medical emergencies, and personal circumstances.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Call Recording Retention",
+          "severity": "high",
+          "description": "Call recordings containing sensitive personal and financial data are retained indefinitely without a defined retention policy, with recordings accessible from over two years ago.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Excessive Data Retention on Personal Devices",
+          "severity": "high",
+          "description": "Customer data including names, account numbers, mobile numbers, and sensitive compliance responses are stored indefinitely on personal OneDrive accounts. Data dating back to April 2024 (over a year) is retained without defined retention policies or secure deletion procedures.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        },
+        {
+          "risk_name": "Indefinite Call Recording Retention",
+          "severity": "medium",
+          "description": "Call recordings containing customer financial and personal data are stored indefinitely with no retention policy or auto-deletion configured, with recordings accessible from March 2024 (nearly 2 years).",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Call Recording Retention Policy",
+          "severity": "medium",
+          "description": "Call recordings containing customer financial and personal data are stored indefinitely without any retention policy or auto-deletion mechanism.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "Customer PII in Quality Audit Files",
+          "severity": "medium",
+          "description": "Quality audit scorecards stored in OneDrive contain customer names and account numbers, creating an additional repository of customer identifiers without clear retention controls.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        },
+        {
+          "risk_name": "No Data Retention Policy for Call Recordings",
+          "severity": "medium",
+          "description": "Call recordings are stored indefinitely without any retention policy or auto-deletion, with recordings accessible from March 2024 (nearly 2 years) containing sensitive customer conversations.",
+          "source": "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "compliance_calling",
+      "name": "Compliance Calling",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "risks": [
+        {
+          "risk_name": "Excessive Data Access Scope",
+          "severity": "high",
+          "description": "45 personnel have unrestricted access to all customer records including PAN, addresses, financial details, and case history without row-level restrictions.",
+          "source": "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+        },
+        {
+          "risk_name": "Indefinite Data Retention Without Policy",
+          "severity": "high",
+          "description": "Compliance calling data including customer personal information is being retained indefinitely on OneDrive without a defined retention policy or data disposal process.",
+          "source": "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+        }
+      ],
+      "sources": []
+    },
+    {
+      "id": "quality_assurance_agent",
+      "name": "Quality Assurance Agent",
+      "type": "unknown",
+      "aliases": [],
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "risks": [],
+      "sources": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "ameyo",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Payment History",
+        "Residential Address",
+        "call metadata"
+      ],
+      "flow_type": "transfer",
+      "channel": "API, CTI connector",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Ameyo is integrated with Salesforce. When a call comes in, the system checks the caller's number against our customer database",
+        "Ameyo passes the caller's phone number to Salesforce via a CTI connector, and Salesforce does a lookup against the customer database",
+        "CTI connector passes caller phone number to Salesforce for auto-lookup"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "The agent gets a Salesforce screen with the customer's profile"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Smita's team pulls recordings from Ameyo, listens to them, and scores the agents on a quality scorecard"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "ameyo",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name",
+        "PAN"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: ameyo\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "transfer",
+      "channel": "API",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "For registered callers, Ameyo pulls up the customer profile from Salesforce"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Email Address",
+        "Loan Account Number",
+        "Mobile Number",
+        "Payment History"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "Retention has access to the same customer records we do"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "The email includes a link to the Salesforce case plus a summary with the customer's name, account number, and the issue description"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Aadhaar",
+        "EMI Amount",
+        "Email Address",
+        "Interest Rate",
+        "Loan Account Number",
+        "Mobile Number",
+        "PAN",
+        "Property Address",
+        "Residential Address"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Fields visible in default Customer Care page layout"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "team_lead",
+      "data_elements": [
+        "Aadhaar",
+        "Customer Name",
+        "PAN"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Team Lead and Manager profiles can export data via Salesforce reports"
+      ]
+    },
+    {
+      "source": "salesforce",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: salesforce\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ],
+      "evidence": [
+        "The agents also log the interaction in Salesforce as a case"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "whatsapp_business_app",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: whatsapp_business_app\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session2_CC_IVR_CallHandling_DeepDive_Transcript_Jan17.txt"
+      ],
+      "evidence": [
+        "When an email comes in, they read it, create a case in Salesforce"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Email Address",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "shared_mailbox",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: shared_mailbox\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "excel",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "They stay on my machine. I have them organized by month in folders on my OneDrive"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Columns: Agent Name, Agent ID, Call Date, Recording ID, Customer Name, Account Number"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Excel files on Smita's OneDrive, organized by month"
+      ]
+    },
+    {
+      "source": "team_lead",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "quality scorecard"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "Shared with Nikhil monthly via email"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "whatsapp_business_app",
+      "data_elements": [
+        "Customer Name",
+        "PAN",
+        "Property Address"
+      ],
+      "flow_type": "processing",
+      "channel": "WhatsApp, messaging",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "we have a business WhatsApp number that customers can message",
+        "photos of property documents, PAN card images"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "ameyo",
+      "data_elements": [
+        "Mobile Number"
+      ],
+      "flow_type": "collection",
+      "channel": "phone",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "When a call comes in, the system checks the caller's number"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "Every interaction gets logged in Salesforce as a case"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "customers can email us at a generic customer care email address"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "customer",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt",
+        "Session4_CC_Systems_DataMapping_AnalystNotes_Jan23.txt"
+      ],
+      "evidence": [
+        "we just transfer the call and log a case",
+        "Farhan logged into Salesforce and walked through the configuration"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "collection",
+      "channel": "phone",
+      "inferred": false,
+      "sources": [
+        "Session1_CC_Kickoff_Overview_Transcript_Jan14.txt"
+      ],
+      "evidence": [
+        "If a customer calls to close their loan or requests a foreclosure, the call is transferred"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "EMI Amount",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "The columns include the customer's name, loan account number, mobile number, date of call, call type, and then the individual question responses"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "onedrive",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "They stay on my machine. I have them organized by month in folders on my OneDrive"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "email",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Email. I email the consolidated Excel to the Field Audit team lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192ameyo"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "customer_care_agent",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: customer_care_agent\u2192salesforce\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "ameyo",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "processing",
+      "channel": "system",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "Yes. All our outbound calls are also recorded through Ameyo"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "salesforce",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192salesforce"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "customer_care_agent",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192customer_care_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "quality_assurance_agent",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Ameyo",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192ameyo\u2192quality_assurance_agent"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "retention",
+      "data_elements": [
+        "Customer Name",
+        "Mobile Number"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192retention"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "email_system",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192email_system"
+      ]
+    },
+    {
+      "source": "compliance_calling",
+      "target": "team_lead",
+      "data_elements": [
+        "Customer Name"
+      ],
+      "flow_type": "transfer",
+      "channel": "via Salesforce",
+      "inferred": true,
+      "sources": [],
+      "evidence": [
+        "Transitive: compliance_calling\u2192salesforce\u2192team_lead"
+      ]
+    },
+    {
+      "source": "quality_assurance_agent",
+      "target": "excel",
+      "data_elements": [
+        "Customer Name",
+        "Loan Account Number"
+      ],
+      "flow_type": "processing",
+      "channel": "manual",
+      "inferred": false,
+      "sources": [
+        "Session3_CC_ComplianceCalling_Escalation_Transcript_Jan21.txt"
+      ],
+      "evidence": [
+        "it usually notes the customer's name or account number so they can cross-reference if needed"
+      ]
+    }
+  ],
+  "metadata": {
+    "total_nodes": 21,
+    "total_edges": 54,
+    "inferred_edges": 29
+  }
+};
+
+// ─── Edit mode toggle ───────────────────────────────
+var editMode = false;
+function toggleEdit() {
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode', editMode);
+  document.querySelectorAll('[contenteditable]').forEach(function(el) { el.setAttribute('contenteditable', editMode); });
+  var icon = document.getElementById('edit-icon');
+  if (icon) icon.textContent = editMode ? 'Save' : 'Edit';
+}
+function toggleDetailPanel() { var p = document.getElementById('detail-panel'); if (p) p.classList.toggle('open'); }
+function exportPNG() { alert('To save:\n1. File > Print > Save as PDF\n2. Or use browser screenshot tools'); }
+
+function showNodeDetail(nodeId) {
+  var nodes = kgData.nodes || [];
+  var edges = kgData.edges || [];
+  var node = nodes.find(function(n) { return n.id === nodeId; });
+  if (!node) return;
+  var b = '<h3 style="font-size:16px;font-weight:700;color:#1a237e;margin-bottom:4px">' + (node.name||nodeId) + '</h3>';
+  b += '<p style="font-size:11px;color:#757575;text-transform:uppercase;margin-bottom:16px">' + (node.type||'').replace('_',' ') + '</p>';
+  var dels = node.data_elements || [];
+  if (dels.length) { b += '<div class="detail-section"><h4 class="data">Data Elements (' + dels.length + ')</h4><div>'; dels.forEach(function(d){ b += '<span class="data-pill">' + d + '</span>'; }); b += '</div></div>'; }
+  var risks = node.risks || [];
+  if (risks.length) { b += '<div class="detail-section"><h4 class="risks">Risks (' + risks.length + ')</h4>'; risks.forEach(function(r){ var sev = typeof r==='object'?(r.severity||''):''; var desc = typeof r==='string'?r:(r.description||JSON.stringify(r)); b += '<div class="risk-card">'; if(sev) b += '<span class="risk-severity '+sev+'">'+sev+'</span>'; b += '<span class="risk-desc">'+desc+'</span></div>'; }); b += '</div>'; }
+  var outE = edges.filter(function(e){ return e.source===nodeId; });
+  var inE = edges.filter(function(e){ return e.target===nodeId; });
+  if (outE.length||inE.length) { b += '<div class="detail-section"><h4 class="flows">Data Flows</h4>'; outE.forEach(function(e){ b += '<div class="flow-item flow-out"><span class="flow-dir">→</span><b>'+e.target+'</b> <span style="color:#999;margin-left:4px">via '+(e.channel||'—')+' ('+(e.data_elements||[]).length+' elements)</span></div>'; }); inE.forEach(function(e){ b += '<div class="flow-item flow-in"><span class="flow-dir">←</span><b>'+e.source+'</b> <span style="color:#999;margin-left:4px">via '+(e.channel||'—')+' ('+(e.data_elements||[]).length+' elements)</span></div>'; }); b += '</div>'; }
+  var relEdges = edges.filter(function(e){ return e.source===nodeId||e.target===nodeId; });
+  var evs = []; relEdges.forEach(function(e){ (e.evidence||[]).forEach(function(ev){ if(evs.indexOf(ev)===-1) evs.push(ev); }); });
+  if (evs.length) { b += '<div class="detail-section"><h4 class="evidence">Evidence Trail</h4>'; evs.slice(0,8).forEach(function(ev){ b += '<div class="evidence-quote">&ldquo;'+ev+'&rdquo;</div>'; }); if(evs.length>8) b += '<p style="font-size:10px;color:#999">+'+(evs.length-8)+' more</p>'; b += '</div>'; }
+  document.getElementById('detail-body').innerHTML = b;
+  var panel = document.getElementById('detail-panel');
+  if (panel && !panel.classList.contains('open')) panel.classList.add('open');
+}
+
+// ─── Geometry helpers ───────────────────────────────
+function getBounds(el) {
+  var wr = document.getElementById('dfd-wrapper');
+  var wb = wr.getBoundingClientRect();
+  var b = el.getBoundingClientRect();
+  return { left: b.left-wb.left, right: b.right-wb.left, top: b.top-wb.top, bottom: b.bottom-wb.top, cx: b.left-wb.left+b.width/2, cy: b.top-wb.top+b.height/2, w: b.width, h: b.height };
+}
+function cubicBezier(x1,y1,cx1,cy1,cx2,cy2,x2,y2) { return 'M'+x1+','+y1+' C'+cx1+','+cy1+' '+cx2+','+cy2+' '+x2+','+y2; }
+
+// ─── Arrow draw ─────────────────────────────────────
+var _markers = {};
+function ensureMarker(svg, id, color) {
+  if (_markers[id]) return;
+  _markers[id] = true;
+  var ns = 'http://www.w3.org/2000/svg';
+  var defs = svg.querySelector('defs');
+  if (!defs) { defs = document.createElementNS(ns,'defs'); svg.prepend(defs); }
+  var marker = document.createElementNS(ns,'marker');
+  marker.setAttribute('id',id); marker.setAttribute('markerWidth','10'); marker.setAttribute('markerHeight','7');
+  marker.setAttribute('refX','9'); marker.setAttribute('refY','3.5'); marker.setAttribute('orient','auto');
+  var poly = document.createElementNS(ns,'polygon');
+  poly.setAttribute('points','0 0, 10 3.5, 0 7'); poly.setAttribute('fill',color);
+  marker.appendChild(poly); defs.appendChild(marker);
+}
+
+function drawPath(svg, d, color, label, lx, ly) {
+  var ns = 'http://www.w3.org/2000/svg';
+  var shadow = document.createElementNS(ns,'path');
+  shadow.setAttribute('d',d); shadow.setAttribute('stroke','rgba(0,0,0,0.15)');
+  shadow.setAttribute('stroke-width','5'); shadow.setAttribute('fill','none'); shadow.setAttribute('stroke-linecap','round');
+  svg.appendChild(shadow);
+  var path = document.createElementNS(ns,'path');
+  path.setAttribute('d',d); path.setAttribute('stroke',color); path.setAttribute('stroke-width','2.5');
+  path.setAttribute('fill','none'); path.setAttribute('stroke-linecap','round');
+  var markerId = 'ah_' + color.replace('#','');
+  ensureMarker(svg, markerId, color);
+  path.setAttribute('marker-end','url(#'+markerId+')');
+  svg.appendChild(path);
+  if (label) {
+    var bg = document.createElementNS(ns,'rect');
+    bg.setAttribute('x',lx-2); bg.setAttribute('y',ly-10);
+    bg.setAttribute('width',Math.min(label.length*5.5+4, 200)); bg.setAttribute('height',14);
+    bg.setAttribute('rx','3'); bg.setAttribute('fill','rgba(255,255,255,0.88)');
+    svg.appendChild(bg);
+    var txt = document.createElementNS(ns,'text');
+    txt.setAttribute('x',lx); txt.setAttribute('y',ly);
+    txt.setAttribute('font-size','9'); txt.setAttribute('font-family','Segoe UI, Arial');
+    txt.setAttribute('fill',color); txt.setAttribute('font-weight','600');
+    txt.textContent = label.length > 35 ? label.substring(0,35)+'…' : label;
+    svg.appendChild(txt);
+  }
+}
+
+function drawArrows() {
+  var wrapper = document.getElementById('dfd-wrapper');
+  var svg = document.getElementById('arrows-svg');
+  if (!svg || !wrapper) return;
+  svg.setAttribute('width', wrapper.offsetWidth);
+  svg.setAttribute('height', wrapper.offsetHeight);
+  svg.innerHTML = '<defs><marker id="ah" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#555"/></marker></defs>';
+
+  var central = document.getElementById('central-process');
+  if (!central) return;
+  var cp = getBounds(central);
+
+  var inbound = flows.filter(function(f){ return f.to_id === 'central_process'; });
+  var outbound = flows.filter(function(f){ return f.from_id === 'central_process'; });
+
+  var inboundCount = Math.max(inbound.length, 1);
+  inbound.forEach(function(flow, idx) {
+    var fromEl = document.querySelector('[data-id="'+flow.from_id+'"]');
+    if (!fromEl) return;
+    var f = getBounds(fromEl);
+    var color = flow.color || '#546e7a';
+    var fraction = (idx+1)/(inboundCount+1);
+    var x2 = cp.left, y2 = cp.top + cp.h*fraction;
+    var x1 = f.right, y1 = f.cy;
+    var dx = (x2-x1)*0.55;
+    drawPath(svg, cubicBezier(x1,y1,x1+dx,y1,x2-dx,y2,x2,y2), color, flow.label, x1+(x2-x1)*0.5, y1+(y2-y1)*0.5);
+  });
+
+  var outboundCount = Math.max(outbound.length, 1);
+  outbound.forEach(function(flow, idx) {
+    var toEl = document.querySelector('[data-id="'+flow.to_id+'"]');
+    if (!toEl) return;
+    var t = getBounds(toEl);
+    var color = flow.color || '#546e7a';
+    var fraction = (idx+1)/(outboundCount+1);
+    var x1 = cp.right, y1 = cp.top + cp.h*fraction;
+    var x2 = t.left, y2 = t.cy;
+    var dx = (x2-x1)*0.55;
+    drawPath(svg, cubicBezier(x1,y1,x1+dx,y1,x2-dx,y2,x2,y2), color, flow.label, x1+(x2-x1)*0.5, y1+(y2-y1)*0.5);
+  });
+}
+
+// ─── Click handlers for nodes ──────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.data-source-box, .sink-box, .biz-process-group').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var dataId = el.getAttribute('data-id') || '';
+      var nodeId = dataId.replace(/^(src_|sink_|bp_)/, '');
+      showNodeDetail(nodeId);
+    });
+  });
+});
+
+// ─── Init ───────────────────────────────────────────
+window.addEventListener('load', function() {
+  requestAnimationFrame(function() { setTimeout(drawArrows, 600); });
+  window.addEventListener('resize', function() { _markers = {}; requestAnimationFrame(function() { setTimeout(drawArrows, 50); }); });
+});
+window.addEventListener('beforeprint', function() { _markers = {}; drawArrows(); });
+window.addEventListener('afterprint', function() { _markers = {}; setTimeout(drawArrows, 100); });
+
+</script></body></html>

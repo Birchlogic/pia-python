@@ -22,7 +22,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base, SessionLocal
-from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, PipelineStageLog
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -49,9 +49,24 @@ class InitiateResponse(BaseModel):
     session_id: str
     message: str
 
+class StageDetail(BaseModel):
+    stage: Optional[str] = None
+    stage_order: Optional[int] = None
+    output: Optional[dict] = None
+    in_tokens: int = 0
+    out_tokens: int = 0
+    duration_ms: int = 0
+
 class StatusResponse(BaseModel):
     session_id: str
     status: str
+    current_stage: Optional[str] = None
+    progress_percent: float = 0.0
+    current_stage_detail: Optional[StageDetail] = None
+    total_in_tokens: int = 0
+    total_out_tokens: int = 0
+    total_duration_ms: int = 0
+    stages_completed: int = 0
     error_message: Optional[str] = None
     created_at: datetime
     updated_at: datetime
@@ -138,11 +153,68 @@ def _combine_transcripts(local_files: List[str]) -> str:
 
 # ── Unified Background Pipeline ─────────────────────
 
+PIPELINE_STAGES = [
+    "ingest_and_clean",
+    "deterministic_extraction",
+    "agentic_extraction",
+    "entity_normalization",
+    "flow_canonicalization",
+    "verification",
+    "schema_generation",
+    "dfd_generation",
+    "knowledge_graph",
+    "html_generation",
+    "saving_to_db",
+]
+
+def _stage_percent(stage_order: int) -> float:
+    """Map stage order (1-based) to progress percentage."""
+    return min(round(stage_order / len(PIPELINE_STAGES) * 100, 1), 100.0)
+
+
 def process_aggressive_pipeline(session_id: str, department: str, files: List[str], ai_config: dict = None):
     from api.database import SessionLocal
     db = SessionLocal()
+
+    # Hash the API key for logging (last 6 chars only)
+    api_key_raw = (ai_config or {}).get("apiKey", "")
+    api_key_hash = f"...{api_key_raw[-6:]}" if len(api_key_raw) > 6 else ""
+
+    def _update_progress(stage_name: str, percent: float):
+        """Update session progress in DB (non-blocking)."""
+        try:
+            sess = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+            if sess:
+                sess.current_stage = stage_name
+                sess.progress_percent = percent
+                sess.updated_at = datetime.utcnow()
+                db.commit()
+        except Exception:
+            db.rollback()
+
+    def _log_stage(stage_name, stage_order, output_summary, in_tokens, out_tokens, duration_ms):
+        """Stage callback: log to DB + update progress."""
+        try:
+            log = PipelineStageLog(
+                id=str(uuid.uuid4()),
+                session_id=session_id,
+                stage=stage_name,
+                stage_order=stage_order,
+                output=output_summary,
+                api_key_hash=api_key_hash,
+                in_tokens=in_tokens,
+                out_tokens=out_tokens,
+                duration_ms=duration_ms,
+            )
+            db.add(log)
+            db.commit()
+        except Exception:
+            db.rollback()
+        _update_progress(stage_name, _stage_percent(stage_order))
+
     try:
         logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
+        _update_progress("starting", 0.0)
 
         from test.orchestrator.pipeline_runner import PipelineRunner
         from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
@@ -150,58 +222,45 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
 
         ai_config = ai_config or {}
 
-
         with tempfile.TemporaryDirectory() as temp_dir:
-            # 1. Download and combine
+            # 1. Download files (still needs temp dir for downloads)
             local_files = _download_files(files, temp_dir)
             combined_transcript = _combine_transcripts(local_files)
             combined_path = os.path.join(temp_dir, "combined_source.txt")
             with open(combined_path, "w") as f:
                 f.write(combined_transcript)
-            
-            # 2. Run Pipeline (Phases 1-9)
-            runner = PipelineRunner(ai_config=ai_config)
+
+            # 2. Run Pipeline (Phases 1-9) — all in-memory with stage callbacks
+            runner = PipelineRunner(ai_config=ai_config, stage_callback=_log_stage)
             result = runner.process_file(combined_path)
 
-            # 3. Save to temp for Graph Builder
-            pipeline_dir = os.path.join(temp_dir, "pipeline")
-            os.makedirs(pipeline_dir)
-            with open(os.path.join(pipeline_dir, "combined_intelligence.json"), "w") as f:
-                json.dump(result, f, indent=2)
+        # 3. Build Knowledge Graph — fully in-memory
+        _update_progress("knowledge_graph", _stage_percent(9))
+        kg_agent = KnowledgeGraphAgent(ai_config=ai_config)
+        graph_output = kg_agent.build_graph_from_result(result)
+        graph_data = graph_output["kg_dict"]
+        render_plan_data = graph_output["render_plan_dict"]
+        kg_result = graph_output["kg_result"]
 
-            # 4. Build Knowledge Graph
-            graph_dir = os.path.join(temp_dir, "graph")
-            os.makedirs(graph_dir)
-            kg_agent = KnowledgeGraphAgent(ai_config=ai_config)
-            kg_result = kg_agent.build_graph(pipeline_dir, graph_dir)
+        _log_stage("knowledge_graph", len(PIPELINE_STAGES) - 2, {
+            "nodes": len(graph_data.get("nodes", [])),
+            "edges": len(graph_data.get("edges", []))
+        }, 0, 0, 0)
 
-            # 5. Generate HTML DFD
-            html_gen = HTMLGeneratorAgent()
-            html_path = os.path.join(temp_dir, "privacy_dfd.html")
-            html_gen.generate(graph_dir, pipeline_dir, html_path)
-            
-            interactive_html = ""
-            if os.path.exists(html_path):
-                with open(html_path, "r") as f:
-                    interactive_html = f.read()
+        # 4. Generate HTML DFD — fully in-memory (no file write)
+        _update_progress("html_generation", _stage_percent(10))
+        html_gen = HTMLGeneratorAgent()
+        interactive_html = html_gen.generate_from_data(graph_data, render_plan_data)
 
-            # 5b. Read graph JSONs BEFORE temp_dir is cleaned up
-            graph_json_path = os.path.join(graph_dir, "graph", "knowledge_graph.json")
-            graph_data = {"nodes": [], "edges": []}
-            if os.path.exists(graph_json_path):
-                with open(graph_json_path, "r") as f:
-                    graph_data = json.load(f)
+        _log_stage("html_generation", len(PIPELINE_STAGES) - 1, {
+            "html_length": len(interactive_html)
+        }, 0, 0, 0)
 
-            render_plan_path = os.path.join(graph_dir, "graph", "dfd_render_plan.json")
-            render_plan_data = {"levels": []}
-            if os.path.exists(render_plan_path):
-                with open(render_plan_path, "r") as f:
-                    render_plan_data = json.load(f)
+        # 5. Schema Generation (Schema-1 + Data Inventory)
+        schema_one_json = result.get("compliance_schema")
+        inventory_rows = result.get("data_inventory", [])
 
-            # 6. Schema Generation (Schema-1 + Data Inventory)
-            schema_one_json = None
-            inventory_rows = []
-
+        if not schema_one_json:
             generator = SchemaGenerator(ai_config=ai_config)
             try:
                 schema_one_json = generator.generate_schema_one(combined_transcript)
@@ -209,19 +268,16 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             except Exception as e:
                 logger.error(f"[{session_id}] Schema-1 generation failed: {e}", exc_info=True)
 
-            if schema_one_json:
-                try:
-                    inventory_rows = generator.generate_data_inventory(schema_one_json)
-                    if not inventory_rows:
-                        logger.warning(f"[{session_id}] Data inventory returned 0 rows")
-                    else:
-                        logger.info(f"[{session_id}] Data inventory generated ({len(inventory_rows)} rows)")
-                except Exception as e:
-                    logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
-            else:
-                logger.warning(f"[{session_id}] Skipping data inventory — Schema-1 was not generated")
+        if schema_one_json and not inventory_rows:
+            try:
+                generator = SchemaGenerator(ai_config=ai_config)
+                inventory_rows = generator.generate_data_inventory(schema_one_json)
+                logger.info(f"[{session_id}] Data inventory: {len(inventory_rows)} rows")
+            except Exception as e:
+                logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
 
         # 6. Save everything to DB
+        _update_progress("saving_to_db", _stage_percent(11))
         db_session = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
         if db_session:
             db_session.status = "completed"
@@ -236,15 +292,16 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db_session.interactive_html = interactive_html
             db_session.dfd_json = kg_result
             db_session.dfd_render_plan_json = render_plan_data
+            db_session.current_stage = "completed"
+            db_session.progress_percent = 100.0
             db_session.updated_at = datetime.utcnow()
 
         # Save KG Nodes
         kg_nodes_list = graph_data.get("nodes", [])
         kg_edges_list = graph_data.get("edges", [])
-        logger.info(f"[{session_id}] graph_data loaded: {len(kg_nodes_list)} nodes, {len(kg_edges_list)} edges")
 
         for n in kg_nodes_list:
-            db_node = KnowledgeGraphNode(
+            db.add(KnowledgeGraphNode(
                 id=str(uuid.uuid4()),
                 session_id=session_id,
                 node_id=n.get("id", ""),
@@ -254,12 +311,10 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 data_elements=n.get("data_elements", []),
                 risks=n.get("risks", []),
                 sources=n.get("sources", [])
-            )
-            db.add(db_node)
-        
-        # Save KG Edges
+            ))
+
         for e in kg_edges_list:
-            db_edge = KnowledgeGraphEdge(
+            db.add(KnowledgeGraphEdge(
                 id=str(uuid.uuid4()),
                 session_id=session_id,
                 source_node=e.get("source", ""),
@@ -269,15 +324,14 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 channel=e.get("channel", ""),
                 inferred=1 if e.get("inferred") else 0,
                 sources=e.get("sources", [])
-            )
-            db.add(db_edge)
+            ))
 
-        # Save data mapping rows (prefer schema-generated, fallback to pipeline)
+        # Save data mapping rows
         if not inventory_rows:
             inventory_rows = result.get("data_inventory", [])
         s_no = 1
-        for row in inventory_rows:
-            db_row = DataMappingRow(
+        for row in (inventory_rows or []):
+            db.add(DataMappingRow(
                 id=str(uuid.uuid4()),
                 session_id=session_id,
                 s_no=s_no,
@@ -289,15 +343,17 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
                 data_classification=row.get("data_classification", ""),
                 retention_period=row.get("retention_period", ""),
                 legal_basis=row.get("legal_basis", "")
-            )
-            db.add(db_row)
+            ))
             s_no += 1
 
-        # Single commit for all DB operations
-        db.commit()
-        logger.info(f"[{session_id}] DB committed: {len(kg_nodes_list)} KG nodes, {len(kg_edges_list)} KG edges, {len(inventory_rows)} mapping rows")
+        _log_stage("saving_to_db", len(PIPELINE_STAGES), {
+            "kg_nodes": len(kg_nodes_list),
+            "kg_edges": len(kg_edges_list),
+            "mapping_rows": len(inventory_rows or [])
+        }, 0, 0, 0)
 
-        logger.info(f"[{session_id}] Aggressive Pipeline completed successfully")
+        db.commit()
+        logger.info(f"[{session_id}] Pipeline complete: {len(kg_nodes_list)} nodes, {len(kg_edges_list)} edges")
 
     except Exception as e:
         logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
@@ -307,6 +363,8 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             if db_session:
                 db_session.status = "failed"
                 db_session.error_message = str(e)
+                db_session.current_stage = "failed"
+                db_session.progress_percent = 0.0
                 db_session.updated_at = datetime.utcnow()
                 db.commit()
         except Exception:
@@ -350,9 +408,13 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
     req_session_id = payload_data.get("session_id")
     req_department = payload_data.get("department")
     req_files = payload_data.get("files", [])
+    use_rlm = payload_data.get("use_rlm", False)
     
     if not req_session_id or not req_department:
         raise HTTPException(status_code=400, detail="Missing required session_id or department in token data")
+
+    processing_mode = "rlm" if use_rlm else "aggressive"
+    logger.info(f"[{req_session_id}] Mode: {processing_mode} | Department: {req_department}")
 
     # Clean up existing session if re-running
     existing = db.query(DFDSession).filter(DFDSession.session_id == req_session_id).first()
@@ -360,6 +422,7 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         db.query(DataMappingRow).filter(DataMappingRow.session_id == req_session_id).delete()
         db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == req_session_id).delete()
         db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == req_session_id).delete()
+        db.query(PipelineStageLog).filter(PipelineStageLog.session_id == req_session_id).delete()
         db.delete(existing)
         db.commit()
         logger.info(f"[{req_session_id}] Existing session deleted — restarting pipeline")
@@ -368,7 +431,7 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         session_id=req_session_id,
         department=req_department,
         status="processing",
-        processing_mode="aggressive"
+        processing_mode=processing_mode
     )
     db.add(new_session)
     db.commit()
@@ -460,9 +523,42 @@ def get_status(session_id: str, db: Session = Depends(get_db)):
     s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
     if not s:
         raise HTTPException(status_code=404, detail="Session not found")
+
+    # Get all stage logs for totals
+    all_stages = (
+        db.query(PipelineStageLog)
+        .filter(PipelineStageLog.session_id == session_id)
+        .order_by(PipelineStageLog.stage_order)
+        .all()
+    )
+
+    total_in = sum(st.in_tokens or 0 for st in all_stages)
+    total_out = sum(st.out_tokens or 0 for st in all_stages)
+    total_dur = sum(st.duration_ms or 0 for st in all_stages)
+
+    # Latest stage detail
+    current_detail = None
+    if all_stages:
+        latest = all_stages[-1]
+        current_detail = StageDetail(
+            stage=latest.stage,
+            stage_order=latest.stage_order,
+            output=latest.output,
+            in_tokens=latest.in_tokens or 0,
+            out_tokens=latest.out_tokens or 0,
+            duration_ms=latest.duration_ms or 0
+        )
+
     return StatusResponse(
         session_id=s.session_id,
         status=s.status,
+        current_stage=s.current_stage,
+        progress_percent=s.progress_percent or 0.0,
+        current_stage_detail=current_detail,
+        total_in_tokens=total_in,
+        total_out_tokens=total_out,
+        total_duration_ms=total_dur,
+        stages_completed=len(all_stages),
         error_message=s.error_message,
         created_at=s.created_at,
         updated_at=s.updated_at
@@ -561,10 +657,49 @@ def delete_session(session_id: str, db: Session = Depends(get_db)):
     db.query(DataMappingRow).filter(DataMappingRow.session_id == session_id).delete()
     db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == session_id).delete()
     db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == session_id).delete()
+    db.query(PipelineStageLog).filter(PipelineStageLog.session_id == session_id).delete()
     db.delete(s)
     db.commit()
 
     return {"message": f"Session {session_id} and all related records deleted."}
+
+
+@app.get("/api/stages/{session_id}")
+def get_pipeline_stages(session_id: str, db: Session = Depends(get_db)):
+    """Return all pipeline stage logs for a session — used by frontend to show progress."""
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    stages = (
+        db.query(PipelineStageLog)
+        .filter(PipelineStageLog.session_id == session_id)
+        .order_by(PipelineStageLog.stage_order)
+        .all()
+    )
+
+    return {
+        "session_id": session_id,
+        "status": s.status,
+        "current_stage": s.current_stage,
+        "progress_percent": s.progress_percent or 0.0,
+        "stages": [
+            {
+                "stage": st.stage,
+                "stage_order": st.stage_order,
+                "output": st.output,
+                "api_key_hash": st.api_key_hash,
+                "in_tokens": st.in_tokens,
+                "out_tokens": st.out_tokens,
+                "duration_ms": st.duration_ms,
+                "created_at": st.created_at.isoformat() if st.created_at else None
+            }
+            for st in stages
+        ],
+        "total_in_tokens": sum(st.in_tokens or 0 for st in stages),
+        "total_out_tokens": sum(st.out_tokens or 0 for st in stages),
+        "total_duration_ms": sum(st.duration_ms or 0 for st in stages)
+    }
 
 # ── Dynamic HTML Generator API ────────────────────────────────
 

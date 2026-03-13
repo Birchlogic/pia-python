@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, JSON, Text, Integer
+from sqlalchemy import Column, String, DateTime, JSON, Text, Integer, Float
 from datetime import datetime
 from api.database import Base
 
@@ -30,6 +30,10 @@ class DFDSession(Base):
     verification_report_json = Column(JSON, nullable=True)
     interactive_html = Column(Text, nullable=True)
     dfd_render_plan_json = Column(JSON, nullable=True)
+
+    # Real-time progress tracking
+    current_stage = Column(String, nullable=True)       # e.g. "agentic_extraction"
+    progress_percent = Column(Float, default=0.0)       # 0.0 - 100.0
 
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -78,6 +82,21 @@ class KnowledgeGraphEdge(Base):
     inferred = Column(Integer, default=0) # boolean via integer
     sources = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+class PipelineStageLog(Base):
+    __tablename__ = "pipeline_stage_logs"
+
+    id = Column(String, primary_key=True)
+    session_id = Column(String, index=True, nullable=False)
+    stage = Column(String, nullable=False)              # e.g. "ingest", "deterministic_extract", ...
+    stage_order = Column(Integer, nullable=False)       # 1, 2, 3, ...
+    output = Column(JSON, nullable=True)                # stage output (truncated if huge)
+    api_key_hash = Column(String, nullable=True)        # last 6 chars of API key
+    in_tokens = Column(Integer, default=0)              # total input tokens for this stage
+    out_tokens = Column(Integer, default=0)             # total output tokens for this stage
+    duration_ms = Column(Integer, default=0)            # stage wall-clock ms
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 
 class InteractiveDFD(Base):
     __tablename__ = "interactive_dfds"

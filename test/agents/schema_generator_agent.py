@@ -225,7 +225,7 @@ class SchemaGeneratorAgent:
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=8192,
+                max_tokens=32768,
                 temperature=0,
                 system=SCHEMA_ONE_PROMPT,
                 messages=[{"role": "user", "content": user_prompt}],
@@ -249,7 +249,7 @@ class SchemaGeneratorAgent:
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=8192,
+                max_tokens=32768,
                 temperature=0,
                 system=DATA_INVENTORY_PROMPT,
                 messages=[{"role": "user", "content": user_prompt}],

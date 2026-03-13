@@ -90,14 +90,19 @@ class KnowledgeGraphAgent:
         logger.info("[7] Validating graph integrity...")
         validation = self.validator.validate(G)
 
-        # ── Step 8: Export ────────────────────────────
-        logger.info("[8] Exporting graph files...")
+        # ── Step 8: Collect dialogue records for evidence ─
+        all_dialogue_records = []
+        for doc in doc_outputs:
+            all_dialogue_records.extend(doc.get("dialogue_records", []))
+
+        # ── Step 9: Export ────────────────────────────
+        logger.info("[9] Exporting graph files...")
 
         graph_dir = output_dir / "graph"
         dfd_dir = output_dir / "dfd"
         dfd_dir.mkdir(parents=True, exist_ok=True)
 
-        kg_paths = self.exporter.export_all(G, graph_dir)
+        kg_paths = self.exporter.export_all(G, graph_dir, dialogue_records=all_dialogue_records)
         # Also export DFD separately
         self.exporter.export_privacy_dfd(G, dfd_dir / "privacy_dfd.json")
         self.exporter.export_render_plan(G, graph_dir / "dfd_render_plan.json")
@@ -120,6 +125,74 @@ class KnowledgeGraphAgent:
         )
 
         return result
+
+    def build_graph_from_result(self, pipeline_result):
+        """
+        Build the unified Knowledge Graph in-memory from a single pipeline result dict.
+        No file reads or writes.
+
+        Args:
+            pipeline_result: dict from PipelineRunner.process_file()
+
+        Returns:
+            dict with 'kg_dict', 'render_plan_dict', 'stats'
+        """
+        doc_outputs = [pipeline_result]
+
+        logger.info(f"[1] In-memory graph build from 1 document")
+
+        # Step 2: Merge entities
+        entity_result = self.entity_merger.merge(doc_outputs)
+        entities = entity_result["entities"]
+        name_map = entity_result["name_map"]
+
+        # Step 3: Merge flows
+        self.flow_merger = FlowMerger(name_map=name_map)
+        merged_flows = self.flow_merger.merge(doc_outputs)
+
+        # Step 4: Build graph
+        self.builder = GraphBuilder()
+        self.builder.add_nodes(entities)
+        self.builder.add_edges(merged_flows, name_map)
+
+        # Step 5: Attach risks + data elements
+        self.builder.attach_risks(doc_outputs, name_map)
+        self.builder.attach_data_elements(name_map)
+
+        G = self.builder.get_graph()
+
+        # Step 6: Graph reasoning
+        inferred = self.reasoning_agent.reason(G)
+
+        # Step 7: Validate
+        validation = self.validator.validate(G)
+
+        # Step 8: Collect dialogue records
+        all_dialogue_records = pipeline_result.get("dialogue_records", [])
+
+        # Step 9: Build dicts in memory (no file writes)
+        kg_dict = self.exporter.build_knowledge_graph_dict(G, dialogue_records=all_dialogue_records)
+        render_plan_dict = self.exporter.build_render_plan_dict(G)
+
+        stats = validation["stats"]
+        kg_result = {
+            "graph_stats": stats,
+            "inferred_flows": len(inferred),
+            "validation": validation,
+            "entities_merged": len(entities),
+            "flows_merged": len(merged_flows)
+        }
+
+        logger.info(
+            f"Knowledge Graph complete (in-memory) — "
+            f"{stats['total_nodes']} nodes, {stats['total_edges']} edges"
+        )
+
+        return {
+            "kg_dict": kg_dict,
+            "render_plan_dict": render_plan_dict,
+            "kg_result": kg_result
+        }
 
     def _load_documents(self, input_dir):
         """Load all *_intelligence.json files from directory."""

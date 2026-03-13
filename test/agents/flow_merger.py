@@ -42,6 +42,7 @@ class FlowMerger:
             "data_elements": set(),
             "channels": set(),
             "evidence": [],
+            "evidence_trail": [],
             "sources": set(),
             "count": 0
         })
@@ -71,12 +72,23 @@ class FlowMerger:
                 if channel:
                     grouped[key]["channels"].add(channel)
 
-                # Collect evidence
+                # Collect evidence text
                 evidence = flow.get("evidence", "")
                 if evidence and len(grouped[key]["evidence"]) < 5:
                     grouped[key]["evidence"].append(evidence)
 
-                grouped[key]["sources"].add(source_file)
+                # Collect structured evidence trail (timestamp + speaker provenance)
+                if len(grouped[key]["evidence_trail"]) < 10:
+                    trail_entry = {
+                        "evidence": evidence,
+                        "timestamp": flow.get("evidence_timestamp", ""),
+                        "speaker": flow.get("evidence_speaker", ""),
+                        "speaker_role": flow.get("evidence_speaker_role", ""),
+                        "source_file": flow.get("source_file", source_file)
+                    }
+                    grouped[key]["evidence_trail"].append(trail_entry)
+
+                grouped[key]["sources"].add(flow.get("source_file", source_file))
                 grouped[key]["count"] += 1
 
         # Build merged flows
@@ -90,6 +102,7 @@ class FlowMerger:
                 "inferred": False,
                 "sources": sorted(info["sources"]),
                 "evidence": info["evidence"],
+                "evidence_trail": info["evidence_trail"],
                 "mention_count": info["count"]
             })
 

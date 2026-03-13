@@ -18,19 +18,31 @@ Rules:
 1. MAP people to their roles. E.g. "Nikhil" and "Farhan" are both "Customer Care Agent".
 2. MERGE flows with the same source→destination by combining their data elements.
 3. REMOVE duplicate flows.
-4. Each flow must have: source, destination, data_elements (list), channel.
-5. Use canonical entity names from the normalized entities provided.
+4. Use canonical entity names from the normalized entities provided.
+5. PRESERVE all evidence provenance — timestamps, speakers, and source files must carry through.
 
-Return ONLY valid JSON array of canonical flows:
-[
-  {
-    "source": "Customer",
-    "destination": "Customer Care Agent",
-    "data_elements": ["PAN", "Loan Account Number", "EMI Amount"],
-    "channel": "phone/WhatsApp/system/manual/API/email",
-    "evidence": "brief source text reference"
-  }
-]"""
+For each canonical flow you MUST return a JSON object with EXACTLY these fields:
+
+```json
+{
+  "source": "string — canonical source entity name",
+  "destination": "string — canonical destination entity name",
+  "data_elements": ["array of specific data items"],
+  "channel": "string — phone/WhatsApp/system/manual/API/email",
+  "evidence": "string — combined evidence text",
+  "evidence_trail": [
+    {
+      "evidence": "string — exact quote",
+      "timestamp": "string — from transcript",
+      "speaker": "string — who said it",
+      "speaker_role": "string — their role",
+      "source_file": "string — filename"
+    }
+  ]
+}
+```
+
+Return ONLY a valid JSON array. No markdown fences, no explanation text."""
 
 
 class FlowCanonicalizerAgent:
@@ -68,8 +80,11 @@ class FlowCanonicalizerAgent:
         return best_match
 
     def _deterministic_merge(self, flows, name_map):
-        """Rule-based flow merging: resolve names + group + combine data."""
-        grouped = defaultdict(lambda: {"data_elements": set(), "channels": set(), "evidence": []})
+        """Rule-based flow merging: resolve names + group + combine data + preserve evidence trail."""
+        grouped = defaultdict(lambda: {
+            "data_elements": set(), "channels": set(),
+            "evidence": [], "evidence_trail": []
+        })
 
         for flow in flows:
             source = self._resolve_name(flow.get("source", ""), name_map)
@@ -87,8 +102,26 @@ class FlowCanonicalizerAgent:
             grouped[key]["channels"].add(channel)
 
             evidence = flow.get("evidence", "")
-            if evidence:
+            if evidence and len(grouped[key]["evidence"]) < 5:
                 grouped[key]["evidence"].append(evidence)
+
+            # Preserve structured evidence trail
+            if len(grouped[key]["evidence_trail"]) < 10:
+                trail_entry = {
+                    "evidence": evidence,
+                    "timestamp": flow.get("evidence_timestamp", ""),
+                    "speaker": flow.get("evidence_speaker", ""),
+                    "speaker_role": flow.get("evidence_speaker_role", ""),
+                    "source_file": flow.get("source_file", "")
+                }
+                # Also check for nested evidence_trail from earlier merges
+                existing_trail = flow.get("evidence_trail", [])
+                if existing_trail:
+                    for et in existing_trail:
+                        if len(grouped[key]["evidence_trail"]) < 10:
+                            grouped[key]["evidence_trail"].append(et)
+                elif trail_entry["evidence"]:
+                    grouped[key]["evidence_trail"].append(trail_entry)
 
         merged = []
         for (source, dest), info in grouped.items():
@@ -99,7 +132,8 @@ class FlowCanonicalizerAgent:
                 "destination": dest,
                 "data_elements": sorted(info["data_elements"]),
                 "channel": ", ".join(sorted(info["channels"])),
-                "evidence": "; ".join(info["evidence"][:3])  # Keep top 3
+                "evidence": "; ".join(info["evidence"][:3]),
+                "evidence_trail": info["evidence_trail"]
             })
 
         return merged
@@ -107,6 +141,7 @@ class FlowCanonicalizerAgent:
     def canonicalize(self, data_flows, normalized_entities, data_elements=None):
         """
         Canonicalize flows: map people to roles, merge, deduplicate.
+        Preserves evidence_trail through all steps.
 
         Args:
             data_flows: list of raw flow dicts
@@ -114,13 +149,19 @@ class FlowCanonicalizerAgent:
             data_elements: list of known data element names
 
         Returns:
-            list of canonical flow dicts
+            list of canonical flow dicts with evidence_trail
         """
         name_map = self._build_name_map(normalized_entities)
 
         # ── Step 1: Deterministic merge ──────────────
         merged = self._deterministic_merge(data_flows, name_map)
         logger.info(f"Deterministic merge: {len(data_flows)} raw → {len(merged)} merged flows")
+
+        # Build a lookup of evidence_trail by (source, dest) for re-attachment after LLM
+        trail_lookup = {}
+        for m in merged:
+            key = (m["source"].lower(), m["destination"].lower())
+            trail_lookup[key] = m.get("evidence_trail", [])
 
         # ── Step 2: LLM refinement ───────────────────
         try:
@@ -143,6 +184,13 @@ class FlowCanonicalizerAgent:
                 content = content.split("\n", 1)[1]
                 content = content.rsplit("```", 1)[0]
             canonical_flows = json.loads(content)
+
+            # Re-attach evidence_trail if LLM dropped it
+            for flow in canonical_flows:
+                if not flow.get("evidence_trail"):
+                    key = (flow.get("source", "").lower(), flow.get("destination", "").lower())
+                    flow["evidence_trail"] = trail_lookup.get(key, [])
+
             logger.info(f"LLM refined: {len(canonical_flows)} canonical flows")
             return canonical_flows
 

@@ -42,12 +42,14 @@ You will receive:
 - actors: list of extracted actor names (may contain duplicates, misclassifications)
 - systems: list of extracted system names
 - data_elements: list of extracted data elements
+- data_flows: list of extracted data flows (source → destination) — use these to verify which entities are actually referenced
 
 Your job:
 1. DEDUPLICATE: Merge "Nikhil" and "Nikhil Joshi" into "Nikhil Joshi"
 2. CLASSIFY: Each entity must be one of: PERSON, TEAM, SYSTEM, EXTERNAL_ENTITY, DATA_STORE, PROCESS
 3. REMOVE INVALID: Remove things that are categories/processes misclassified as actors (e.g. "Loan Closure", "Customer Issues")
 4. CANONICALIZE: Use proper role names — "Customer Care Agent" instead of just "Agent"
+5. DO NOT REMOVE any entity that appears as a source or destination in a data flow
 
 Return ONLY valid JSON:
 {
@@ -151,10 +153,22 @@ class EntityNormalizationAgent:
 
         # ── Step 3: LLM refinement ───────────────────
         try:
+            # Summarize flow endpoints so LLM knows which entities are in use
+            flow_endpoints = set()
+            for f in (data_flows or []):
+                flow_endpoints.add(f.get("source", ""))
+                flow_endpoints.add(f.get("destination", ""))
+            flow_endpoints.discard("")
+
             context = json.dumps({
                 "actors": deduped_actors,
                 "systems": deduped_systems,
                 "data_elements": data_elements,
+                "data_flows_summary": [
+                    f"{f.get('source','')} -> {f.get('destination','')}: {f.get('data', f.get('data_elements',''))}"
+                    for f in (data_flows or [])[:30]
+                ],
+                "entities_referenced_in_flows": sorted(flow_endpoints)
             }, indent=2)
 
             response = self.client.messages.create(

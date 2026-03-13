@@ -294,23 +294,29 @@ class SchemaGenerator:
         user_prompt = f"--- BEGIN TRANSCRIPTS ---\n{combined_transcript}\n--- END TRANSCRIPTS ---"
         logger.info(f"Generating schema one. Transcript length: {len(combined_transcript)} characters.")
         
-        response = self.client.messages.create(
-            model=self.model,
-            max_tokens=8192,
-            temperature=0,
-            system=SCHEMA_ONE_PROMPT,
-            messages=[{"role": "user", "content": user_prompt}],
-            tools=[{
-                "name": "generate_schema",
-                "description": "Generates the exhaustive schema 1 node graph.",
-                "input_schema": SchemaOneOutput.model_json_schema()
-            }],
-            tool_choice={"type": "tool", "name": "generate_schema"}
-        )
-        
-        # Anthropic Tool Use response
-        tool_call = next(c for c in response.content if c.type == "tool_use")
-        return tool_call.input
+        try:
+            response = self.client.messages.create(
+                model=self.model,
+                max_tokens=32768,
+                temperature=0,
+                system=SCHEMA_ONE_PROMPT,
+                messages=[{"role": "user", "content": user_prompt}],
+                tools=[{
+                    "name": "generate_schema",
+                    "description": "Generates the exhaustive schema 1 node graph.",
+                    "input_schema": SchemaOneOutput.model_json_schema()
+                }],
+                tool_choice={"type": "tool", "name": "generate_schema"}
+            )
+            
+            tool_call = next((c for c in response.content if c.type == "tool_use"), None)
+            if tool_call is None:
+                logger.error("Schema-1: LLM did not return a tool_use block")
+                return {}
+            return tool_call.input
+        except Exception as e:
+            logger.error(f"Schema-1 generation failed: {e}")
+            return {}
 
     def generate_data_inventory(self, schema_one_dict: dict) -> List[dict]:
         """Executes Step 2: Flattens Schema-1 into Data Mapping Rows."""
@@ -324,7 +330,7 @@ class SchemaGenerator:
             try:
                 response = self.client.messages.create(
                     model=self.model,
-                    max_tokens=8192,
+                    max_tokens=32768,
                     temperature=0,
                     system=DATA_INVENTORY_PROMPT,
                     messages=[{"role": "user", "content": user_prompt}],

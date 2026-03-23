@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, JSON, Text, Integer, Float
+from sqlalchemy import Column, String, DateTime, JSON, Text, Integer, Float, Boolean
 from datetime import datetime
 from api.database import Base
 
@@ -107,6 +107,38 @@ class InteractiveDFD(Base):
     edges = Column(JSON, nullable=False, default=list)
     levels = Column(JSON, nullable=False, default=list)
     pipeline_docs = Column(JSON, nullable=True, default=dict)
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class MasterDFD(Base):
+    __tablename__ = "master_dfds"
+
+    project_id = Column(String, primary_key=True, index=True)
+    session_ids = Column(JSON, nullable=False)              # List of session IDs aggregated
+    status = Column(String, default="pending", index=True)  # pending, processing, completed, failed
+    error_message = Column(Text, nullable=True)
+    
+    # Progress tracking
+    current_stage = Column(String, nullable=True)           # e.g. "fetching_sessions", "merging_nodes"
+    progress_percent = Column(Float, default=0.0)           # 0.0 - 100.0
+    
+    # Aggregated outputs
+    master_kg_json = Column(JSON, nullable=True)            # Merged knowledge graph
+    master_render_plan_json = Column(JSON, nullable=True)   # Render plan for master DFD
+    master_html = Column(Text, nullable=True)               # Generated HTML
+    overview_summary = Column(JSON, nullable=True)          # Project overview stats
+    
+    # Metadata
+    project_name = Column(String, nullable=True)
+    total_sessions = Column(Integer, default=0)
+    total_nodes = Column(Integer, default=0)
+    total_edges = Column(Integer, default=0)
+    total_risks = Column(Integer, default=0)
+    
+    # Email notification
+    notification_email = Column(String, nullable=True)
     
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

@@ -22,7 +22,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base, SessionLocal
-from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, PipelineStageLog
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, PipelineStageLog, MasterDFD
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -172,7 +172,7 @@ def _stage_percent(stage_order: int) -> float:
     return min(round(stage_order / len(PIPELINE_STAGES) * 100, 1), 100.0)
 
 
-def process_aggressive_pipeline(session_id: str, department: str, files: List[str], ai_config: dict = None):
+def process_aggressive_pipeline(session_id: str, department: str, files: List[str], ai_config: dict = None, notification_email: Optional[str] = None):
     from api.database import SessionLocal
     db = SessionLocal()
 
@@ -355,6 +355,11 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         db.commit()
         logger.info(f"[{session_id}] Pipeline complete: {len(kg_nodes_list)} nodes, {len(kg_edges_list)} edges")
 
+        # Send email notification if provided
+        if notification_email:
+            from utils.email_service import send_pipeline_completion_email
+            send_pipeline_completion_email(notification_email, session_id, "completed")
+
     except Exception as e:
         logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
         try:
@@ -401,6 +406,7 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
         )
         ai_config = decoded.get("ai_config", {})
         payload_data = decoded.get("data", {})
+        notification_email = payload_data.get("email")
     except Exception as e:
         logger.error(f"JWT decode error: {e}")
         raise HTTPException(status_code=400, detail=f"Invalid or missing token: {str(e)}")
@@ -438,7 +444,7 @@ def initiate(request: InitiateRequest, background_tasks: BackgroundTasks, db: Se
 
     background_tasks.add_task(
         process_aggressive_pipeline,
-        req_session_id, req_department, req_files or [], ai_config
+        req_session_id, req_department, req_files or [], ai_config, notification_email
     )
 
     return InitiateResponse(
@@ -723,3 +729,382 @@ def preview_html(data: HTMLPreviewRequest):
     html = html_gen._build_html(nodes_dicts, edges_dicts, kg, data.pipeline_docs, col_map, row_map)
     
     return {"html": html}
+
+
+# ── Master DFD API ────────────────────────────────────
+
+class MasterDFDRequest(BaseModel):
+    token: str  # JWT token containing session IDs, project info, and email
+
+class MasterDFDResponse(BaseModel):
+    project_id: str
+    status: str
+    message: str
+
+
+def process_master_dfd(project_id: str, session_ids: List[str], project_name: Optional[str], notification_email: Optional[str], ai_config: dict, db_session: Session):
+    """
+    Background task to aggregate multiple session DFDs into a master DFD.
+    """
+    logger.info(f"[{project_id}] Starting master DFD generation for {len(session_ids)} sessions")
+    
+    def update_stage(stage: str, progress: float):
+        """Helper to update current stage and progress."""
+        master = db_session.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+        if master:
+            master.current_stage = stage
+            master.progress_percent = progress
+            master.updated_at = datetime.utcnow()
+            db_session.commit()
+            logger.info(f"[{project_id}] Stage: {stage} ({progress}%)")
+    
+    try:
+        # Update status to processing
+        master = db_session.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+        if not master:
+            logger.error(f"[{project_id}] Master DFD record not found")
+            return
+        
+        master.status = "processing"
+        master.current_stage = "initializing"
+        master.progress_percent = 0.0
+        db_session.commit()
+        
+        # Fetch session data
+        update_stage("fetching_sessions", 10.0)
+        
+        # Debug: Show all available sessions
+        all_sessions = db_session.query(DFDSession.session_id, DFDSession.status).all()
+        logger.info(f"[{project_id}] Available sessions in DB: {[(s.session_id, s.status) for s in all_sessions]}")
+        logger.info(f"[{project_id}] Requested session IDs: {session_ids}")
+        
+        sessions_data = []
+        for idx, session_id in enumerate(session_ids):
+            session = db_session.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+            if not session:
+                logger.warning(f"[{project_id}] Session {session_id} not found in database, skipping")
+                continue
+            
+            # Fetch KG nodes and edges
+            kg_nodes_raw = db_session.query(KnowledgeGraphNode).filter(
+                KnowledgeGraphNode.session_id == session_id
+            ).all()
+            
+            kg_edges_raw = db_session.query(KnowledgeGraphEdge).filter(
+                KnowledgeGraphEdge.session_id == session_id
+            ).all()
+            
+            # Convert to dicts
+            kg_nodes = [
+                {
+                    "id": n.node_id,
+                    "name": n.name,
+                    "type": n.type,
+                    "aliases": n.aliases or [],
+                    "data_elements": n.data_elements or [],
+                    "risks": n.risks or [],
+                    "sources": n.sources or []
+                }
+                for n in kg_nodes_raw
+            ]
+            
+            kg_edges = [
+                {
+                    "source": e.source_node,
+                    "target": e.target_node,
+                    "data_elements": e.data_elements or [],
+                    "flow_type": e.flow_type or "data_flow",
+                    "channel": e.channel or "",
+                    "evidence": [],
+                    "evidence_trail": []
+                }
+                for e in kg_edges_raw
+            ]
+            
+            # Fetch ALL session data
+            sessions_data.append({
+                "session_id": session_id,
+                "kg_nodes": kg_nodes,
+                "kg_edges": kg_edges,
+                "dfd_render_plan": session.dfd_render_plan_json or {},
+                "actors_json": session.actors_json or [],
+                "systems_json": session.systems_json or [],
+                "flows_json": session.flows_json or [],
+                "risks_json": session.risks_json or [],
+                "data_elements_json": session.data_elements_json or [],
+                "compliance_schema_json": session.compliance_schema_json,
+                "verification_report_json": session.verification_report_json,
+                "metadata": {
+                    "project_name": project_name or "Master Project",
+                    "department": session.department
+                }
+            })
+            
+            # Update progress for fetching
+            progress = 10.0 + (idx + 1) / len(session_ids) * 20.0
+            update_stage(f"fetching_sessions ({idx + 1}/{len(session_ids)})", progress)
+        
+        if not sessions_data:
+            error_msg = f"No valid sessions found to aggregate. Requested: {session_ids}, Found in DB: {[s.session_id for s in all_sessions]}"
+            logger.error(f"[{project_id}] {error_msg}")
+            raise ValueError(error_msg)
+        
+        # Aggregate using MasterDFDAgent with AI validation
+        update_stage("aggregating_data", 35.0)
+        from test.agents.master_dfd_agent import MasterDFDAgent
+        agent = MasterDFDAgent(ai_config=ai_config)
+        result = agent.aggregate_sessions(sessions_data, use_ai_validation=True)
+        
+        update_stage("merging_complete", 60.0)
+        
+        master_kg = result["master_kg"]
+        master_render_plan = result["master_render_plan"]
+        overview_summary = result["overview_summary"]
+        
+        # Generate HTML using HTMLGeneratorAgent
+        update_stage("generating_html", 75.0)
+        from test.graph.html_generator import HTMLGeneratorAgent
+        html_gen = HTMLGeneratorAgent()
+        
+        # Create pipeline_docs with metadata for proper department/project name display
+        pipeline_docs = {
+            "master_metadata": {
+                "metadata": {
+                    "department": overview_summary.get("project_name", project_name),
+                    "project_name": overview_summary.get("project_name", project_name),
+                    "total_sessions": overview_summary.get("total_sessions", len(session_ids)),
+                    "departments": overview_summary.get("departments", [])
+                }
+            }
+        }
+        
+        master_html = html_gen.generate_from_data(
+            kg=master_kg,
+            render_plan=master_render_plan,
+            pipeline_docs=pipeline_docs
+        )
+        
+        update_stage("finalizing", 90.0)
+        
+        # Update master DFD record
+        master.master_kg_json = master_kg
+        master.master_render_plan_json = master_render_plan
+        master.master_html = master_html
+        master.overview_summary = overview_summary
+        master.project_name = overview_summary.get("project_name", project_name)
+        master.total_sessions = overview_summary.get("total_sessions", len(session_ids))
+        master.total_nodes = overview_summary.get("total_nodes", 0)
+        master.total_edges = overview_summary.get("total_edges", 0)
+        master.total_risks = overview_summary.get("total_risks", 0)
+        master.status = "completed"
+        master.current_stage = "completed"
+        master.progress_percent = 100.0
+        master.updated_at = datetime.utcnow()
+        
+        db_session.commit()
+        logger.info(f"[{project_id}] Master DFD generation completed successfully")
+        
+        # Send email notification if provided
+        if notification_email:
+            from utils.email_service import send_master_dfd_completion_email
+            send_master_dfd_completion_email(
+                notification_email, project_id, "completed", 
+                total_sessions=overview_summary.get("total_sessions", len(session_ids))
+            )
+        
+    except Exception as e:
+        logger.error(f"[{project_id}] Master DFD generation failed: {e}", exc_info=True)
+        master = db_session.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+        if master:
+            master.status = "failed"
+            master.current_stage = "failed"
+            master.error_message = str(e)
+            db_session.commit()
+            
+            # Send failure email notification if provided
+            if notification_email:
+                from utils.email_service import send_master_dfd_completion_email
+                send_master_dfd_completion_email(notification_email, project_id, "failed", error_message=str(e))
+
+
+@app.post("/api/master-dfd/generate", response_model=MasterDFDResponse)
+def generate_master_dfd(
+    request: MasterDFDRequest,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    """
+    Generate a master DFD by aggregating multiple session DFDs.
+    
+    Request body:
+    {
+        "token": "jwt_token_here",
+        "email": "user@example.com" (optional)
+    }
+    
+    Token payload should contain:
+    {
+        "data": {
+            "session_ids": ["session_id_1", "session_id_2", ...],
+            "project_id": "project_123",
+            "project_name": "DPDPA Compliance Project" (optional),
+            "email": "user@example.com" (optional)
+        },
+        "ai_config": {
+            "apiKey": "your-api-key",
+            "model": "gpt-4" (optional)
+        }
+    }
+    """
+    # Decode JWT token
+    import jwt
+    from config import Config
+    
+    try:
+        if not Config.PAYLOAD_TOKEN:
+            raise ValueError("Config.PAYLOAD_TOKEN is missing")
+            
+        decoded = jwt.decode(
+            request.token, 
+            Config.PAYLOAD_TOKEN, 
+            algorithms=["HS256"],
+            options={"verify_exp": False}
+        )
+        ai_config = decoded.get("ai_config", {})
+        payload_data = decoded.get("data", {})
+    except Exception as e:
+        logger.error(f"JWT decode error in master DFD: {e}")
+        raise HTTPException(status_code=400, detail=f"Invalid or missing token: {str(e)}")
+    
+    # Extract data from token
+    session_ids = payload_data.get("session_ids", [])
+    project_id = payload_data.get("project_id")
+    project_name = payload_data.get("project_name")
+    notification_email = payload_data.get("email")
+    
+    if not session_ids:
+        raise HTTPException(status_code=400, detail="Session IDs list cannot be empty in token data")
+    
+    if not project_id:
+        raise HTTPException(status_code=400, detail="Project ID is required in token data")
+    
+    logger.info(f"Received master DFD request for project {project_id} with {len(session_ids)} sessions")
+    
+    # Check if master DFD already exists
+    existing = db.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+    if existing:
+        # Re-generate: reset status and clear old data
+        logger.info(f"Re-generating master DFD for project {project_id}")
+        existing.session_ids = session_ids
+        existing.status = "pending"
+        existing.error_message = None
+        existing.master_kg_json = None
+        existing.master_render_plan_json = None
+        existing.master_html = None
+        existing.overview_summary = None
+        existing.project_name = project_name
+        existing.notification_email = notification_email
+        existing.updated_at = datetime.utcnow()
+        db.commit()
+    else:
+        # Create new master DFD record
+        master = MasterDFD(
+            project_id=project_id,
+            session_ids=session_ids,
+            status="pending",
+            project_name=project_name,
+            notification_email=notification_email
+        )
+        db.add(master)
+        db.commit()
+    
+    # Start background processing
+    background_tasks.add_task(process_master_dfd, project_id, session_ids, project_name, notification_email, ai_config, SessionLocal())
+    
+    return MasterDFDResponse(
+        project_id=project_id,
+        status="pending",
+        message=f"Master DFD generation started for {len(session_ids)} sessions"
+    )
+
+
+@app.get("/api/master-dfd/{project_id}")
+def get_master_dfd(project_id: str, db: Session = Depends(get_db)):
+    """
+    Fetch master DFD results for a project.
+    
+    Returns:
+    {
+        "project_id": "project_123",
+        "status": "completed",
+        "project_name": "DPDPA Compliance Project",
+        "session_ids": ["session_1", "session_2"],
+        "overview_summary": {...},
+        "master_html": "<html>...",
+        "master_kg": {...},
+        "master_render_plan": {...},
+        "total_sessions": 5,
+        "total_nodes": 42,
+        "total_edges": 38,
+        "total_risks": 12,
+        "error_message": null,
+        "created_at": "2026-03-23T14:30:00",
+        "updated_at": "2026-03-23T14:35:00"
+    }
+    """
+    master = db.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+    if not master:
+        raise HTTPException(status_code=404, detail="Master DFD not found")
+    
+    return {
+        "project_id": master.project_id,
+        "status": master.status,
+        "project_name": master.project_name,
+        "session_ids": master.session_ids,
+        "overview_summary": master.overview_summary,
+        "master_html": master.master_html,
+        "master_kg": master.master_kg_json,
+        "master_render_plan": master.master_render_plan_json,
+        "total_sessions": master.total_sessions,
+        "total_nodes": master.total_nodes,
+        "total_edges": master.total_edges,
+        "total_risks": master.total_risks,
+        "error_message": master.error_message,
+        "created_at": master.created_at.isoformat() if master.created_at else None,
+        "updated_at": master.updated_at.isoformat() if master.updated_at else None
+    }
+
+
+@app.get("/api/master-dfd/status/{project_id}")
+def get_master_dfd_status(project_id: str, db: Session = Depends(get_db)):
+    """
+    Get real-time status of master DFD generation with stage details.
+    
+    Returns:
+    {
+        "project_id": "project_123",
+        "status": "processing",
+        "current_stage": "aggregating_data",
+        "progress_percent": 45.0,
+        "project_name": "DPDPA Project",
+        "total_sessions": 5,
+        "error_message": null,
+        "created_at": "2026-03-23T14:30:00",
+        "updated_at": "2026-03-23T14:32:15"
+    }
+    """
+    master = db.query(MasterDFD).filter(MasterDFD.project_id == project_id).first()
+    if not master:
+        raise HTTPException(status_code=404, detail="Master DFD not found")
+    
+    return {
+        "project_id": master.project_id,
+        "status": master.status,
+        "current_stage": master.current_stage,
+        "progress_percent": master.progress_percent or 0.0,
+        "project_name": master.project_name,
+        "total_sessions": len(master.session_ids) if master.session_ids else 0,
+        "error_message": master.error_message,
+        "created_at": master.created_at.isoformat() if master.created_at else None,
+        "updated_at": master.updated_at.isoformat() if master.updated_at else None
+    }

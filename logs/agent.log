@@ -11217,3 +11217,979 @@ pydantic.v1.errors.ConfigError: unable to infer type for attribute "REGEX"
 2026-03-13 18:26:23,429 - KnowledgeGraphAgent - INFO - Knowledge Graph complete (in-memory) — 6 nodes, 12 edges
 2026-03-13 18:26:27,723 - HTMLGenerator - INFO - Building HTML (in-memory): 6 nodes, 12 edges
 2026-03-13 18:26:37,861 - FastAPI - INFO - [1ceae69a-e959-48f2-9f6d-b02c7f47c173] Pipeline complete: 6 nodes, 12 edges
+2026-03-13 19:14:45,745 - FastAPI - INFO - Initiating with token: eyJhbGciOi...
+2026-03-13 19:14:45,752 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Mode: aggressive | Department: Sales
+2026-03-13 19:14:47,261 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Aggressive Pipeline starting for department: Sales
+2026-03-13 19:14:50,316 - FastAPI - INFO - Downloading: https://fxohixopbzanlrtmazwd.supabase.co/storage/v1/object/sign/session-files/uploads/1772789853294-...
+2026-03-13 19:14:51,102 - FastAPI - INFO - Successfully downloaded to: /var/folders/4b/fk6hmlm15p17jc4b16_zj7mc0000gn/T/tmp9l7niy1a/1772789853294-loan_origination_transcript)example.txt
+2026-03-13 19:14:51,258 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,281 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,287 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,293 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,299 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,305 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,312 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,318 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:14:51,324 - PipelineRunner - INFO - Processing: combined_source.txt
+2026-03-13 19:14:51,324 - PipelineRunner - INFO -   [1] Doc type: unknown (confidence: 0.00)
+2026-03-13 19:14:51,324 - PipelineRunner - INFO -   [1] ingest_and_clean: in_tokens=0 out_tokens=0 duration=0ms
+2026-03-13 19:14:54,235 - PipelineRunner - INFO -   [2] Deterministic: Actors=3, Systems=0, Elements=1, Risks=1
+2026-03-13 19:14:54,235 - PipelineRunner - INFO -   [2] deterministic_extraction: in_tokens=0 out_tokens=0 duration=59ms
+2026-03-13 19:14:57,037 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-13 19:14:57,038 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:15:05,664 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:15:05,665 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-13 19:15:05,665 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:15:18,558 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:15:18,558 - DataFlowAgent - INFO - DataFlowAgent extracted 8 flows
+2026-03-13 19:15:18,559 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:15:55,206 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:15:55,208 - RiskAgent - INFO - RiskAgent identified 7 risks
+2026-03-13 19:15:55,208 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=8, Risks=7
+2026-03-13 19:15:55,208 - PipelineRunner - INFO -   [3] agentic_extraction: in_tokens=2100 out_tokens=3863 duration=58170ms
+2026-03-13 19:15:58,185 - PipelineRunner - INFO -   [4] Running EntityNormalizationAgent...
+2026-03-13 19:15:58,188 - EntityNormAgent - INFO - Rule-based: 3 actors → 3, 5 systems → 5, 0 removed
+2026-03-13 19:15:58,189 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:16:04,932 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:16:04,933 - EntityNormAgent - INFO - LLM normalized: 4 actors, 4 systems, 0 removed
+2026-03-13 19:16:04,933 - PipelineRunner - INFO -   [4] entity_normalization: in_tokens=686 out_tokens=268 duration=6748ms
+2026-03-13 19:16:07,889 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-13 19:16:07,890 - FlowCanonAgent - INFO - Deterministic merge: 8 raw → 8 merged flows
+2026-03-13 19:16:07,891 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:16:21,598 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:16:21,599 - FlowCanonAgent - INFO - LLM refined: 8 canonical flows
+2026-03-13 19:16:21,599 - PipelineRunner - INFO -   [5] flow_canonicalization: in_tokens=1853 out_tokens=1432 duration=13710ms
+2026-03-13 19:16:24,490 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-13 19:16:24,493 - VerificationAgent - INFO - Verification: overall=0.83 (systems=1.00, data=0.33, risks=1.00, flows=1.00) | missing_systems=0 | hallucinated=0 | reprocess=YES
+2026-03-13 19:16:24,493 - PipelineRunner - INFO -   [6] verification: in_tokens=0 out_tokens=0 duration=3ms
+2026-03-13 19:16:27,354 - PipelineRunner - INFO -   [7] Feedback loop — re-extracting (attempt 1/2)...
+2026-03-13 19:16:27,355 - PipelineRunner - INFO -   [3] Running agentic extraction...
+2026-03-13 19:16:27,357 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:16:35,435 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:16:35,436 - SystemAgent - INFO - SystemAgent extracted 5 systems
+2026-03-13 19:16:35,436 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:16:48,645 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:16:48,646 - DataFlowAgent - INFO - DataFlowAgent extracted 8 flows
+2026-03-13 19:16:48,647 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:17:27,328 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-13 19:17:27,330 - RiskAgent - INFO - RiskAgent identified 7 risks
+2026-03-13 19:17:27,330 - PipelineRunner - INFO -   [3] Agentic: Systems=5, Flows=8, Risks=7
+2026-03-13 19:17:27,330 - PipelineRunner - INFO -   [5] Running FlowCanonicalizerAgent...
+2026-03-13 19:17:27,331 - FlowCanonAgent - INFO - Deterministic merge: 16 raw → 8 merged flows
+2026-03-13 19:17:27,332 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:17:28,700 - LLMAdapter - ERROR - OPENROUTER API Error: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'} - Body: {"error":{"message":"This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits","code":402,"metadata":{"provider_name":null}},"user_id":"user_2zoz9BJyG4I0f6l15a187mHSN2N"}
+2026-03-13 19:17:28,700 - FlowCanonAgent - ERROR - FlowCanonAgent LLM failed: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}, using deterministic merge
+2026-03-13 19:17:28,700 - PipelineRunner - INFO -   [6] Running PipelineVerificationAgent...
+2026-03-13 19:17:28,701 - VerificationAgent - INFO - Verification: overall=1.00 (systems=1.00, data=1.00, risks=1.00, flows=1.00) | missing_systems=0 | hallucinated=0 | reprocess=NO
+2026-03-13 19:17:28,701 - PipelineRunner - INFO -   [7] feedback_loop_attempt_1: in_tokens=2175 out_tokens=3922 duration=61346ms
+2026-03-13 19:17:31,636 - PipelineRunner - INFO -   [8] Generating Compliance Schema and Data Inventory...
+2026-03-13 19:17:31,637 - SchemaGeneratorAgent - INFO -   [9a] Generating Compliance Schema-1...
+2026-03-13 19:17:31,650 - LLMAdapterDebug - INFO - OPENROUTER Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "description": "The name of the data element.",
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "description": "Description of the data element.",
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum",
+                "description": "Data classification level."
+              },
+              "purpose": {
+                "description": "Purpose of processing.",
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "description": "Retention period.",
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum",
+                "description": "Legal basis for processing."
+              },
+              "storage_location": {
+                "description": "Storage location.",
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "description": "Data owner role or department.",
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-13 19:17:31,651 - LLMAdapterDebug - INFO - OPENROUTER Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-13 19:17:31,651 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:17:33,200 - LLMAdapter - ERROR - OPENROUTER API Error: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'} - Body: {"error":{"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits","code":402,"metadata":{"provider_name":null}},"user_id":"user_2zoz9BJyG4I0f6l15a187mHSN2N"}
+2026-03-13 19:17:33,200 - SchemaGeneratorAgent - ERROR - Error generating Schema-1: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+2026-03-13 19:17:33,200 - SchemaGeneratorAgent - INFO -   [9b] Generating Flattened Data Inventory...
+2026-03-13 19:17:33,201 - PipelineRunner - INFO -   [8] schema_generation: in_tokens=0 out_tokens=0 duration=1564ms
+2026-03-13 19:17:36,428 - PipelineRunner - INFO -   [9] Running DFDBuilderAgent (final) with enriched Schema context...
+2026-03-13 19:17:36,430 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:17:37,498 - LLMAdapter - ERROR - OPENROUTER API Error: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'} - Body: {"error":{"message":"This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits","code":402,"metadata":{"provider_name":null}},"user_id":"user_2zoz9BJyG4I0f6l15a187mHSN2N"}
+2026-03-13 19:17:37,499 - DFDBuilderAgent - ERROR - DFDBuilderAgent failed: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 4096 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+2026-03-13 19:17:37,499 - PipelineRunner - INFO -   [9] dfd_generation: in_tokens=0 out_tokens=0 duration=1070ms
+2026-03-13 19:17:40,248 - PipelineRunner - INFO -   Pipeline complete — score: 1.00
+2026-03-13 19:17:41,808 - KnowledgeGraphAgent - INFO - [1] In-memory graph build from 1 document
+2026-03-13 19:17:41,809 - EntityMerger - INFO - Merged 8 raw entities → 8 unique
+2026-03-13 19:17:41,809 - FlowMerger - INFO - Merged flows → 8 canonical flows
+2026-03-13 19:17:41,809 - GraphBuilder - INFO - Added 8 nodes
+2026-03-13 19:17:41,809 - GraphBuilder - INFO - Added 8 edges
+2026-03-13 19:17:41,810 - GraphReasoning - INFO - Inferred 0 implicit flows
+2026-03-13 19:17:41,812 - GraphValidator - INFO - Validation: PASS — 8 nodes, 8 edges, 1 issues
+2026-03-13 19:17:41,812 - KnowledgeGraphAgent - INFO - Knowledge Graph complete (in-memory) — 8 nodes, 8 edges
+2026-03-13 19:17:46,634 - HTMLGenerator - INFO - Building HTML (in-memory): 8 nodes, 8 edges
+2026-03-13 19:17:49,786 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-13 19:17:49,808 - SchemaGenerator - INFO - Executing Schema-1 Generation LLM prompt...
+2026-03-13 19:17:49,809 - SchemaGenerator - INFO - Generating schema one. Transcript length: 936 characters.
+2026-03-13 19:17:49,812 - LLMAdapterDebug - INFO - OPENROUTER Tools: [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_schema",
+      "description": "Generates the exhaustive schema 1 node graph.",
+      "parameters": {
+        "$defs": {
+          "ClassificationEnum": {
+            "enum": [
+              "Public",
+              "Internal",
+              "Confidential",
+              "PII/Sensitive",
+              "Special Category"
+            ],
+            "title": "ClassificationEnum",
+            "type": "string"
+          },
+          "DataElement": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "classification": {
+                "$ref": "#/$defs/ClassificationEnum"
+              },
+              "purpose": {
+                "title": "Purpose",
+                "type": "string"
+              },
+              "retention_period": {
+                "title": "Retention Period",
+                "type": "string"
+              },
+              "legal_basis": {
+                "$ref": "#/$defs/LegalBasisEnum"
+              },
+              "storage_location": {
+                "title": "Storage Location",
+                "type": "string"
+              },
+              "owner": {
+                "title": "Owner",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "classification",
+              "purpose",
+              "retention_period",
+              "legal_basis",
+              "storage_location",
+              "owner"
+            ],
+            "title": "DataElement",
+            "type": "object"
+          },
+          "Flow": {
+            "properties": {
+              "source": {
+                "title": "Source",
+                "type": "string"
+              },
+              "target": {
+                "title": "Target",
+                "type": "string"
+              },
+              "label": {
+                "title": "Label",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "type": "string"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "bi_directional": {
+                "title": "Bi Directional",
+                "type": "boolean"
+              },
+              "transfer_mechanism": {
+                "title": "Transfer Mechanism",
+                "type": "string"
+              },
+              "cross_border": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Cross Border"
+              }
+            },
+            "required": [
+              "source",
+              "target",
+              "label",
+              "data_elements",
+              "bi_directional",
+              "transfer_mechanism"
+            ],
+            "title": "Flow",
+            "type": "object"
+          },
+          "Integration": {
+            "properties": {
+              "system": {
+                "title": "System",
+                "type": "string"
+              },
+              "type": {
+                "title": "Type",
+                "type": "string"
+              },
+              "direction": {
+                "$ref": "#/$defs/IntegrationDirection"
+              }
+            },
+            "required": [
+              "system",
+              "type",
+              "direction"
+            ],
+            "title": "Integration",
+            "type": "object"
+          },
+          "IntegrationDirection": {
+            "enum": [
+              "inbound",
+              "outbound",
+              "bidirectional"
+            ],
+            "title": "IntegrationDirection",
+            "type": "string"
+          },
+          "LegalBasisEnum": {
+            "enum": [
+              "Consent",
+              "Legal obligation",
+              "Legitimate interest",
+              "Contract",
+              "Not specified"
+            ],
+            "title": "LegalBasisEnum",
+            "type": "string"
+          },
+          "SchemaMeta": {
+            "properties": {
+              "project_name": {
+                "title": "Project Name",
+                "type": "string"
+              },
+              "vertical_name": {
+                "title": "Vertical Name",
+                "type": "string"
+              },
+              "generated_at": {
+                "title": "Generated At",
+                "type": "string"
+              }
+            },
+            "required": [
+              "project_name",
+              "vertical_name",
+              "generated_at"
+            ],
+            "title": "SchemaMeta",
+            "type": "object"
+          },
+          "SchemaNode": {
+            "properties": {
+              "id": {
+                "description": "Unique ID prefixed by ext_, proc_, or ds_",
+                "title": "Id",
+                "type": "string"
+              },
+              "type": {
+                "description": "EXTERNAL_ENTITY, PROCESS, or DATA_STORE",
+                "title": "Type",
+                "type": "string"
+              },
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "data_elements": {
+                "items": {
+                  "$ref": "#/$defs/DataElement"
+                },
+                "title": "Data Elements",
+                "type": "array"
+              },
+              "sub_processes": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/SubProcess"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sub Processes"
+              },
+              "sla": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Sla"
+              },
+              "integrations": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "$ref": "#/$defs/Integration"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Integrations"
+              },
+              "reference_documents": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Reference Documents"
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "name",
+              "description",
+              "data_elements"
+            ],
+            "title": "SchemaNode",
+            "type": "object"
+          },
+          "SubProcess": {
+            "properties": {
+              "name": {
+                "title": "Name",
+                "type": "string"
+              },
+              "description": {
+                "title": "Description",
+                "type": "string"
+              },
+              "routing": {
+                "title": "Routing",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "description",
+              "routing"
+            ],
+            "title": "SubProcess",
+            "type": "object"
+          }
+        },
+        "properties": {
+          "meta": {
+            "$ref": "#/$defs/SchemaMeta"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/$defs/SchemaNode"
+            },
+            "title": "Nodes",
+            "type": "array"
+          },
+          "flows": {
+            "items": {
+              "$ref": "#/$defs/Flow"
+            },
+            "title": "Flows",
+            "type": "array"
+          }
+        },
+        "required": [
+          "meta",
+          "nodes",
+          "flows"
+        ],
+        "title": "SchemaOneOutput",
+        "type": "object"
+      }
+    }
+  }
+]
+2026-03-13 19:17:49,813 - LLMAdapterDebug - INFO - OPENROUTER Tool Choice: {
+  "type": "function",
+  "function": {
+    "name": "generate_schema"
+  }
+}
+2026-03-13 19:17:49,813 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 2
+2026-03-13 19:17:51,018 - LLMAdapter - ERROR - OPENROUTER API Error: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'} - Body: {"error":{"message":"This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits","code":402,"metadata":{"provider_name":null}},"user_id":"user_2zoz9BJyG4I0f6l15a187mHSN2N"}
+2026-03-13 19:17:51,018 - SchemaGenerator - ERROR - Schema-1 generation failed: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 32768 tokens, but can only afford 1191. To increase, visit https://openrouter.ai/settings/credits and add more credits', 'code': 402, 'metadata': {'provider_name': None}}, 'user_id': 'user_2zoz9BJyG4I0f6l15a187mHSN2N'}
+2026-03-13 19:17:51,018 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Schema-1 generated
+2026-03-13 19:18:01,214 - FastAPI - INFO - [6f52e2b8-d6dd-438f-bded-cbe0db6ba397] Pipeline complete: 8 nodes, 8 edges
+2026-03-23 20:41:15,382 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 3 sessions
+2026-03-23 20:41:17,231 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 3 sessions
+2026-03-23 20:41:21,305 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:41:22,353 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found, skipping
+2026-03-23 20:41:22,707 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found, skipping
+2026-03-23 20:41:23,053 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found, skipping
+2026-03-23 20:41:23,053 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation failed: No valid sessions found to aggregate
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 842, in process_master_dfd
+    raise ValueError("No valid sessions found to aggregate")
+ValueError: No valid sessions found to aggregate
+2026-03-23 20:41:24,235 - EmailService - INFO - Sending email to pia@kaizen.ai: ❌ Master DFD Failed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:41:27,020 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 20:42:24,979 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 3 sessions
+2026-03-23 20:42:26,171 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:42:26,807 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 3 sessions
+2026-03-23 20:42:32,934 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:42:33,939 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found, skipping
+2026-03-23 20:42:34,275 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found, skipping
+2026-03-23 20:42:34,634 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found, skipping
+2026-03-23 20:42:34,635 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation failed: No valid sessions found to aggregate
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 842, in process_master_dfd
+    raise ValueError("No valid sessions found to aggregate")
+ValueError: No valid sessions found to aggregate
+2026-03-23 20:42:35,701 - EmailService - INFO - Sending email to pia@kaizen.ai: ❌ Master DFD Failed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:42:36,103 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 20:45:02,208 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 3 sessions
+2026-03-23 20:45:03,844 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:45:04,550 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 3 sessions
+2026-03-23 20:45:09,213 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:45:10,870 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 20:45:10,871 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84']
+2026-03-23 20:45:11,235 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found in database, skipping
+2026-03-23 20:45:11,574 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found in database, skipping
+2026-03-23 20:45:12,852 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found in database, skipping
+2026-03-23 20:45:12,852 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] No valid sessions found to aggregate. Requested: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84'], Found in DB: ['demo-vertical-2', 'test-session-jwt-1', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'd1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'b7883736-5c2b-40c8-ac98-11754e0a131b', 'demo-vertical-1', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0']
+2026-03-23 20:45:12,852 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation failed: No valid sessions found to aggregate. Requested: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84'], Found in DB: ['demo-vertical-2', 'test-session-jwt-1', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'd1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'b7883736-5c2b-40c8-ac98-11754e0a131b', 'demo-vertical-1', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0']
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 850, in process_master_dfd
+    raise ValueError(error_msg)
+ValueError: No valid sessions found to aggregate. Requested: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84'], Found in DB: ['demo-vertical-2', 'test-session-jwt-1', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'd1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'b7883736-5c2b-40c8-ac98-11754e0a131b', 'demo-vertical-1', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0']
+2026-03-23 20:45:13,979 - EmailService - INFO - Sending email to pia@kaizen.ai: ❌ Master DFD Failed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:45:15,512 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 20:47:42,329 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 6 sessions
+2026-03-23 20:47:44,199 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:47:44,973 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 6 sessions
+2026-03-23 20:47:49,228 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:47:50,343 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 20:47:50,344 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397']
+2026-03-23 20:47:50,749 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found in database, skipping
+2026-03-23 20:47:51,086 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found in database, skipping
+2026-03-23 20:47:51,467 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found in database, skipping
+2026-03-23 20:48:00,265 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (4/6) (23.333333333333332%)
+2026-03-23 20:48:12,187 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (5/6) (26.666666666666668%)
+2026-03-23 20:48:21,964 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (6/6) (30.0%)
+2026-03-23 20:48:23,977 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: aggregating_data (35.0%)
+2026-03-23 20:48:23,989 - MasterDFDAgent - INFO - Aggregating 3 sessions into master DFD
+2026-03-23 20:48:23,989 - MasterDFDAgent - INFO -   Session 1ceae69a-e959-48f2-9f6d-b02c7f47c173: 8 nodes, 14 edges
+2026-03-23 20:48:23,990 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation failed: 'str' object does not support item assignment
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 856, in process_master_dfd
+    result = agent.aggregate_sessions(sessions_data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/master_dfd_agent.py", line 108, in aggregate_sessions
+    de["_source_session"] = session_id
+    ~~^^^^^^^^^^^^^^^^^^^
+TypeError: 'str' object does not support item assignment
+2026-03-23 20:48:26,433 - EmailService - INFO - Sending email to pia@kaizen.ai: ❌ Master DFD Failed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:48:26,914 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 20:49:30,014 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 6 sessions
+2026-03-23 20:49:31,013 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:49:31,797 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 6 sessions
+2026-03-23 20:49:35,282 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:49:36,694 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 20:49:36,695 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397']
+2026-03-23 20:49:37,064 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found in database, skipping
+2026-03-23 20:49:37,428 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found in database, skipping
+2026-03-23 20:49:37,854 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found in database, skipping
+2026-03-23 20:49:44,416 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (4/6) (23.333333333333332%)
+2026-03-23 20:49:50,605 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (5/6) (26.666666666666668%)
+2026-03-23 20:50:03,034 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (6/6) (30.0%)
+2026-03-23 20:50:04,813 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: aggregating_data (35.0%)
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO - Aggregating 3 sessions into master DFD
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO -   Session 1ceae69a-e959-48f2-9f6d-b02c7f47c173: 8 nodes, 14 edges
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO -   Session 0e021cfc-adaf-4d31-a319-50f1108326b0: 10 nodes, 14 edges
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO -   Session 6f52e2b8-d6dd-438f-bded-cbe0db6ba397: 8 nodes, 8 edges
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO - Merged 26 nodes → 19 unique nodes
+2026-03-23 20:50:04,827 - MasterDFDAgent - INFO - Merged 36 edges → 27 unique edges
+2026-03-23 20:50:07,277 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: merging_complete (60.0%)
+2026-03-23 20:50:09,078 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: generating_html (75.0%)
+2026-03-23 20:50:09,083 - HTMLGenerator - INFO - Building HTML (in-memory): 19 nodes, 27 edges
+2026-03-23 20:50:10,834 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: finalizing (90.0%)
+2026-03-23 20:50:14,206 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation completed successfully
+2026-03-23 20:50:14,256 - EmailService - INFO - Sending email to pia@kaizen.ai: ✅ Master DFD Completed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:50:14,720 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 20:58:38,331 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 6 sessions
+2026-03-23 20:58:44,903 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:58:45,547 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 6 sessions
+2026-03-23 20:58:49,097 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 20:58:50,093 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 20:58:50,094 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397']
+2026-03-23 20:58:50,400 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found in database, skipping
+2026-03-23 20:58:50,707 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found in database, skipping
+2026-03-23 20:58:51,022 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found in database, skipping
+2026-03-23 20:58:55,463 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (4/6) (23.333333333333332%)
+2026-03-23 20:58:59,316 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (5/6) (26.666666666666668%)
+2026-03-23 20:59:02,656 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (6/6) (30.0%)
+2026-03-23 20:59:04,536 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: aggregating_data (35.0%)
+2026-03-23 20:59:04,547 - FastAPI - ERROR - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation failed: cannot import name 'LLMAdapter' from 'utils.llm_adapter' (/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py)
+Traceback (most recent call last):
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/api/main.py", line 854, in process_master_dfd
+    from test.agents.master_dfd_agent import MasterDFDAgent
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/master_dfd_agent.py", line 12, in <module>
+    from test.agents.master_dfd_agent_ai import (
+  File "/Users/blackpearl/Desktop/projects/python/pia-python/test/agents/master_dfd_agent_ai.py", line 7, in <module>
+    from utils.llm_adapter import LLMAdapter
+ImportError: cannot import name 'LLMAdapter' from 'utils.llm_adapter' (/Users/blackpearl/Desktop/projects/python/pia-python/utils/llm_adapter.py)
+2026-03-23 20:59:06,633 - EmailService - INFO - Sending email to pia@kaizen.ai: ❌ Master DFD Failed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 20:59:08,233 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 21:01:01,253 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 6 sessions
+2026-03-23 21:01:02,333 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 21:01:03,655 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 6 sessions
+2026-03-23 21:01:07,909 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 21:01:09,298 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 21:01:09,299 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['7ef089f9-ea47-4b7e-bcd3-42621891822c', '7f5f9578-cba0-4b8d-9865-a265d566b43b', '0d5f6b66-cef3-4a4c-b375-61fce2d72e84', '1ceae69a-e959-48f2-9f6d-b02c7f47c173', '0e021cfc-adaf-4d31-a319-50f1108326b0', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397']
+2026-03-23 21:01:09,677 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7ef089f9-ea47-4b7e-bcd3-42621891822c not found in database, skipping
+2026-03-23 21:01:10,029 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 7f5f9578-cba0-4b8d-9865-a265d566b43b not found in database, skipping
+2026-03-23 21:01:10,404 - FastAPI - WARNING - [75d99749-1e2a-4fb6-91e7-e2019203c858] Session 0d5f6b66-cef3-4a4c-b375-61fce2d72e84 not found in database, skipping
+2026-03-23 21:01:17,452 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (4/6) (23.333333333333332%)
+2026-03-23 21:01:23,603 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (5/6) (26.666666666666668%)
+2026-03-23 21:01:30,992 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (6/6) (30.0%)
+2026-03-23 21:01:32,670 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: aggregating_data (35.0%)
+2026-03-23 21:01:32,679 - MasterDFDAgent - INFO - Aggregating 3 sessions into master DFD
+2026-03-23 21:01:32,680 - MasterDFDAgent - INFO -   Session 1ceae69a-e959-48f2-9f6d-b02c7f47c173: 8 nodes, 14 edges
+2026-03-23 21:01:32,680 - MasterDFDAgent - INFO -   Session 0e021cfc-adaf-4d31-a319-50f1108326b0: 10 nodes, 14 edges
+2026-03-23 21:01:32,680 - MasterDFDAgent - INFO -   Session 6f52e2b8-d6dd-438f-bded-cbe0db6ba397: 8 nodes, 8 edges
+2026-03-23 21:01:32,680 - MasterDFDAgent - INFO - Merged 26 nodes → 19 unique nodes
+2026-03-23 21:01:32,680 - MasterDFDAgent - INFO - Running AI validation on merged entities...
+2026-03-23 21:01:32,680 - MasterDFDAI - INFO - AI validating 19 merged nodes...
+2026-03-23 21:01:32,681 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-23 21:01:32,725 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 1
+2026-03-23 21:02:11,228 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: length
+2026-03-23 21:02:11,229 - MasterDFDAI - ERROR - AI validation failed: Expecting value: line 1 column 1 (char 0)
+2026-03-23 21:02:11,230 - MasterDFDAgent - INFO - AI validation complete
+2026-03-23 21:02:11,230 - MasterDFDAgent - INFO - Merged 36 edges → 27 unique edges
+2026-03-23 21:02:11,230 - MasterDFDAgent - INFO - Generating AI executive summary...
+2026-03-23 21:02:11,230 - MasterDFDAI - INFO - Generating AI executive summary...
+2026-03-23 21:02:11,231 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-23 21:02:11,251 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 1
+2026-03-23 21:02:33,101 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-23 21:02:33,103 - MasterDFDAI - INFO - Executive summary generated successfully
+2026-03-23 21:02:33,104 - MasterDFDAgent - INFO - Executive summary generated
+2026-03-23 21:02:34,527 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: merging_complete (60.0%)
+2026-03-23 21:02:36,108 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: generating_html (75.0%)
+2026-03-23 21:02:36,113 - HTMLGenerator - INFO - Building HTML (in-memory): 19 nodes, 27 edges
+2026-03-23 21:02:37,558 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: finalizing (90.0%)
+2026-03-23 21:02:40,091 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation completed successfully
+2026-03-23 21:02:40,148 - EmailService - INFO - Sending email to pia@kaizen.ai: ✅ Master DFD Completed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 21:02:40,439 - EmailService - INFO - Email sent successfully to pia@kaizen.ai
+2026-03-23 21:12:06,125 - FastAPI - INFO - Received master DFD request for project 75d99749-1e2a-4fb6-91e7-e2019203c858 with 3 sessions
+2026-03-23 21:12:08,000 - FastAPI - INFO - Re-generating master DFD for project 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 21:12:08,615 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Starting master DFD generation for 3 sessions
+2026-03-23 21:12:11,684 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (10.0%)
+2026-03-23 21:12:12,642 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Available sessions in DB: [('demo-vertical-2', 'completed'), ('test-session-jwt-1', 'failed'), ('6f52e2b8-d6dd-438f-bded-cbe0db6ba397', 'completed'), ('d1f2b45c-04db-46ea-bc87-e08cb5782f3b', 'completed'), ('b7883736-5c2b-40c8-ac98-11754e0a131b', 'completed'), ('demo-vertical-1', 'completed'), ('1ceae69a-e959-48f2-9f6d-b02c7f47c173', 'completed'), ('0e021cfc-adaf-4d31-a319-50f1108326b0', 'completed')]
+2026-03-23 21:12:12,642 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Requested session IDs: ['1ceae69a-e959-48f2-9f6d-b02c7f47c173', '6f52e2b8-d6dd-438f-bded-cbe0db6ba397', '0e021cfc-adaf-4d31-a319-50f1108326b0']
+2026-03-23 21:12:14,763 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (1/3) (16.666666666666664%)
+2026-03-23 21:12:17,172 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (2/3) (23.333333333333332%)
+2026-03-23 21:12:20,399 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: fetching_sessions (3/3) (30.0%)
+2026-03-23 21:12:21,841 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: aggregating_data (35.0%)
+2026-03-23 21:12:21,848 - MasterDFDAgent - INFO - Aggregating 3 sessions into master DFD
+2026-03-23 21:12:21,848 - MasterDFDAgent - INFO -   Session 1ceae69a-e959-48f2-9f6d-b02c7f47c173: 8 nodes, 14 edges
+2026-03-23 21:12:21,848 - MasterDFDAgent - INFO -   Session 6f52e2b8-d6dd-438f-bded-cbe0db6ba397: 8 nodes, 8 edges
+2026-03-23 21:12:21,848 - MasterDFDAgent - INFO -   Session 0e021cfc-adaf-4d31-a319-50f1108326b0: 10 nodes, 14 edges
+2026-03-23 21:12:21,849 - MasterDFDAgent - INFO - Merged 26 nodes → 19 unique nodes
+2026-03-23 21:12:21,849 - MasterDFDAgent - INFO - Running AI validation on merged entities...
+2026-03-23 21:12:21,849 - MasterDFDAI - INFO - AI validating 19 merged nodes...
+2026-03-23 21:12:21,850 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-23 21:12:21,895 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 1
+2026-03-23 21:12:58,632 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: length
+2026-03-23 21:12:58,632 - MasterDFDAI - ERROR - AI validation failed: Expecting value: line 1 column 1 (char 0)
+2026-03-23 21:12:58,632 - MasterDFDAgent - INFO - AI validation complete
+2026-03-23 21:12:58,633 - MasterDFDAgent - INFO - Merged 36 edges → 27 unique edges
+2026-03-23 21:12:58,633 - MasterDFDAgent - INFO - Generating AI executive summary...
+2026-03-23 21:12:58,633 - MasterDFDAI - INFO - Generating AI executive summary...
+2026-03-23 21:12:58,633 - LLMAdapterDebug - INFO - Initializing UnifiedClient for provider: OPENROUTER, model: anthropic/claude-opus-4.6
+2026-03-23 21:12:58,651 - LLMAdapterDebug - INFO - OPENROUTER Request - Model: anthropic/claude-opus-4.6, Messages: 1
+2026-03-23 21:13:18,051 - LLMAdapterDebug - INFO - OPENROUTER Finish Reason: stop
+2026-03-23 21:13:18,052 - MasterDFDAI - INFO - Executive summary generated successfully
+2026-03-23 21:13:18,052 - MasterDFDAgent - INFO - Executive summary generated
+2026-03-23 21:13:19,484 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: merging_complete (60.0%)
+2026-03-23 21:13:20,924 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: generating_html (75.0%)
+2026-03-23 21:13:20,928 - HTMLGenerator - INFO - Building HTML (in-memory): 19 nodes, 27 edges
+2026-03-23 21:13:22,425 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Stage: finalizing (90.0%)
+2026-03-23 21:13:24,182 - FastAPI - INFO - [75d99749-1e2a-4fb6-91e7-e2019203c858] Master DFD generation completed successfully
+2026-03-23 21:13:24,210 - EmailService - INFO - Sending email to pia@kaizen.ai: ✅ Master DFD Completed - 75d99749-1e2a-4fb6-91e7-e2019203c858
+2026-03-23 21:13:25,614 - EmailService - INFO - Email sent successfully to pia@kaizen.ai

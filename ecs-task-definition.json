@@ -6,12 +6,12 @@
     ],
     "cpu": "1024",
     "memory": "2048",
-    "executionRoleArn": "arn:aws:iam::506675684271:role/pia-ecs-execution-role",
-    "taskRoleArn": "arn:aws:iam::506675684271:role/pia-ecs-execution-role",
+    "executionRoleArn": "arn:aws:iam::406350346090:role/pia-ecs-execution-role",
+    "taskRoleArn": "arn:aws:iam::406350346090:role/pia-ecs-execution-role",
     "containerDefinitions": [
         {
             "name": "pia-python",
-            "image": "506675684271.dkr.ecr.us-east-1.amazonaws.com/pia-python:latest",
+            "image": "406350346090.dkr.ecr.us-east-1.amazonaws.com/pia-python:latest",
             "portMappings": [
                 {
                     "containerPort": 8000,

@@ -110,7 +110,7 @@ class CleanTranscripts:
     # --------------------------------
     def parse_speakers(self, text):
 
-        pattern = r"\[(.*?)\]\s*([A-Za-z\s]+):\s*(.*)"
+        pattern = r"(?:\[(.*?)\]\s*)?([A-Za-z\s]+):\s*(.*)"
 
         lines = []
 
@@ -121,6 +121,7 @@ class CleanTranscripts:
             if match:
 
                 timestamp, speaker, sentence = match.groups()
+                timestamp = (timestamp or "").strip()
 
                 lines.append({
                     "timestamp": timestamp.strip(),

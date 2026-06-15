@@ -34,6 +34,14 @@ def detect_document_type(text):
         transcript_score += 20
         signals.append(f"{len(ts_lines)}/{len(lines)} lines have timestamps")
 
+    # Speaker-only transcript pattern: "Name: sentence" (no timestamps)
+    # Many real-world transcripts omit timestamps but still alternate speakers.
+    speaker_only = re.findall(r"^(?!\[\d{1,2}:\d{2})([A-Z][a-zA-Z]{1,30}(?:\s+[A-Z][a-zA-Z]{1,30}){0,3}):\s+.+$", text, re.MULTILINE)
+    unique_speakers = set(speaker_only)
+    if len(unique_speakers) >= 2 and len(speaker_only) >= 6:
+        transcript_score += 40
+        signals.append(f"Found {len(unique_speakers)} unique speakers without timestamps")
+
     # --- Field notes signals ---
 
     # Section headers: == TITLE ==

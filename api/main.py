@@ -141,11 +141,12 @@ def _download_files(files: List[str], temp_dir: str) -> List[str]:
     return local_files
 
 
-def _combine_transcripts(local_files: List[str]) -> str:
+def _combine_transcripts(local_files: List[str], include_file_headers: bool = True) -> str:
     """Read and combine all transcript files into a single string."""
     combined = ""
     for lf in local_files:
-        combined += f"\n--- File: {os.path.basename(lf)} ---\n"
+        if include_file_headers:
+            combined += f"\n--- File: {os.path.basename(lf)} ---\n"
         ext = os.path.splitext(lf)[1].lower()
         if ext in (".txt", ".md", ".csv", ".log") or ext == "":
             with open(lf, 'r', encoding='utf-8') as f:
@@ -255,7 +256,8 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         with tempfile.TemporaryDirectory() as temp_dir:
             # 1. Download files (still needs temp dir for downloads)
             local_files = _download_files(files, temp_dir)
-            combined_transcript = _combine_transcripts(local_files)
+            # IMPORTANT: preserve transcript formatting for downstream doc-type detection
+            combined_transcript = _combine_transcripts(local_files, include_file_headers=False)
             combined_path = os.path.join(temp_dir, "combined_source.txt")
             with open(combined_path, "w") as f:
                 f.write(combined_transcript)
@@ -281,7 +283,11 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         _update_progress("html_generation", _stage_percent(10))
         html_gen = HTMLGeneratorAgent()
         try:
-            interactive_html = html_gen.generate_from_data(graph_data, render_plan_data)
+            interactive_html = html_gen.generate_from_data(
+                graph_data,
+                render_plan_data,
+                pipeline_docs={"metadata": {"department": department}},
+            )
         except Exception as e:
             logger.error(f"[{session_id}] HTML generation failed: {e}", exc_info=True)
             raise

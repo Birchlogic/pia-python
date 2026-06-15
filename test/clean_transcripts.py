@@ -110,26 +110,52 @@ class CleanTranscripts:
     # --------------------------------
     def parse_speakers(self, text):
 
-        pattern = r"(?:\[(.*?)\]\s*)?([A-Za-z\s]+):\s*(.*)"
+        # Supports both:
+        # - "[00:01] Rahul: sentence"
+        # - "Rahul: sentence"
+        # - "Rahul:" followed by utterance on subsequent lines until next speaker
+        pattern = r"^(?:\[(.*?)\]\s*)?([A-Za-z][A-Za-z\s]{0,60}):\s*(.*)$"
 
-        lines = []
+        records = []
+        buffer = None  # {timestamp, speaker, parts: []}
 
-        for line in text.split("\n"):
+        def flush_buffer():
+            nonlocal buffer
+            if not buffer:
+                return
+            text_out = "\n".join([p for p in buffer.get("parts", []) if p is not None]).strip()
+            if text_out:
+                records.append({
+                    "timestamp": buffer.get("timestamp", ""),
+                    "speaker": buffer.get("speaker", ""),
+                    "text": text_out,
+                })
+            buffer = None
 
-            match = re.match(pattern, line.strip())
+        for raw_line in text.split("\n"):
+            line = raw_line.strip()
+            if not line:
+                continue
 
+            match = re.match(pattern, line)
             if match:
-
+                # Start a new speaker turn
+                flush_buffer()
                 timestamp, speaker, sentence = match.groups()
                 timestamp = (timestamp or "").strip()
+                speaker = (speaker or "").strip()
+                sentence = (sentence or "").strip()
+                buffer = {"timestamp": timestamp, "speaker": speaker, "parts": []}
+                if sentence:
+                    buffer["parts"].append(sentence)
+                continue
 
-                lines.append({
-                    "timestamp": timestamp.strip(),
-                    "speaker": speaker.strip(),
-                    "text": sentence.strip()
-                })
+            # Continuation line of current speaker turn
+            if buffer is not None:
+                buffer["parts"].append(line)
 
-        return lines
+        flush_buffer()
+        return records
 
     # --------------------------------
     # STEP 7 — Remove fillers

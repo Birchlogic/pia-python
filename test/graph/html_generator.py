@@ -316,7 +316,7 @@ class HTMLGeneratorAgent:
   <script id="dfd-data" type="application/json">{dfd_json}</script>
   <script id="kg-data" type="application/json">{kg_json}</script>
 </div>
-<div class="edit-panel"><button class="export-btn" onclick="exportPDF()">📄 Export PDF</button><button class="detail-btn" onclick="toggleDetailPanel()">Details</button></div>
+<div class="edit-panel"><button class="detail-btn" onclick="toggleDetailPanel()">Details</button></div>
 <div class="detail-panel" id="detail-panel"><div class="detail-header"><h3>Node Details</h3><button class="detail-close" onclick="toggleDetailPanel()">&times;</button></div><div class="detail-body" id="detail-body"><p style="color:#999;text-align:center;padding:40px">Click a node in the DFD to see details</p></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>

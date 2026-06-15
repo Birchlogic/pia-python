@@ -778,6 +778,7 @@ def preview_html(data: HTMLPreviewRequest):
 
 
 @app.post("/api/dfd/regenerate/{session_id}")
+@app.get("/api/dfd/regenerate/{session_id}")
 def regenerate_dfd_from_schema(session_id: str, db: Session = Depends(get_db)):
     """Regenerate the DFD (KG + render plan + HTML) from stored Schema-1 JSON.
 

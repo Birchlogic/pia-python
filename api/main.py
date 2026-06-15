@@ -767,6 +767,7 @@ def get_pipeline_stages(session_id: str, db: Session = Depends(get_db)):
 # ── Dynamic HTML Generator API ────────────────────────────────
 
 from fastapi.responses import HTMLResponse
+from fastapi.responses import Response
 
 @app.post("/api/dfd/preview")
 def preview_html(data: HTMLPreviewRequest):
@@ -786,6 +787,45 @@ def preview_html(data: HTMLPreviewRequest):
     html = html_gen._build_html(nodes_dicts, edges_dicts, kg, data.pipeline_docs, col_map, row_map)
     
     return {"html": html}
+
+
+@app.get("/api/dfd/pdf/{session_id}")
+async def download_dfd_pdf(session_id: str, db: Session = Depends(get_db)):
+    """Download a DFD as a PDF for an existing session.
+
+    Uses Playwright to render the stored interactive HTML and export to PDF.
+    """
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    html = (s.interactive_html or "").strip()
+    if not html:
+        raise HTTPException(status_code=400, detail="No interactive_html found for this session")
+
+    from playwright.async_api import async_playwright
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        try:
+            page = await browser.new_page(viewport={"width": 1600, "height": 900})
+            await page.set_content(html, wait_until="load")
+            await page.wait_for_timeout(1200)
+            pdf_bytes = await page.pdf(
+                format="A3",
+                landscape=True,
+                print_background=True,
+                margin={"top": "10mm", "bottom": "10mm", "left": "10mm", "right": "10mm"},
+            )
+        finally:
+            await browser.close()
+
+    filename = f"DFD_{session_id}.pdf"
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=\"{filename}\""},
+    )
 
 
 @app.post("/api/dfd/regenerate/{session_id}")

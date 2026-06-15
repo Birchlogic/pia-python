@@ -510,25 +510,47 @@ function toggleDetailPanel() { var p = document.getElementById('detail-panel'); 
 
 function exportPDF() {
   var element = document.getElementById('dfd-wrapper');
-  var opt = {
-    margin: 10,
-    filename: 'DFD_Export.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, logging: false },
-    jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' }
-  };
-  // Temporarily show all arrows for PDF export
+
+  // Temporarily show all arrows for export
   var wasShowingAll = showAllArrows;
   var wasSelected = selectedNodeId;
   showAllArrows = true;
   selectedNodeId = null;
   drawArrows();
-  html2pdf().set(opt).from(element).save().then(function() {
-    // Restore previous state
-    showAllArrows = wasShowingAll;
-    selectedNodeId = wasSelected;
-    drawArrows();
-  });
+
+  // Prefer html2pdf.js when available; fall back to browser print.
+  try {
+    if (typeof html2pdf !== 'undefined') {
+      var opt = {
+        margin: 10,
+        filename: 'DFD_Export.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' }
+      };
+      html2pdf().set(opt).from(element).save().then(function() {
+        // Restore previous state
+        showAllArrows = wasShowingAll;
+        selectedNodeId = wasSelected;
+        drawArrows();
+      }).catch(function() {
+        // Fallback if html2pdf fails mid-run
+        window.print();
+        showAllArrows = wasShowingAll;
+        selectedNodeId = wasSelected;
+        drawArrows();
+      });
+      return;
+    }
+  } catch (e) {
+    // ignore and fall through to print
+  }
+
+  window.print();
+  // Restore previous state after print dialog
+  showAllArrows = wasShowingAll;
+  selectedNodeId = wasSelected;
+  drawArrows();
 }
 
 // ─── Find dialogue records mentioning a node ────────

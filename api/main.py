@@ -777,6 +777,98 @@ def preview_html(data: HTMLPreviewRequest):
     return {"html": html}
 
 
+@app.post("/api/dfd/regenerate/{session_id}")
+def regenerate_dfd_from_schema(session_id: str, db: Session = Depends(get_db)):
+    """Regenerate the DFD (KG + render plan + HTML) from stored Schema-1 JSON.
+
+    This avoids rerunning the expensive ingestion/extraction pipeline when Schema-1 / Data Matrix
+    already exists but the DFD is missing or empty.
+    """
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    schema_one_json = s.schema_one_json or s.compliance_schema_json
+    if not schema_one_json:
+        raise HTTPException(status_code=400, detail="No Schema-1 JSON found on this session")
+
+    from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
+    from test.graph.html_generator import HTMLGeneratorAgent
+
+    kg_agent = KnowledgeGraphAgent(ai_config={})
+    graph_output = kg_agent.build_graph_from_schema_one(
+        schema_one_json,
+        metadata={"department": s.department, "session_id": session_id},
+        dialogue_records=[],
+    )
+
+    graph_data = graph_output["kg_dict"]
+    render_plan_data = graph_output["render_plan_dict"]
+    kg_result = graph_output["kg_result"]
+
+    html_gen = HTMLGeneratorAgent()
+    interactive_html = html_gen.generate_from_data(
+        graph_data,
+        render_plan_data,
+        pipeline_docs={"metadata": {"department": s.department}},
+    )
+
+    if not interactive_html or len(interactive_html.strip()) < 200:
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                f"HTML generation returned empty output (nodes={len(graph_data.get('nodes', []))}, "
+                f"edges={len(graph_data.get('edges', []))})."
+            ),
+        )
+
+    # Persist to session
+    s.dfd_json = kg_result
+    s.dfd_render_plan_json = render_plan_data
+    s.interactive_html = interactive_html
+    s.updated_at = datetime.utcnow()
+
+    # Replace KG nodes/edges rows for this session
+    db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == session_id).delete()
+    db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == session_id).delete()
+
+    for n in graph_data.get("nodes", []):
+        db.add(KnowledgeGraphNode(
+            id=str(uuid.uuid4()),
+            session_id=session_id,
+            node_id=n.get("id", ""),
+            name=n.get("name", ""),
+            type=n.get("type", ""),
+            aliases=n.get("aliases", []),
+            data_elements=n.get("data_elements", []),
+            risks=n.get("risks", []),
+            sources=n.get("sources", []),
+        ))
+
+    for e in graph_data.get("edges", []):
+        db.add(KnowledgeGraphEdge(
+            id=str(uuid.uuid4()),
+            session_id=session_id,
+            source_node=e.get("source", ""),
+            target_node=e.get("target", ""),
+            data_elements=e.get("data_elements", []),
+            flow_type=e.get("flow_type", ""),
+            channel=e.get("channel", ""),
+            inferred=1 if e.get("inferred") else 0,
+            sources=e.get("sources", []),
+        ))
+
+    db.commit()
+
+    return {
+        "session_id": session_id,
+        "status": "ok",
+        "nodes": len(graph_data.get("nodes", [])),
+        "edges": len(graph_data.get("edges", [])),
+        "html_length": len(interactive_html),
+    }
+
+
 # ── Master DFD API ────────────────────────────────────
 
 class MasterDFDRequest(BaseModel):

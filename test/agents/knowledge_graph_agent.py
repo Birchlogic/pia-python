@@ -194,6 +194,131 @@ class KnowledgeGraphAgent:
             "kg_result": kg_result
         }
 
+    def build_graph_from_schema_one(self, schema_one_json: dict, *, metadata: dict = None, dialogue_records: list = None):
+        """Build a knowledge graph in-memory directly from Schema-1 JSON.
+
+        This is a low-cost path that does **not** run the full pipeline. It relies on the
+        structured Schema-1 output (nodes + flows) and produces the same outputs consumed
+        by the HTML generator.
+
+        Args:
+            schema_one_json: Schema-1 JSON (from SchemaGenerator), must contain `nodes` and `flows`.
+            metadata: optional metadata dict for validation/export context.
+            dialogue_records: optional evidence records to embed into kg export.
+
+        Returns:
+            dict with 'kg_dict', 'render_plan_dict', 'kg_result'
+        """
+        if not schema_one_json or not isinstance(schema_one_json, dict):
+            raise ValueError("schema_one_json is required")
+
+        schema_nodes = schema_one_json.get("nodes") or []
+        schema_flows = schema_one_json.get("flows") or []
+        if not schema_nodes:
+            raise ValueError("Schema-1 JSON has no nodes")
+
+        # Build entities directly from schema nodes
+        type_map = {
+            "EXTERNAL_ENTITY": "external_entity",
+            "PROCESS": "process",
+            "DATA_STORE": "data_store",
+            "SYSTEM": "system",
+            "ACTOR": "actor",
+        }
+
+        entities = []
+        schema_node_elements = {}
+        for n in schema_nodes:
+            node_id = (n.get("id") or "").strip()
+            if not node_id:
+                continue
+            raw_type = (n.get("type") or "").strip()
+            node_type = type_map.get(raw_type, (raw_type or "unknown").lower())
+            name = (n.get("name") or node_id).strip()
+            entities.append({
+                "id": node_id,
+                "name": name,
+                "type": node_type,
+                "aliases": [],
+                "sources": ["schema_one"],
+            })
+
+            # Node-level data elements in schema are objects; KG nodes expect string names.
+            dels = []
+            for de in (n.get("data_elements") or []):
+                if isinstance(de, str):
+                    dels.append(de)
+                elif isinstance(de, dict):
+                    if de.get("name"):
+                        dels.append(str(de.get("name")))
+            schema_node_elements[node_id] = sorted(set([d.strip() for d in dels if str(d).strip()]))
+
+        # Convert schema flows into the flow format GraphBuilder expects
+        flows = []
+        for f in schema_flows:
+            if not isinstance(f, dict):
+                continue
+            src = (f.get("source") or "").strip()
+            tgt = (f.get("target") or "").strip()
+            if not src or not tgt:
+                continue
+            channel = (f.get("transfer_mechanism") or f.get("channel") or "")
+            data_elements = f.get("data_elements") or []
+            if isinstance(data_elements, str):
+                data_elements = [data_elements]
+            flows.append({
+                "source": src,
+                "target": tgt,
+                "data_elements": [str(x) for x in data_elements if str(x).strip()],
+                "channel": str(channel),
+                "inferred": False,
+                "sources": ["schema_one"],
+                "evidence": [str(f.get("label"))] if f.get("label") else [],
+                "evidence_trail": [],
+            })
+
+        # Build graph
+        self.builder = GraphBuilder()
+        self.builder.add_nodes(entities)
+        self.builder.add_edges(flows, name_map={})
+
+        # Attach node-level data elements from schema
+        G = self.builder.get_graph()
+        for node_id, dels in schema_node_elements.items():
+            if node_id in G:
+                existing = G.nodes[node_id].get("data_elements", [])
+                G.nodes[node_id]["data_elements"] = sorted(set(existing + dels))
+
+        # Reason + validate
+        inferred = self.reasoning_agent.reason(G)
+        validation = self.validator.validate(G)
+
+        # Export dicts
+        dialogue_records = dialogue_records or []
+        kg_dict = self.exporter.build_knowledge_graph_dict(G, dialogue_records=dialogue_records)
+        render_plan_dict = self.exporter.build_render_plan_dict(G)
+
+        stats = validation["stats"]
+        kg_result = {
+            "graph_stats": stats,
+            "inferred_flows": len(inferred),
+            "validation": validation,
+            "entities_merged": len(entities),
+            "flows_merged": len(flows),
+            "metadata": metadata or {},
+        }
+
+        logger.info(
+            f"Knowledge Graph complete (schema-one) — "
+            f"{stats['total_nodes']} nodes, {stats['total_edges']} edges"
+        )
+
+        return {
+            "kg_dict": kg_dict,
+            "render_plan_dict": render_plan_dict,
+            "kg_result": kg_result,
+        }
+
     def _load_documents(self, input_dir):
         """Load all *_intelligence.json files from directory."""
         docs = []

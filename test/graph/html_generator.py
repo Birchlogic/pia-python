@@ -813,9 +813,11 @@ function drawArrows() {
     inbound = inbound.filter(function(f) { return f.from_id === selectedNodeId; });
     outbound = outbound.filter(function(f) { return f.to_id === selectedNodeId; });
   } else if (!showAllArrows && !selectedNodeId) {
-    // Hide all arrows by default
-    inbound = [];
-    outbound = [];
+    // Show a small subset by default to avoid a "blank" DFD while keeping large graphs fast
+    var maxDefaultArrows = 80;
+    var half = Math.floor(maxDefaultArrows / 2);
+    inbound = inbound.slice(0, half);
+    outbound = outbound.slice(0, half);
   }
 
   var inboundCount = Math.max(inbound.length, 1);

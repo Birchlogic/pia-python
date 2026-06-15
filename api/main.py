@@ -145,9 +145,39 @@ def _combine_transcripts(local_files: List[str]) -> str:
     """Read and combine all transcript files into a single string."""
     combined = ""
     for lf in local_files:
-        with open(lf, 'r', encoding='utf-8') as f:
-            combined += f"\n--- File: {os.path.basename(lf)} ---\n"
-            combined += f.read() + "\n"
+        combined += f"\n--- File: {os.path.basename(lf)} ---\n"
+        ext = os.path.splitext(lf)[1].lower()
+        if ext in (".txt", ".md", ".csv", ".log") or ext == "":
+            with open(lf, 'r', encoding='utf-8') as f:
+                combined += f.read() + "\n"
+        elif ext == ".pdf":
+            try:
+                import pdfplumber
+            except Exception as e:
+                raise RuntimeError(
+                    "PDF processing requires 'pdfplumber'. Install dependencies and redeploy."
+                ) from e
+
+            extracted_pages = []
+            with pdfplumber.open(lf) as pdf:
+                for i, page in enumerate(pdf.pages):
+                    page_text = page.extract_text() or ""
+                    page_text = page_text.strip()
+                    if page_text:
+                        extracted_pages.append(f"\n[Page {i + 1}]\n{page_text}\n")
+
+            extracted_text = "\n".join(extracted_pages).strip()
+            if not extracted_text:
+                raise ValueError(
+                    f"PDF '{os.path.basename(lf)}' contains no extractable text. "
+                    "If it is a scanned PDF, OCR is required (not supported yet)."
+                )
+            combined += extracted_text + "\n"
+        else:
+            raise ValueError(
+                f"Unsupported file type '{ext}' for '{os.path.basename(lf)}'. "
+                "Upload .txt or .pdf."
+            )
     return combined
 
 
@@ -250,7 +280,17 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         # 4. Generate HTML DFD — fully in-memory (no file write)
         _update_progress("html_generation", _stage_percent(10))
         html_gen = HTMLGeneratorAgent()
-        interactive_html = html_gen.generate_from_data(graph_data, render_plan_data)
+        try:
+            interactive_html = html_gen.generate_from_data(graph_data, render_plan_data)
+        except Exception as e:
+            logger.error(f"[{session_id}] HTML generation failed: {e}", exc_info=True)
+            raise
+
+        if not interactive_html or len(interactive_html.strip()) < 200:
+            raise ValueError(
+                f"HTML generation returned empty output (nodes={len(graph_data.get('nodes', []))}, "
+                f"edges={len(graph_data.get('edges', []))})."
+            )
 
         _log_stage("html_generation", len(PIPELINE_STAGES) - 1, {
             "html_length": len(interactive_html)

@@ -274,6 +274,18 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         render_plan_data = graph_output["render_plan_dict"]
         kg_result = graph_output["kg_result"]
 
+        schema_one_json = result.get("compliance_schema")
+        if (not graph_data.get("nodes") or not graph_data.get("edges")) and schema_one_json:
+            logger.info(f"[{session_id}] Empty KG from pipeline result, falling back to Schema-1 based DFD regeneration")
+            fallback_output = kg_agent.build_graph_from_schema_one(
+                schema_one_json,
+                metadata={"department": department, "session_id": session_id},
+                dialogue_records=result.get("dialogue_records", []) or [],
+            )
+            graph_data = fallback_output["kg_dict"]
+            render_plan_data = fallback_output["render_plan_dict"]
+            kg_result = fallback_output["kg_result"]
+
         _log_stage("knowledge_graph", len(PIPELINE_STAGES) - 2, {
             "nodes": len(graph_data.get("nodes", [])),
             "edges": len(graph_data.get("edges", []))
@@ -303,7 +315,6 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         }, 0, 0, 0)
 
         # 5. Schema Generation (Schema-1 + Data Inventory)
-        schema_one_json = result.get("compliance_schema")
         inventory_rows = result.get("data_inventory", [])
 
         if not schema_one_json:

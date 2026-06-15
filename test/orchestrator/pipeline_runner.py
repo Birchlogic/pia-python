@@ -155,6 +155,24 @@ class PipelineRunner:
         doc_type = doc_type_result["type"]
         logger.info(f"  [1] Doc type: {doc_type} (confidence: {doc_type_result['confidence']:.2f})")
 
+        # Fallback: some real transcripts use multi-line speaker turns like:
+        # "Rahul:\nHow do you...\nPriya:\nWe..."
+        # If detection is unsure, prefer transcript parsing over 'unknown' to avoid empty KG.
+        if doc_type == "unknown":
+            import re
+            speaker_markers = re.findall(
+                r"^(?!\[\d{1,2}:\d{2})([A-Z][a-zA-Z]{1,30}(?:\s+[A-Z][a-zA-Z]{1,30}){0,3}):\s*(?:.+)?$",
+                raw_text,
+                re.MULTILINE,
+            )
+            unique_speakers = set([s.strip() for s in speaker_markers if s.strip()])
+            if len(unique_speakers) >= 2 and len(speaker_markers) >= 4:
+                doc_type = "transcript"
+                doc_type_result = {**doc_type_result, "type": "transcript"}
+                logger.info(
+                    f"  [1] Doc type override: transcript (fallback, speakers={len(unique_speakers)})"
+                )
+
         text_chunks = []
         dialogue_records = []  # Structured evidence: {timestamp, speaker, role, text, systems, source_file}
         metadata = {}
@@ -199,7 +217,7 @@ class PipelineRunner:
                 "timestamp": "",
                 "speaker": "",
                 "role": "",
-                "text": raw_text[:2000],
+                "text": raw_text,
                 "systems": [],
                 "source_file": source_file
             })

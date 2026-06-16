@@ -828,6 +828,40 @@ async def download_dfd_pdf(session_id: str, db: Session = Depends(get_db)):
     )
 
 
+@app.get("/api/dfd/png/{session_id}")
+async def download_dfd_png(session_id: str, db: Session = Depends(get_db)):
+    """Download a DFD as a PNG image for an existing session.
+
+    Uses Playwright to render the stored interactive HTML and take a full-page screenshot.
+    """
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    html = (s.interactive_html or "").strip()
+    if not html:
+        raise HTTPException(status_code=400, detail="No interactive_html found for this session")
+
+    from playwright.async_api import async_playwright
+
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        try:
+            page = await browser.new_page(viewport={"width": 1600, "height": 900, "deviceScaleFactor": 2})
+            await page.set_content(html, wait_until="load")
+            await page.wait_for_timeout(1200)
+            png_bytes = await page.screenshot(full_page=True, type="png")
+        finally:
+            await browser.close()
+
+    filename = f"DFD_{session_id}.png"
+    return Response(
+        content=png_bytes,
+        media_type="image/png",
+        headers={"Content-Disposition": f"attachment; filename=\"{filename}\""},
+    )
+
+
 @app.post("/api/dfd/regenerate/{session_id}")
 @app.get("/api/dfd/regenerate/{session_id}")
 def regenerate_dfd_from_schema(session_id: str, db: Session = Depends(get_db)):

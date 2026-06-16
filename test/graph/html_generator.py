@@ -500,6 +500,22 @@ function escHtml(s) { var d=document.createElement('div'); d.textContent=s; retu
 var showAllArrows = false;
 var selectedNodeId = null;
 
+function normalizeNodeId(id) {
+  return (id || '').replace(/^(src_|sink_|bp_|st_)/, '');
+}
+
+function findNodeEl(id) {
+  if (!id) return null;
+  var el = document.querySelector('[data-id="' + id + '"]');
+  if (el) return el;
+  var prefixes = ['src_', 'sink_', 'bp_', 'st_'];
+  for (var i = 0; i < prefixes.length; i++) {
+    el = document.querySelector('[data-id="' + (prefixes[i] + id) + '"]');
+    if (el) return el;
+  }
+  return null;
+}
+
 function toggleAllArrows() {
   showAllArrows = document.getElementById('show-all-arrows').checked;
   selectedNodeId = null;
@@ -832,8 +848,9 @@ function drawArrows() {
   // Filter flows based on visibility mode
   if (!showAllArrows && selectedNodeId) {
     // Show only arrows connected to selected node
-    inbound = inbound.filter(function(f) { return f.from_id === selectedNodeId; });
-    outbound = outbound.filter(function(f) { return f.to_id === selectedNodeId; });
+    var sel = normalizeNodeId(selectedNodeId);
+    inbound = inbound.filter(function(f) { return normalizeNodeId(f.from_id) === sel; });
+    outbound = outbound.filter(function(f) { return normalizeNodeId(f.to_id) === sel; });
   } else if (!showAllArrows && !selectedNodeId) {
     // Show a small subset by default to avoid a "blank" DFD while keeping large graphs fast
     var maxDefaultArrows = 80;
@@ -844,7 +861,7 @@ function drawArrows() {
 
   var inboundCount = Math.max(inbound.length, 1);
   inbound.forEach(function(flow, idx) {
-    var fromEl = document.querySelector('[data-id="'+flow.from_id+'"]');
+    var fromEl = findNodeEl(flow.from_id);
     if (!fromEl) return;
     var f = getBounds(fromEl);
     var color = flow.color || '#546e7a';
@@ -857,7 +874,7 @@ function drawArrows() {
 
   var outboundCount = Math.max(outbound.length, 1);
   outbound.forEach(function(flow, idx) {
-    var toEl = document.querySelector('[data-id="'+flow.to_id+'"]');
+    var toEl = findNodeEl(flow.to_id);
     if (!toEl) return;
     var t = getBounds(toEl);
     var color = flow.color || '#546e7a';
@@ -882,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       el.classList.add('node-selected');
       
-      selectedNodeId = dataId;
+      selectedNodeId = nodeId;
       if (!showAllArrows) {
         drawArrows();
       }

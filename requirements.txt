@@ -10,7 +10,7 @@ uvicorn
 sqlalchemy
 alembic
 psycopg2-binary
-spacy>=3.7,<4.0
+spacy>=3.7,<3.8
 networkx
 rapidfuzz
 playwright

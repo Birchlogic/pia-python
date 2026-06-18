@@ -85,12 +85,34 @@ Known data elements: {json.dumps(data_elements or [])}
                 messages=[{"role": "user", "content": context}]
             )
             content = response.content[0].text.strip()
+            
+            # Clean up the response
             if content.startswith("```"):
                 content = content.split("\n", 1)[1]
                 content = content.rsplit("```", 1)[0]
-            flows = json.loads(content)
+            
+            # Try to parse JSON directly first
+            try:
+                flows = json.loads(content)
+            except json.JSONDecodeError as je:
+                # If that fails, try to repair truncated JSON
+                from utils.llm_adapter import _repair_truncated_json
+                repaired = _repair_truncated_json(content)
+                logger.warning(f"DataFlowAgent JSON error, attempting repair: {je}")
+                flows = json.loads(repaired)
+            
+            # Validate we got a list
+            if not isinstance(flows, list):
+                logger.error(f"DataFlowAgent expected list, got {type(flows)}")
+                return []
+                
             logger.info(f"DataFlowAgent extracted {len(flows)} flows")
             return flows
+            
+        except json.JSONDecodeError as je:
+            logger.error(f"DataFlowAgent JSON parsing failed: {je}")
+            logger.error(f"Content preview: {content[:500]}...")
+            return []
         except Exception as e:
             logger.error(f"DataFlowAgent failed: {e}")
             return []

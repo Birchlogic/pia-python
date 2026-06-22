@@ -7,22 +7,24 @@ try:
 except ImportError:
     pass
 
-import os
 import uuid
 import json
 import tempfile
 import urllib.request
 from urllib.parse import urlparse
 from datetime import datetime
+import os
+import time
+
 
 from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Dict, List, Optional
 from sqlalchemy.orm import Session
 
 from api.database import get_db, engine, Base, SessionLocal
-from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, PipelineStageLog, MasterDFD
+from api.models import DFDSession, DataMappingRow, KnowledgeGraphNode, KnowledgeGraphEdge, PipelineStageLog, MasterDFD, OpenRouterCreditSnapshot
 from agent.schema_generator import SchemaGenerator
 from utils.logger import setup_logger
 
@@ -70,6 +72,141 @@ class StatusResponse(BaseModel):
     error_message: Optional[str] = None
     created_at: datetime
     updated_at: datetime
+
+
+def _get_pricing_usd_per_million(model: str) -> Optional[Dict[str, float]]:
+    if not model:
+        return None
+    m = model.lower().strip()
+    table: Dict[str, Dict[str, float]] = {
+        "anthropic/claude-opus-4.6": {"input": 5.0, "output": 25.0},
+        "claude-opus-4.6": {"input": 5.0, "output": 25.0},
+        "anthropic/claude-3-5-sonnet-20241022": {"input": 3.0, "output": 15.0},
+        "claude-3-5-sonnet-20241022": {"input": 3.0, "output": 15.0},
+        "anthropic/claude-3-5-haiku-20241022": {"input": 0.8, "output": 4.0},
+        "claude-3-5-haiku-20241022": {"input": 0.8, "output": 4.0},
+    }
+    for k, v in table.items():
+        if k in m:
+            return v
+    return None
+
+
+def _estimate_cost_usd(in_tokens: int, out_tokens: int, *, input_per_million: float, output_per_million: float) -> Dict[str, float]:
+    in_cost = (max(in_tokens, 0) / 1_000_000.0) * float(input_per_million)
+    out_cost = (max(out_tokens, 0) / 1_000_000.0) * float(output_per_million)
+    total = in_cost + out_cost
+    return {
+        "input_cost_usd": round(in_cost, 6),
+        "output_cost_usd": round(out_cost, 6),
+        "total_cost_usd": round(total, 6),
+    }
+
+
+_OPENROUTER_PRICING_CACHE: Dict[str, Dict[str, object]] = {}
+
+
+def _fetch_openrouter_model_pricing_usd_per_million(model_id: str) -> Optional[Dict[str, float]]:
+    if not model_id:
+        return None
+
+    cache_key = model_id.strip()
+    cached = _OPENROUTER_PRICING_CACHE.get(cache_key)
+    if cached and isinstance(cached.get("expires_at"), (int, float)) and time.time() < float(cached["expires_at"]):
+        val = cached.get("value")
+        return val if isinstance(val, dict) else None
+
+    try:
+        req = urllib.request.Request(
+            "https://openrouter.ai/api/v1/models",
+            headers={"Accept": "application/json"},
+            method="GET",
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            body = resp.read().decode("utf-8")
+        parsed = json.loads(body)
+        data = parsed.get("data") if isinstance(parsed, dict) else None
+        if not isinstance(data, list):
+            return None
+
+        wanted = cache_key.lower()
+        match = None
+        for m in data:
+            if not isinstance(m, dict):
+                continue
+            mid = m.get("id")
+            if isinstance(mid, str) and mid.lower() == wanted:
+                match = m
+                break
+
+        if not match:
+            _OPENROUTER_PRICING_CACHE[cache_key] = {"value": None, "expires_at": time.time() + 3600}
+            return None
+
+        pricing = match.get("pricing") if isinstance(match.get("pricing"), dict) else None
+        if not pricing:
+            _OPENROUTER_PRICING_CACHE[cache_key] = {"value": None, "expires_at": time.time() + 3600}
+            return None
+
+        prompt = pricing.get("prompt")
+        completion = pricing.get("completion")
+        if prompt is None or completion is None:
+            _OPENROUTER_PRICING_CACHE[cache_key] = {"value": None, "expires_at": time.time() + 3600}
+            return None
+
+        prompt_per_token = float(prompt)
+        completion_per_token = float(completion)
+        val = {
+            "input": round(prompt_per_token * 1_000_000.0, 6),
+            "output": round(completion_per_token * 1_000_000.0, 6),
+        }
+        _OPENROUTER_PRICING_CACHE[cache_key] = {"value": val, "expires_at": time.time() + 3600}
+        return val
+    except Exception as e:
+        logger.warning(f"OpenRouter model pricing fetch failed for {model_id}: {e}")
+        _OPENROUTER_PRICING_CACHE[cache_key] = {"value": None, "expires_at": time.time() + 600}
+        return None
+
+
+def _fetch_openrouter_credits(management_api_key: str) -> Optional[Dict[str, float]]:
+    if not management_api_key:
+        return None
+    try:
+        req = urllib.request.Request(
+            "https://openrouter.ai/api/v1/credits",
+            headers={"Authorization": f"Bearer {management_api_key}"},
+            method="GET",
+        )
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            body = resp.read().decode("utf-8")
+        parsed = json.loads(body)
+        data = parsed.get("data") if isinstance(parsed, dict) else None
+        if not isinstance(data, dict):
+            return None
+        return {
+            "total_credits": float(data.get("total_credits")) if data.get("total_credits") is not None else None,
+            "total_usage": float(data.get("total_usage")) if data.get("total_usage") is not None else None,
+        }
+    except Exception as e:
+        logger.warning(f"OpenRouter credits fetch failed: {e}")
+        return None
+
+
+def _save_openrouter_snapshot(db: Session, session_id: str, phase: str, credits: Optional[Dict[str, float]]):
+    if not credits:
+        return
+    try:
+        snap = OpenRouterCreditSnapshot(
+            id=str(uuid.uuid4()),
+            session_id=session_id,
+            phase=phase,
+            total_credits=credits.get("total_credits"),
+            total_usage=credits.get("total_usage"),
+        )
+        db.add(snap)
+        db.commit()
+    except Exception:
+        db.rollback()
 # ── DFD Data Schemas (exact shape required by HTMLGeneratorAgent) ──
 
 class DFDRisk(BaseModel):
@@ -223,8 +360,17 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         except Exception:
             db.rollback()
 
+    ai_config = ai_config or {}
+    llm_provider = ai_config.get("type") or ai_config.get("provider")
+    llm_model = ai_config.get("model")
+
     def _log_stage(stage_name, stage_order, output_summary, in_tokens, out_tokens, duration_ms):
         """Stage callback: log to DB + update progress."""
+        if isinstance(output_summary, dict):
+            if llm_provider and not output_summary.get("llm_provider"):
+                output_summary["llm_provider"] = llm_provider
+            if llm_model and not output_summary.get("llm_model"):
+                output_summary["llm_model"] = llm_model
         try:
             log = PipelineStageLog(
                 id=str(uuid.uuid4()),
@@ -243,6 +389,10 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db.rollback()
         _update_progress(stage_name, _stage_percent(stage_order))
 
+    management_key = os.environ.get("OPENROUTER_MANAGEMENT_API_KEY", "")
+    if management_key:
+        _save_openrouter_snapshot(db, session_id, "before", _fetch_openrouter_credits(management_key))
+
     try:
         logger.info(f"[{session_id}] Aggressive Pipeline starting for department: {department}")
         _update_progress("starting", 0.0)
@@ -250,8 +400,6 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         from test.orchestrator.pipeline_runner import PipelineRunner
         from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
         from test.graph.html_generator import HTMLGeneratorAgent
-
-        ai_config = ai_config or {}
 
         with tempfile.TemporaryDirectory() as temp_dir:
             # 1. Download files (still needs temp dir for downloads)
@@ -409,6 +557,9 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             "mapping_rows": len(inventory_rows or [])
         }, 0, 0, 0)
 
+        if management_key:
+            _save_openrouter_snapshot(db, session_id, "after", _fetch_openrouter_credits(management_key))
+
         db.commit()
         logger.info(f"[{session_id}] Pipeline complete: {len(kg_nodes_list)} nodes, {len(kg_edges_list)} edges")
 
@@ -418,6 +569,8 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             send_pipeline_completion_email(notification_email, session_id, "completed")
 
     except Exception as e:
+        if management_key:
+            _save_openrouter_snapshot(db, session_id, "after", _fetch_openrouter_credits(management_key))
         logger.error(f"[{session_id}] Aggressive Pipeline failed: {str(e)}", exc_info=True)
         try:
             db.rollback()
@@ -626,6 +779,203 @@ def get_status(session_id: str, db: Session = Depends(get_db)):
         created_at=s.created_at,
         updated_at=s.updated_at
     )
+
+
+@app.get("/api/sessions/{session_id}/economics")
+def get_session_economics(
+    session_id: str,
+    input_per_million: Optional[float] = None,
+    output_per_million: Optional[float] = None,
+    db: Session = Depends(get_db),
+):
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    stages = (
+        db.query(PipelineStageLog)
+        .filter(PipelineStageLog.session_id == session_id)
+        .order_by(PipelineStageLog.stage_order)
+        .all()
+    )
+
+    detected_model = None
+    detected_provider = None
+    for st in stages:
+        out = st.output if isinstance(st.output, dict) else None
+        if out and isinstance(out.get("llm_model"), str) and out.get("llm_model"):
+            detected_model = out.get("llm_model")
+            detected_provider = out.get("llm_provider") if isinstance(out.get("llm_provider"), str) else None
+            break
+
+    default_provider = os.environ.get("DEFAULT_LLM_PROVIDER") or os.environ.get("LLM_PROVIDER")
+    default_model = os.environ.get("DEFAULT_LLM_MODEL") or os.environ.get("LLM_MODEL")
+
+    resolved_model = (detected_model or default_model or "").strip().strip('"').strip("'")
+    resolved_provider = (detected_provider or default_provider or "").strip().strip('"').strip("'")
+
+    if not resolved_model:
+        resolved_model = None
+    if not resolved_provider:
+        resolved_provider = None
+
+    openrouter_defaults = _fetch_openrouter_model_pricing_usd_per_million(resolved_model or "") if resolved_model else None
+    defaults = openrouter_defaults or _get_pricing_usd_per_million(resolved_model or "")
+    resolved_input_per_million = float(input_per_million) if input_per_million is not None else (defaults.get("input") if defaults else None)
+    resolved_output_per_million = float(output_per_million) if output_per_million is not None else (defaults.get("output") if defaults else None)
+
+    pricing_available = resolved_input_per_million is not None and resolved_output_per_million is not None
+
+    stage_items = []
+    total_in = 0
+    total_out = 0
+    total_dur = 0
+    total_cost = 0.0
+    total_in_cost = 0.0
+    total_out_cost = 0.0
+
+    for st in stages:
+        in_tok = int(st.in_tokens or 0)
+        out_tok = int(st.out_tokens or 0)
+        dur = int(st.duration_ms or 0)
+        total_in += in_tok
+        total_out += out_tok
+        total_dur += dur
+
+        cost_obj = None
+        if pricing_available:
+            cost_obj = _estimate_cost_usd(
+                in_tok,
+                out_tok,
+                input_per_million=float(resolved_input_per_million),
+                output_per_million=float(resolved_output_per_million),
+            )
+            total_cost += cost_obj["total_cost_usd"]
+            total_in_cost += cost_obj["input_cost_usd"]
+            total_out_cost += cost_obj["output_cost_usd"]
+
+        stage_items.append({
+            "stage": st.stage,
+            "stage_order": st.stage_order,
+            "in_tokens": in_tok,
+            "out_tokens": out_tok,
+            "duration_ms": dur,
+            "cost": cost_obj,
+        })
+
+    credits_snaps = (
+        db.query(OpenRouterCreditSnapshot)
+        .filter(OpenRouterCreditSnapshot.session_id == session_id)
+        .order_by(OpenRouterCreditSnapshot.created_at)
+        .all()
+    )
+
+    credits_before = None
+    credits_after = None
+    for cs in credits_snaps:
+        if cs.phase == "before" and credits_before is None:
+            credits_before = cs
+        if cs.phase == "after":
+            credits_after = cs
+
+    credits_delta = None
+    if credits_before and credits_after and credits_before.total_usage is not None and credits_after.total_usage is not None:
+        credits_delta = round(float(credits_after.total_usage) - float(credits_before.total_usage), 6)
+
+    return {
+        "session_id": s.session_id,
+        "status": s.status,
+        "processing_mode": s.processing_mode,
+        "model": resolved_model,
+        "provider": resolved_provider,
+        "openrouter_credits": {
+            "before": {
+                "total_credits": credits_before.total_credits,
+                "total_usage": credits_before.total_usage,
+                "created_at": credits_before.created_at.isoformat() if credits_before and credits_before.created_at else None,
+            } if credits_before else None,
+            "after": {
+                "total_credits": credits_after.total_credits,
+                "total_usage": credits_after.total_usage,
+                "created_at": credits_after.created_at.isoformat() if credits_after and credits_after.created_at else None,
+            } if credits_after else None,
+            "delta_total_usage": credits_delta,
+        },
+        "pricing": {
+            "input_usd_per_million": resolved_input_per_million,
+            "output_usd_per_million": resolved_output_per_million,
+            "pricing_available": pricing_available,
+            "pricing_source": (
+                "override"
+                if (input_per_million is not None or output_per_million is not None)
+                else (
+                    "openrouter_api"
+                    if openrouter_defaults
+                    else ("known_table" if defaults else "missing")
+                )
+            ),
+        },
+        "totals": {
+            "in_tokens": total_in,
+            "out_tokens": total_out,
+            "duration_ms": total_dur,
+            "input_cost_usd": round(total_in_cost, 6) if pricing_available else None,
+            "output_cost_usd": round(total_out_cost, 6) if pricing_available else None,
+            "total_cost_usd": round(total_cost, 6) if pricing_available else None,
+        },
+        "stages": stage_items,
+    }
+
+
+@app.get("/api/sessions/{session_id}/openrouter-credits")
+def get_openrouter_credits_delta(session_id: str, db: Session = Depends(get_db)):
+    s = db.query(DFDSession).filter(DFDSession.session_id == session_id).first()
+    if not s:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    snaps = (
+        db.query(OpenRouterCreditSnapshot)
+        .filter(OpenRouterCreditSnapshot.session_id == session_id)
+        .order_by(OpenRouterCreditSnapshot.created_at)
+        .all()
+    )
+
+    before = None
+    after = None
+    for cs in snaps:
+        if cs.phase == "before" and before is None:
+            before = cs
+        if cs.phase == "after":
+            after = cs
+
+    delta = None
+    if before and after and before.total_usage is not None and after.total_usage is not None:
+        delta = round(float(after.total_usage) - float(before.total_usage), 6)
+
+    return {
+        "session_id": s.session_id,
+        "status": s.status,
+        "before": {
+            "total_credits": before.total_credits,
+            "total_usage": before.total_usage,
+            "created_at": before.created_at.isoformat() if before and before.created_at else None,
+        } if before else None,
+        "after": {
+            "total_credits": after.total_credits,
+            "total_usage": after.total_usage,
+            "created_at": after.created_at.isoformat() if after and after.created_at else None,
+        } if after else None,
+        "delta_total_usage": delta,
+        "snapshots": [
+            {
+                "phase": cs.phase,
+                "total_credits": cs.total_credits,
+                "total_usage": cs.total_usage,
+                "created_at": cs.created_at.isoformat() if cs.created_at else None,
+            }
+            for cs in snaps
+        ],
+    }
 
 
 @app.get("/api/results/{session_id}")

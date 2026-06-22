@@ -98,6 +98,17 @@ class PipelineStageLog(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
 
+class OpenRouterCreditSnapshot(Base):
+    __tablename__ = "openrouter_credit_snapshots"
+
+    id = Column(String, primary_key=True)
+    session_id = Column(String, index=True, nullable=False)
+    phase = Column(String, nullable=False)  # "before" | "after" | "manual"
+    total_credits = Column(Float, nullable=True)
+    total_usage = Column(Float, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class InteractiveDFD(Base):
     __tablename__ = "interactive_dfds"
 

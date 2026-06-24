@@ -33,6 +33,58 @@ class HTMLGeneratorAgent:
 
     def __init__(self, ai_config: dict = None):
         self.ai_config = ai_config or {}
+        self._swimlane_kw_cache = None
+
+    def _load_swimlane_keywords(self) -> Dict[str, List[str]]:
+        if isinstance(self._swimlane_kw_cache, dict):
+            return self._swimlane_kw_cache
+
+        default_kw = {
+            "external": [
+                "customer", "client", "borrower", "applicant", "merchant", "loan applicant",
+            ],
+            "internal": [
+                "team", "department", "dispatch", "sales", "support", "ops", "operations",
+                "manager", "supervisor", "executive", "officer", "analyst", "compliance",
+                "finance", "accounts", "hr", "legal",
+            ],
+            "internal_role": [
+                "agent", "field sales", "sales agent", "customer support", "support agent",
+                "underwriting", "underwriter", "collections team", "operations team",
+                "compliance", "it", "engineering",
+            ],
+            "vendor": [
+                "vendor", "partner", "dsa", "third party", "outsource",
+                "bureau", "cibil", "experian", "bank", "nbfc", "insurer", "insurance",
+                "regulator", "rbi", "kyc", "aggregator", "account aggregator",
+                "payment", "neft", "imps", "rail",
+            ],
+            "vendor_specific": [
+                "idfy", "finvu", "account aggregator", "credit bureau",
+                "api provider", "verification", "payment rail", "rail",
+                "co-lending", "collection agency",
+            ],
+        }
+
+        try:
+            kb_path = Path(__file__).with_name("swimlane_keywords.json")
+            if not kb_path.exists():
+                self._swimlane_kw_cache = default_kw
+                return self._swimlane_kw_cache
+            data = json.loads(kb_path.read_text(encoding="utf-8"))
+            if not isinstance(data, dict):
+                self._swimlane_kw_cache = default_kw
+                return self._swimlane_kw_cache
+
+            merged = {k: list(v) for k, v in default_kw.items()}
+            for key, val in data.items():
+                if isinstance(val, list):
+                    merged[key] = [str(x).lower() for x in val if str(x).strip()]
+            self._swimlane_kw_cache = merged
+            return self._swimlane_kw_cache
+        except Exception:
+            self._swimlane_kw_cache = default_kw
+            return self._swimlane_kw_cache
 
     def generate_from_data(self, kg, render_plan, pipeline_docs=None):
         """
@@ -122,6 +174,7 @@ class HTMLGeneratorAgent:
 
     def _build_row_map(self, nodes):
         row_map = {}
+        kw = self._load_swimlane_keywords()
         for node in nodes:
             nid = node["id"]
             ntype = node.get("type", "unknown")
@@ -131,31 +184,32 @@ class HTMLGeneratorAgent:
                 row_map[nid] = 1
             elif ntype == "external_entity":
                 name_lower = node.get("name", "").lower()
-                vendor_kw = [
-                    "vendor", "partner", "dsa", "third party", "outsource",
-                    "bureau", "cibil", "experian", "bank", "nbfc", "insurer", "insurance",
-                    "regulator", "rbi", "kyc", "aggregator", "account aggregator",
-                    "payment", "neft", "imps", "rail"
-                ]
-                external_kw = ["customer", "client", "borrower", "applicant", "merchant"]
-                if any(kw in name_lower for kw in vendor_kw):
+                external_kw = kw.get("external", [])
+                internal_kw = kw.get("internal", [])
+                internal_role_kw = kw.get("internal_role", [])
+                vendor_kw = kw.get("vendor", [])
+                vendor_specific_kw = kw.get("vendor_specific", [])
+                if any(k in name_lower for k in external_kw):
+                    row_map[nid] = 0
+                elif any(k in name_lower for k in internal_kw) or any(k in name_lower for k in internal_role_kw):
+                    row_map[nid] = 1
+                elif any(k in name_lower for k in vendor_kw) or any(k in name_lower for k in vendor_specific_kw):
                     row_map[nid] = 2
                 else:
                     # Default true external entities to external lane
                     row_map[nid] = 0
             elif ntype == "actor":
                 name_lower = node.get("name", "").lower()
-                internal_kw = ["team lead", "agent", "qa", "quality", "retention",
-                               "compliance", "email system", "shared mailbox", "cti",
-                               "department", "head", "manager", "supervisor",
-                               "analyst", "officer", "executive"]
-                vendor_kw = ["vendor", "partner", "dsa", "third party", "outsource"]
-                external_kw = ["customer", "client", "borrower", "applicant", "caller"]
-                if any(kw in name_lower for kw in external_kw):
+                external_kw = (kw.get("external", []) or []) + ["caller"]
+                vendor_kw = kw.get("vendor", [])
+                internal_kw = (kw.get("internal", []) or []) + [
+                    "team lead", "email system", "shared mailbox", "cti", "head", "retention"
+                ]
+                if any(k in name_lower for k in external_kw):
                     row_map[nid] = 0
-                elif any(kw in name_lower for kw in vendor_kw):
+                elif any(k in name_lower for k in vendor_kw):
                     row_map[nid] = 2
-                elif any(kw in name_lower for kw in internal_kw):
+                elif any(k in name_lower for k in internal_kw):
                     row_map[nid] = 1
                 else:
                     row_map[nid] = 1  # Default actors to internal
@@ -198,9 +252,34 @@ class HTMLGeneratorAgent:
             else:
                 internal_nodes.append(n)
 
+        in_deg = {}
+        out_deg = {}
+        for e in (edges or []):
+            if not isinstance(e, dict):
+                continue
+            src = e.get("source")
+            tgt = e.get("target")
+            if not src or not tgt:
+                continue
+            out_deg[src] = out_deg.get(src, 0) + 1
+            in_deg[tgt] = in_deg.get(tgt, 0) + 1
+
+        source_node_ids = set(
+            n.get("id")
+            for n in (nodes or [])
+            if n.get("id")
+            and in_deg.get(n.get("id"), 0) == 0
+            and out_deg.get(n.get("id"), 0) > 0
+        )
+
         def build_actor(aid, aname, atype, anodes):
             bps = []
             for n in anodes:
+                ntype = n.get("type", "unknown")
+                if ntype == "process":
+                    continue
+                if n.get("id") not in source_node_ids:
+                    continue
                 bps.append({
                     "id": f"bp_{n['id']}",
                     "name": n["name"],
@@ -226,21 +305,60 @@ class HTMLGeneratorAgent:
             actors.append({"id": "vendors", "name": "Vendors/Partners", "type": "vendor", "business_processes": []})
 
         # Build dispersal sinks
-        incoming_count = {}
-        for e in edges:
-            incoming_count[e.get("target", "")] = incoming_count.get(e.get("target", ""), 0) + 1
+        collection_node_ids = set()
+        for actor in actors:
+            for bp in actor.get("business_processes", []) or []:
+                bp_id = bp.get("id", "")
+                if isinstance(bp_id, str) and bp_id.startswith("bp_"):
+                    collection_node_ids.add(bp_id.replace("bp_", "", 1))
+
         sink_candidates = []
+        adj = {}
+        for e in (edges or []):
+            if not isinstance(e, dict):
+                continue
+            src = e.get("source")
+            tgt = e.get("target")
+            if not src or not tgt:
+                continue
+            adj.setdefault(src, []).append(tgt)
+
+        # User preference: show ALL downstream nodes (not only terminal sinks).
+        # Compute reachability from Data Collection nodes.
+        reachable = set()
+        for start in collection_node_ids:
+            q = [(start, 0)]
+            seen = {start}
+            while q:
+                cur, depth = q.pop(0)
+                if depth >= 10:
+                    continue
+                for nx in adj.get(cur, []) or []:
+                    if nx in seen:
+                        continue
+                    seen.add(nx)
+                    reachable.add(nx)
+                    if len(seen) > 800:
+                        break
+                    q.append((nx, depth + 1))
+
         for n in nodes:
             nid = n["id"]
-            if n.get("type") == "data_store":
+            if nid in collection_node_ids:
                 continue
-            if incoming_count.get(nid, 0) >= 2 or len(n.get("risks", [])) > 0:
-                row = row_map.get(nid, 1)
-                actor_id = "external" if row == 0 else ("vendors" if row == 2 else "internal")
-                sink_candidates.append({
-                    "id": f"sink_{nid}", "name": n["name"], "actor_id": actor_id,
-                    "node_id": nid, "color": SINK_PALETTE[len(sink_candidates) % len(SINK_PALETTE)]
-                })
+            if n.get("type") == "process":
+                continue
+            if nid not in reachable and len(n.get("risks", [])) == 0:
+                continue
+            if in_deg.get(nid, 0) == 0 and len(n.get("risks", [])) == 0:
+                continue
+
+            row = row_map.get(nid, 1)
+            actor_id = "external" if row == 0 else ("vendors" if row == 2 else "internal")
+            sink_candidates.append({
+                "id": f"sink_{nid}", "name": n["name"], "actor_id": actor_id,
+                "node_id": nid, "color": SINK_PALETTE[len(sink_candidates) % len(SINK_PALETTE)]
+            })
 
         storage_systems = [{"name": ds["name"], "type": "cloud"} for ds in data_stores]
         for n in nodes:
@@ -388,7 +506,8 @@ var dialogueRecords={dialogue_json};
         return """
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #ecf0f1; padding: 12px; }
-.dfd-wrapper { position: relative; background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); overflow: visible; min-width: 0; width: 100%; }
+.dfd-wrapper { position: relative; background: #fff; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); overflow: visible; min-width: 0; width: 100%; overflow-x: auto; }
+#arrows-svg { z-index: 3; }
 .dfd-title-bar { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: linear-gradient(135deg, #1a237e 0%, #283593 100%); border-bottom: 3px solid #ffcc02; }
 .dfd-main-title { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
 .header-controls { display: flex; align-items: center; gap: 16px; }
@@ -401,6 +520,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #ecf0f1; padding:
 .toggle-label { font-size: 12px; color: #fff; font-weight: 600; white-space: nowrap; }
 .dfd-version { font-size: 11px; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 2px 7px; background: rgba(255,255,255,0.1); }
 .dept-header { background: #34495e; color: #fff; text-align: center; font-weight: 700; font-size: 15px; padding: 8px; letter-spacing: 0.5px; }
+.dfd-title-bar, .dept-header, .col-headers, .swimlane-row { min-width: 1190px; }
 .col-headers { display: grid; grid-template-columns: 110px minmax(260px, 1fr) minmax(380px, 1.4fr) minmax(260px, 1fr) 180px; background: #2c3e50; position: relative; z-index: 5; }
 .col-actor-label { background: #1a252f; }
 .col-header { color: #fff; font-weight: 600; font-size: 13px; text-align: center; padding: 9px 6px; border-left: 1px solid rgba(255,255,255,0.15); }
@@ -885,10 +1005,71 @@ function drawArrows() {
 
   // Filter flows based on visibility mode
   if (!showAllArrows && selectedNodeId) {
-    // Show only arrows connected to selected node
+    // Show arrows for selected node *and* its immediate KG neighbors.
+    // This prevents the "half arrow" problem where only one hub segment is visible.
     var sel = normalizeNodeId(selectedNodeId);
-    inbound = inbound.filter(function(f) { return normalizeNodeId(f.from_id) === sel; });
-    outbound = outbound.filter(function(f) { return normalizeNodeId(f.to_id) === sel; });
+    if (sel === 'central_process') {
+      // Central hub selection should not restrict arrows; otherwise it looks like everything disappears.
+      // Keep default inbound/outbound computed above.
+    } else {
+    var edges = (kgData && kgData.edges) ? kgData.edges : [];
+
+    // Build adjacency maps for reachability.
+    var adj = {};
+    var radj = {};
+    for (var i = 0; i < edges.length; i++) {
+      var e = edges[i] || {};
+      var s0 = e.source;
+      var t0 = e.target;
+      if (!s0 || !t0) continue;
+      var s = normalizeNodeId(s0);
+      var t = normalizeNodeId(t0);
+      if (!adj[s]) adj[s] = [];
+      if (!radj[t]) radj[t] = [];
+      adj[s].push(t);
+      radj[t].push(s);
+    }
+
+    function bfs(start, map, maxDepth, maxVisits) {
+      var seen = {};
+      var q = [{ id: start, d: 0 }];
+      seen[start] = true;
+      var visits = 0;
+      while (q.length) {
+        var cur = q.shift();
+        visits++;
+        if (visits > maxVisits) break;
+        if (cur.d >= maxDepth) continue;
+        var nexts = map[cur.id] || [];
+        for (var j = 0; j < nexts.length; j++) {
+          var nx = nexts[j];
+          if (!seen[nx]) {
+            seen[nx] = true;
+            q.push({ id: nx, d: cur.d + 1 });
+          }
+        }
+      }
+      return seen;
+    }
+
+    // Nodes reachable forward/backward from the selected node.
+    // Depth cap prevents cycles from blowing up due to cycles in KG.
+    var forward = bfs(sel, adj, 10, 800);
+    var backward = bfs(sel, radj, 10, 800);
+    forward[sel] = true;
+    backward[sel] = true;
+
+    // For inbound (collection -> hub), show collection nodes that can reach the selected node.
+    inbound = inbound.filter(function(f) {
+      var from = normalizeNodeId(f.from_id);
+      return !!backward[from];
+    });
+    // For outbound (hub -> sink), show sink nodes reachable from the selected node.
+    outbound = outbound.filter(function(f) {
+      var to = normalizeNodeId(f.to_id);
+      return !!forward[to];
+    });
+    }
   } else if (!showAllArrows && !selectedNodeId) {
     // Show a small subset by default to avoid a "blank" DFD while keeping large graphs fast
     var maxDefaultArrows = 80;

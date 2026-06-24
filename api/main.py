@@ -389,7 +389,7 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
             db.rollback()
         _update_progress(stage_name, _stage_percent(stage_order))
 
-    management_key = os.environ.get("OPENROUTER_MANAGEMENT_API_KEY", "")
+    management_key = os.environ.get("OPENROUTER_MANAGEMENT_API_KEY", "") or os.environ.get("OPENROUTER_API_KEY", "")
     if management_key:
         _save_openrouter_snapshot(db, session_id, "before", _fetch_openrouter_credits(management_key))
 

@@ -17,7 +17,7 @@ import os
 import time
 
 
-from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException
+from fastapi import FastAPI, BackgroundTasks, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict, List, Optional
@@ -43,6 +43,73 @@ app.add_middleware(
 )
 
 # ── Request / Response Models ────────────────────────
+
+# Langfuse Tracing — global client and middleware
+try:
+    from dotenv import load_dotenv
+    load_dotenv()  # Load .env variables early so LANGFUSE_* are available
+except Exception:
+    pass
+
+try:
+    # Prefer explicit construction so we can control base_url/host
+    from langfuse import Langfuse, get_client
+    _lf_pk = os.environ.get("LANGFUSE_PUBLIC_KEY")
+    _lf_sk = os.environ.get("LANGFUSE_SECRET_KEY")
+    _lf_url = os.environ.get("LANGFUSE_BASE_URL") or os.environ.get("LANGFUSE_HOST")
+    if _lf_pk and _lf_sk and _lf_url:
+        _langfuse = Langfuse(public_key=_lf_pk, secret_key=_lf_sk, base_url=_lf_url)
+    else:
+        _langfuse = get_client()
+except Exception:
+    _langfuse = None
+
+# Diagnostics to help with 401 Unauthorized during setup
+try:
+    lf_host = os.environ.get("LANGFUSE_BASE_URL") or os.environ.get("LANGFUSE_HOST")
+    lf_pk_tail = (os.environ.get("LANGFUSE_PUBLIC_KEY") or "")[-4:]
+    lf_sk_tail = (os.environ.get("LANGFUSE_SECRET_KEY") or "")[-4:]
+    logger.info(
+        f"Langfuse config: host={(lf_host or 'unset')}, pk_tail={(lf_pk_tail or 'unset')}, sk_tail={(lf_sk_tail or 'unset')}"
+    )
+    if not os.environ.get("LANGFUSE_BASE_URL") and os.environ.get("LANGFUSE_HOST"):
+        logger.info("Using LANGFUSE_HOST for SDK base URL")
+except Exception:
+    pass
+
+@app.middleware("http")
+async def langfuse_http_tracing(request: Request, call_next):
+    if _langfuse is None:
+        return await call_next(request)
+    name = f"{request.method} {request.url.path}"
+    attrs = {
+        "path": request.url.path,
+        "method": request.method,
+        "client": request.client.host if request.client else None,
+    }
+    start_ts = time.time()
+    try:
+        with _langfuse.start_as_current_observation(as_type="span", name=name, input=attrs) as obs:
+            response = await call_next(request)
+            duration_ms = int((time.time() - start_ts) * 1000)
+            obs.update(output={"status_code": response.status_code, "duration_ms": duration_ms})
+            return response
+    except Exception as e:
+        # still record error to Langfuse then re-raise
+        try:
+            with _langfuse.start_as_current_observation(as_type="span", name=f"{name} error") as err_obs:
+                err_obs.update(output={"error": str(e)})
+        except Exception:
+            pass
+        raise
+
+@app.on_event("shutdown")
+async def _lf_shutdown():
+    try:
+        if _langfuse is not None:
+            _langfuse.flush()
+    except Exception:
+        pass
 
 class InitiateRequest(BaseModel):
     token: str
@@ -401,23 +468,46 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         from test.agents.knowledge_graph_agent import KnowledgeGraphAgent
         from test.graph.html_generator import HTMLGeneratorAgent
 
-        with tempfile.TemporaryDirectory() as temp_dir:
-            # 1. Download files (still needs temp dir for downloads)
-            local_files = _download_files(files, temp_dir)
-            # IMPORTANT: preserve transcript formatting for downstream doc-type detection
-            combined_transcript = _combine_transcripts(local_files, include_file_headers=False)
-            combined_path = os.path.join(temp_dir, "combined_source.txt")
-            with open(combined_path, "w") as f:
-                f.write(combined_transcript)
+        lf_ctx = _langfuse if '_langfuse' in globals() else None
+        lf_input = {"department": department, "files_count": len(files or []), "llm_model": llm_model, "llm_provider": llm_provider}
+        span_mgr = lf_ctx.start_as_current_observation(as_type="span", name="pipeline", input=lf_input) if lf_ctx else None
+        with (span_mgr if span_mgr else tempfile.TemporaryDirectory()) as maybe_span:
+            # 1. Download + combine
+            with tempfile.TemporaryDirectory() as temp_dir:
+                if lf_ctx:
+                    # annotate current observation subtly by starting a child span
+                    with lf_ctx.start_as_current_observation(as_type="span", name="download_and_combine") as s1:
+                        local_files = _download_files(files, temp_dir)
+                        combined_transcript = _combine_transcripts(local_files, include_file_headers=False)
+                        s1.update(output={"downloaded": len(local_files), "bytes": len(combined_transcript or "")})
+                else:
+                    local_files = _download_files(files, temp_dir)
+                    combined_transcript = _combine_transcripts(local_files, include_file_headers=False)
 
-            # 2. Run Pipeline (Phases 1-9) — all in-memory with stage callbacks
-            runner = PipelineRunner(ai_config=ai_config, stage_callback=_log_stage)
-            result = runner.process_file(combined_path)
+                combined_path = os.path.join(temp_dir, "combined_source.txt")
+                with open(combined_path, "w") as f:
+                    f.write(combined_transcript)
+
+                # 2. Pipeline runner
+                runner = PipelineRunner(ai_config=ai_config, stage_callback=_log_stage)
+                if lf_ctx:
+                    with lf_ctx.start_as_current_observation(as_type="span", name="pipeline_runner", input={"path": combined_path}):
+                        result = runner.process_file(combined_path)
+                else:
+                    result = runner.process_file(combined_path)
 
         # 3. Build Knowledge Graph — fully in-memory
         _update_progress("knowledge_graph", _stage_percent(9))
         kg_agent = KnowledgeGraphAgent(ai_config=ai_config)
-        graph_output = kg_agent.build_graph_from_result(result)
+        if _langfuse is not None:
+            with _langfuse.start_as_current_observation(as_type="span", name="build_knowledge_graph") as s2:
+                graph_output = kg_agent.build_graph_from_result(result)
+                s2.update(output={
+                    "nodes": len(graph_output.get("kg_dict", {}).get("nodes", [])),
+                    "edges": len(graph_output.get("kg_dict", {}).get("edges", [])),
+                })
+        else:
+            graph_output = kg_agent.build_graph_from_result(result)
         graph_data = graph_output["kg_dict"]
         render_plan_data = graph_output["render_plan_dict"]
         kg_result = graph_output["kg_result"]
@@ -443,11 +533,20 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         _update_progress("html_generation", _stage_percent(10))
         html_gen = HTMLGeneratorAgent()
         try:
-            interactive_html = html_gen.generate_from_data(
-                graph_data,
-                render_plan_data,
-                pipeline_docs={"metadata": {"department": department}},
-            )
+            if _langfuse is not None:
+                with _langfuse.start_as_current_observation(as_type="span", name="generate_html") as s3:
+                    interactive_html = html_gen.generate_from_data(
+                        graph_data,
+                        render_plan_data,
+                        pipeline_docs={"metadata": {"department": department}},
+                    )
+                    s3.update(output={"html_length": len(interactive_html or "")})
+            else:
+                interactive_html = html_gen.generate_from_data(
+                    graph_data,
+                    render_plan_data,
+                    pipeline_docs={"metadata": {"department": department}},
+                )
         except Exception as e:
             logger.error(f"[{session_id}] HTML generation failed: {e}", exc_info=True)
             raise
@@ -468,7 +567,11 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         if not schema_one_json:
             generator = SchemaGenerator(ai_config=ai_config)
             try:
-                schema_one_json = generator.generate_schema_one(combined_transcript)
+                if _langfuse is not None:
+                    with _langfuse.start_as_current_observation(as_type="span", name="generate_schema_one"):
+                        schema_one_json = generator.generate_schema_one(combined_transcript)
+                else:
+                    schema_one_json = generator.generate_schema_one(combined_transcript)
                 logger.info(f"[{session_id}] Schema-1 generated")
             except Exception as e:
                 logger.error(f"[{session_id}] Schema-1 generation failed: {e}", exc_info=True)
@@ -476,7 +579,12 @@ def process_aggressive_pipeline(session_id: str, department: str, files: List[st
         if schema_one_json and not inventory_rows:
             try:
                 generator = SchemaGenerator(ai_config=ai_config)
-                inventory_rows = generator.generate_data_inventory(schema_one_json)
+                if _langfuse is not None:
+                    with _langfuse.start_as_current_observation(as_type="span", name="generate_data_inventory") as s4:
+                        inventory_rows = generator.generate_data_inventory(schema_one_json)
+                        s4.update(output={"rows": len(inventory_rows or [])})
+                else:
+                    inventory_rows = generator.generate_data_inventory(schema_one_json)
                 logger.info(f"[{session_id}] Data inventory: {len(inventory_rows)} rows")
             except Exception as e:
                 logger.error(f"[{session_id}] Data inventory generation failed: {e}", exc_info=True)
@@ -996,12 +1104,41 @@ def get_results(session_id: str, db: Session = Depends(get_db)):
         .filter(KnowledgeGraphNode.session_id == session_id)
         .all()
     )
-    
     kg_edges = (
         db.query(KnowledgeGraphEdge)
         .filter(KnowledgeGraphEdge.session_id == session_id)
         .all()
     )
+
+    # Fallback: if DB KG rows are empty but session has dfd_json, use it for response
+    use_session_dfd = (not kg_nodes and not kg_edges and isinstance(s.dfd_json, dict))
+    if use_session_dfd:
+        dj_nodes = [
+            {
+                "id": n.get("id"),
+                "name": n.get("name", ""),
+                "type": n.get("type", "unknown"),
+                "aliases": n.get("aliases", []) or [],
+                "data_elements": n.get("data_elements", []) or [],
+                "risks": n.get("risks", []) or [],
+                "sources": n.get("sources", []) or [],
+            }
+            for n in (s.dfd_json.get("nodes", []) or [])
+            if isinstance(n, dict)
+        ]
+        dj_edges = [
+            {
+                "source": e.get("source"),
+                "target": e.get("target"),
+                "data_elements": e.get("data_elements", []) or [],
+                "flow_type": e.get("flow_type", "transfer") or "transfer",
+                "channel": e.get("channel", "") or "",
+                "inferred": bool(e.get("inferred")),
+                "sources": e.get("sources", []) or [],
+            }
+            for e in (s.dfd_json.get("edges", []) or [])
+            if isinstance(e, dict)
+        ]
 
     return {
         "session_id": s.session_id,
@@ -1020,30 +1157,40 @@ def get_results(session_id: str, db: Session = Depends(get_db)):
         "verification_report_json": s.verification_report_json,
         "interactive_html": s.interactive_html,
         "dfd_render_plan": s.dfd_render_plan_json,
-        "knowledge_graph": {
-            "nodes": [
-                {
-                    "id": n.node_id,
-                    "name": n.name,
-                    "type": n.type,
-                    "aliases": n.aliases or [],
-                    "data_elements": n.data_elements or [],
-                    "risks": n.risks or [],
-                    "sources": n.sources or []
-                } for n in kg_nodes
-            ],
-            "edges": [
-                {
-                    "source": e.source_node,
-                    "target": e.target_node,
-                    "data_elements": e.data_elements or [],
-                    "flow_type": e.flow_type or "transfer",
-                    "channel": e.channel or "",
-                    "inferred": bool(e.inferred),
-                    "sources": e.sources or []
-                } for e in kg_edges
-            ]
-        },
+        "knowledge_graph": (
+            {
+                "nodes": dj_nodes,
+                "edges": dj_edges,
+            }
+            if use_session_dfd
+            else
+            {
+                "nodes": [
+                    {
+                        "id": n.node_id,
+                        "name": n.name,
+                        "type": n.type,
+                        "aliases": n.aliases or [],
+                        "data_elements": n.data_elements or [],
+                        "risks": n.risks or [],
+                        "sources": n.sources or []
+                    }
+                    for n in kg_nodes
+                ],
+                "edges": [
+                    {
+                        "source": e.source_node,
+                        "target": e.target_node,
+                        "data_elements": e.data_elements or [],
+                        "flow_type": e.flow_type or "transfer",
+                        "channel": e.channel or "",
+                        "inferred": bool(e.inferred),
+                        "sources": e.sources or []
+                    }
+                    for e in kg_edges
+                ],
+            }
+        ),
         "data_mapping_rows": [
             {
                 "s_no": row.s_no,
@@ -1249,12 +1396,15 @@ def regenerate_dfd_from_schema(session_id: str, db: Session = Depends(get_db)):
         pipeline_docs={"metadata": {"department": s.department}},
     )
 
-    if not interactive_html or len(interactive_html.strip()) < 200:
+    nodes_ct = len(graph_data.get("nodes", []))
+    edges_ct = len(graph_data.get("edges", []))
+    # Safety guard: if regeneration produced an empty graph or near-empty HTML, do not overwrite existing data
+    if not interactive_html or len(interactive_html.strip()) < 200 or nodes_ct == 0:
         raise HTTPException(
-            status_code=500,
+            status_code=400,
             detail=(
-                f"HTML generation returned empty output (nodes={len(graph_data.get('nodes', []))}, "
-                f"edges={len(graph_data.get('edges', []))})."
+                "Regeneration produced empty output; existing session data preserved. "
+                f"(nodes={nodes_ct}, edges={edges_ct})"
             ),
         )
 
@@ -1264,7 +1414,7 @@ def regenerate_dfd_from_schema(session_id: str, db: Session = Depends(get_db)):
     s.interactive_html = interactive_html
     s.updated_at = datetime.utcnow()
 
-    # Replace KG nodes/edges rows for this session
+    # Replace KG nodes/edges rows for this session (only after successful non-empty regeneration)
     db.query(KnowledgeGraphNode).filter(KnowledgeGraphNode.session_id == session_id).delete()
     db.query(KnowledgeGraphEdge).filter(KnowledgeGraphEdge.session_id == session_id).delete()
 

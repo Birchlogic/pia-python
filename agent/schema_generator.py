@@ -1,7 +1,12 @@
 from utils.llm_adapter import get_llm_client
+try:
+    from langfuse import get_client as _lf_get_client
+except Exception:
+    _lf_get_client = None
 import anthropic
 import json
 from enum import Enum
+from contextlib import nullcontext
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
@@ -295,19 +300,34 @@ class SchemaGenerator:
         logger.info(f"Generating schema one. Transcript length: {len(combined_transcript)} characters.")
         
         try:
-            response = self.client.messages.create(
+            _lf = _lf_get_client() if _lf_get_client else None
+            lf_ctx = (_lf.start_as_current_observation(
+                as_type="generation",
+                name="schema_one",
                 model=self.model,
-                max_tokens=32768,
-                temperature=0,
-                system=SCHEMA_ONE_PROMPT,
-                messages=[{"role": "user", "content": user_prompt}],
-                tools=[{
-                    "name": "generate_schema",
-                    "description": "Generates the exhaustive schema 1 node graph.",
-                    "input_schema": SchemaOneOutput.model_json_schema()
-                }],
-                tool_choice={"type": "tool", "name": "generate_schema"}
-            )
+                metadata={"provider": self.ai_config.get("type")},
+                input={"prompt_len": len(user_prompt)}
+            ) if _lf else None)
+            with (lf_ctx if lf_ctx else nullcontext()):
+                response = self.client.messages.create(
+                    model=self.model,
+                    max_tokens=32768,
+                    temperature=0,
+                    system=SCHEMA_ONE_PROMPT,
+                    messages=[{"role": "user", "content": user_prompt}],
+                    tools=[{
+                        "name": "generate_schema",
+                        "description": "Generates the exhaustive schema 1 node graph.",
+                        "input_schema": SchemaOneOutput.model_json_schema()
+                    }],
+                    tool_choice={"type": "tool", "name": "generate_schema"}
+                )
+                if _lf:
+                    try:
+                        # Do not send full output to avoid size blow-ups
+                        _lf.get_current_observation().update(output={"has_response": True})
+                    except Exception:
+                        pass
             
             tool_call = next((c for c in response.content if c.type == "tool_use"), None)
             if tool_call is None:
@@ -328,19 +348,33 @@ class SchemaGenerator:
         # Try up to 2 times — LLM sometimes returns empty on first attempt
         for attempt in range(1, 3):
             try:
-                response = self.client.messages.create(
+                _lf = _lf_get_client() if _lf_get_client else None
+                lf_ctx = (_lf.start_as_current_observation(
+                    as_type="generation",
+                    name="data_inventory",
                     model=self.model,
-                    max_tokens=32768,
-                    temperature=0,
-                    system=DATA_INVENTORY_PROMPT,
-                    messages=[{"role": "user", "content": user_prompt}],
-                    tools=[{
-                        "name": "generate_inventory",
-                        "description": "Generates the flattened inventory array.",
-                        "input_schema": DataInventoryOutput.model_json_schema()
-                    }],
-                    tool_choice={"type": "tool", "name": "generate_inventory"}
-                )
+                    metadata={"provider": self.ai_config.get("type"), "attempt": attempt},
+                    input={"schema_len": len(schema_str)}
+                ) if _lf else None)
+                with (lf_ctx if lf_ctx else nullcontext()):
+                    response = self.client.messages.create(
+                        model=self.model,
+                        max_tokens=32768,
+                        temperature=0,
+                        system=DATA_INVENTORY_PROMPT,
+                        messages=[{"role": "user", "content": user_prompt}],
+                        tools=[{
+                            "name": "generate_inventory",
+                            "description": "Generates the flattened inventory array.",
+                            "input_schema": DataInventoryOutput.model_json_schema()
+                        }],
+                        tool_choice={"type": "tool", "name": "generate_inventory"}
+                    )
+                    if _lf:
+                        try:
+                            _lf.get_current_observation().update(output={"has_response": True})
+                        except Exception:
+                            pass
                 
                 tool_call = next((c for c in response.content if c.type == "tool_use"), None)
                 if tool_call is None:

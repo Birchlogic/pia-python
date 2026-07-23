@@ -34,6 +34,7 @@ class HTMLGeneratorAgent:
     def __init__(self, ai_config: dict = None):
         self.ai_config = ai_config or {}
         self._swimlane_kw_cache = None
+        self._dfd_rules_cache = None
 
     def _load_swimlane_keywords(self) -> Dict[str, List[str]]:
         if isinstance(self._swimlane_kw_cache, dict):
@@ -85,6 +86,59 @@ class HTMLGeneratorAgent:
         except Exception:
             self._swimlane_kw_cache = default_kw
             return self._swimlane_kw_cache
+
+    def _load_dfd_rules(self) -> Dict[str, List[str]]:
+        if isinstance(self._dfd_rules_cache, dict):
+            return self._dfd_rules_cache
+        default_rules = {
+            "sensitive_data_keywords": [
+                "password", "passcode", "credential", "credentials", "username",
+                "otp", "one time password", "one-time password",
+                "access token", "refresh token", "api key", "secret", "session token",
+                "mfa", "2fa", "pin",
+            ],
+            "auth_target_keywords": [
+                "login", "signin", "sign in", "sso", "single sign on", "single sign-on",
+                "auth", "authenticate", "authentication", "authorization", "idp",
+                "okta", "azure ad", "google workspace", "oauth", "saml", "jwt",
+                "token service", "identity", "iam", "keycloak", "portal",
+                "crm login", "salesforce login",
+            ],
+        }
+        try:
+            kb_path = Path(__file__).with_name("dfd_rules.json")
+            if not kb_path.exists():
+                self._dfd_rules_cache = default_rules
+                return self._dfd_rules_cache
+            data = json.loads(kb_path.read_text(encoding="utf-8"))
+            if not isinstance(data, dict):
+                self._dfd_rules_cache = default_rules
+                return self._dfd_rules_cache
+            merged = {k: list(v) for k, v in default_rules.items()}
+            for key, val in data.items():
+                if isinstance(val, list):
+                    merged[key] = [str(x).lower() for x in val if str(x).strip()]
+                elif isinstance(val, dict) and key == "icon_map":
+                    # keep string-to-string map, lowercasing keys only
+                    merged[key] = {str(k).lower(): str(v) for k, v in val.items() if str(k).strip() and str(v).strip()}
+            self._dfd_rules_cache = merged
+            return self._dfd_rules_cache
+        except Exception:
+            self._dfd_rules_cache = default_rules
+            return self._dfd_rules_cache
+
+    def _icon_src_for(self, name: str) -> str:
+        """Return relative icon path for a given display name using dfd_rules icon_map."""
+        if not name:
+            return ""
+        rules = self._load_dfd_rules()
+        icon_map = rules.get("icon_map") or {}
+        nl = str(name).lower()
+        # longest-key-first to prefer specific matches
+        for kw in sorted(icon_map.keys(), key=len, reverse=True):
+            if kw and kw in nl:
+                return icon_map[kw]
+        return ""
 
     def generate_from_data(self, kg, render_plan, pipeline_docs=None):
         """
@@ -239,6 +293,11 @@ class HTMLGeneratorAgent:
         return connected
 
     def _transform_to_dfd(self, nodes, edges, col_map, row_map, department="Department"):
+        rules = self._load_dfd_rules()
+        sens_kws = set(rules.get("sensitive_data_keywords", []))
+        auth_kws = set(rules.get("auth_target_keywords", []))
+        comm_kws = set((rules.get("communication_keywords") or []))
+        comm_channels = set((rules.get("communication_channels") or []))
         external_nodes, internal_nodes, vendor_nodes, data_stores = [], [], [], []
         for n in nodes:
             ntype = n.get("type", "unknown")
@@ -314,6 +373,7 @@ class HTMLGeneratorAgent:
 
         sink_candidates = []
         adj = {}
+        flow_meta = {}
         for e in (edges or []):
             if not isinstance(e, dict):
                 continue
@@ -322,13 +382,32 @@ class HTMLGeneratorAgent:
             if not src or not tgt:
                 continue
             adj.setdefault(src, []).append(tgt)
+            flow_meta[(src, tgt)] = {
+                "channel": str(e.get("channel") or "").lower(),
+                "flow_type": str(e.get("flow_type") or "").lower(),
+                "desc": " ".join(str(x).lower() for x in (e.get("data_elements") or [])),
+            }
 
-        # User preference: show ALL downstream nodes (not only terminal sinks).
-        # Compute reachability from Data Collection nodes.
-        reachable = set()
+        # User preference: show ALL downstream nodes (not only terminal sinks),
+        # but if the source carries SENSITIVE data, only allow first-hop AUTH targets
+        # and prune any further fan-out beyond the auth system.
+        # Compute per-source reachability and apply pruning.
+        reachable_global = set()
+        allowed_from_sensitive: Dict[str, set] = {}
+
+        # Helper to check if node name matches any keyword set
+        def matches_kw(node_id: str, kws: set) -> bool:
+            name = next((n.get("name", "") for n in nodes if n.get("id") == node_id), "").lower()
+            return any(k in name for k in kws if k)
+
+        # Determine if a source is sensitive by looking at its data elements
+        node_data_elems = {n.get("id"): [str(x).lower() for x in (n.get("data_elements") or [])] for n in nodes if n.get("id")}
+
         for start in collection_node_ids:
             q = [(start, 0)]
             seen = {start}
+            is_sensitive = any(any(k in de for k in sens_kws) for de in node_data_elems.get(start, []))
+            allowed = set()
             while q:
                 cur, depth = q.pop(0)
                 if depth >= 10:
@@ -337,10 +416,26 @@ class HTMLGeneratorAgent:
                     if nx in seen:
                         continue
                     seen.add(nx)
-                    reachable.add(nx)
+                    # If sensitive: only add auth targets reachable from start; stop exploring beyond first matching auth target
+                    if is_sensitive:
+                        if matches_kw(nx, auth_kws):
+                            allowed.add(nx)
+                            # do not enqueue beyond auth system (prune fan-out)
+                            continue
+                        else:
+                            # skip non-auth nodes for sensitive sources
+                            continue
+                    # Non-sensitive: include normally
+                    reachable_global.add(nx)
                     if len(seen) > 800:
                         break
                     q.append((nx, depth + 1))
+            if is_sensitive:
+                allowed_from_sensitive[start] = allowed
+
+        def _is_customer_node(n: dict) -> bool:
+            nm = (n.get("name") or "").lower()
+            return row_map.get(n.get("id"), 1) == 0 and any(k in nm for k in ["customer", "client", "borrower", "applicant", "user"])
 
         for n in nodes:
             nid = n["id"]
@@ -348,9 +443,19 @@ class HTMLGeneratorAgent:
                 continue
             if n.get("type") == "process":
                 continue
-            if nid not in reachable and len(n.get("risks", [])) == 0:
+            # Keep a sink if it's globally reachable (non-sensitive) OR it is an auth target allowed for some sensitive source
+            is_allowed_sensitive_sink = any(nid in s for s in allowed_from_sensitive.values())
+            keep_for_comm = False
+            if _is_customer_node(n):
+                for (s, t), meta in flow_meta.items():
+                    if t == nid:
+                        if (meta.get("channel") in comm_channels) or any(k in (meta.get("flow_type") or "") for k in comm_kws) or any(k in (meta.get("desc") or "") for k in comm_kws):
+                            keep_for_comm = True
+                            break
+
+            if nid not in reachable_global and not is_allowed_sensitive_sink and not keep_for_comm and len(n.get("risks", [])) == 0:
                 continue
-            if in_deg.get(nid, 0) == 0 and len(n.get("risks", [])) == 0:
+            if in_deg.get(nid, 0) == 0 and not is_allowed_sensitive_sink and not keep_for_comm and len(n.get("risks", [])) == 0:
                 continue
 
             row = row_map.get(nid, 1)
@@ -376,6 +481,8 @@ class HTMLGeneratorAgent:
                     "color": SINK_PALETTE[ci % len(SINK_PALETTE)], "label": lbl
                 })
                 ci += 1
+        # When generating hub -> sink arrows, if a sink is an auth target allowed only by sensitive sources,
+        # still draw it, but we already limited sink_candidates accordingly. Label remains blank.
         for sink in sink_candidates:
             data_flows.append({
                 "from_id": "central_process", "to_id": sink["id"],
@@ -474,7 +581,14 @@ var dialogueRecords={dialogue_json};
                 elems = src.get("data_elements", [])
                 elem_html = "<ul>" + "".join(f"<li>{e}</li>" for e in elems) + "</ul>" if elems else ""
                 safe_name = src.get('name', '').replace(' ', '_').replace("'", "")
-                sources_html += f'<div class="data-source-box" data-id="src_{safe_name}"><div class="data-source-name" contenteditable="false">{src.get("name","")}</div>{elem_html}</div>'
+                src_name = src.get("name", "")
+                icon_src = self._icon_src_for(src_name)
+                if icon_src.startswith('si:'):
+                    si_slug = icon_src.split(':',1)[1]
+                    icon_html = f'<span class="icon-si icon-img" data-si="{si_slug}"></span>'
+                else:
+                    icon_html = f'<img class="icon-img" src="{icon_src}" alt=""/>' if icon_src else ''
+                sources_html += f'<div class="data-source-box" data-id="src_{safe_name}"><div class="data-source-name" contenteditable="false">{icon_html}<span class="label-text">{src_name}</span></div>{elem_html}</div>'
             bp_id = bp.get('id', '').replace("'", "")
             collection_html += f'<div class="biz-process-group" data-id="{bp_id}" data-bp-name="{bp.get("name","")}"><div class="biz-process-label" contenteditable="false">{bp.get("name","")}</div>{sources_html}</div>'
 
@@ -482,15 +596,25 @@ var dialogueRecords={dialogue_json};
         for sink in row_sinks:
             color = sink.get("color", "#546e7a")
             sname = sink.get('name', '')
-            icon = "🏢" if "department" in sname.lower() else "📊" if any(k in sname.lower() for k in ["salesforce","ameyo","excel"]) else "🖥️" if any(k in sname.lower() for k in ["whatsapp","vendor"]) else "➡️"
+            icon_src = self._icon_src_for(sname)
+            if icon_src.startswith('si:'):
+                si_slug = icon_src.split(':',1)[1]
+                icon = f'<span class="icon-si icon-img" data-si="{si_slug}"></span>'
+            else:
+                icon = f'<img class="icon-img" src="{icon_src}" alt=""/>' if icon_src else '<span class="sink-icon">➡️</span>'
             sid = sink.get('id', '').replace("'", "")
-            dispersal_html += f'<div class="sink-box" data-id="{sid}" style="--sink-color:{color};"><div class="sink-color-bar" style="background:{color};"></div><div class="sink-content"><span class="sink-icon">{icon}</span><span class="sink-name" contenteditable="false">{sname}</span></div></div>'
+            dispersal_html += f'<div class="sink-box" data-id="{sid}" style="--sink-color:{color};"><div class="sink-color-bar" style="background:{color};"></div><div class="sink-content">{icon}<span class="sink-name" contenteditable="false">{sname}</span></div></div>'
 
         central_html = f'<div class="central-process-box" id="central-process" data-id="central_process"><div class="central-label" contenteditable="false">{central}</div></div>'
 
         storage_html = ""
         for sys in storage_items:
-            icon = "☁️" if sys.get("type") == "cloud" else "🗄️"
+            icon_src = self._icon_src_for(sys.get("name", ""))
+            if icon_src.startswith('si:'):
+                si_slug = icon_src.split(':',1)[1]
+                icon = f'<span class="icon-si icon-img-lg" data-si="{si_slug}"></span>'
+            else:
+                icon = f'<img class="icon-img-lg" src="{icon_src}" alt=""/>' if icon_src else ("☁️" if sys.get("type") == "cloud" else "🗄️")
             safe_name = sys.get('name', '').replace(' ', '_').replace("'", "")
             storage_html += f'<div class="storage-item" data-id="st_{safe_name}"><div class="storage-icon">{icon}</div><div class="storage-name" contenteditable="false">{sys.get("name","")}</div></div>'
 
@@ -547,6 +671,10 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #ecf0f1; padding:
 .sink-color-bar { width: 6px; min-height: 100%; flex-shrink: 0; }
 .sink-content { display: flex; align-items: center; gap: 8px; padding: 8px 10px; flex: 1; }
 .sink-icon { font-size: 16px; flex-shrink: 0; }
+.icon-img { width: 16px; height: 16px; object-fit: contain; display: inline-block; vertical-align: -2px; }
+.icon-img-lg { width: 20px; height: 20px; object-fit: contain; display: inline-block; }
+.icon-si svg { width: 100%; height: 100%; display: inline-block; vertical-align: -2px; }
+.data-source-name { display: flex; align-items: center; gap: 6px; }
 .sink-name { font-size: 11.5px; font-weight: 600; color: #2c3e50; line-height: 1.3; }
 .storage-item { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; padding: 8px; border-radius: 8px; transition: background 0.2s, transform 0.2s; position: relative; z-index: 4; }
 .storage-item:hover { background: rgba(0,0,0,0.03); }
@@ -1142,6 +1270,16 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
   requestAnimationFrame(function() { setTimeout(drawArrows, 600); });
   window.addEventListener('resize', function() { _markers = {}; requestAnimationFrame(function() { setTimeout(drawArrows, 50); }); });
+  // Inline Simple Icons from CDN for elements with data-si
+  try {
+    var siEls = document.querySelectorAll('.icon-si[data-si]');
+    siEls.forEach(function(el){
+      var slug = el.getAttribute('data-si');
+      if (!slug) return;
+      var url = 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/' + slug.toLowerCase() + '.svg';
+      fetch(url).then(function(r){ return r.ok ? r.text() : ''; }).then(function(svg){ if (svg) el.innerHTML = svg; }).catch(function(){});
+    });
+  } catch(e) {}
 });
 window.addEventListener('beforeprint', function() { _markers = {}; drawArrows(); });
 window.addEventListener('afterprint', function() { _markers = {}; setTimeout(drawArrows, 100); });

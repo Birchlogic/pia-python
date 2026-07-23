@@ -18,3 +18,4 @@ pdfplumber
 openai
 rich
 PyJWT
+langfuse

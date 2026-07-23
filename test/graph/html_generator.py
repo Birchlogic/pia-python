@@ -696,6 +696,17 @@ body.edit-mode [contenteditable] { outline: 2px dashed #e74c3c; border-radius: 3
 .detail-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #757575; padding: 4px 8px; }
 .detail-close:hover { color: #c62828; }
 .detail-body { flex: 1; overflow-y: auto; padding: 16px; }
+
+/* Export mode: hide UI chrome so only the diagram is captured */
+body.exporting { background: #ffffff !important; padding: 0 !important; margin: 0 !important; }
+body.exporting .dfd-title-bar,
+body.exporting .edit-panel,
+body.exporting .detail-panel,
+body.exporting .header-controls,
+body.exporting .dfd-version,
+body.exporting .dept-header,
+body.exporting .col-headers { display: none !important; }
+body.exporting .dfd-wrapper { border-radius: 0 !important; box-shadow: none !important; width: 100% !important; }
 .detail-section { margin-bottom: 16px; }
 .detail-section h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 2px solid #e0e0e0; }
 .detail-section h4.risks { color: #c62828; border-color: #ef9a9a; }
@@ -789,9 +800,10 @@ function toggleDetailPanel() { var p = document.getElementById('detail-panel'); 
 function exportPDF() {
   var element = document.getElementById('dfd-wrapper');
 
-  // Temporarily show all arrows for export
+  // Temporarily enable export mode and full arrows
   var wasShowingAll = showAllArrows;
   var wasSelected = selectedNodeId;
+  document.body.classList.add('exporting');
   showAllArrows = true;
   selectedNodeId = null;
   drawArrows();
@@ -808,12 +820,14 @@ function exportPDF() {
       };
       html2pdf().set(opt).from(element).save().then(function() {
         // Restore previous state
+        document.body.classList.remove('exporting');
         showAllArrows = wasShowingAll;
         selectedNodeId = wasSelected;
         drawArrows();
       }).catch(function() {
         // Fallback if html2pdf fails mid-run
         window.print();
+        document.body.classList.remove('exporting');
         showAllArrows = wasShowingAll;
         selectedNodeId = wasSelected;
         drawArrows();
@@ -826,9 +840,47 @@ function exportPDF() {
 
   window.print();
   // Restore previous state after print dialog
+  document.body.classList.remove('exporting');
   showAllArrows = wasShowingAll;
   selectedNodeId = wasSelected;
   drawArrows();
+}
+
+function exportPNG() {
+  var element = document.getElementById('dfd-wrapper');
+  var wasShowingAll = showAllArrows;
+  var wasSelected = selectedNodeId;
+  document.body.classList.add('exporting');
+  showAllArrows = true;
+  selectedNodeId = null;
+  drawArrows();
+
+  try {
+    // html2pdf bundle includes html2canvas; use it directly for PNG
+    if (typeof html2pdf !== 'undefined' && typeof html2canvas !== 'undefined') {
+      html2canvas(element, { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' }).then(function(canvas) {
+        var link = document.createElement('a');
+        link.download = 'DFD_Export.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        document.body.classList.remove('exporting');
+        showAllArrows = wasShowingAll;
+        selectedNodeId = wasSelected;
+        drawArrows();
+      }).catch(function() {
+        document.body.classList.remove('exporting');
+        showAllArrows = wasShowingAll;
+        selectedNodeId = wasSelected;
+        drawArrows();
+      });
+      return;
+    }
+  } catch (e) {}
+
+  // Fallback: use print-to-PDF pathway
+  exportPDF();
 }
 
 // ─── Find dialogue records mentioning a node ────────

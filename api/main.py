@@ -1307,7 +1307,22 @@ async def download_dfd_pdf(session_id: str, db: Session = Depends(get_db)):
         try:
             page = await browser.new_page(viewport={"width": 1600, "height": 900})
             await page.set_content(html, wait_until="load")
-            await page.wait_for_timeout(1200)
+            # Enable export mode and force full arrows
+            await page.evaluate(
+                """
+                () => {
+                  try {
+                    document.body.classList.add('exporting');
+                    window.showAllArrows = true;
+                    window.selectedNodeId = null;
+                    var cb = document.getElementById('show-all-arrows');
+                    if (cb) cb.checked = true;
+                    if (typeof drawArrows === 'function') { drawArrows(); }
+                  } catch(e) {}
+                }
+                """
+            )
+            await page.wait_for_timeout(800)
             pdf_bytes = await page.pdf(
                 format="A3",
                 landscape=True,
@@ -1346,8 +1361,27 @@ async def download_dfd_png(session_id: str, db: Session = Depends(get_db)):
         try:
             page = await browser.new_page(viewport={"width": 1600, "height": 900, "deviceScaleFactor": 2})
             await page.set_content(html, wait_until="load")
-            await page.wait_for_timeout(1200)
-            png_bytes = await page.screenshot(full_page=True, type="png")
+            # Enable export mode and force full arrows, then capture only the diagram wrapper
+            await page.evaluate(
+                """
+                () => {
+                  try {
+                    document.body.classList.add('exporting');
+                    window.showAllArrows = true;
+                    window.selectedNodeId = null;
+                    var cb = document.getElementById('show-all-arrows');
+                    if (cb) cb.checked = true;
+                    if (typeof drawArrows === 'function') { drawArrows(); }
+                  } catch(e) {}
+                }
+                """
+            )
+            await page.wait_for_timeout(800)
+            wrapper = await page.query_selector('#dfd-wrapper')
+            if wrapper:
+                png_bytes = await wrapper.screenshot(type="png", omit_background=False)
+            else:
+                png_bytes = await page.screenshot(full_page=True, type="png")
         finally:
             await browser.close()
 

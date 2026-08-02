@@ -4,8 +4,8 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "cpu": "1024",
-    "memory": "2048",
+    "cpu": "512",
+    "memory": "1024",
     "executionRoleArn": "arn:aws:iam::406350346090:role/pia-ecs-execution-role",
     "taskRoleArn": "arn:aws:iam::406350346090:role/pia-ecs-execution-role",
     "containerDefinitions": [
